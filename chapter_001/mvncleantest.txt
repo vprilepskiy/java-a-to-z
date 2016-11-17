@@ -1,0 +1,50 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building capter_001 2.0
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ capter_001 ---
+[INFO] Deleting C:\projects\vprilepskiy\chapter_001\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ capter_001 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_001\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ capter_001 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to C:\projects\vprilepskiy\chapter_001\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ capter_001 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_001\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ capter_001 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to C:\projects\vprilepskiy\chapter_001\target\test-classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/projects/vprilepskiy/chapter_001/src/test/java/ru/job4j/CalculateTest.java:[25,17] cannot find symbol
+  symbol:   variable Calculate
+  location: class ru.job4j.CalculateTest
+[INFO] 1 error
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.392 s
+[INFO] Finished at: 2016-11-17T22:29:32+05:00
+[INFO] Final Memory: 14M/125M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.1:testCompile (default-testCompile) on project capter_001: Compilation failure
+[ERROR] /C:/projects/vprilepskiy/chapter_001/src/test/java/ru/job4j/CalculateTest.java:[25,17] cannot find symbol
+[ERROR] symbol:   variable Calculate
+[ERROR] location: class ru.job4j.CalculateTest
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
