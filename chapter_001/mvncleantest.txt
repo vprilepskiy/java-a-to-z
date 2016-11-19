@@ -30,7 +30,7 @@
  T E S T S
 -------------------------------------------------------
 Running ru.job4j.CalculateTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.107 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.104 sec
 
 Results :
 
@@ -39,7 +39,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 4.056 s
-[INFO] Finished at: 2016-11-19T17:06:47+05:00
-[INFO] Final Memory: 15M/118M
+[INFO] Total time: 3.395 s
+[INFO] Finished at: 2016-11-19T17:21:01+05:00
+[INFO] Final Memory: 15M/120M
 [INFO] ------------------------------------------------------------------------
