@@ -23,6 +23,6 @@ import static org.junit.Assert.assertThat;
 		ByteArrayOutputStream out = new ByteArrayOutputStream(); // для записи в него вывода с консоли
 		System.setOut(new PrintStream(out)); // заменяем системный поток вывода
 		Calculate.main(null); // вызов метода main
-		assertThat(out.toString(), is("Hello World\r\n")); // делаем заключительную проверку результата вывода и ожидаемых данных.
+		assertThat(out.toString(), is("Hello World!!!\r\n")); // делаем заключительную проверку результата вывода и ожидаемых данных.
 	}
  }
