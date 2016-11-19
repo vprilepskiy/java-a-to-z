@@ -1,4 +1,4 @@
-package parsentev;
+package ru.job4j;
 
 /**
  * Class Calculate решение задачи части 001 урок 1.
