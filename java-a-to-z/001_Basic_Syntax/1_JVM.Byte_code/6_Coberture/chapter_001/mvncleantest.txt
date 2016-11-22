@@ -1,0 +1,45 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building capter_001 2.0
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ capter_001 ---
+[INFO] Deleting C:\projects\vprilepskiy\chapter_001\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ capter_001 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_001\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ capter_001 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to C:\projects\vprilepskiy\chapter_001\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ capter_001 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_001\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ capter_001 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to C:\projects\vprilepskiy\chapter_001\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ capter_001 ---
+[INFO] Surefire report directory: C:\projects\vprilepskiy\chapter_001\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running ru.job4j.CalculateTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.104 sec
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 3.395 s
+[INFO] Finished at: 2016-11-19T17:21:01+05:00
+[INFO] Final Memory: 15M/120M
+[INFO] ------------------------------------------------------------------------
