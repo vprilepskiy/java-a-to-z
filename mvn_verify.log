@@ -61,7 +61,7 @@ Audit done.
  T E S T S
 -------------------------------------------------------
 Running ru.job4j.CalculateTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.078 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.109 sec
 
 Results :
 
@@ -110,7 +110,7 @@ Audit done.
  T E S T S
 -------------------------------------------------------
 Running ru.job4j.CalculateTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.265 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.621 sec
 
 Results :
 
@@ -127,12 +127,12 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Summary:
 [INFO] 
-[INFO] junior ............................................. SUCCESS [  3.728 s]
-[INFO] capter_001 ......................................... SUCCESS [  7.426 s]
+[INFO] junior ............................................. SUCCESS [  4.830 s]
+[INFO] capter_001 ......................................... SUCCESS [  8.432 s]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 11.278 s
-[INFO] Finished at: 2016-11-22T19:24:21+05:00
-[INFO] Final Memory: 24M/190M
+[INFO] Total time: 13.403 s
+[INFO] Finished at: 2016-11-24T20:59:45+05:00
+[INFO] Final Memory: 25M/189M
 [INFO] ------------------------------------------------------------------------

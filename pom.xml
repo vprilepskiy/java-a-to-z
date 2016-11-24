@@ -16,6 +16,7 @@
 	
 	<modules>
 		<module>chapter_001</module>
+		<module>java-a-to-z\001_Basic_Syntax\1_JVM.Byte_code\6_Coberture\chapter_001</module>
 	</modules>
 	
 	<dependencies>

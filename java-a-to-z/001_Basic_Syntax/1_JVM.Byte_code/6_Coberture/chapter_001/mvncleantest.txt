@@ -1,45 +1,14 @@
 [INFO] Scanning for projects...
-[INFO]                                                                         
-[INFO] ------------------------------------------------------------------------
-[INFO] Building capter_001 2.0
-[INFO] ------------------------------------------------------------------------
-[INFO] 
-[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ capter_001 ---
-[INFO] Deleting C:\projects\vprilepskiy\chapter_001\target
-[INFO] 
-[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ capter_001 ---
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_001\src\main\resources
-[INFO] 
-[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ capter_001 ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 1 source file to C:\projects\vprilepskiy\chapter_001\target\classes
-[INFO] 
-[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ capter_001 ---
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_001\src\test\resources
-[INFO] 
-[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ capter_001 ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 1 source file to C:\projects\vprilepskiy\chapter_001\target\test-classes
-[INFO] 
-[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ capter_001 ---
-[INFO] Surefire report directory: C:\projects\vprilepskiy\chapter_001\target\surefire-reports
-
--------------------------------------------------------
- T E S T S
--------------------------------------------------------
-Running ru.job4j.CalculateTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.104 sec
-
-Results :
-
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
-
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time: 3.395 s
-[INFO] Finished at: 2016-11-19T17:21:01+05:00
-[INFO] Final Memory: 15M/120M
-[INFO] ------------------------------------------------------------------------
+[ERROR] [ERROR] Some problems were encountered while processing the POMs:
+[ERROR] Invalid packaging for parent POM ru.job4j:junior:2.0, must be "pom" but is "jar" @ ru.job4j:junior:2.0, C:\Users\VLADIMIR\.m2\repository\ru\job4j\junior\2.0\junior-2.0.pom, line 5, column 13
+ @ 
+[ERROR] The build could not read 1 project -> [Help 1]
+[ERROR]   
+[ERROR]   The project ru.job4j:capter_001:2.0 (C:\projects\vprilepskiy\java-a-to-z\001_Basic_Syntax\1_JVM.Byte_code\6_Coberture\chapter_001\pom.xml) has 1 error
+[ERROR]     Invalid packaging for parent POM ru.job4j:junior:2.0, must be "pom" but is "jar" @ ru.job4j:junior:2.0, C:\Users\VLADIMIR\.m2\repository\ru\job4j\junior\2.0\junior-2.0.pom, line 5, column 13
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/ProjectBuildingException
