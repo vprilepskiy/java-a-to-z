@@ -5,9 +5,6 @@
 <file name="C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\package-info.java">
 </file>
 <file name="C:\projects\vprilepskiy\chapter_002\src\test\java\ru\job4j\CalculatorTest.java">
-<error line="20" column="29" severity="error" message="&apos;5&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="20" column="36" severity="error" message="&apos;10&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="21" column="33" severity="error" message="&apos;15&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
 <file name="C:\projects\vprilepskiy\chapter_002\src\test\java\ru\job4j\package-info.java">
 </file>

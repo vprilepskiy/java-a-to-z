@@ -20,11 +20,35 @@ public class Calculator {
 	public void add(double first, double second) {
 		this.result = first + second;
 	}
-
 	/**
-	 * Метод возвращает результат.
+	 * Метод вычитания.
+	 * @param first - первый аргумент.
+	 * @param second - второй аргумент.
 	 */
-	public getResult() {
+	public void subtract(double first, double second) {
+		this.result = first - second;
+	}
+		/**
+	 * Метод умножения.
+	 * @param first - первый аргумент.
+	 * @param second - второй аргумент.
+	 */
+	public void multiple(double first, double second) {
+		this.result = first * second;
+	}
+		/**
+	 * Метод деления.
+	 * @param first - первый аргумент.
+	 * @param second - второй аргумент.
+	 */
+	public void div(double first, double second) {
+		this.result = first / second;
+	}
+	/**
+	 * Метод умножения результат.
+	 * @return - результат
+	 */
+	public double getResult() {
 		return this.result;
 	}
 }

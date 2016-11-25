@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: ru.job4j.CalculateTest
+Test set: ru.job4j.CalculatorTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.468 sec
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.578 sec

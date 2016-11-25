@@ -4,6 +4,7 @@
 [INFO] 
 [INFO] junior
 [INFO] capter_001
+[INFO] capter_002
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
 [INFO] Building junior 2.0
@@ -61,7 +62,7 @@ Audit done.
  T E S T S
 -------------------------------------------------------
 Running ru.job4j.CalculateTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.109 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.125 sec
 
 Results :
 
@@ -110,7 +111,7 @@ Audit done.
  T E S T S
 -------------------------------------------------------
 Running ru.job4j.CalculateTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.621 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.468 sec
 
 Results :
 
@@ -124,15 +125,113 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] Cobertura: Loaded information on 1 classes.
 
 [INFO] All checks passed.
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building capter_002 2.0
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.17:check (validate) @ capter_002 ---
+[INFO] Starting audit...
+Audit done.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ capter_002 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_002\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:compile (default-compile) @ capter_002 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\projects\vprilepskiy\chapter_002\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ capter_002 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_002\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:testCompile (default-testCompile) @ capter_002 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\projects\vprilepskiy\chapter_002\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ capter_002 ---
+[INFO] Surefire report directory: C:\projects\vprilepskiy\chapter_002\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running ru.job4j.CalculatorTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.109 sec
+
+Results :
+
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ capter_002 ---
+[INFO] Building jar: C:\projects\vprilepskiy\chapter_002\target\capter_002-2.0.jar
+[INFO] 
+[INFO] --- cobertura-maven-plugin:2.7:clean (verify) @ capter_002 ---
+[INFO] 
+[INFO] >>> cobertura-maven-plugin:2.7:check (verify) > [cobertura]test @ capter_002 >>>
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.17:check (validate) @ capter_002 ---
+[INFO] Starting audit...
+Audit done.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ capter_002 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_002\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:compile (default-compile) @ capter_002 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\projects\vprilepskiy\chapter_002\target\classes
+[INFO] 
+[INFO] --- cobertura-maven-plugin:2.7:instrument (verify) @ capter_002 ---
+[INFO] Cobertura 2.1.1 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
+[INFO] Cobertura: Saved information on 1 classes.
+[INFO] Cobertura: Saved information on 1 classes.
+
+[INFO] Instrumentation was successful.
+[INFO] NOT adding cobertura ser file to attached artifacts list.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ capter_002 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_002\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:testCompile (default-testCompile) @ capter_002 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\projects\vprilepskiy\chapter_002\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ capter_002 ---
+[INFO] Surefire report directory: C:\projects\vprilepskiy\chapter_002\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running ru.job4j.CalculatorTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.578 sec
+[INFO] Cobertura: Loaded information on 1 classes.
+[INFO] Cobertura: Saved information on 1 classes.
+
+Results :
+
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] <<< cobertura-maven-plugin:2.7:check (verify) < [cobertura]test @ capter_002 <<<
+[INFO] 
+[INFO] --- cobertura-maven-plugin:2.7:check (verify) @ capter_002 ---
+[INFO] Cobertura 2.1.1 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
+[INFO] Cobertura: Loaded information on 1 classes.
+
+[INFO] All checks passed.
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Summary:
 [INFO] 
-[INFO] junior ............................................. SUCCESS [  4.830 s]
-[INFO] capter_001 ......................................... SUCCESS [  8.432 s]
+[INFO] junior ............................................. SUCCESS [  4.243 s]
+[INFO] capter_001 ......................................... SUCCESS [  9.720 s]
+[INFO] capter_002 ......................................... SUCCESS [  6.330 s]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 13.403 s
-[INFO] Finished at: 2016-11-24T20:59:45+05:00
-[INFO] Final Memory: 25M/189M
+[INFO] Total time: 20.409 s
+[INFO] Finished at: 2016-11-25T22:02:12+05:00
+[INFO] Final Memory: 26M/209M
 [INFO] ------------------------------------------------------------------------

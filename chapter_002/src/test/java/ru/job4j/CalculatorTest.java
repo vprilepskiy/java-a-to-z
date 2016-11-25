@@ -2,7 +2,6 @@ package ru.job4j;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.hamcrest.core.Is.is;
 
 /**
  * Test for Calculatir.
@@ -15,9 +14,52 @@ import static org.hamcrest.core.Is.is;
 	 * Test add.
 	 */
 	@Test
-	public void whenAddOneToOneThenTwo() {
+	public void whenAddTwoArgumentsThenSumm() {
 		Calculator calc = new Calculator();
-		calc.add(5, 10);
-		assertEquals(15, calc.getResult);
+		final double first = 5;
+		final double second = 10;
+		final double result = 15;
+		final double delta = 0.00;
+		calc.add(first, second);
+		assertEquals(result, calc.getResult(), delta);
+	}
+		/**
+	 * Test subtract.
+	 */
+	@Test
+	public void whenAddTwoArgumentsThenSubstract() {
+		Calculator calc = new Calculator();
+		final double first = 5;
+		final double second = 10;
+		final double result = -5;
+		final double delta = 0.00;
+		calc.subtract(first, second);
+		assertEquals(result, calc.getResult(), delta);
+	}
+		/**
+	 * Test multiple.
+	 */
+	@Test
+	public void whenAddTwoArgumentsThenMultiple() {
+		Calculator calc = new Calculator();
+		final double first = 5;
+		final double second = 10;
+		final double result = 50;
+		final double delta = 0.00;
+		calc.multiple(first, second);
+		assertEquals(result, calc.getResult(), delta);
+	}
+		/**
+	 * Test div.
+	 */
+	@Test
+	public void whenAddTwoArgumentsThenDiv() {
+		Calculator calc = new Calculator();
+		final double first = 5;
+		final double second = 10;
+		final double result = 0.50;
+		final double delta = 0.00;
+		calc.div(first, second);
+		assertEquals(result, calc.getResult(), delta);
 	}
  }

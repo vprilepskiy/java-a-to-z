@@ -9,21 +9,41 @@
 [INFO] 
 [INFO] --- maven-checkstyle-plugin:2.17:check (validate) @ capter_002 ---
 [INFO] Starting audit...
-C:\projects\vprilepskiy\chapter_002\src\test\java\ru\job4j\CalculatorTest.java:20:29: error: '5' is a magic number.
-C:\projects\vprilepskiy\chapter_002\src\test\java\ru\job4j\CalculatorTest.java:20:36: error: '10' is a magic number.
-C:\projects\vprilepskiy\chapter_002\src\test\java\ru\job4j\CalculatorTest.java:21:33: error: '15' is a magic number.
 Audit done.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ capter_002 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_002\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:compile (default-compile) @ capter_002 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\projects\vprilepskiy\chapter_002\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ capter_002 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_002\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:testCompile (default-testCompile) @ capter_002 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\projects\vprilepskiy\chapter_002\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ capter_002 ---
+[INFO] Surefire report directory: C:\projects\vprilepskiy\chapter_002\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running ru.job4j.CalculatorTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.114 sec
+
+Results :
+
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+
 [INFO] ------------------------------------------------------------------------
-[INFO] BUILD FAILURE
+[INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 3.818 s
-[INFO] Finished at: 2016-11-25T21:02:57+05:00
-[INFO] Final Memory: 13M/191M
+[INFO] Total time: 7.158 s
+[INFO] Finished at: 2016-11-25T21:57:33+05:00
+[INFO] Final Memory: 22M/185M
 [INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-checkstyle-plugin:2.17:check (validate) on project capter_002: Failed during checkstyle execution: There are 3 errors reported by Checkstyle 6.11.2 with checkstyle.xml ruleset. -> [Help 1]
-[ERROR] 
-[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
-[ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
