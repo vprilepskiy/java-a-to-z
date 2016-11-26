@@ -1,0 +1,51 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building capter_003 2.0
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ capter_003 ---
+[INFO] Deleting C:\projects\vprilepskiy\chapter_003\target
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.17:check (validate) @ capter_003 ---
+[INFO] Starting audit...
+Audit done.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ capter_003 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_003\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:compile (default-compile) @ capter_003 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 3 source files to C:\projects\vprilepskiy\chapter_003\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ capter_003 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_003\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:testCompile (default-testCompile) @ capter_003 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 3 source files to C:\projects\vprilepskiy\chapter_003\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ capter_003 ---
+[INFO] Surefire report directory: C:\projects\vprilepskiy\chapter_003\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running ru.job4j.PointTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.094 sec
+Running ru.job4j.TriangleTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+
+Results :
+
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 6.161 s
+[INFO] Finished at: 2016-11-26T19:37:08+05:00
+[INFO] Final Memory: 22M/144M
+[INFO] ------------------------------------------------------------------------
