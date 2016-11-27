@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="6.11.2">
+<file name="C:\projects\vprilepskiy\chapter_004\src\main\java\ru\job4j\Max.java">
+<error line="18" column="47" severity="error" message="Avoid inline conditionals." source="com.puppycrawl.tools.checkstyle.checks.coding.AvoidInlineConditionalsCheck"/>
+<error line="30" column="63" severity="error" message="Avoid inline conditionals." source="com.puppycrawl.tools.checkstyle.checks.coding.AvoidInlineConditionalsCheck"/>
+<error line="31" column="63" severity="error" message="Avoid inline conditionals." source="com.puppycrawl.tools.checkstyle.checks.coding.AvoidInlineConditionalsCheck"/>
+<error line="32" column="84" severity="error" message="Avoid inline conditionals." source="com.puppycrawl.tools.checkstyle.checks.coding.AvoidInlineConditionalsCheck"/>
+</file>
+<file name="C:\projects\vprilepskiy\chapter_004\src\main\java\ru\job4j\package-info.java">
+</file>
+<file name="C:\projects\vprilepskiy\chapter_004\src\test\java\ru\job4j\MaxTest.java">
+</file>
+<file name="C:\projects\vprilepskiy\chapter_004\src\test\java\ru\job4j\package-info.java">
+</file>
+</checkstyle>
