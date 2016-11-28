@@ -10,11 +10,11 @@ public class Point {
 	/**
 	 * координата горизонтали.
 	 */
-	public double x;
+	private double x;
 	/**
 	 * координата вертикали.
 	 */
-	public double y;
+	private double y;
 	/**
 	 * Конструктор.
 	 * @param x - координата горизонтали.
@@ -23,6 +23,22 @@ public class Point {
 	public Point(double x, double y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	/**
+	 * Возвращает координату.
+	 * @return - x
+	 */
+	public double getCoordinateX() {
+		return x;
+	}
+
+	/**
+	 * Возвращает координату.
+	 * @return - y
+	 */
+	public double getCoordinateY() {
+		return y;
 	}
 
 	/**
