@@ -5,6 +5,9 @@
 [INFO] junior
 [INFO] capter_001
 [INFO] capter_002
+[INFO] capter_003
+[INFO] capter_004
+[INFO] capter_005
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
 [INFO] Building junior 2.0
@@ -62,7 +65,7 @@ Audit done.
  T E S T S
 -------------------------------------------------------
 Running ru.job4j.CalculateTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.125 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec
 
 Results :
 
@@ -111,7 +114,7 @@ Audit done.
  T E S T S
 -------------------------------------------------------
 Running ru.job4j.CalculateTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.468 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.338 sec
 
 Results :
 
@@ -157,7 +160,7 @@ Audit done.
  T E S T S
 -------------------------------------------------------
 Running ru.job4j.CalculatorTest
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.109 sec
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.03 sec
 
 Results :
 
@@ -206,7 +209,7 @@ Audit done.
  T E S T S
 -------------------------------------------------------
 Running ru.job4j.CalculatorTest
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.578 sec
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.402 sec
 [INFO] Cobertura: Loaded information on 1 classes.
 [INFO] Cobertura: Saved information on 1 classes.
 
@@ -222,16 +225,132 @@ Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
 [INFO] Cobertura: Loaded information on 1 classes.
 
 [INFO] All checks passed.
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building capter_003 2.0
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.17:check (validate) @ capter_003 ---
+[INFO] Starting audit...
+Audit done.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ capter_003 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_003\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:compile (default-compile) @ capter_003 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 3 source files to C:\projects\vprilepskiy\chapter_003\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ capter_003 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_003\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:testCompile (default-testCompile) @ capter_003 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 3 source files to C:\projects\vprilepskiy\chapter_003\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ capter_003 ---
+[INFO] Surefire report directory: C:\projects\vprilepskiy\chapter_003\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running ru.job4j.PointTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.093 sec
+Running ru.job4j.TriangleTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+
+Results :
+
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ capter_003 ---
+[INFO] Building jar: C:\projects\vprilepskiy\chapter_003\target\capter_003-2.0.jar
+[INFO] 
+[INFO] --- cobertura-maven-plugin:2.7:clean (verify) @ capter_003 ---
+[INFO] 
+[INFO] >>> cobertura-maven-plugin:2.7:check (verify) > [cobertura]test @ capter_003 >>>
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.17:check (validate) @ capter_003 ---
+[INFO] Starting audit...
+Audit done.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ capter_003 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_003\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:compile (default-compile) @ capter_003 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 3 source files to C:\projects\vprilepskiy\chapter_003\target\classes
+[INFO] 
+[INFO] --- cobertura-maven-plugin:2.7:instrument (verify) @ capter_003 ---
+[INFO] Cobertura 2.1.1 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
+[INFO] Cobertura: Saved information on 2 classes.
+[INFO] Cobertura: Saved information on 2 classes.
+
+[INFO] Instrumentation was successful.
+[INFO] NOT adding cobertura ser file to attached artifacts list.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ capter_003 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_003\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:testCompile (default-testCompile) @ capter_003 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 3 source files to C:\projects\vprilepskiy\chapter_003\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ capter_003 ---
+[INFO] Surefire report directory: C:\projects\vprilepskiy\chapter_003\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running ru.job4j.PointTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.494 sec
+Running ru.job4j.TriangleTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+[INFO] Cobertura: Loaded information on 2 classes.
+[INFO] Cobertura: Saved information on 2 classes.
+
+Results :
+
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] <<< cobertura-maven-plugin:2.7:check (verify) < [cobertura]test @ capter_003 <<<
+[INFO] 
+[INFO] --- cobertura-maven-plugin:2.7:check (verify) @ capter_003 ---
+[INFO] Cobertura 2.1.1 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
+[INFO] Cobertura: Loaded information on 2 classes.
+[ERROR] ru.job4j.Triangle failed coverage check. Branch coverage rate of 50.0% is below 60.0%
+[ERROR] ru.job4j failed coverage check. Branch coverage rate of 50.0% is below 60.0%
+[ERROR] project failed coverage check. Branch coverage rate of 50.0% is below 60.0%
+
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Summary:
 [INFO] 
-[INFO] junior ............................................. SUCCESS [  4.243 s]
-[INFO] capter_001 ......................................... SUCCESS [  9.720 s]
-[INFO] capter_002 ......................................... SUCCESS [  6.330 s]
+[INFO] junior ............................................. SUCCESS [  3.329 s]
+[INFO] capter_001 ......................................... SUCCESS [  6.852 s]
+[INFO] capter_002 ......................................... SUCCESS [  6.078 s]
+[INFO] capter_003 ......................................... FAILURE [  5.174 s]
+[INFO] capter_004 ......................................... SKIPPED
+[INFO] capter_005 ......................................... SKIPPED
 [INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
+[INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 20.409 s
-[INFO] Finished at: 2016-11-25T22:02:12+05:00
-[INFO] Final Memory: 26M/209M
+[INFO] Total time: 21.574 s
+[INFO] Finished at: 2016-11-28T19:42:55+05:00
+[INFO] Final Memory: 27M/206M
 [INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.codehaus.mojo:cobertura-maven-plugin:2.7:check (verify) on project capter_003: Coverage check failed. See messages above. -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <goals> -rf :capter_003
