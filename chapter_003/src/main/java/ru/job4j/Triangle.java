@@ -44,15 +44,15 @@ public class Triangle {
 		/**
 		 * true если точка A не равна точке B.
 		 */
-		boolean aNotEqualsB = (a.getCoordinateX() != b.getCoordinateX()  |  a.getCoordinateY() != b.getCoordinateY());
+		boolean aNotEqualsB = (a.x != b.x  |  a.y != b.y);
 		/**
 		 * true если точка A не равна точке C.
 		 */
-		boolean aNotEqualsC = (a.getCoordinateX() != c.getCoordinateX()  |  a.getCoordinateY() == c.getCoordinateY());
+		boolean aNotEqualsC = (a.x != c.x  |  a.y != c.y);
 		/**
 		 * true если точка B не равна точке C.
 		 */
-		boolean bNotEqualsC = (b.getCoordinateX() != c.getCoordinateX()  |  b.getCoordinateY() == c.getCoordinateY());
+		boolean bNotEqualsC = (b.x != c.x  |  b.y != c.y);
 
 		if (aNotEqualsB & aNotEqualsC & bNotEqualsC) {
 			double lengthSideA = a.distanceTo(b);
