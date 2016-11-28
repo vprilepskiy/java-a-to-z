@@ -15,8 +15,7 @@ public class Max {
 	 * @return - максимальное значение.
 	 */
 	public int max(int first, int second) {
-		int maxValue = first > second ? first : second;
-		return maxValue;
+		return first > second ? first : second;
 	}
 
 	/**
@@ -29,7 +28,6 @@ public class Max {
 	public int max(int first, int second, int third) {
 		int maxBetweenFirstAndSecond = first > second ? first : second;
 		int maxBetweenSecondAndThird = second > third ? second : third;
-		int maxValue = maxBetweenFirstAndSecond > maxBetweenSecondAndThird ? maxBetweenFirstAndSecond : maxBetweenSecondAndThird;
-		return maxValue;
+		return maxBetweenFirstAndSecond > maxBetweenSecondAndThird ? maxBetweenFirstAndSecond : maxBetweenSecondAndThird;
 	}
 }
