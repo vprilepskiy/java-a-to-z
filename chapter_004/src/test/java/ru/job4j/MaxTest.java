@@ -1,7 +1,8 @@
 package ru.job4j;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * Test.
@@ -18,8 +19,9 @@ import static org.junit.Assert.assertEquals;
 		Max max = new Max();
 		final int first = 5;
 		final int second = 10;
-		final double result = 10;
-		assertEquals(result, max.max(first, second));
+		final int result = 10;
+		//assertEquals(result, max.max(first, second));
+		assertThat(max.max(first, second), is(result));
 	}
 
 	/**
@@ -31,7 +33,8 @@ import static org.junit.Assert.assertEquals;
 		final int first = 5;
 		final int second = 10;
 		final int third = 7;
-		final double result = 10;
-		assertEquals(result, max.max(first, second, third));
+		final int result = 10;
+		//assertEquals(result, max.max(first, second, third));
+		assertThat(max.max(first, second, third), is(result));
 	}
  }
