@@ -41,26 +41,13 @@ public class Triangle {
 
 		double area = 0;
 
-		/**
-		 * true если точка A не равна точке B.
-		 */
-		boolean aNotEqualsB = (a.getCoordinateX() != b.getCoordinateX()  |  a.getCoordinateY() != b.getCoordinateY());
-		/**
-		 * true если точка A не равна точке C.
-		 */
-		boolean aNotEqualsC = (a.getCoordinateX() != c.getCoordinateX()  |  a.getCoordinateY() != c.getCoordinateY());
-		/**
-		 * true если точка B не равна точке C.
-		 */
-		boolean bNotEqualsC = (b.getCoordinateX() != c.getCoordinateX()  |  b.getCoordinateY() != c.getCoordinateY());
-
-		if (aNotEqualsB & aNotEqualsC & bNotEqualsC) {
-			double lengthSideA = a.distanceTo(b);
-			double lengthSideB = b.distanceTo(c);
-			double lengthSideC = c.distanceTo(a);
+		double lengthSideA = a.distanceTo(b);
+		double lengthSideB = b.distanceTo(c);
+		double lengthSideC = c.distanceTo(a);
+		if (lengthSideA != 0  &  lengthSideB != 0  &  lengthSideC != 0) {
 			double semiperimeter = (lengthSideA + lengthSideB + lengthSideC) / 2;
 			area = Math.sqrt(semiperimeter * (semiperimeter - lengthSideA) * (semiperimeter - lengthSideB) * (semiperimeter - lengthSideC));
 		}
-	return area;
+		return area;
 	}
 }

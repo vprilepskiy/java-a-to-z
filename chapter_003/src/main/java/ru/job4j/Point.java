@@ -26,22 +26,6 @@ public class Point {
 	}
 
 	/**
-	 * Возвращает координату.
-	 * @return - x
-	 */
-	public double getCoordinateX() {
-		return x;
-	}
-
-	/**
-	 * Возвращает координату.
-	 * @return - y
-	 */
-	public double getCoordinateY() {
-		return y;
-	}
-
-	/**
 	 * Метод вычисляет расстояние между двумя точками.
 	 * @param point - точка до которой вычислить расстояние.
 	 * @return - длина между точками.

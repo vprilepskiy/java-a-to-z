@@ -25,4 +25,18 @@ import static org.hamcrest.number.IsCloseTo.closeTo;
 		final double resultMethod = (new Triangle(new Point(firstCoordinateX, firstCoordinateY), new Point(secondCoordinateX, secondCoordinateY), new Point(thirdCoordinateX, thirdCoordinateY))).area();
 		assertThat(result, is(closeTo(resultMethod, delta)));
 	}
+
+	/**
+	 * Test add.
+	 */
+	@Test
+	public void testWhenReturnNull() {
+		final double firstCoordinateX = 2, firstCoordinateY = 1;
+		final double secondCoordinateX = 5, secondCoordinateY = 7;
+		final double thirdCoordinateX = 1, thirdCoordinateY = 8;
+		final double result = 13.499;
+		final double delta = 0.01;
+		final double resultMethod = (new Triangle(new Point(firstCoordinateX, firstCoordinateY), new Point(secondCoordinateX, secondCoordinateY), new Point(thirdCoordinateX, thirdCoordinateY))).area();
+		assertThat(result, is(closeTo(resultMethod, delta)));
+	}
  }

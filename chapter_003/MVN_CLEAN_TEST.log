@@ -5,6 +5,7 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] 
 [INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ capter_003 ---
+[INFO] Deleting C:\projects\vprilepskiy\chapter_003\target
 [INFO] 
 [INFO] --- maven-checkstyle-plugin:2.17:check (validate) @ capter_003 ---
 [INFO] Starting audit...
@@ -33,18 +34,18 @@ Audit done.
  T E S T S
 -------------------------------------------------------
 Running ru.job4j.PointTest
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.093 sec
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.12 sec
 Running ru.job4j.TriangleTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
 
 Results :
 
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
 
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 5.589 s
-[INFO] Finished at: 2016-11-28T21:57:37+05:00
-[INFO] Final Memory: 21M/143M
+[INFO] Total time: 6.140 s
+[INFO] Finished at: 2016-11-30T09:50:19+05:00
+[INFO] Final Memory: 22M/190M
 [INFO] ------------------------------------------------------------------------
