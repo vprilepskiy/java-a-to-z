@@ -44,7 +44,10 @@ public class Triangle {
 		double lengthSideA = a.distanceTo(b);
 		double lengthSideB = b.distanceTo(c);
 		double lengthSideC = c.distanceTo(a);
-		if (lengthSideA != 0  &  lengthSideB != 0  &  lengthSideC != 0) {
+
+		boolean triangleExists = lengthSideA + lengthSideB > lengthSideC  &  lengthSideB + lengthSideC > lengthSideA  &  lengthSideC + lengthSideA > lengthSideB;
+
+		if (triangleExists) {
 			double semiperimeter = (lengthSideA + lengthSideB + lengthSideC) / 2;
 			area = Math.sqrt(semiperimeter * (semiperimeter - lengthSideA) * (semiperimeter - lengthSideB) * (semiperimeter - lengthSideC));
 		}
