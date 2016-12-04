@@ -17,7 +17,7 @@ Audit done.
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.3:compile (default-compile) @ capter_006 ---
 [INFO] Changes detected - recompiling the module!
-[INFO] Compiling 4 source files to C:\projects\vprilepskiy\chapter_006\target\classes
+[INFO] Compiling 5 source files to C:\projects\vprilepskiy\chapter_006\target\classes
 [INFO] 
 [INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ capter_006 ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
@@ -25,7 +25,7 @@ Audit done.
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.3:testCompile (default-testCompile) @ capter_006 ---
 [INFO] Changes detected - recompiling the module!
-[INFO] Compiling 4 source files to C:\projects\vprilepskiy\chapter_006\target\test-classes
+[INFO] Compiling 5 source files to C:\projects\vprilepskiy\chapter_006\target\test-classes
 [INFO] 
 [INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ capter_006 ---
 [INFO] Surefire report directory: C:\projects\vprilepskiy\chapter_006\target\surefire-reports
@@ -34,20 +34,22 @@ Audit done.
  T E S T S
 -------------------------------------------------------
 Running ru.job4j.DeleteDubleInArrayTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.121 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.079 sec
+Running ru.job4j.IsSubstringOfTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
 Running ru.job4j.RotateTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
 Running ru.job4j.TurnTest
 Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
 
 Results :
 
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
 
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 6.189 s
-[INFO] Finished at: 2016-12-01T09:18:44+05:00
-[INFO] Final Memory: 22M/190M
+[INFO] Total time: 5.880 s
+[INFO] Finished at: 2016-12-04T13:53:12+05:00
+[INFO] Final Memory: 22M/142M
 [INFO] ------------------------------------------------------------------------
