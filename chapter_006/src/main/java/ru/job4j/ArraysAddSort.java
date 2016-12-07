@@ -1,12 +1,10 @@
 package ru.job4j;
 
-import java.util.Arrays;
-
 /**
  * Объеденит и отсортирует массив.
  * @author vprilepskiy
- * @since 05.12.2016
  * @version 1
+ * @since 05.12.2016
  */
 public class ArraysAddSort {
 
@@ -22,26 +20,66 @@ public class ArraysAddSort {
 
 	/**
 	 * Объеденит и отсортирует массив.
-	 * @param array0 - массив для добавления.
-	 * @param array1 - массив для добавления.
+	 * @param arrayA - массив для добавления.
+	 * @param arrayB - массив для добавления.
 	 * @return - объедененный и отсортированный массив.
 	 */
-	public int[] add(int[] array0, int[] array1) {
-		this.arrAdd = new int[array0.length + array1.length];
-		put(array0);
-		put(array1);
-		Arrays.sort(this.arrAdd);
+	public int[] add(int[] arrayA, int[] arrayB) {
+		this.arrAdd = new int[arrayA.length + arrayB.length];
+
+		int indexA = 0;
+		int indexB = 0;
+
+		boolean again = true;
+		while (again) {
+			// если индексА меньше чем длиннаМассивА и если индексБ мненьше чем длиннаМассивБ
+			if ((indexA <= arrayA.length - 1) && (indexB <= arrayB.length - 1)) {
+				// если А меньше Б
+				if (arrayA[indexA] < arrayB[indexB]) {
+					// добавить А
+					put(arrayA[indexA]);
+					indexA++;
+					// если Б меньше А
+				} else if (arrayB[indexB] < arrayA[indexA]) {
+					// добавить Б
+					put(arrayB[indexB]);
+					indexB++;
+					// если А равно Б
+				} else {
+					// добавить А и Б
+					put(arrayA[indexA]);
+					indexA++;
+					put(arrayB[indexB]);
+					indexB++;
+				}
+				// если индексА меньше чем длиннаМассивА и если индексБ больше чем длиннаМассивБ
+			} else if ((indexA <= arrayA.length - 1) && (indexB > arrayB.length - 1)) {
+				// добавить А
+				put(arrayA[indexA]);
+				indexA++;
+				// если индексБ меньше чем длиннаМассивБ и если индексА больше чем длиннаМассивА
+			} else if ((indexB <= arrayB.length - 1) && (indexA > arrayA.length - 1)) {
+				// добавить Б
+				put(arrayB[indexB]);
+				indexB++;
+			} else {
+				// break;
+				again = false;
+			}
+		}
 		return this.arrAdd;
 	}
 
 	/**
-	 * Добавит элементы в массив.
-	 * @param array - массив.
+	 * Добавит элемент в массив.
+	 * @param element - элемент.
 	 */
-	private void put(int[] array) {
-		for (int element : array) {
+	private void put(int element) {
+		if (this.arrAdd.length >= this.index) {
 			this.arrAdd[index] = element;
 			this.index++;
+		} else {
+			System.err.println("Невозможно добавить элемент: " + element + " в индекс: " + (index + 1));
 		}
 	}
 }
