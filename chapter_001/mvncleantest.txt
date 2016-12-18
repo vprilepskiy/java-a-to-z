@@ -34,7 +34,7 @@ Audit done.
  T E S T S
 -------------------------------------------------------
 Running ru.job4j.CalculateTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.1 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.094 sec
 
 Results :
 
@@ -43,7 +43,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 9.265 s
-[INFO] Finished at: 2016-11-24T21:49:49+05:00
-[INFO] Final Memory: 22M/191M
+[INFO] Total time: 6.193 s
+[INFO] Finished at: 2016-12-18T11:37:38+05:00
+[INFO] Final Memory: 21M/144M
 [INFO] ------------------------------------------------------------------------
