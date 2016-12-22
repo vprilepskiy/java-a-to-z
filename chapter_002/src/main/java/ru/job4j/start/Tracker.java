@@ -69,7 +69,7 @@ public class Tracker {
 		boolean result = false;
 		int index = 0;
 		for (Item it : items) {
-			if(it != null && it.equals(item)){
+			if (it != null && it.equals(item)) {
 				items[index] = null;
 				result = true;
 				break;
@@ -78,7 +78,7 @@ public class Tracker {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Найдет по id.
 	 * @param id - ключ заявки.

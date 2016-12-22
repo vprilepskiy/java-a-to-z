@@ -14,5 +14,5 @@ public interface Output {
 	 * Получает ответы от Tracker.
 	 * @param items - массив заявок.
 	 */
-	public void answer(Item[] items);
+	void answer(Item[] items);
 }

@@ -13,10 +13,12 @@ public class ConsoleInput implements Input {
 	/**
 	 * Сканнер.
 	 */
-	Scanner scanner = new Scanner(System.in);
-	
+	private Scanner scanner = new Scanner(System.in);
+
 	/**
 	 * Задать вопрос, получить ответ.
+	 * @param question - запрос.
+	 * @return - введенное с консоли.
 	 */
 	public String ask(String question) {
 		System.out.println(question);

@@ -18,7 +18,7 @@ public class StabInput implements Input {
 
 	/**
 	 * Констркутор.
-	 * @param answers - массив команд. 
+	 * @param answers - массив команд.
 	 */
 	public StabInput(String[] answers) {
 		this.answers = answers;
@@ -26,6 +26,8 @@ public class StabInput implements Input {
 
 	/**
 	 * Поочередно задает вопросы и возвращает ответы.
+	 * @param question - запрос.
+	 * @return - ответ.
 	 */
 	public String ask(String question) {
 		return answers[position++];

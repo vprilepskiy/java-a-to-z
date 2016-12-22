@@ -13,5 +13,5 @@ public interface Input {
 	 * @param question - запрос.
 	 * @return - ответ.
 	 */
-	public String ask (String question);
+	String ask(String question);
 }

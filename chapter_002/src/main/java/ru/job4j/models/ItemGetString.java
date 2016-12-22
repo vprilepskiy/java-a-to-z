@@ -1,7 +1,7 @@
 package ru.job4j.models;
 
 /**
- * Класс преобразует Item для чтения.
+ * РљР»Р°СЃСЃ РїСЂРµРѕР±СЂР°Р·СѓРµС‚ Item РґР»СЏ С‡С‚РµРЅРёСЏ.
  * @author Vladimir Prilepskiy
  * @version 1
  * @since 22.12.2016
@@ -9,23 +9,23 @@ package ru.job4j.models;
 public class ItemGetString {
 
 	/**
-	 * заявка.
+	 * Р·Р°СЏРІРєР°.
 	 */
 	private Item item;
 
 	/**
-	 * Конструктор.
-	 * @param item - заявка.
+	 * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ.
+	 * @param item - Р·Р°СЏРІРєР°.
 	 */
-	public ItemGetString (Item item) {
+	public ItemGetString(Item item) {
 		this.item = item;
 	}
 
 	/**
-	 * Преобразует Item в String.
-	 * @return - строка.
+	 * РџСЂРµРѕР±СЂР°Р·СѓРµС‚ Item РІ String.
+	 * @return - СЃС‚СЂРѕРєР°.
 	 */
-	public String getLine () {
+	public String getLine() {
 		return "name: " + this.item.getName() + "; " + "desc: " + this.item.getDescription() + "; " + "create: " + this.item.getCreate();
 	}
 }

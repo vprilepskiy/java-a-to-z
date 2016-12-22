@@ -13,9 +13,9 @@ public class Task extends Item {
 	 * @param name - имя.
 	 * @param desc - описание.
 	 */
-	public Task (String name, String desc){
-		this.name = name;
-		this.description = desc;
+	public Task(String name, String desc) {
+		this.setName(name);
+		this.setDescription(desc);
 	}
 
 	/**

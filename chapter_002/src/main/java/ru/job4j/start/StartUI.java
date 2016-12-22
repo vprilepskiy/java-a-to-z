@@ -9,7 +9,7 @@ import ru.job4j.models.Task;
  * @since 22.12.2016
  */
 public class StartUI {
-	
+
 	/**
 	 * Ввод.
 	 */
@@ -18,7 +18,7 @@ public class StartUI {
 	 * Вывод.
 	 */
 	private Output output;
-	
+
 	/**
 	 * Конструктор.
 	 * @param input - принемающий объект типа Input.
@@ -28,7 +28,7 @@ public class StartUI {
 		this.input = input;
 		this.output = output;
 	}
-	
+
 
 //	public void init() {
 //		// задали вопрос, получили ответ
@@ -41,7 +41,7 @@ public class StartUI {
 //			System.out.println(item.getName());
 //		}
 //	}
-	
+
 	/**
 	 * Точка входа.
 	 * @param args - аргументы.
@@ -59,9 +59,9 @@ public class StartUI {
 		Tracker tracker = new Tracker();
 		String nextLine = System.getProperty("line.separator");
 		String hello = "Welcome to accounting software applications.";
-		String supportedCommands = "Supported commands:" + nextLine 
-				+ "add \t for add row" + nextLine 
-				+ "update \t for update the row" + nextLine 
+		String supportedCommands = "Supported commands:" + nextLine
+				+ "add \t for add row" + nextLine
+				+ "update \t for update the row" + nextLine
 				+ "delete \t to remove by index" + nextLine
 				+ "getAll \t show all rows" + nextLine
 				+ "findByName \t find by name" + nextLine
@@ -70,12 +70,12 @@ public class StartUI {
 				+ "addComent \t add comments" + nextLine
 				+ "exit \t for exit" + nextLine;
 		System.out.println(hello + nextLine + supportedCommands);
-		
+
 		boolean retry = true;
 		while (retry) {
 			String command = input.ask("Please enter command: ");
 			// добавить
-			if (command.equals("add")){
+			if (command.equals("add")) {
 				String name = input.ask("Please enter the task's name: ");
 				String desc = input.ask("Please enter the task's description: ");
 				tracker.add(new Task(name, desc));
@@ -88,7 +88,7 @@ public class StartUI {
 				Task task = new Task(name, desc);
 				task.setId(id);
 				tracker.update(task);
-			// удалить	
+			// удалить
 			} else if (command.equals("delete")) {
 				int index = Integer.parseInt(input.ask("Please enter the number task: "));
 				tracker.del(tracker.getAll()[index]);
