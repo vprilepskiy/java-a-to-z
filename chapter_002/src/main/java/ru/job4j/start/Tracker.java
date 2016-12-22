@@ -57,15 +57,28 @@ public class Tracker {
 	 * @param item - заявка.
 	 * @return - true если удалена и false если не удалена.
 	 */
+//	public boolean del(Item item) {
+//		boolean result = false;
+//		if (item != null) {
+//			item = null;
+//			result = true;
+//		}
+//		return result;
+//	}
 	public boolean del(Item item) {
 		boolean result = false;
-		if (item != null) {
-			item = null;
-			result = true;
+		int index = 0;
+		for (Item it : items) {
+			if(it != null && it.equals(item)){
+				items[index] = null;
+				result = true;
+				break;
+			}
+			index++;
 		}
 		return result;
 	}
-
+	
 	/**
 	 * Найдет по id.
 	 * @param id - ключ заявки.

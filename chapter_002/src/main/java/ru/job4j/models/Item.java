@@ -11,11 +11,11 @@ public class Item {
 	/**
 	 * Название.
 	 */
-	private String name;
+	protected String name;
 	/**
 	 * Описание.
 	 */
-	private String description;
+	protected String description;
 	/**
 	 * Время создания.
 	 */

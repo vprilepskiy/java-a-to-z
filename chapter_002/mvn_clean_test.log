@@ -1,49 +1,55 @@
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
-[INFO] Building capter_002 2.0
+[INFO] Building chapter_002 2.0
 [INFO] ------------------------------------------------------------------------
 [INFO] 
-[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ capter_002 ---
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ chapter_002 ---
 [INFO] Deleting C:\projects\vprilepskiy\chapter_002\target
 [INFO] 
-[INFO] --- maven-checkstyle-plugin:2.17:check (validate) @ capter_002 ---
+[INFO] --- maven-checkstyle-plugin:2.17:check (validate) @ chapter_002 ---
 [INFO] Starting audit...
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\models\Item.java:14:26: error: Variable 'name' must be private and have accessor methods.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\models\Item.java:18:26: error: Variable 'description' must be private and have accessor methods.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\models\ItemGetString.java:20:30: error: '(' is preceded with whitespace.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\models\ItemGetString.java:28:31: error: '(' is preceded with whitespace.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\models\Task.java:16:21: error: '(' is preceded with whitespace.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\models\Task.java:16:47: error: '{' is not preceded with whitespace.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\ConsoleInput.java:16:17: error: Variable 'scanner' must be private and have accessor methods.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\ConsoleInput.java:17: error: Line has trailing spaces.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\ConsoleInput.java:21: error: Expected an @return tag.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\ConsoleInput.java:21:34: error: Expected @param tag for 'question'.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\Input.java:16:9: error: Redundant 'public' modifier.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\Input.java:16:27: error: '(' is preceded with whitespace.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\Output.java:17:9: error: Redundant 'public' modifier.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\StabInput.java:21: error: Line has trailing spaces.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\StabInput.java:30: error: Expected an @return tag.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\StabInput.java:30:34: error: Expected @param tag for 'question'.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\StartUI.java:12: error: Line has trailing spaces.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\StartUI.java:21: error: Line has trailing spaces.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\StartUI.java:31: error: Line has trailing spaces.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\StartUI.java:44: error: Line has trailing spaces.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\StartUI.java:62: error: Line has trailing spaces.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\StartUI.java:63: error: Line has trailing spaces.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\StartUI.java:64: error: Line has trailing spaces.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\StartUI.java:73: error: Line has trailing spaces.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\StartUI.java:78:51: error: '{' is not preceded with whitespace.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\StartUI.java:91: error: Line has trailing spaces.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\Tracker.java:72:27: error: 'if' is not followed by whitespace.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\Tracker.java:72:58: error: '{' is not preceded with whitespace.
+C:\projects\vprilepskiy\chapter_002\src\main\java\ru\job4j\start\Tracker.java:81: error: Line has trailing spaces.
 Audit done.
-[INFO] 
-[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ capter_002 ---
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_002\src\main\resources
-[INFO] 
-[INFO] --- maven-compiler-plugin:3.3:compile (default-compile) @ capter_002 ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 5 source files to C:\projects\vprilepskiy\chapter_002\target\classes
-[INFO] 
-[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ capter_002 ---
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_002\src\test\resources
-[INFO] 
-[INFO] --- maven-compiler-plugin:3.3:testCompile (default-testCompile) @ capter_002 ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 2 source files to C:\projects\vprilepskiy\chapter_002\target\test-classes
-[INFO] 
-[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ capter_002 ---
-[INFO] Surefire report directory: C:\projects\vprilepskiy\chapter_002\target\surefire-reports
-
--------------------------------------------------------
- T E S T S
--------------------------------------------------------
-Running ru.job4j.start.TrackerTest
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.098 sec
-
-Results :
-
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0
-
 [INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
+[INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 5.646 s
-[INFO] Finished at: 2016-12-18T13:10:40+05:00
-[INFO] Final Memory: 20M/176M
+[INFO] Total time: 3.714 s
+[INFO] Finished at: 2016-12-22T19:28:38+05:00
+[INFO] Final Memory: 13M/143M
 [INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-checkstyle-plugin:2.17:check (validate) on project chapter_002: Failed during checkstyle execution: There are 29 errors reported by Checkstyle 6.11.2 with checkstyle.xml ruleset. -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

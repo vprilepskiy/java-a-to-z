@@ -1,53 +1,53 @@
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
-[INFO] Building capter_002 2.0
+[INFO] Building chapter_002 2.0
 [INFO] ------------------------------------------------------------------------
 [INFO] 
-[INFO] --- maven-checkstyle-plugin:2.17:check (validate) @ capter_002 ---
+[INFO] --- maven-checkstyle-plugin:2.17:check (validate) @ chapter_002 ---
 [INFO] Starting audit...
 Audit done.
 [INFO] 
-[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ capter_002 ---
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ chapter_002 ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_002\src\main\resources
 [INFO] 
-[INFO] --- maven-compiler-plugin:3.3:compile (default-compile) @ capter_002 ---
+[INFO] --- maven-compiler-plugin:3.3:compile (default-compile) @ chapter_002 ---
 [INFO] Changes detected - recompiling the module!
 [INFO] Compiling 5 source files to C:\projects\vprilepskiy\chapter_002\target\classes
 [INFO] 
-[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ capter_002 ---
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ chapter_002 ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] skip non existing resourceDirectory C:\projects\vprilepskiy\chapter_002\src\test\resources
 [INFO] 
-[INFO] --- maven-compiler-plugin:3.3:testCompile (default-testCompile) @ capter_002 ---
+[INFO] --- maven-compiler-plugin:3.3:testCompile (default-testCompile) @ chapter_002 ---
 [INFO] Changes detected - recompiling the module!
 [INFO] Compiling 2 source files to C:\projects\vprilepskiy\chapter_002\target\test-classes
 [INFO] 
-[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ capter_002 ---
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ chapter_002 ---
 [INFO] Surefire report directory: C:\projects\vprilepskiy\chapter_002\target\surefire-reports
 
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
 Running ru.job4j.start.TrackerTest
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.12 sec
 
 Results :
 
 Tests run: 7, Failures: 0, Errors: 0, Skipped: 0
 
 [INFO] 
-[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ capter_002 ---
-[INFO] Building jar: C:\projects\vprilepskiy\chapter_002\target\capter_002-2.0.jar
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ chapter_002 ---
+[INFO] Building jar: C:\projects\vprilepskiy\chapter_002\target\chapter_002-2.0.jar
 [INFO] 
-[INFO] --- maven-shade-plugin:2.4.3:shade (default) @ capter_002 ---
+[INFO] --- maven-shade-plugin:2.4.3:shade (default) @ chapter_002 ---
 [INFO] Replacing original artifact with shaded artifact.
-[INFO] Replacing C:\projects\vprilepskiy\chapter_002\target\capter_002-2.0.jar with C:\projects\vprilepskiy\chapter_002\target\capter_002-2.0-shaded.jar
+[INFO] Replacing C:\projects\vprilepskiy\chapter_002\target\chapter_002-2.0.jar with C:\projects\vprilepskiy\chapter_002\target\chapter_002-2.0-shaded.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 4.570 s
-[INFO] Finished at: 2016-12-18T14:33:16+05:00
-[INFO] Final Memory: 21M/169M
+[INFO] Total time: 6.436 s
+[INFO] Finished at: 2016-12-20T19:49:31+05:00
+[INFO] Final Memory: 24M/188M
 [INFO] ------------------------------------------------------------------------
