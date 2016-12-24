@@ -17,11 +17,11 @@ public class StartUITest {
 		String[] answers = {"add", "Name0", "Desc0",
 				"add", "Name1", "Desc1",
 				"add", "Name2", "Desc2",
-			//	"getAll",
-				"update", "0", "Name0_editing", "Desc0_editing",
-			//	"getAll",
-				"delete", "1",
 				"getAll",
+			//	"update", "0", "Name0_editing", "Desc0_editing",
+			//	"getAll",
+			//	"delete", "1",
+			//	"getAll",
 				"exit"
 		};
 
