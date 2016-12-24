@@ -1,0 +1,11 @@
+В пакете ru.job4j.start можно выделить классы в отдельные группы:
+1. Интерфейс Input и наследованные от него классы ConsoleInput, StabInput.
+2. Интерфейс Output и наследованные от него классы ConsoleOutput, StabOutput.
+3. Класс Tracker
+4. Классы StartUI и StartUITest
+
+В классе Tracker можно выделить методы в отдельные группы:
+1. add, update, del.
+2. findById, findByName, findByDescription, findByCreate, getAll.
+3. generateId.
+4. addComment.
