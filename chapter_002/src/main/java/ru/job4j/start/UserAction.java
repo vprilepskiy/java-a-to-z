@@ -16,9 +16,10 @@ public interface UserAction {
     /**
      * Основные дейсвия.
      * @param input - метод ввода.
+     * @param output - метод вывода.
      * @param tracker - механизмы выполнения вводимых команд.
      */
-    void execute(Input input, Tracker tracker);
+    void execute(Input input, Output output, Tracker tracker);
 
     /**
      * сообщает, что данный метод делает.

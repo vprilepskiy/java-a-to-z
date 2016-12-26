@@ -4,7 +4,7 @@ import ru.job4j.models.Task;
 import ru.job4j.models.Item;
 
 /**
- * Внешний класс.
+ * Внешний класс. Редактировать.
  */
 class EditItem implements UserAction {
 
@@ -14,14 +14,16 @@ class EditItem implements UserAction {
     }
 
     @Override
-    public void execute(Input input, Tracker tracker) {
+    public void execute(Input input, Output output, Tracker tracker) {
         // задали вопрос, получили ответ
-        String id = input.ask("Please enter the task's id: ");
-        String name = input.ask("Please enter the task's name: ");
-        String desc = input.ask("Please enter the task's description: ");
-        Task task = new Task(name, desc);
-        task.setId(id);
-//		// записали ответ в Tracker
+		int index = Integer.parseInt(input.ask("Please enter the number task: "));
+		String id = tracker.getAll()[index].getId();
+		String name = input.ask("Please enter the task's name: ");
+		String desc = input.ask("Please enter the task's description: ");
+		Task task = new Task(name, desc);
+		task.setId(id);
+		tracker.update(task);
+		// записали ответ в Tracker
         tracker.update(task);
     }
 
@@ -40,14 +42,16 @@ class EditItem implements UserAction {
 public class MenuTracker {
 
     private Input input;
+    private Output output;
     private Tracker tracker;
-    private UserAction[] actions = new UserAction[5];
+    private UserAction[] actions = new UserAction[8];
 
     /**
      * Конструктор.
      */
-    public MenuTracker(Input input, Tracker tracker) {
+    public MenuTracker(Input input, Output output, Tracker tracker) {
         this.input = input;
+        this.output = output;
         this.tracker = tracker;
     }
 
@@ -55,10 +59,15 @@ public class MenuTracker {
         this.actions[0] = this.new AddItem();
         this.actions[1] = new MenuTracker.ShowItems();
         this.actions[2] = new EditItem();
+        this.actions[3] = new FindByName();
+        this.actions[4] = new FindByDesc();
+        this.actions[5] = new FindByCreate();
+        this.actions[6] = new Delete();
+        this.actions[7] = new AddComens();
     }
 
     public void select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+        this.actions[key].execute(this.input, this.output, this.tracker);
     }
 
     /**
@@ -73,6 +82,9 @@ public class MenuTracker {
         }
     }
 
+    /**
+     * Внутренний класс. Добавить запись.
+     */
     private class AddItem implements UserAction {
 
         @Override
@@ -81,18 +93,12 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
-        // задали вопрос, получили ответ
-        String name = input.ask("Please enter the task's name: ");
-        String desc = input.ask("Please enter the task's description: ");
-//		Tracker tracker = new Tracker();
-//		// записали ответ в Tracker
-		tracker.add(new Task(name, desc));
-//		// вывели на экран все заявки
-//		for (Item item : tracker.getAll()){
-//			System.out.println(item.getName());
-//		}
-
+        public void execute(Input input, Output output, Tracker tracker) {
+            // задали вопрос, получили ответ
+            String name = input.ask("Please enter the task's name: ");
+            String desc = input.ask("Please enter the task's description: ");
+//		    // записали ответ в Tracker
+		    tracker.add(new Task(name, desc));
         }
 
         @Override
@@ -101,6 +107,9 @@ public class MenuTracker {
         }
     }
 
+    /**
+     * Внутренний класс. Показать все заявки.
+     */
     private class ShowItems implements UserAction {
 
         @Override
@@ -109,13 +118,8 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
-		// вывели на экран все заявки
-		    for (Item item : tracker.getAll()){
-			    //System.out.println(item.getName());
-                System.out.println(String.format("%s. %s", item.getId(), item.getName()));
-		    }
-
+        public void execute(Input input, Output output, Tracker tracker) {
+            output.answer(tracker.getAll());
         }
 
         @Override
@@ -124,4 +128,114 @@ public class MenuTracker {
         }
     }
 
+    /**
+     * Внутренний класс. Найти по имени.
+     */
+    private class FindByName implements UserAction {
+
+        @Override
+        public int key() {
+            return 3;
+        }
+
+        @Override
+        public void execute(Input input, Output output, Tracker tracker) {
+			String name = input.ask("Please enter the task's name: ");
+			output.answer(tracker.findByName(name));
+        }
+
+        @Override
+        public String info() {
+            return String.format("%s. %s", this.key(), "Find By Name.");
+        }
+    }
+
+    /**
+     * Внутренний класс. Найти по описанию.
+     */
+    private class FindByDesc implements UserAction {
+
+        @Override
+        public int key() {
+            return 4;
+        }
+
+        @Override
+        public void execute(Input input, Output output, Tracker tracker) {
+            String desc = input.ask("Please enter the task's desc: ");
+            output.answer(tracker.findByDescription(desc));
+        }
+
+        @Override
+        public String info() {
+            return String.format("%s. %s", this.key(), "Find By Description.");
+        }
+    }
+
+    /**
+     * Внутренний класс. Найти времени создания.
+     */
+    private class FindByCreate implements UserAction {
+
+        @Override
+        public int key() {
+            return 5;
+        }
+
+        @Override
+        public void execute(Input input, Output output, Tracker tracker) {
+            String create = input.ask("Please enter the task's create: ");
+            output.answer(tracker.findByCreate(Long.parseLong(create)));
+        }
+
+        @Override
+        public String info() {
+            return String.format("%s. %s", this.key(), "Find By Create.");
+        }
+    }
+
+    /**
+     * Внутренний класс. Удалить запись.
+     */
+    private class Delete implements UserAction {
+
+        @Override
+        public int key() {
+            return 6;
+        }
+
+        @Override
+        public void execute(Input input, Output output, Tracker tracker) {
+			int index = Integer.parseInt(input.ask("Please enter the number task: "));
+			tracker.del(tracker.getAll()[index]);
+        }
+
+        @Override
+        public String info() {
+            return String.format("%s. %s", this.key(), "Delete item.");
+        }
+    }
+
+    /**
+     * Внутренний класс. Найти по описанию.
+     */
+    private class AddComens implements UserAction {
+
+        @Override
+        public int key() {
+            return 7;
+        }
+
+        @Override
+        public void execute(Input input, Output output, Tracker tracker) {
+			int index = Integer.parseInt(input.ask("Please enter the number task: "));
+			String comment = input.ask("Please enter comment: ");
+			tracker.addComment(tracker.getAll()[index], comment);
+        }
+
+        @Override
+        public String info() {
+            return String.format("%s. %s", this.key(), "Add Comens.");
+        }
+    }
 }
