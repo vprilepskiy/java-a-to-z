@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Класс ввода данных с консоли.
  * @author Vladimir Prilepskiy
  * @version 1
- * @since 22.12.2016
+ * @since 27.12.2016
  */
 public class ConsoleInput implements Input {
 
@@ -25,4 +25,25 @@ public class ConsoleInput implements Input {
 		return scanner.nextLine();
 	}
 
+	/**
+	 * Задает вопрос, получает ответ.
+	 * @param question - запрос.
+	 * @param range - массив разрешенных ответов.
+	 * @return - ответ.
+	 */
+	public int ask(String question, int[] range) {
+		int key = Integer.valueOf(this.ask(question));
+		boolean exist = false;
+		for (int value : range) {
+			if (value == key) {
+				exist = true;
+				break;
+			}
+		}
+		if (exist) {
+			return key;
+		} else {
+			throw new MenuOutException("Out of menu range.");
+		}
+	}
 }

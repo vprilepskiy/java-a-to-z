@@ -14,4 +14,12 @@ public interface Input {
 	 * @return - ответ.
 	 */
 	String ask(String question);
+
+	/**
+	 * Задает вопрос, получает ответ.
+	 * @param question - запрос.
+	 * @param range - массив разрешенных ответов.
+	 * @return - ответ.
+	 */
+	int ask(String question, int[] range);
 }

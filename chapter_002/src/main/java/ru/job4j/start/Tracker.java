@@ -57,14 +57,6 @@ public class Tracker {
 	 * @param item - заявка.
 	 * @return - true если удалена и false если не удалена.
 	 */
-//	public boolean del(Item item) {
-//		boolean result = false;
-//		if (item != null) {
-//			item = null;
-//			result = true;
-//		}
-//		return result;
-//	}
 	public boolean del(Item item) {
 		boolean result = false;
 		int index = 0;
