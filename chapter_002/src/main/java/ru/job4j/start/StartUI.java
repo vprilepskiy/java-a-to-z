@@ -4,7 +4,7 @@ package ru.job4j.start;
  * Класс для работы с заявками путем ввода и вывода строк.
  * @author Vladimir Prilepskiy
  * @version 1
- * @since 22.12.2016
+ * @since 28.12.2016
  */
 public class StartUI {
 
@@ -49,6 +49,7 @@ public class StartUI {
 		Tracker tracker = new Tracker();
 		MenuTracker menu = new MenuTracker(this.input, this.output, tracker);
 		this.range = menu.fillActions();
+
 		do {
 			menu.show();
 			menu.select(input.ask("select: ", this.range));

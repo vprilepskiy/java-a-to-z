@@ -4,12 +4,12 @@ package ru.job4j.start;
  * Интерфейс.
  * @author Vladimir Prilepskiy
  * @version 1
- * @since 25.12.2016
+ * @since 28.12.2016
  */
 public interface UserAction {
     /**
      * Ключ - действие которое мы должны запрашивать у пользователя.
-     * @return
+     * @return - ключ.
      */
     int key();
 
