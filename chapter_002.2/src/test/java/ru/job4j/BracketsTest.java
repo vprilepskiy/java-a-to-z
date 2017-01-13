@@ -14,7 +14,7 @@ public class BracketsTest {
      * Выражение верное.
      */
     @Test
-    public void TestLegalityExpressionWithBracketsWhenValid() {
+    public void testLegalityExpressionWithBracketsWhenValid() {
         final String line = "((2 + 2) x 2 + 4) + 3";
         final boolean valid = new Brackets().validExpression(line);
         assertThat(true, is(valid));
@@ -24,7 +24,7 @@ public class BracketsTest {
      * Выражение неверное.
      */
     @Test
-    public void TestLegalityExpressionWithBracketsWhenInvalid() {
+    public void testLegalityExpressionWithBracketsWhenInvalid() {
         final String line = "((2 + 2) x 2 + 4)) + 3";
         final boolean valid = new Brackets().validExpression(line);
         assertThat(false, is(valid));
