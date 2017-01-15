@@ -8,6 +8,11 @@ import ru.job4j.exceptions.ImpossibleMoveException;
  */
 public class FigureBishop extends Figure {
 
+    @Override
+    public String getName() {
+        return "Слон";
+    }
+
     /**
      * Конструктор.
      * @param position - задает позицию.

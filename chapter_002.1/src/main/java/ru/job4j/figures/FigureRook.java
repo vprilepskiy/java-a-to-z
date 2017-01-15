@@ -8,6 +8,11 @@ import ru.job4j.exceptions.ImpossibleMoveException;
  */
 public class FigureRook extends Figure {
 
+    @Override
+    public String getName() {
+        return "Ладья";
+    }
+
     /**
      * Конструктор.
      * @param position - позиция.

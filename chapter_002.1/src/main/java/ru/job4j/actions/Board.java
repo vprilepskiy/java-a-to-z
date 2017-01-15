@@ -101,7 +101,7 @@ public class Board {
      * @param source - ячейка.
      * @return - фигура. Вернет null- если не найдет.
      */
-    private Figure getFigure(Cell source) {
+    public Figure getFigure(Cell source) {
         Figure result = null;
         for (Figure figure : this.figures) {
             if (figure != null) {

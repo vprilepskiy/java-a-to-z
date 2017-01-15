@@ -5,6 +5,8 @@ import ru.job4j.actions.Cell;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Created by VLADIMIR on 13.01.2017.
@@ -51,8 +53,53 @@ public class FigureTest {
         assertThat(resultCenter, is(directionCenter));
     }
 
-//    @Test
-//    public void testMove(){
-//
-//    }
+    /**
+     * Test for Method validateDirect.
+     */
+    @Test
+    public void testValidateDirect() {
+        // направления по диаганалям
+        final int[][] directions = {{1, 1}, {-1, -1}, {-1, 1}, {1, -1}};
+        // координата фигуры
+        final int[] cellFigute = {3, 2};
+        // ход по диагонали
+        final int[] distDiagonal = {5, 4};
+        // ход по прямой
+        final int[] distLine = {3, 7};
+        final Figure figure = new FigureBishop(new Cell(cellFigute[0], cellFigute[1]));
+        assertTrue(figure.validateDirect(directions, new Cell(distDiagonal[0], distDiagonal[1])));
+        assertFalse(figure.validateDirect(directions, new Cell(distLine[0], distLine[1])));
+    }
+
+
+    /**
+     * Test for Method move.
+     */
+    @Test
+    public void testMove() {
+        // координата фигуры
+        final int[] cellFigute = {3, 2};
+        // ход по диагонали
+        final int[] distDiagonal = {6, 5};
+        // фигура
+        final Figure figure = new FigureBishop(new Cell(cellFigute[0], cellFigute[1]));
+        // ход
+        final Cell[] cellsDiagonal = figure.move(new Cell(distDiagonal[0], distDiagonal[1]));
+        // ожидаемый результвт
+        final int[][] resultCoordinateDiagonals = {{4, 3}, {5, 4}, {6, 5}};
+        // получившийся результат
+        final int[][] coordinateCellsDiagonals = new int[resultCoordinateDiagonals.length][2];
+        int index = 0;
+        for (Cell cell : cellsDiagonal) {
+            if (cell != null) {
+                coordinateCellsDiagonals[index][0] = cell.getHorisontal();
+                coordinateCellsDiagonals[index][1] = cell.getVertical();
+                index++;
+            }
+        }
+
+
+        assertThat(resultCoordinateDiagonals, is(coordinateCellsDiagonals));
+    }
 }
+

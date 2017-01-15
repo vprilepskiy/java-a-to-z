@@ -9,6 +9,12 @@ import ru.job4j.exceptions.ImpossibleMoveException;
 public abstract class Figure {
 
     /**
+     * Возвращает название фигуры.
+     * @return - название фигуры.
+     */
+    public abstract String getName();
+
+    /**
      * Минимальный индекс поля.
      */
     private final byte minIndex = 0;
@@ -138,29 +144,29 @@ public abstract class Figure {
         return direction;
     }
 
-    /**
-     * Объеденит два массива.
-     * @param cellsA - первый массив
-     * @param cellsB - второй массив
-     * @return - объедененный массив
-     */
-    public Cell[] add(Cell[] cellsA, Cell[] cellsB) {
-        Cell[] cells = new Cell[cellsA.length + cellsB.length];
-        int index = 0;
-        for (Cell cell : cellsA) {
-            if (cell != null) {
-                cells[index] = cell;
-                index++;
-            }
-        }
-        for (Cell cell : cellsB) {
-            if (cell != null) {
-                cells[index] = cell;
-                index++;
-            }
-        }
-        return cells;
-    }
+//    /**
+//     * Объеденит два массива.
+//     * @param cellsA - первый массив
+//     * @param cellsB - второй массив
+//     * @return - объедененный массив
+//     */
+//    public Cell[] add(Cell[] cellsA, Cell[] cellsB) {
+//        Cell[] cells = new Cell[cellsA.length + cellsB.length];
+//        int index = 0;
+//        for (Cell cell : cellsA) {
+//            if (cell != null) {
+//                cells[index] = cell;
+//                index++;
+//            }
+//        }
+//        for (Cell cell : cellsB) {
+//            if (cell != null) {
+//                cells[index] = cell;
+//                index++;
+//            }
+//        }
+//        return cells;
+//    }
 
     /**
      * Меняет место фигуры.
