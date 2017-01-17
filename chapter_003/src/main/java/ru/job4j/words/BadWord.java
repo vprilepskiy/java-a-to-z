@@ -12,13 +12,20 @@ import java.io.BufferedReader;
  */
 public class BadWord implements IBadWord {
     @Override
-    public void dropAbuses(InputStream in, OutputStream out, String[] abuse) throws IOException {
+    public void dropAbuses(InputStream in, OutputStream out, String[] abuse) {
         InputStreamReader isr = new InputStreamReader(in);
         BufferedReader br = new BufferedReader(isr);
         String line = null;
-        while ((line = br.readLine()) != null) {
-            line = deleteBadWords(line, abuse);
-            out.write(line.getBytes());
+        String newLine = "";
+        try {
+            while ((line = br.readLine()) != null) {
+                line = deleteBadWords(line, abuse);
+                line = newLine + line;
+                out.write(line.getBytes());
+                newLine = "\n";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
