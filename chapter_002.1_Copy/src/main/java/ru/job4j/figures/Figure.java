@@ -46,14 +46,14 @@ public abstract class Figure {
     }
 
     /**
-     * Показывает пройденный путь.
+     *
      * @param dist - задают ячейку куда следует пойти.
      * @return - массив ячеек, которые должна пройти фигура.
      * @throws ImpossibleMoveException - Если фигура туда пойти не может.
      */
     public abstract Cell[] way(Cell dist) throws ImpossibleMoveException;
 
-    /** ВЫНЕСТИ В Board
+    /**
      * Проверяет есть ли такое направление хода.
      * @param directions - направления. Массив из двух цифр. Первая это направление по горизонтали. Вторая это направление по вертикали. Направленй может быть несколько, по этому массив двумерный.
      * @param dist - ячейка на которую следует сходить.
@@ -70,7 +70,7 @@ public abstract class Figure {
         return have;
     }
 
-    /** ВЫНЕСТИ В Board
+    /**
      * Возвращает предполагаемый вериант хода.
      * @param dist - ячейка на которой следует закончить ход.
      * @return - ячейки хода.
@@ -79,7 +79,7 @@ public abstract class Figure {
         return move(this.maxIndex, dist);
     }
 
-    /** ВЫНЕСТИ В Board
+    /**
      * Возвращает предполагаемый вериант хода.
      * @param maxNumberSteps - максимальное кол-во шагов которое можно сделать
      * @param dist - ячейка на которой следует закончить ход
@@ -109,7 +109,7 @@ public abstract class Figure {
         return cells;
     }
 
-    /** ВЫНЕСТИ В Board
+    /**
      * Возвращает направление хода.
      * @param dist - ячейка на которую следует сходить.
      * @return - направление. Массив из двух цифр. Первая это направление по горизонтали. Вторая это направление по вертикали.
@@ -143,6 +143,30 @@ public abstract class Figure {
         }
         return direction;
     }
+
+//    /**
+//     * Объеденит два массива.
+//     * @param cellsA - первый массив
+//     * @param cellsB - второй массив
+//     * @return - объедененный массив
+//     */
+//    public Cell[] add(Cell[] cellsA, Cell[] cellsB) {
+//        Cell[] cells = new Cell[cellsA.length + cellsB.length];
+//        int index = 0;
+//        for (Cell cell : cellsA) {
+//            if (cell != null) {
+//                cells[index] = cell;
+//                index++;
+//            }
+//        }
+//        for (Cell cell : cellsB) {
+//            if (cell != null) {
+//                cells[index] = cell;
+//                index++;
+//            }
+//        }
+//        return cells;
+//    }
 
     /**
      * Меняет место фигуры.

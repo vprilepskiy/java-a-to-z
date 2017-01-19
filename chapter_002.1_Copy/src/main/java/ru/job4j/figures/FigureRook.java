@@ -4,37 +4,37 @@ import ru.job4j.actions.Cell;
 import ru.job4j.exceptions.ImpossibleMoveException;
 
 /**
- * Фигура Слон.
+ * Фигура ладья.
  */
-public class FigureBishop extends Figure {
+public class FigureRook extends Figure {
 
     @Override
     public String getName() {
-        return "Слон";
+        return "Ладья";
     }
 
     /**
      * Конструктор.
-     * @param position - задает позицию.
+     * @param position - позиция.
      */
-    public FigureBishop(Cell position) {
+    public FigureRook(Cell position) {
         super(position);
     }
 
     /**
-     * Реализуем слона. Слон ходит по диаганалям.
+     * Реализуем ладью. Ладья ходит по прямым.
      */
     @Override
     public Cell[] way(Cell dist) throws ImpossibleMoveException {
         Cell[] cells;
-        // направления по диаганалям
-        final int[][] directions = {{1, 1}, {-1, -1}, {-1, 1}, {1, -1}};
+        // направления по прямым
+        final int[][] directions = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
         // если направление верное
         if (validateDirect(directions, dist)) {
             // получить предполагаемый вариант хода
-            cells = super.move(dist);
+            cells = move(dist);
         } else {
-            throw new ImpossibleMoveException("Слон ходит по диаганалям, а не по прямым!");
+            throw new ImpossibleMoveException("Ладья ходит только по прямым!");
         }
         // если цель не совпала с траекторией
         if (!(dist.equalsCell(cells))) {

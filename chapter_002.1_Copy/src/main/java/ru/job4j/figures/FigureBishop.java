@@ -32,7 +32,7 @@ public class FigureBishop extends Figure {
         // если направление верное
         if (validateDirect(directions, dist)) {
             // получить предполагаемый вариант хода
-            cells = super.move(dist);
+            cells = move(dist);
         } else {
             throw new ImpossibleMoveException("Слон ходит по диаганалям, а не по прямым!");
         }
