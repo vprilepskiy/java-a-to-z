@@ -18,8 +18,10 @@ public class TestBoard {
      */
     @Test
     public void testGetFigure() {
+        Board board = new Board();
+        board.addAllFigure();
         final byte[] coordinateCell = {0, 0};
-        final String name = new Board().getFigure(new Cell(coordinateCell[0], coordinateCell[1])).getName();
+        final String name = board.getFigure(new Cell(coordinateCell[0], coordinateCell[1])).getName();
         final String result = "Ладья";
         assertThat(result, is(name));
     }
@@ -30,6 +32,7 @@ public class TestBoard {
     @Test
     public void testMove() {
         Board board = new Board();
+        board.addAllFigure();
         final Cell source = new Cell(0, 0);
         final Cell dist = new Cell(0, 5);
         try {

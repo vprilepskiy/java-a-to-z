@@ -1,6 +1,7 @@
 package ru.job4j.figures;
 
 import org.junit.Test;
+import ru.job4j.actions.Board;
 import ru.job4j.actions.Cell;
 
 import static org.hamcrest.core.Is.is;
@@ -12,6 +13,8 @@ import static org.junit.Assert.assertFalse;
  * Created by VLADIMIR on 13.01.2017.
  */
 public class FigureTest {
+
+    private Board board = new Board();
 
     /**
      * Test for Method getDirection.
@@ -28,19 +31,19 @@ public class FigureTest {
         final int[] resultDownLeft = {-1, -1};
         final int[] resultCenter = {0, 0};
         // ставим фигуру
-        final Figure figure = new FigureBishop(new Cell(3, 2));
+        final Cell cell = new Cell(3, 2);
         // вычисляем направление по прямым
-        final int[] directionUp = figure.getDirection(new Cell(3, 5));
-        final int[] directionDown = figure.getDirection(new Cell(3, 0));
-        final int[] directionRight = figure.getDirection(new Cell(5, 2));
-        final int[] directionLeft = figure.getDirection(new Cell(1, 2));
+        final int[] directionUp = this.board.getDirection(cell, new Cell(3, 5));
+        final int[] directionDown = this.board.getDirection(cell, new Cell(3, 0));
+        final int[] directionRight = this.board.getDirection(cell, new Cell(5, 2));
+        final int[] directionLeft = this.board.getDirection(cell, new Cell(1, 2));
         // вычисляем направление по диаганалям
-        final int[] directionUpRight = figure.getDirection(new Cell(5, 4));
-        final int[] directionUpLeft = figure.getDirection(new Cell(1, 4));
-        final int[] directionDownRight = figure.getDirection(new Cell(5, 0));
-        final int[] directionDownLeft = figure.getDirection(new Cell(1, 0));
+        final int[] directionUpRight = this.board.getDirection(cell, new Cell(5, 4));
+        final int[] directionUpLeft = this.board.getDirection(cell, new Cell(1, 4));
+        final int[] directionDownRight = this.board.getDirection(cell, new Cell(5, 0));
+        final int[] directionDownLeft = this.board.getDirection(cell, new Cell(1, 0));
         // вычисляем направление по центру
-        final int[] directionCenter = figure.getDirection(new Cell(3, 2));
+        final int[] directionCenter = this.board.getDirection(cell, new Cell(3, 2));
         // сравниваем
         assertThat(resultUp, is(directionUp));
         assertThat(resultDown, is(directionDown));
@@ -59,32 +62,36 @@ public class FigureTest {
     @Test
     public void testValidateDirect() {
         // направления по диаганалям
-        final int[][] directions = {{1, 1}, {-1, -1}, {-1, 1}, {1, -1}};
+        final int[][] pointsDirections = {{1, 1}, {-1, -1}, {-1, 1}, {1, -1}};
         // координата фигуры
-        final int[] cellFigute = {3, 2};
+        final int[] pointCellFigute = {3, 2};
         // ход по диагонали
-        final int[] distDiagonal = {5, 4};
+        final int[] pointDistDiagonal = {5, 4};
         // ход по прямой
-        final int[] distLine = {3, 7};
-        final Figure figure = new FigureBishop(new Cell(cellFigute[0], cellFigute[1]));
-        assertTrue(figure.validateDirect(directions, new Cell(distDiagonal[0], distDiagonal[1])));
-        assertFalse(figure.validateDirect(directions, new Cell(distLine[0], distLine[1])));
+        final int[] pointDistLine = {3, 7};
+        final Cell cell = new Cell(pointCellFigute[0], pointCellFigute[1]);
+        final Cell distDagonal = new Cell(pointDistDiagonal[0], pointDistDiagonal[1]);
+        final Cell distLine = new Cell(pointDistLine[0], pointDistLine[1]);
+        assertTrue(this.board.validateDirect(pointsDirections, cell, distDagonal));
+        assertFalse(this.board.validateDirect(pointsDirections, cell, distLine));
     }
 
 
     /**
-     * Test for Method move.
+     * Test for Method getWay.
      */
     @Test
-    public void testMove() {
+    public void testGetWay() {
         // координата фигуры
-        final int[] cellFigute = {3, 2};
+        final int[] pointCellFigute = {3, 2};
+        final Cell cellFigute = new Cell(pointCellFigute[0], pointCellFigute[1]);
         // ход по диагонали
-        final int[] distDiagonal = {6, 5};
+        final int[] pointDistDiagonal = {6, 5};
+        final Cell distDiagonal = new Cell(pointDistDiagonal[0], pointDistDiagonal[1]);
         // фигура
-        final Figure figure = new FigureBishop(new Cell(cellFigute[0], cellFigute[1]));
+        Figure figure = new FigureBishop(cellFigute);
         // ход
-        final Cell[] cellsDiagonal = figure.move(new Cell(distDiagonal[0], distDiagonal[1]));
+        final Cell[] cellsDiagonal = this.board.getWay(figure.getPosition(), distDiagonal);
         // ожидаемый результвт
         final int[][] resultCoordinateDiagonals = {{4, 3}, {5, 4}, {6, 5}};
         // получившийся результат
@@ -97,8 +104,6 @@ public class FigureTest {
                 index++;
             }
         }
-
-
         assertThat(resultCoordinateDiagonals, is(coordinateCellsDiagonals));
     }
 }

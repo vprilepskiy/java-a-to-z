@@ -20,10 +20,20 @@ import ru.job4j.figures.FigureRook;
  */
 public class Board {
 
+    /** ВЫНЕСТИ В Board
+     * Минимальный индекс поля.
+     */
+    private final int minIndex = 0;
+
+    /** ВЫНЕСТИ В Board
+     * Максимальный индекс поля.
+     */
+    private final int maxIndex = 7;
+
     /**
      * Количество фигур на доске.
      */
-    private final byte numberFidures = 32;
+    private final int numberFidures = 32;
 
     /**
      * Фигуры.
@@ -35,12 +45,12 @@ public class Board {
      */
     private int figuresIndex = 0;
 
-    /**
-     * Конструктор.
-     */
-    public Board() {
-        addAllFigure();
-    }
+//    /**
+//     * Конструктор.
+//     */
+//    public Board() {
+//        this.addAllFigure();
+//    }
 
     /**
      * Выполняет движение фигуры.
@@ -85,11 +95,11 @@ public class Board {
     /**
      * Расставляет фигуры на доску.
      */
-    private void addAllFigure() {
-        final byte[] cellA1 = {0, 0};
-        final byte[] cellH1 = {7, 0};
-        final byte[] cellC1 = {2, 0};
-        final byte[] cellF1 = {0, 0};
+    public void addAllFigure() {
+        final int[] cellA1 = {0, 0};
+        final int[] cellH1 = {7, 0};
+        final int[] cellC1 = {2, 0};
+        final int[] cellF1 = {5, 0};
         addFigure(new FigureRook(new Cell(cellA1[0], cellA1[1])));
         addFigure(new FigureRook(new Cell(cellH1[0], cellH1[1])));
         addFigure(new FigureBishop(new Cell(cellC1[0], cellC1[1])));
@@ -113,4 +123,98 @@ public class Board {
         }
         return result;
     }
+
+    /** ВЫНЕСТИ В Board
+     * Проверяет есть ли такое направление хода.
+     * @param directions - направления. Массив из двух цифр. Первая это направление по горизонтали. Вторая это направление по вертикали. Направленй может быть несколько, по этому массив двумерный.
+     * @param dist - ячейка на которую следует сходить.
+     * @return - true если направление хода верное.
+     */
+    public boolean validateDirect(int[][] directions, Cell cell, Cell dist) {
+        boolean have = false;
+        for (int[] direction : directions) {
+            have = (direction[0] == getDirection(cell, dist)[0]) && (direction[1] == getDirection(cell, dist)[1]);
+            if (have) {
+                break;
+            }
+        }
+        return have;
+    }
+
+    /** ВЫНЕСТИ В Board
+     * Возвращает предполагаемый вериант хода.
+     * @param dist - ячейка на которой следует закончить ход.
+     * @return - ячейки хода.
+     */
+    public Cell[] getWay(Cell cell, Cell dist) {
+        return this.getWay(this.maxIndex, cell, dist);
+    }
+
+    /** ВЫНЕСТИ В Board
+     * Возвращает предполагаемый вериант хода.
+     * @param maxNumberSteps - максимальное кол-во шагов которое можно сделать
+     * @param cell - ячейка на которой следует закончить ход
+     * @param dist - ячейка на которой следует закончить ход
+     * @return - ячейки хода.
+     */
+    public Cell[] getWay(int maxNumberSteps, Cell cell, Cell dist) {
+        Cell[] cells = new Cell[this.numberFidures];
+        int indexCells = 0;
+        int indexHorisontal = cell.getHorisontal();
+        int indexVertical = cell.getVertical();
+        while (true) {
+            // направление движения
+            indexHorisontal += getDirection(cell, dist)[0];
+            indexVertical += getDirection(cell, dist)[1];
+            // когда фигура дойдет до конца поля или превысит максимальное кол-во шагов
+            if ((indexHorisontal > this.maxIndex) || (indexVertical > this.maxIndex) || (indexHorisontal < this.minIndex) || (indexVertical < this.minIndex) || (maxNumberSteps < indexCells)) {
+                break;
+            }
+            cells[indexCells] = new Cell(indexHorisontal, indexVertical);
+            // когда встретит ячейку
+            if (dist.equalsCell(new Cell(indexHorisontal, indexVertical))) {
+                break;
+            }
+            indexCells++;
+        }
+        return cells;
+    }
+
+    /** ВЫНЕСТИ В Board
+     * Возвращает направление хода.
+     * @param dist - ячейка на которую следует сходить.
+     * @return - направление. Массив из двух цифр. Первая это направление по горизонтали. Вторая это направление по вертикали.
+     * |-1, 1|0, 1|1, 1|
+     * |-1, 0|0, 0|1, 0|
+     * |-1,-1|0,-1|1,-1|
+     */
+    public int[] getDirection(Cell cell, Cell dist) {
+        int[] direction = new int[2];
+
+        final int indexHorisontal = 0;
+        final int indexVertical = 1;
+
+        final int stepHorisontal = dist.getHorisontal() - cell.getHorisontal();
+        final int stepVertical = dist.getVertical() - cell.getVertical();
+        // направление по горизонтали
+        if (stepHorisontal > 0) {
+            direction[indexHorisontal] = 1;
+        } else if (stepHorisontal < 0) {
+            direction[indexHorisontal] = -1;
+        } else {
+            direction[indexHorisontal] = 0;
+        }
+        // направление по вертикали
+        if (stepVertical > 0) {
+            direction[indexVertical] = 1;
+        } else if (stepVertical < 0) {
+            direction[indexVertical] = -1;
+        } else {
+            direction[indexVertical] = 0;
+        }
+        return direction;
+    }
+
+
+
 }

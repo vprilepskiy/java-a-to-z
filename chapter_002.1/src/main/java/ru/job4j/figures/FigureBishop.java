@@ -1,5 +1,6 @@
 package ru.job4j.figures;
 
+import ru.job4j.actions.Board;
 import ru.job4j.actions.Cell;
 import ru.job4j.exceptions.ImpossibleMoveException;
 
@@ -30,9 +31,9 @@ public class FigureBishop extends Figure {
         // направления по диаганалям
         final int[][] directions = {{1, 1}, {-1, -1}, {-1, 1}, {1, -1}};
         // если направление верное
-        if (validateDirect(directions, dist)) {
+        if (new Board().validateDirect(directions, super.getPosition(), dist)) {
             // получить предполагаемый вариант хода
-            cells = super.move(dist);
+            cells = new Board().getWay(this.getPosition(), dist);
         } else {
             throw new ImpossibleMoveException("Слон ходит по диаганалям, а не по прямым!");
         }
