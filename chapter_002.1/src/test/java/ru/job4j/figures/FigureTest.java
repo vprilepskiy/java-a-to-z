@@ -14,6 +14,9 @@ import static org.junit.Assert.assertFalse;
  */
 public class FigureTest {
 
+    /**
+     * Доска.
+     */
     private Board board = new Board();
 
     /**
