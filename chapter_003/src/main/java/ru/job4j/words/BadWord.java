@@ -15,14 +15,20 @@ public class BadWord implements IBadWord {
     public void dropAbuses(InputStream in, OutputStream out, String[] abuse) {
         InputStreamReader isr = new InputStreamReader(in);
         BufferedReader br = new BufferedReader(isr);
-        String line = null;
+        StringBuilder stringBuilder = new StringBuilder();
         String newLine = "";
+        String line;
         try {
             while ((line = br.readLine()) != null) {
-                line = deleteBadWords(line, abuse);
-                line = newLine + line;
-                out.write(line.getBytes());
+                // записать перенос строки
+                stringBuilder.append(newLine);
+                // записать исправленную строку
+                stringBuilder.append(deleteBadWords(line, abuse));
+                // отослать в поток
+                out.write(stringBuilder.toString().getBytes());
                 newLine = "\n";
+                // очистить
+                stringBuilder.delete(0, stringBuilder.length());
             }
         } catch (IOException e) {
             e.printStackTrace();
