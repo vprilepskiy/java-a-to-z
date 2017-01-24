@@ -45,13 +45,6 @@ public class Board {
      */
     private int figuresIndex = 0;
 
-//    /**
-//     * Конструктор.
-//     */
-//    public Board() {
-//        this.addAllFigure();
-//    }
-
     /**
      * Выполняет движение фигуры.
      * @param source - ячейка на которой находится вигура.
@@ -217,7 +210,4 @@ public class Board {
         }
         return direction;
     }
-
-
-
 }
