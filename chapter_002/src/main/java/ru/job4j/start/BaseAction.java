@@ -19,6 +19,8 @@ public abstract class BaseAction implements UserAction {
 
     /**
      * Конструктор.
+     * @param name - Название метода.
+     * @param actions - Действия.
      */
     public BaseAction(String name, UserAction[] actions) {
         this.name = name;

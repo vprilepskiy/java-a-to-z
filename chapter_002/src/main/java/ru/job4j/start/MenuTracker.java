@@ -25,9 +25,13 @@ public class MenuTracker {
      */
     private Tracker tracker;
     /**
+     * Кол-во действий.
+     */
+    private final int numberActions = 9;
+    /**
      * Действие.
      */
-    private UserAction[] actions = new UserAction[9];
+    private UserAction[] actions = new UserAction[numberActions];
     /**
      * Номер свободной ячейки для объекта UserAction в меню.
      */
@@ -35,6 +39,10 @@ public class MenuTracker {
 
     /**
      * Конструктор.
+     *
+     * @param input   - метод ввода.
+     * @param output  - метод вывода.
+     * @param tracker - трекер.
      */
     public MenuTracker(Input input, Output output, Tracker tracker) {
         this.input = input;
@@ -44,6 +52,7 @@ public class MenuTracker {
 
     /**
      * Добавляет в массив действия.
+     *
      * @param action - действие.
      */
     public void addAction(UserAction action) {
@@ -52,6 +61,7 @@ public class MenuTracker {
 
     /**
      * Добавляет в массив действия и возвращает их rang.
+     *
      * @return - массив доступных меню.
      */
     public int[] fillActions() {
@@ -77,6 +87,7 @@ public class MenuTracker {
 
     /**
      * Выполнить действие по номеру массива.
+     *
      * @param key - элемент массива.
      */
     public void select(int key) {
@@ -96,10 +107,11 @@ public class MenuTracker {
 
     /**
      * Вернет массив доступных элементов в Tracker.
+     *
      * @param tracker - Tracker.
      * @return - массив доступных элементов.
      */
-    public int[] getRang(Tracker tracker) {
+    private int[] getRang(Tracker tracker) {
         Item[] items = tracker.getAll();
         int index = 0;
         for (Item item : items) {
@@ -107,7 +119,7 @@ public class MenuTracker {
                 index++;
             }
         }
-        int rang[] = new int[index];
+        int[] rang = new int[index];
         index = 0;
         int indexItem = 0;
         for (Item item : items) {
@@ -124,8 +136,12 @@ public class MenuTracker {
      * Внутренний класс. Добавить запись.
      */
     private class AddItem extends BaseAction {
-
-        public AddItem(String name, UserAction[] actions) {
+        /**
+         * Добавть заявку.
+         * @param name - название метода.
+         * @param actions - действие.
+         */
+        private AddItem(String name, UserAction[] actions) {
             super(name, actions);
         }
 
@@ -136,39 +152,19 @@ public class MenuTracker {
             tracker.add(new Task(name, desc));
         }
     }
-    // private class AddItem implements UserAction {
-    // @Override
-    // public int key() {
-    // int key = -1;
-    // int index = 0;
-    // for(UserAction userAction : actions) {
-    // if (userAction != null && userAction == this) {
-    // key = index;
-    // }
-    // index++;
-    // }
-    // return key;
-    // }
-    // @Override
-    // public void execute(Input input, Output output, Tracker tracker) {
-    // // задали вопрос, получили ответ
-    // String name = input.ask("Please enter the task's name: ");
-    // String desc = input.ask("Please enter the task's description: ");
-    //// // записали ответ в Tracker
-    // tracker.add(new Task(name, desc));
-    // }
-    // @Override
-    // public String info() {
-    // return String.format("%s. %s", this.key(), "Add the new item.");
-    // }
-    // }
+
 
     /**
      * Внутренний класс. Показать все заявки.
      */
     private class ShowItems extends BaseAction {
 
-        public ShowItems(String name, UserAction[] actions) {
+        /**
+         * Показать заявку.
+         * @param name - название метода.
+         * @param actions - действие.
+         */
+        private ShowItems(String name, UserAction[] actions) {
             super(name, actions);
         }
 
@@ -177,35 +173,19 @@ public class MenuTracker {
             output.answer(tracker.getAll());
         }
     }
-    // private class ShowItems implements UserAction {
-    // @Override
-    // public int key() {
-    // int key = -1;
-    // int index = 0;
-    // for(UserAction userAction : actions) {
-    // if (userAction != null && userAction == this) {
-    // key = index;
-    // }
-    // index++;
-    // }
-    // return key;
-    // }
-    // @Override
-    // public void execute(Input input, Output output, Tracker tracker) {
-    // output.answer(tracker.getAll());
-    // }
-    // @Override
-    // public String info() {
-    // return String.format("%s. %s", this.key(), "Show all items.");
-    // }
-    // }
+
 
     /**
      * Внутренний класс. Редактировать.
      */
     private class EditItem extends BaseAction {
 
-        public EditItem(String name, UserAction[] actions) {
+        /**
+         * Резактировать заявку.
+         * @param name - название метода.
+         * @param actions - действие.
+         */
+        private EditItem(String name, UserAction[] actions) {
             super(name, actions);
         }
 
@@ -221,45 +201,18 @@ public class MenuTracker {
             tracker.update(task);
         }
     }
-    // private class EditItem implements UserAction {
-    // @Override
-    // public int key() {
-    // int key = -1;
-    // int index = 0;
-    // for(UserAction userAction : actions) {
-    // if (userAction != null && userAction == this) {
-    // key = index;
-    // }
-    // index++;
-    // }
-    // return key;
-    // }
-    // @Override
-    // public void execute(Input input, Output output, Tracker tracker) {
-    // // задали вопрос, получили ответ
-    // int[] range = getRang(tracker);
-    // int index = input.ask("Please enter the number task: ", range);
-    // String id = tracker.getAll()[index].getId();
-    // String name = input.ask("Please enter the task's name: ");
-    // String desc = input.ask("Please enter the task's description: ");
-    // Task task = new Task(name, desc);
-    // task.setId(id);
-    // tracker.update(task);
-    // // записали ответ в Tracker
-    // tracker.update(task);
-    // }
-    // @Override
-    // public String info() {
-    // return String.format("%s. %s", this.key(), "Edit item.");
-    // }
-    // }
 
     /**
      * Внутренний класс. Найти по имени.
      */
     private class FindByName extends BaseAction {
 
-        public FindByName(String name, UserAction[] actions) {
+        /**
+         * Найти заявку.
+         * @param name - название метода.
+         * @param actions - действие.
+         */
+        private FindByName(String name, UserAction[] actions) {
             super(name, actions);
         }
 
@@ -269,36 +222,18 @@ public class MenuTracker {
             output.answer(tracker.findByName(name));
         }
     }
-    // private class FindByName implements UserAction {
-    // @Override
-    // public int key() {
-    // int key = -1;
-    // int index = 0;
-    // for(UserAction userAction : actions) {
-    // if (userAction != null && userAction == this) {
-    // key = index;
-    // }
-    // index++;
-    // }
-    // return key;
-    // }
-    // @Override
-    // public void execute(Input input, Output output, Tracker tracker) {
-    // String name = input.ask("Please enter the task's name: ");
-    // output.answer(tracker.findByName(name));
-    // }
-    // @Override
-    // public String info() {
-    // return String.format("%s. %s", this.key(), "Find By Name.");
-    // }
-    // }
 
     /**
      * Внутренний класс. Найти по описанию.
      */
     private class FindByDesc extends BaseAction {
 
-        public FindByDesc(String name, UserAction[] actions) {
+        /**
+         * Найти заявку.
+         * @param name - название метода.
+         * @param actions - действие.
+         */
+        private FindByDesc(String name, UserAction[] actions) {
             super(name, actions);
         }
 
@@ -307,40 +242,19 @@ public class MenuTracker {
             String desc = input.ask("Please enter the task's desc: ");
             output.answer(tracker.findByDescription(desc));
         }
-
     }
-    // private class FindByDesc implements UserAction {
-    // @Override
-    // public int key() {
-    // int key = -1;
-    // int index = 0;
-    // for (UserAction userAction : actions) {
-    // if (userAction != null && userAction == this) {
-    // key = index;
-    // }
-    // index++;
-    // }
-    // return key;
-    // }
-    //
-    // @Override
-    // public void execute(Input input, Output output, Tracker tracker) {
-    // String desc = input.ask("Please enter the task's desc: ");
-    // output.answer(tracker.findByDescription(desc));
-    // }
-    //
-    // @Override
-    // public String info() {
-    // return String.format("%s. %s", this.key(), "Find By Description.");
-    // }
-    // }
 
     /**
      * Внутренний класс. Найти времени создания.
      */
     private class FindByCreate extends BaseAction {
 
-        public FindByCreate(String name, UserAction[] actions) {
+        /**
+         * Найти заявку.
+         * @param name - название метода.
+         * @param actions - действие.
+         */
+        private FindByCreate(String name, UserAction[] actions) {
             super(name, actions);
         }
 
@@ -350,38 +264,18 @@ public class MenuTracker {
             output.answer(tracker.findByCreate(Long.parseLong(create)));
         }
     }
-    // private class FindByCreate implements UserAction {
-    // @Override
-    // public int key() {
-    // int key = -1;
-    // int index = 0;
-    // for (UserAction userAction : actions) {
-    // if (userAction != null && userAction == this) {
-    // key = index;
-    // }
-    // index++;
-    // }
-    // return key;
-    // }
-    //
-    // @Override
-    // public void execute(Input input, Output output, Tracker tracker) {
-    // String create = input.ask("Please enter the task's create: ");
-    // output.answer(tracker.findByCreate(Long.parseLong(create)));
-    // }
-    //
-    // @Override
-    // public String info() {
-    // return String.format("%s. %s", this.key(), "Find By Create.");
-    // }
-    // }
 
     /**
      * Внутренний класс. Удалить запись.
      */
     private class Delete extends BaseAction {
 
-        public Delete(String name, UserAction[] actions) {
+        /**
+         * Удалит заявку.
+         * @param name - название метода.
+         * @param actions - действие.
+         */
+        private Delete(String name, UserAction[] actions) {
             super(name, actions);
         }
 
@@ -392,39 +286,18 @@ public class MenuTracker {
             tracker.del(tracker.getAll()[index]);
         }
     }
-    // private class Delete implements UserAction {
-    // @Override
-    // public int key() {
-    // int key = -1;
-    // int index = 0;
-    // for (UserAction userAction : actions) {
-    // if (userAction != null && userAction == this) {
-    // key = index;
-    // }
-    // index++;
-    // }
-    // return key;
-    // }
-    //
-    // @Override
-    // public void execute(Input input, Output output, Tracker tracker) {
-    // int[] range = getRang(tracker);
-    // int index = input.ask("Please enter the number task: ", range);
-    // tracker.del(tracker.getAll()[index]);
-    // }
-    //
-    // @Override
-    // public String info() {
-    // return String.format("%s. %s", this.key(), "Delete item.");
-    // }
-    // }
 
     /**
-     * Внутренний класс. Найти по описанию.
+     * Внутренний класс. Добавить коментарии.
      */
     private class AddComens extends BaseAction {
 
-        public AddComens(String name, UserAction[] actions) {
+        /**
+         * Добавить коментарии.
+         * @param name - название метода.
+         * @param actions - действие.
+         */
+        private AddComens(String name, UserAction[] actions) {
             super(name, actions);
         }
 
@@ -435,31 +308,4 @@ public class MenuTracker {
             tracker.addComment(tracker.getAll()[index], comment);
         }
     }
-    // private class AddComens implements UserAction {
-    // @Override
-    // public int key() {
-    // int key = -1;
-    // int index = 0;
-    // for (UserAction userAction : actions) {
-    // if (userAction != null && userAction == this) {
-    // key = index;
-    // }
-    // index++;
-    // }
-    // return key;
-    // }
-    //
-    // @Override
-    // public void execute(Input input, Output output, Tracker tracker) {
-    // int index = Integer.parseInt(input.ask("Please enter the number task:
-    // "));
-    // String comment = input.ask("Please enter comment: ");
-    // tracker.addComment(tracker.getAll()[index], comment);
-    // }
-    //
-    // @Override
-    // public String info() {
-    // return String.format("%s. %s", this.key(), "Add Comens.");
-    // }
-    // }
 }
