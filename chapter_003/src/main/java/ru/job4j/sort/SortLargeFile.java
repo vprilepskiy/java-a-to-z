@@ -13,6 +13,7 @@ public class SortLargeFile {
 
     /**
      * Конструктор.
+     *
      * @param path
      * @throws FileNotFoundException
      */
@@ -21,6 +22,11 @@ public class SortLargeFile {
         this.bufferedInputStream = new BufferedInputStream(this.fileInputStream);
     }
 
+    /**
+     * Конструктор.
+     */
+    public SortLargeFile() {
+    }
 
 
 //    public void sort(File source, File distance) {
@@ -30,19 +36,20 @@ public class SortLargeFile {
     private long bytePosition;
 
     // прочитано до конца.
-    private boolean readToEnd;
+    public boolean readToEnd;
 
     /**
      * Метод считывает файл побайтово.
+     *
      * @return - массив элементов
      * @throws IOException
      */
-    public long[][] countStringLengthsAndIndexesPosition() throws IOException {
+    public long[][] countStringLengthsAndIndexesPosition(final int sizeArray) throws IOException {
 
-        // кол-во строк в массиве
-        final int sizeArray = 1024 * 100;
+//        // кол-во строк в массиве
+//        final int sizeArray = 1024 * 100;
 
-        // массив содержит {номер байта начало строки; динна строки}
+        // массив содержит {динна строки; номер байта начало строки}
         long[][] array = new long[sizeArray][2];
 
         // байт
@@ -58,8 +65,8 @@ public class SortLargeFile {
             stringLength++;
             if (((char) oneByte == '\n') || (oneByte == -1)) {
 
-                array[countString][0] = this.bytePosition - stringLength;
-                array[countString][1] = stringLength;
+                array[countString][0] = stringLength;
+                array[countString][1] = this.bytePosition - stringLength;
 
                 stringLength = 0;
                 countString++;
@@ -88,10 +95,11 @@ public class SortLargeFile {
 
     /**
      * Сортирует двумерный массив мотодом пузырька.
+     *
      * @param array - массив.
      */
     public void bubbleSort(long[][] array) {
-        final int columnNumber = 1;
+        final int columnNumber = 0;
         long[] left = new long[array[0].length];
         long[] right = new long[array[0].length];
         boolean again = true;
@@ -116,7 +124,7 @@ public class SortLargeFile {
     }
 
 
-    public void writeFileAndCleanArray(long[][] arr, String pathFile) throws IOException {
+    public void writeFileFromArray(long[][] arr, String pathFile) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         FileWriter fileWriter = new FileWriter(pathFile);
         for (long[] el : arr) {
