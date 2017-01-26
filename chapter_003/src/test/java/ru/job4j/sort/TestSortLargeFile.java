@@ -53,7 +53,7 @@ public class TestSortLargeFile {
         result[8][1] = 159;
 
 
-        new SortLargeFile().bubbleSort(arr);
+        new Mapping().bubbleSort(arr);
 
         Assert.assertThat(arr, Is.is(result));
 
@@ -69,7 +69,7 @@ public class TestSortLargeFile {
 
     @Test
     public void testCountStringLengthsAndIndexesPosition() throws IOException {
-        SortLargeFile sortLargeFile = new SortLargeFile("C:\\projects\\vprilepskiy\\chapter_003\\pom.xml");
+        Mapping sortLargeFile = new Mapping("C:\\projects\\vprilepskiy\\chapter_003\\pom.xml");
         long[][] arr1 = sortLargeFile.countStringLengthsAndIndexesPosition(8);
 
         for (int i = 0; i < arr1.length; i++) {

@@ -6,7 +6,26 @@ import java.util.ArrayList;
 /**
  * Created by VLADIMIR on 17.01.2017.
  */
-public class SortLargeFile {
+public class Mapping {
+
+    private String[] fileNames = new String[1024];
+
+    /**
+     * Метод создает временные файлы содержащие информацию о длинне строки и индексах.
+     * @throws IOException
+     */
+    public void generateFilesIndex() throws IOException {
+        int index = 0;
+        do{
+            int sizeArray = 8;
+            long[][] lengthsAndIndexes = this.countStringLengthsAndIndexesPosition(sizeArray);
+            this.bubbleSort(lengthsAndIndexes);
+            String pathToSaveFile = "C:\\Temp\\0_" + index;
+            this.writeFileFromArray(lengthsAndIndexes, pathToSaveFile);
+            this.fileNames[index] = pathToSaveFile;
+            index++;
+        }while (!(this.readToEnd));
+    }
 
     private FileInputStream fileInputStream;
     private BufferedInputStream bufferedInputStream;
@@ -17,7 +36,7 @@ public class SortLargeFile {
      * @param path
      * @throws FileNotFoundException
      */
-    public SortLargeFile(String path) throws FileNotFoundException {
+    public Mapping(String path) throws FileNotFoundException {
         this.fileInputStream = new FileInputStream(path);
         this.bufferedInputStream = new BufferedInputStream(this.fileInputStream);
     }
@@ -25,7 +44,7 @@ public class SortLargeFile {
     /**
      * Конструктор.
      */
-    public SortLargeFile() {
+    public Mapping() {
     }
 
     // номер байта начала строки
