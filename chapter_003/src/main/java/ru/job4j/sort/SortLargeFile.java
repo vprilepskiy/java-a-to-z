@@ -110,13 +110,12 @@ public class SortLargeFile {
         }
     }
 
-
     public void writeFileFromArray(long[][] lengthsAndIndexes, String pathToSaveFile) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         FileWriter fileWriter = new FileWriter(pathToSaveFile);
-        for (long[] el : lengthsAndIndexes) {
-            if (((el[0] != 0)) || (el[1] != 0)) {
-                stringBuilder.append(el[0] + " " + el[1]);
+        for (long[] longs : lengthsAndIndexes) {
+            if (((longs[0] != 0)) || (longs[1] != 0)) {
+                stringBuilder.append(longs[0] + " " + longs[1]);
                 stringBuilder.append('\n');
             }
         }
@@ -124,5 +123,4 @@ public class SortLargeFile {
         fileWriter.flush();
         fileWriter.close();
     }
-    
 }
