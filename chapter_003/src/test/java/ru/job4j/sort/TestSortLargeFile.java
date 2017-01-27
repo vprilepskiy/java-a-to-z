@@ -15,7 +15,6 @@ public class TestSortLargeFile {
     @Test
     public void testBubbleSort() {
         long[][] arr = new long[9][2];
-
         arr[0][0] = 2;
         arr[0][1] = 152;
         arr[1][0] = 8;
@@ -32,7 +31,6 @@ public class TestSortLargeFile {
         arr[6][1] = 258;
 
         long[][] result = new long[9][2];
-
         result[0][0] = 0;
         result[0][1] = 0;
         result[1][0] = 0;
@@ -52,7 +50,6 @@ public class TestSortLargeFile {
         result[8][0] = 9;
         result[8][1] = 159;
 
-
         new Mapping().bubbleSort(arr);
 
         Assert.assertThat(arr, Is.is(result));
@@ -63,34 +60,17 @@ public class TestSortLargeFile {
 //            }
 //            System.out.println();
 //        }
-
-
     }
 
-    @Test
-    public void testCountStringLengthsAndIndexesPosition() throws IOException {
-        Mapping sortLargeFile = new Mapping("C:\\projects\\vprilepskiy\\chapter_003\\pom.xml");
-        long[][] arr1 = sortLargeFile.countStringLengthsAndIndexesPosition(8);
 
-        for (int i = 0; i < arr1.length; i++) {
-            for (int j = 0; j < arr1[i].length; j++) {
-                System.out.print(arr1[i][j] + "; ");
-            }
-            System.out.println();
-        }
 
-        System.out.println(sortLargeFile.readToEnd);
 
-        long[][] arr2 = sortLargeFile.countStringLengthsAndIndexesPosition(8);
 
-        for (int i = 0; i < arr2.length; i++) {
-            for (int j = 0; j < arr2[i].length; j++) {
-                System.out.print(arr2[i][j] + "; ");
-            }
-            System.out.println();
-        }
-
-        System.out.println(sortLargeFile.readToEnd);
+    public static void main(String[] a){
+        System.out.println(System.getProperty("user.home"));
+        System.out.println(System.getProperty("user.dir") + "\\TestFileForSort.txt");
+        System.out.println(System.getProperty("java.io.tmpdir"));
+        System.out.println(System.getProperty("file.separator"));
     }
 }
 

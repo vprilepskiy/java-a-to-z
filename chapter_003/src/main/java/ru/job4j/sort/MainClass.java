@@ -10,7 +10,7 @@ public class MainClass {
 
 
     public static void main(String[] a) throws IOException {
-        new Mapping().generateFilesIndex();
+  //      new Mapping().generateFilesIndex();
     }
 
 }

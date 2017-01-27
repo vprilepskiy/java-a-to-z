@@ -8,99 +8,29 @@ import java.util.ArrayList;
  */
 public class Mapping {
 
-    private String[] fileNames = new String[1024];
+    public String[] fileNames = new String[1024];
+//
+//    /**
+//     * Метод создает временные файлы содержащие информацию о длинне строки и индексах.
+//     *
+//     * @throws IOException
+//     */
+//    public void generateFilesIndex() throws IOException {
+//        int index = 0;
+//        do {
+//            int sizeArray = 8;
+//            long[][] lengthsAndIndexes = this.countStringLengthsAndIndexesPosition(sizeArray);
+//            this.bubbleSort(lengthsAndIndexes);
+//            String pathToSaveFile = "C:\\Temp\\0tmp" + index;
+//            this.writeFileFromArray(lengthsAndIndexes, pathToSaveFile);
+//            this.fileNames[index] = pathToSaveFile;
+//            index++;
+//        } while (!(this.readToEnd));
+//    }
+
 
     /**
-     * Метод создает временные файлы содержащие информацию о длинне строки и индексах.
-     * @throws IOException
-     */
-    public void generateFilesIndex() throws IOException {
-        int index = 0;
-        do{
-            int sizeArray = 8;
-            long[][] lengthsAndIndexes = this.countStringLengthsAndIndexesPosition(sizeArray);
-            this.bubbleSort(lengthsAndIndexes);
-            String pathToSaveFile = "C:\\Temp\\0_" + index;
-            this.writeFileFromArray(lengthsAndIndexes, pathToSaveFile);
-            this.fileNames[index] = pathToSaveFile;
-            index++;
-        }while (!(this.readToEnd));
-    }
-
-    private FileInputStream fileInputStream;
-    private BufferedInputStream bufferedInputStream;
-
-    /**
-     * Конструктор.
-     *
-     * @param path
-     * @throws FileNotFoundException
-     */
-    public Mapping(String path) throws FileNotFoundException {
-        this.fileInputStream = new FileInputStream(path);
-        this.bufferedInputStream = new BufferedInputStream(this.fileInputStream);
-    }
-
-    /**
-     * Конструктор.
-     */
-    public Mapping() {
-    }
-
-    // номер байта начала строки
-    private long bytePosition;
-
-    // прочитано до конца.
-    public boolean readToEnd;
-
-    /**
-     * Метод считывает файл побайтово.
-     *
-     * @return - массив элементов
-     * @throws IOException
-     */
-    public long[][] countStringLengthsAndIndexesPosition(final int sizeArray) throws IOException {
-
-//        // кол-во строк в массиве
-//        final int sizeArray = 1024 * 100;
-
-        // массив содержит {динна строки; номер байта начало строки}
-        long[][] lengthsAndIndexes = new long[sizeArray][2];
-
-        // байт
-        int oneByte = 0;
-        // динна строки
-        long stringLength = 0;
-        // счетчик строк
-        int countString = 0;
-
-        while (true) {
-            oneByte = this.bufferedInputStream.read();
-            this.bytePosition++;
-            stringLength++;
-            if (((char) oneByte == '\n') || (oneByte == -1)) {
-
-                lengthsAndIndexes[countString][0] = stringLength;
-                lengthsAndIndexes[countString][1] = this.bytePosition - stringLength;
-
-                stringLength = 0;
-                countString++;
-                // если конец файла
-                if (oneByte == -1) {
-                    this.readToEnd = true;
-                    break;
-                }
-            }
-            // если массив заполнится
-            if (countString >= sizeArray) {
-                break;
-            }
-        }
-        return lengthsAndIndexes;
-    }
-
-    /**
-     * Сортирует двумерный массив мотодом пузырька.
+     * Сортирует двумерный массив мотодом пузырька. TEST OK.
      *
      * @param lengthsAndIndexes - массив.
      */
@@ -129,17 +59,171 @@ public class Mapping {
         }
     }
 
-    public void writeFileFromArray(long[][] lengthsAndIndexes, String pathToSaveFile) throws IOException {
+     /**
+     * Производит запись данных из массива в файл.
+     * @param lengthsAndIndexes
+     * @param pathToSaveFile
+     */
+    public void writeFileFromArray(long[][] lengthsAndIndexes, String pathToSaveFile) {
         StringBuilder stringBuilder = new StringBuilder();
-        FileWriter fileWriter = new FileWriter(pathToSaveFile);
-        for (long[] longs : lengthsAndIndexes) {
-            if (((longs[0] != 0)) || (longs[1] != 0)) {
-                stringBuilder.append(longs[0] + " " + longs[1]);
-                stringBuilder.append('\n');
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(pathToSaveFile);
+
+            for (long[] longs : lengthsAndIndexes) {
+                if (((longs[0] != 0)) || (longs[1] != 0)) {
+                    stringBuilder.append(longs[0] + " " + longs[1]);
+                    stringBuilder.append('\n');
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fileWriter.append(stringBuilder.toString());
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                /*NONE*/
             }
         }
-        fileWriter.append(stringBuilder.toString());
-        fileWriter.flush();
-        fileWriter.close();
+
     }
+
+
+    /**
+     * Перебирает попарно элементы массива (пути к файлам).
+     * Передает в метод три переменные (2 пути к файлам для слияния) + (1 путь к файлу с результатом).
+     * Выполняется пока не останется один файл.
+     *
+     * @return - путь к файлу после слияния.
+     */
+    public String dualUnionElementsOfArray() {
+        this.fileNames = new String[]{"0tmp0"};
+
+        boolean again = true;
+        String pathFirstFile = null;
+        String pathSecondFile = null;
+        int countLoop = 1;
+
+        while (again) {
+            again = false;
+            for (int index = 0; index < this.fileNames.length; index++) {
+                // получаем первую переменную и в массив передаем null
+                if (pathFirstFile == null) {
+                    if (this.fileNames[index] != null) {
+                        pathFirstFile = this.fileNames[index];
+                        this.fileNames[index] = null;
+                    }
+                    // получаем вторую переменную и в массив передаем null
+                } else {
+                    if (this.fileNames[index] != null) {
+                        pathSecondFile = this.fileNames[index];
+                        this.fileNames[index] = null;
+                    }
+                }
+                // если обе переменные заполнены
+                if ((pathFirstFile != null) && (pathSecondFile != null)) {
+                    // передаем в массив новое значение
+                    // вызываем метод mergeFiles();
+                    // merge.mergeFiles(pathFirstFile, pathSecondFile, newFileName);
+                    this.fileNames[index] = countLoop + "tmp" + pathSecondFile.split("tmp")[1];
+                    pathFirstFile = null;
+                    pathSecondFile = null;
+                    again = true;
+                }
+                // если дошли до конца а пары не найдено, то записать в последнюю
+                if ((index == this.fileNames.length - 1) && (pathFirstFile != null) && (pathSecondFile == null)) {
+                    this.fileNames[index] = pathFirstFile;
+                    pathFirstFile = null;
+                }
+            }
+            for (String s : this.fileNames) {
+                System.out.println(s);
+            }
+            System.out.println("********************" + countLoop);
+            countLoop++;
+        }
+        return this.fileNames[this.fileNames.length - 1];
+    }
+
+    /**
+     * Выполняет слияние двух отсортированных файлов в один.
+     *
+     * @param pathFirstFile  - путь к первому файлу с индексами.
+     * @param pathSecondFile - путь ко второму файлу с индексами.
+     * @param pathResultFile - путь к готовому файлу.
+     */
+    public void mergeFiles(String pathFirstFile, String pathSecondFile, String pathResultFile) {
+        FileReader firstReader = null;
+        FileReader secondReader = null;
+        BufferedReader firstBufferedReader = null;
+        BufferedReader secondBufferedReader = null;
+        FileWriter fileWriter = null;
+
+        try {
+            firstReader = new FileReader(pathFirstFile);
+            firstBufferedReader = new BufferedReader(firstReader);
+            secondReader = new FileReader(pathSecondFile);
+            secondBufferedReader = new BufferedReader(secondReader);
+            fileWriter = new FileWriter(pathResultFile);
+
+            boolean again = true;
+
+            while (again) {
+                String stringA = firstBufferedReader.readLine();
+                String stringB = secondBufferedReader.readLine();
+                // если считались обе строки
+                if ((stringA != null) && (stringB != null)) {
+                    // если А меньше Б
+                    if ((Long.parseLong(stringA.split(" ")[0])) < (Long.parseLong(stringB.split(" ")[0]))) {
+                        // добавить А
+                        fileWriter.append(stringA);
+                        fileWriter.append('\n');
+                        // если Б меньше А
+                    } else if ((Long.parseLong(stringB.split(" ")[0])) < (Long.parseLong(stringA.split(" ")[0]))) {
+                        // добавить Б
+                        fileWriter.append(stringB);
+                        fileWriter.append('\n');
+                        // если А равно Б
+                    } else {
+                        // добавить А и Б
+                        fileWriter.append(stringA);
+                        fileWriter.append('\n');
+                        fileWriter.append(stringB);
+                        fileWriter.append('\n');
+                    }
+                    // если считалась только стокаА
+                } else if ((stringA != null) && (stringB == null)) {
+                    // добавить А
+                    fileWriter.append(stringA);
+                    fileWriter.append('\n');
+                    // если считалась только стокаБ
+                } else if ((stringA == null) && (stringB != null)) {
+                    // добавить Б
+                    fileWriter.append(stringB);
+                    fileWriter.append('\n');
+                } else {
+                    again = false;
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fileWriter.flush();
+                fileWriter.close();
+                firstReader.close();
+                secondReader.close();
+                firstBufferedReader.close();
+                secondBufferedReader.close();
+            } catch (IOException e) {
+                /*NONE*/
+            }
+        }
+    }
+
 }
