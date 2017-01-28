@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Mapping {
 
-    public String[] fileNames = new String[1024];
+//    public String[] fileNames = new String[1024];
 //
 //    /**
 //     * Метод создает временные файлы содержащие информацию о длинне строки и индексах.
@@ -59,10 +59,12 @@ public class Mapping {
         }
     }
 
+
+
      /**
-     * Производит запись данных из массива в файл.
-     * @param lengthsAndIndexes
-     * @param pathToSaveFile
+     * Производит запись данных из массива в файл. TEST OK.
+     * @param lengthsAndIndexes - массив для записи в файл.
+     * @param pathToSaveFile -
      */
     public void writeFileFromArray(long[][] lengthsAndIndexes, String pathToSaveFile) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -71,6 +73,7 @@ public class Mapping {
             fileWriter = new FileWriter(pathToSaveFile);
 
             for (long[] longs : lengthsAndIndexes) {
+                // не писать если {0, 0}.
                 if (((longs[0] != 0)) || (longs[1] != 0)) {
                     stringBuilder.append(longs[0] + " " + longs[1]);
                     stringBuilder.append('\n');
@@ -87,19 +90,18 @@ public class Mapping {
                 /*NONE*/
             }
         }
-
     }
 
 
+
     /**
-     * Перебирает попарно элементы массива (пути к файлам).
+     * Перебирает попарно элементы массива (пути к файлам). TEST OK.
      * Передает в метод три переменные (2 пути к файлам для слияния) + (1 путь к файлу с результатом).
      * Выполняется пока не останется один файл.
-     *
+     * @param pathFilesForMerged - массив путей к файлам для слияния.
      * @return - путь к файлу после слияния.
      */
-    public String dualUnionElementsOfArray() {
-        this.fileNames = new String[]{"0tmp0"};
+    public String dualUnionElementsOfArray(String[] pathFilesForMerged) {
 
         boolean again = true;
         String pathFirstFile = null;
@@ -108,47 +110,50 @@ public class Mapping {
 
         while (again) {
             again = false;
-            for (int index = 0; index < this.fileNames.length; index++) {
+            for (int index = 0; index < pathFilesForMerged.length; index++) {
                 // получаем первую переменную и в массив передаем null
                 if (pathFirstFile == null) {
-                    if (this.fileNames[index] != null) {
-                        pathFirstFile = this.fileNames[index];
-                        this.fileNames[index] = null;
+                    if (pathFilesForMerged[index] != null) {
+                        pathFirstFile = pathFilesForMerged[index];
+                        pathFilesForMerged[index] = null;
                     }
                     // получаем вторую переменную и в массив передаем null
                 } else {
-                    if (this.fileNames[index] != null) {
-                        pathSecondFile = this.fileNames[index];
-                        this.fileNames[index] = null;
+                    if (pathFilesForMerged[index] != null) {
+                        pathSecondFile = pathFilesForMerged[index];
+                        pathFilesForMerged[index] = null;
                     }
                 }
                 // если обе переменные заполнены
                 if ((pathFirstFile != null) && (pathSecondFile != null)) {
                     // передаем в массив новое значение
                     // вызываем метод mergeFiles();
-                    // merge.mergeFiles(pathFirstFile, pathSecondFile, newFileName);
-                    this.fileNames[index] = countLoop + "tmp" + pathSecondFile.split("tmp")[1];
+                    String newFileName = System.getProperty("java.io.tmpdir") + "\\" + countLoop + "tmp" + pathSecondFile.split("tmp")[1];
+                    this.mergeFiles(pathFirstFile, pathSecondFile, newFileName);
+                    pathFilesForMerged[index] = newFileName;
                     pathFirstFile = null;
                     pathSecondFile = null;
                     again = true;
                 }
                 // если дошли до конца а пары не найдено, то записать в последнюю
-                if ((index == this.fileNames.length - 1) && (pathFirstFile != null) && (pathSecondFile == null)) {
-                    this.fileNames[index] = pathFirstFile;
+                if ((index == pathFilesForMerged.length - 1) && (pathFirstFile != null) && (pathSecondFile == null)) {
+                    pathFilesForMerged[index] = pathFirstFile;
                     pathFirstFile = null;
                 }
             }
-            for (String s : this.fileNames) {
-                System.out.println(s);
-            }
-            System.out.println("********************" + countLoop);
+//            for (String s : pathFilesForMerged) {
+//                System.out.println(s);
+//            }
+//            System.out.println("********************" + countLoop);
             countLoop++;
         }
-        return this.fileNames[this.fileNames.length - 1];
+        return pathFilesForMerged[pathFilesForMerged.length - 1];
     }
 
+
+
     /**
-     * Выполняет слияние двух отсортированных файлов в один.
+     * Выполняет слияние двух отсортированных файлов в один. TEST OK.
      *
      * @param pathFirstFile  - путь к первому файлу с индексами.
      * @param pathSecondFile - путь ко второму файлу с индексами.
@@ -169,10 +174,21 @@ public class Mapping {
             fileWriter = new FileWriter(pathResultFile);
 
             boolean again = true;
+            boolean readNextA = true;
+            boolean readNextB = true;
+            String stringA = null;
+            String stringB = null;
 
             while (again) {
-                String stringA = firstBufferedReader.readLine();
-                String stringB = secondBufferedReader.readLine();
+                if (readNextA) {
+                    stringA = firstBufferedReader.readLine();
+                    readNextA = false;
+                }
+                if (readNextB) {
+                    stringB = secondBufferedReader.readLine();
+                    readNextB = false;
+                }
+
                 // если считались обе строки
                 if ((stringA != null) && (stringB != null)) {
                     // если А меньше Б
@@ -180,29 +196,35 @@ public class Mapping {
                         // добавить А
                         fileWriter.append(stringA);
                         fileWriter.append('\n');
+                        readNextA = true;
                         // если Б меньше А
                     } else if ((Long.parseLong(stringB.split(" ")[0])) < (Long.parseLong(stringA.split(" ")[0]))) {
                         // добавить Б
                         fileWriter.append(stringB);
                         fileWriter.append('\n');
+                        readNextB = true;
                         // если А равно Б
                     } else {
                         // добавить А и Б
                         fileWriter.append(stringA);
                         fileWriter.append('\n');
+                        readNextA = true;
                         fileWriter.append(stringB);
                         fileWriter.append('\n');
+                        readNextB = true;
                     }
                     // если считалась только стокаА
                 } else if ((stringA != null) && (stringB == null)) {
                     // добавить А
                     fileWriter.append(stringA);
                     fileWriter.append('\n');
+                    readNextA = true;
                     // если считалась только стокаБ
                 } else if ((stringA == null) && (stringB != null)) {
                     // добавить Б
                     fileWriter.append(stringB);
                     fileWriter.append('\n');
+                    readNextB = true;
                 } else {
                     again = false;
                 }
