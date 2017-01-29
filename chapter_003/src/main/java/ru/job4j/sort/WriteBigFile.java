@@ -22,23 +22,51 @@ public class WriteBigFile {
     public WriteBigFile(String pathRead, String pathIndexMap, String pathWrite) {
         try {
             this.fileReader = new FileReader(pathIndexMap);
+            this.bufferedReader = new BufferedReader(this.fileReader);
             this.randomAccessFile = new RandomAccessFile(pathRead, "r");
             this.fileWriter = new FileWriter(pathWrite);
+            this.overwriteFileOnMap();
         } catch (IOException e) {
             e.printStackTrace();
+            this.closeResources();
         }
     }
 
 
-    public void overwriteFileOnMap () {
-        this.fileReader.
+    /**
+     * Выполняет чтение индексов начала строки, чтение исходного файла и запись нового файла.
+     */
+    public void overwriteFileOnMap() {
+        try {
+            String lineIndex = null;
+            while ((lineIndex = this.bufferedReader.readLine()) != null) {
+                // получить позицию
+                long indexByteBeginningLine = Long.valueOf(lineIndex.split(" ")[1]);
+                // установить позицию
+                this.randomAccessFile.seek(indexByteBeginningLine);
+                // считать строку и записать в новый файл
+                this.fileWriter.write(randomAccessFile.readLine());
+                this.fileWriter.write("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            this.closeResources();
+        }
     }
 
 
     public void closeResources() {
-        if (this.fileReader != null)  {
+        if (this.fileReader != null) {
             try {
                 this.fileReader.close();
+            } catch (IOException e) {
+                /*NONE*/
+            }
+        }
+        if (this.bufferedReader != null) {
+            try {
+                bufferedReader.close();
             } catch (IOException e) {
                 /*NONE*/
             }

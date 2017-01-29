@@ -11,6 +11,7 @@ import java.io.*;
  */
 public class TestMapping {
 
+    ReadAndWriteFile RW = new ReadAndWriteFile();
 
     @Test
     public void testBubbleSort() {
@@ -37,7 +38,7 @@ public class TestMapping {
         new Mapping().writeFileFromArray(array, pathToSaveFile);
         FileReader fileReader = null;
         StringBuilder stringBuilder = new StringBuilder();
-        Assert.assertThat(this.readFile(pathToSaveFile), Is.is(result));
+        Assert.assertThat(this.RW.readFile(pathToSaveFile), Is.is(result));
         new File(pathToSaveFile).delete();
     }
 
@@ -51,15 +52,15 @@ public class TestMapping {
 
         final String bodyResultFile = "1 2653\n9 305\n28 2466\n29 195\n31 2541\n33 0\n44 385\n47 2494\n71 314\n81 33\n81 2572\n81 114\n81 224\n";
 
-        this.writeFile(pathToSaveFirstPrepareTestFile, bodySecondPrepareTestFile);
-        this.writeFile(pathToSaveSecondPrepareTestFile, bodyFirstPrepareTestFile);
+        this.RW.writeFile(pathToSaveFirstPrepareTestFile, bodySecondPrepareTestFile);
+        this.RW.writeFile(pathToSaveSecondPrepareTestFile, bodyFirstPrepareTestFile);
 
         // выполним слияние
         final String pathResultFile = System.getProperty("java.io.tmpdir") + "\\tempResultTestFile.tmp";
         new Mapping().mergeFiles(pathToSaveFirstPrepareTestFile, pathToSaveSecondPrepareTestFile, pathResultFile);
 
         // проверим результат
-        Assert.assertThat(this.readFile(pathResultFile), Is.is(bodyResultFile));
+        Assert.assertThat(this.RW.readFile(pathResultFile), Is.is(bodyResultFile));
 
         // удалим файлы
         new File(pathToSaveFirstPrepareTestFile).delete();
@@ -82,18 +83,18 @@ public class TestMapping {
         String delTempPathFilesForMerged[] = pathFilesForMerged.clone();
 
         // записать файлы
-        this.writeFile(pathFilesForMerged[0], "9 429\n9 663\n51 750\n59 521\n71 801\n78 672\n83 438\n83 580");
-        this.writeFile(pathFilesForMerged[1], "9 872\n9 1114\n51 1209\n59 972\n75 1260\n83 1031\n86 1123\n91 881");
-        this.writeFile(pathFilesForMerged[2], "2 1498\n9 1335\n12 1557\n35 1626\n57 1500\n57 1569\n75 1344\n79 1419");
-        this.writeFile(pathFilesForMerged[3], "2 1735\n2 1748\n2 1800\n9 1802\n11 1737\n50 1750\n65 1811\n74 1661");
-        this.writeFile(pathFilesForMerged[4], "1 2653\n28 2466\n31 2541\n47 2494\n81 2572");
+        this.RW.writeFile(pathFilesForMerged[0], "9 429\n9 663\n51 750\n59 521\n71 801\n78 672\n83 438\n83 580");
+        this.RW.writeFile(pathFilesForMerged[1], "9 872\n9 1114\n51 1209\n59 972\n75 1260\n83 1031\n86 1123\n91 881");
+        this.RW.writeFile(pathFilesForMerged[2], "2 1498\n9 1335\n12 1557\n35 1626\n57 1500\n57 1569\n75 1344\n79 1419");
+        this.RW.writeFile(pathFilesForMerged[3], "2 1735\n2 1748\n2 1800\n9 1802\n11 1737\n50 1750\n65 1811\n74 1661");
+        this.RW.writeFile(pathFilesForMerged[4], "1 2653\n28 2466\n31 2541\n47 2494\n81 2572");
 
         // выполнить слияние
         String pathResultFile = new Mapping().dualUnionElementsOfArray(pathFilesForMerged);
 
         // проверяем
         String result = "1 2653\n2 1498\n2 1735\n2 1748\n2 1800\n9 429\n9 1335\n9 872\n9 1802\n9 663\n9 1114\n11 1737\n12 1557\n28 2466\n31 2541\n35 1626\n47 2494\n50 1750\n51 750\n51 1209\n57 1500\n57 1569\n59 521\n59 972\n65 1811\n71 801\n74 1661\n75 1260\n75 1344\n78 672\n79 1419\n81 2572\n83 438\n83 1031\n83 580\n86 1123\n91 881\n";
-        Assert.assertThat(result, Is.is(readFile(pathResultFile)));
+        Assert.assertThat(result, Is.is(RW.readFile(pathResultFile)));
 
         // удаляем
         new File(delTempPathFilesForMerged[0]).delete();
@@ -105,63 +106,15 @@ public class TestMapping {
     }
 
 
-    public static void main(String[] a) {
-        System.out.println(System.getProperty("user.home"));
-        System.out.println(System.getProperty("user.dir") + "\\TestFileForSort.txt");
-        System.out.println(System.getProperty("java.io.tmpdir"));
-        System.out.println(System.getProperty("file.separator"));
-    }
+//    public static void main(String[] a) {
+//        System.out.println(System.getProperty("user.home"));
+//        System.out.println(System.getProperty("user.dir") + "\\TestFileForSort.txt");
+//        System.out.println(System.getProperty("java.io.tmpdir"));
+//        System.out.println(System.getProperty("file.separator"));
+//    }
 
 
-    /**
-     * Прочитает файл.
-     * @param pathFile - путь к файлу.
-     * @return - прочитанная строка.
-     */
-    private String readFile(String pathFile){
-        FileReader fileReader = null;
-        StringBuilder stringBuilder = new StringBuilder();
-        try {
-            fileReader = new FileReader(pathFile);
-            int oneByte;
-            while ((oneByte = fileReader.read()) != -1) {
-                stringBuilder.append((char) oneByte);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fileReader.close();
-            } catch (IOException e) {
-                /*NONE*/
-            }
-        }
-        return stringBuilder.toString();
-    }
 
-    /**
-     * Запишет строку в файл.
-     * @param pathFile - путь к файлу.
-     * @param body - строка.
-     */
-    private void writeFile(String pathFile, String body) {
-        FileWriter fileWriter = null;
-        try {
-            fileWriter = new FileWriter(pathFile);
-            fileWriter.write(body);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fileWriter.flush();
-                fileWriter.close();
-            } catch (IOException e) {
-                /*NONE*/
-            }
-        }
-    }
 }
 
 
