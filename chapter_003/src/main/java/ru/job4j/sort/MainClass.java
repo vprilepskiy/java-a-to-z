@@ -11,19 +11,20 @@ public class MainClass {
 
     public static void main(String[] a){
 
-        String pathRead = "C:\\Downloads\\ArgoUML-0.34-setup.exe";
+
+        String pathRead = "C:\\Downloads\\theme-1649.xml";
         ReadBigFile readBigFile = new ReadBigFile(pathRead);
         Mapping mapping = new Mapping();
         int index = 0;
-        int sizeArray = 1024;
-        String[] pathFilesForMerged = new String[1024 * 16];
+        int sizeArray = 128;
+        String[] pathFilesForMerged = new String[32768];
         do {
             // получаем массив содержащий {динна строки; номер байта начало строки}
             long[][] lengthsAndIndexes = readBigFile.countStringLengthsAndIndexesPosition(sizeArray);
             // сортируем его
             mapping.bubbleSort(lengthsAndIndexes);
             // создаем уникальное имя файлу
-            String pathToSaveFile = "C:\\projects\\vprilepskiy\\chapter_003\\TEMP\\0tmp" + index;
+            String pathToSaveFile = System.getProperty("java.io.tmpdir") + "\\0tmp" + index;
             // запишем в массив
             pathFilesForMerged[index] = pathToSaveFile;
             // сохраним на диск
