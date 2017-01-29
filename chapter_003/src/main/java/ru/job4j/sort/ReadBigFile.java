@@ -85,7 +85,6 @@ public class ReadBigFile {
     /**
      * Закрывает ресурсы.
      */
-
     private void closeResources() {
         if (this.fileInputStream != null) {
             try {

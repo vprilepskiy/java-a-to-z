@@ -127,10 +127,13 @@ public class Mapping {
                 // если обе переменные заполнены
                 if ((pathFirstFile != null) && (pathSecondFile != null)) {
                     // передаем в массив новое значение
-                    // вызываем метод mergeFiles();
                     String newFileName = System.getProperty("java.io.tmpdir") + "\\" + countLoop + "tmp" + pathSecondFile.split("tmp")[1];
+                    // вызываем метод mergeFiles();
                     this.mergeFiles(pathFirstFile, pathSecondFile, newFileName);
                     pathFilesForMerged[index] = newFileName;
+                    // удаляем ненужные файлы
+                    new File(pathFirstFile).delete();
+                    new File(pathSecondFile).delete();
                     pathFirstFile = null;
                     pathSecondFile = null;
                     again = true;
@@ -168,8 +171,8 @@ public class Mapping {
 
         try {
             firstReader = new FileReader(pathFirstFile);
-            firstBufferedReader = new BufferedReader(firstReader);
             secondReader = new FileReader(pathSecondFile);
+            firstBufferedReader = new BufferedReader(firstReader);
             secondBufferedReader = new BufferedReader(secondReader);
             fileWriter = new FileWriter(pathResultFile);
 

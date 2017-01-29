@@ -101,9 +101,7 @@ public class TestMapping {
         new File(delTempPathFilesForMerged[2]).delete();
         new File(delTempPathFilesForMerged[3]).delete();
         new File(delTempPathFilesForMerged[4]).delete();
-       // new File(pathResultFile).delete();
-        // поправить оствется много лишних файлов!!!!!!!!!!!
-
+        new File(pathResultFile).delete();
     }
 
 
