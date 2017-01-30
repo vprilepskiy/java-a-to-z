@@ -27,7 +27,7 @@ public class Sonneteer {
 
             final int maxNumberLettersInString = 200;
 //            final int maxNumberString = 40000000;
-            final int maxNumberString = 1000000;
+            final int maxNumberString = 40000000;
 
             // цикл строк
             for (int countString = 0; countString < maxNumberString; countString++) {

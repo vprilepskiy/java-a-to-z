@@ -1,19 +1,19 @@
 package ru.job4j.sort;
 
-import java.io.IOException;
+import java.io.File;
+
 
 /**
  * Created by VLADIMIR on 26.01.2017.
  */
-public class MainClass {
+public class SortLargeFile implements ISortLargeFile {
 
-
-
-    public static void main(String[] a){
+    @Override
+    public void sort(File source, File distance) {
         long startTime = System.currentTimeMillis();
 
-        String pathRead = "C:\\Downloads\\bookRandom.txt";
-        ReadBigFile readBigFile = new ReadBigFile(pathRead);
+//        String source = "C:\\Downloads\\bookRandom.txt";
+        ReadBigFile readBigFile = new ReadBigFile(source);
         Mapping mapping = new Mapping();
         int index = 0;
         int sizeArray = 65536;
@@ -36,14 +36,18 @@ public class MainClass {
         System.out.println("выполним слияние индексных файлов");
 
         // выполним слияние файлов
-        String pathIndexMap = mapping.dualUnionElementsOfArray(pathFilesForMerged);
+        File pathIndexMap = mapping.dualUnionElementsOfArray(pathFilesForMerged);
         //System.out.println(pathIndexMap);
 
         System.out.println((System.currentTimeMillis() - startTime) / 1000 / 60);
         System.out.println("Запишем по карте новый файл");
 
-        WriteBigFile writeBigFile = new WriteBigFile(pathRead, pathIndexMap, pathRead + "SORT");
+        WriteBigFile writeBigFile = new WriteBigFile(source, pathIndexMap, distance);
         System.out.println((System.currentTimeMillis() - startTime) / 1000 / 60);
+    }
+
+    public static void main(String[] args) {
+        new SortLargeFile().sort(new File("C:\\Downloads\\bookRandom.txt"), new File("C:\\Downloads\\SORTbookRandom.txt"));
     }
 
 }

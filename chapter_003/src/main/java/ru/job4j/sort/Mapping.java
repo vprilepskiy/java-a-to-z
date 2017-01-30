@@ -71,7 +71,6 @@ public class Mapping {
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(pathToSaveFile);
-
             for (long[] longs : lengthsAndIndexes) {
                 // не писать если {0, 0}.
                 if (((longs[0] != 0)) || (longs[1] != 0)) {
@@ -101,7 +100,7 @@ public class Mapping {
      * @param pathFilesForMerged - массив путей к файлам для слияния.
      * @return - путь к файлу после слияния.
      */
-    public String dualUnionElementsOfArray(String[] pathFilesForMerged) {
+    public File dualUnionElementsOfArray(String[] pathFilesForMerged) {
 
         boolean again = true;
         String pathFirstFile = null;
@@ -150,7 +149,7 @@ public class Mapping {
 //            System.out.println("********************" + countLoop);
             countLoop++;
         }
-        return pathFilesForMerged[pathFilesForMerged.length - 1];
+        return new File(pathFilesForMerged[pathFilesForMerged.length - 1]);
     }
 
 

@@ -1,9 +1,6 @@
 package ru.job4j.sort;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by VLADIMIR on 27.01.2017.
@@ -15,12 +12,12 @@ public class ReadBigFile {
     /**
      * Конструктор.
      *
-     * @param path
+     * @param source
      * @throws FileNotFoundException
      */
-    public ReadBigFile(String path) {
+    public ReadBigFile(File source) {
         try {
-            this.fileInputStream = new FileInputStream(path);
+            this.fileInputStream = new FileInputStream(source);
             this.bufferedInputStream = new BufferedInputStream(this.fileInputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -4,6 +4,7 @@ import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -14,7 +15,8 @@ public class TestReadBigFile {
     @Test
     public void testCountStringLengthsAndIndexesPosition() throws IOException {
         final int sizeArray = 10;
-        ReadBigFile readBigFile = new ReadBigFile(System.getProperty("user.dir") + "\\TestFileForSort.txt");
+     //   ReadBigFile readBigFile = new ReadBigFile(System.getProperty("user.dir") + "\\TestFileForSort.txt");
+        ReadBigFile readBigFile = new ReadBigFile(new File(""));
 
         final long[][] firstLengthsAndIndexes = readBigFile.countStringLengthsAndIndexesPosition(sizeArray);
         final long[][] firstResult = {{28, 0}, {2, 28}, {12, 30}, {15, 42}, {27, 57}, {27, 84}, {2, 111}, {49, 113}, {42, 162}, {63, 204}};

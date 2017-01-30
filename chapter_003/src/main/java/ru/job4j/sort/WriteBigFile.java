@@ -15,17 +15,18 @@ public class WriteBigFile {
     /**
      * Конструктор.
      *
-     * @param pathRead     - файл не отсортированный.
-     * @param pathIndexMap - файл с индексами начала строк
-     * @param pathWrite    - путь куда записать отсортированный файл.
+     * @param source     - файл не отсортированный.
+     * @param indexMap - файл с индексами начала строк
+     * @param distance    - путь куда записать отсортированный файл.
      */
-    public WriteBigFile(String pathRead, String pathIndexMap, String pathWrite) {
+    public WriteBigFile(File source, File indexMap, File distance) {
         try {
-            this.fileReader = new FileReader(pathIndexMap);
+            this.fileReader = new FileReader(indexMap);
             this.bufferedReader = new BufferedReader(this.fileReader);
-            this.randomAccessFile = new RandomAccessFile(pathRead, "r");
-            this.fileWriter = new FileWriter(pathWrite);
+            this.randomAccessFile = new RandomAccessFile(source, "r");
+            this.fileWriter = new FileWriter(distance);
             this.overwriteFileOnMap();
+            indexMap.delete();
         } catch (IOException e) {
             e.printStackTrace();
             this.closeResources();
@@ -45,7 +46,10 @@ public class WriteBigFile {
                 // установить позицию
                 this.randomAccessFile.seek(indexByteBeginningLine);
                 // считать строку и записать в новый файл
-                this.fileWriter.write(randomAccessFile.readLine());
+                String line = randomAccessFile.readLine();
+                if (line != null) {
+                    this.fileWriter.write(line);
+                }
                 this.fileWriter.write("\n");
             }
         } catch (IOException e) {
@@ -56,6 +60,9 @@ public class WriteBigFile {
     }
 
 
+    /**
+     * Закрывает ресурсы.
+     */
     public void closeResources() {
         if (this.fileReader != null) {
             try {
