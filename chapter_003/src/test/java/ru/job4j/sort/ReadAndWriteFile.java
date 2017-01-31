@@ -4,7 +4,11 @@ import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 /**
  * Created by VLADIMIR on 29.01.2017.
@@ -16,7 +20,7 @@ public class ReadAndWriteFile {
      * @param file - файл для чтения.
      * @return - прочитанная строка.
      */
-    public String readFile(File file){
+    public String readFile(File file) {
         FileReader fileReader = null;
         StringBuilder stringBuilder = new StringBuilder();
         try {
@@ -61,8 +65,11 @@ public class ReadAndWriteFile {
         }
     }
 
+    /**
+     * Тест методов writeFile, readFile.
+     */
     @Test
-    public void testHimself(){
+    public void testHimself() {
         final String pathFile = System.getProperty("java.io.tmpdir") + "\\testFile.tmp";
         final String body = "Test string\nfor testOverwriteFileOnMap himself";
         File file = new File(pathFile);

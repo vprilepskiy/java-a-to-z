@@ -1,6 +1,12 @@
 package ru.job4j.sort;
 
-import java.io.*;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.RandomAccessFile;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+
 
 /**
  * Created by VLADIMIR on 29.01.2017.
@@ -8,9 +14,21 @@ import java.io.*;
  */
 public class WriteBigFile {
 
+    /**
+     * FileReader.
+     */
     private FileReader fileReader;
+    /**
+     * BufferedReader.
+     */
     private BufferedReader bufferedReader;
+    /**
+     * RandomAccessFile.
+     */
     private RandomAccessFile randomAccessFile;
+    /**
+     * FileWriter.
+     */
     private FileWriter fileWriter;
 
     /**

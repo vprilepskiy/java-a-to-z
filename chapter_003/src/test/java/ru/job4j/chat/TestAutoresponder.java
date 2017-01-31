@@ -3,7 +3,12 @@ package ru.job4j.chat;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+
 
 import static org.hamcrest.core.Is.is;
 
@@ -13,13 +18,13 @@ import static org.hamcrest.core.Is.is;
 public class TestAutoresponder {
 
     /**
-     *
-     * @throws IOException
+     * Test.
+     * @throws IOException - упадет если не прочитается файл.
      */
     @Test
-    public void testGutoresponder() throws IOException {
+    public void testGetRandomWord() throws IOException {
         boolean result = true;
-        int count = 100;
+        final int count = 100;
         for (int i = 0; i <= count; i++) {
             if ((new Autoresponder().getRandomWord(System.getProperty("user.dir") + "//pom.xml")) == null) {
                 result = false;
@@ -29,12 +34,13 @@ public class TestAutoresponder {
         Assert.assertTrue(result);
     }
 
+
     /**
-     *
-     * @throws IOException
+     * Test.
+     * @throws IOException - IOException.
      */
     @Test
-    public void test0() throws IOException {
+    public void testAutoBot() throws IOException {
         String pathWordBook = System.getProperty("user.dir") + "//book.txt";
         String pathLog = System.getProperty("user.dir") + "//log.txt";
         final String[] allCommands = {"Hello", "stop", "the log record is", "start", "world!!!", "exit"};
@@ -59,15 +65,16 @@ public class TestAutoresponder {
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
         // сравнивем лог с отправляемыми командами
-        Assert.assertThat(allCommands[0], is(bufferedReader.readLine()));
+        int index = 0;
+        Assert.assertThat(allCommands[index++], is(bufferedReader.readLine()));
         Assert.assertNotNull(bufferedReader.readLine());
-        Assert.assertThat(allCommands[1], is(bufferedReader.readLine()));
-        Assert.assertThat(allCommands[2], is(bufferedReader.readLine()));
-        Assert.assertThat(allCommands[3], is(bufferedReader.readLine()));
+        Assert.assertThat(allCommands[index++], is(bufferedReader.readLine()));
+        Assert.assertThat(allCommands[index++], is(bufferedReader.readLine()));
+        Assert.assertThat(allCommands[index++], is(bufferedReader.readLine()));
         Assert.assertNotNull(bufferedReader.readLine());
-        Assert.assertThat(allCommands[4], is(bufferedReader.readLine()));
+        Assert.assertThat(allCommands[index++], is(bufferedReader.readLine()));
         Assert.assertNotNull(bufferedReader.readLine());
-        Assert.assertThat(allCommands[5], is(bufferedReader.readLine()));
+        Assert.assertThat(allCommands[index++], is(bufferedReader.readLine()));
 
         // закрываем ресурсы
         bufferedReader.close();

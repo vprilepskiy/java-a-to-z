@@ -1,7 +1,5 @@
 package ru.job4j.sort;
 
-import org.junit.Test;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -57,10 +55,5 @@ public class Sonneteer {
      */
     private int getRandomNumber(int maxValue) {
         return Math.abs(new Random().nextInt() % maxValue);
-    }
-
-    @Test
-    public void testWriteDifferentWords() {
-        this.writeDifferentWords("C:\\Downloads\\bookRandom.txt");
     }
 }

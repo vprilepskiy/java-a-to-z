@@ -13,12 +13,12 @@ public class SortLargeFile implements ISortLargeFile {
      * Чем больше число, тем больше нагрузка на процессор.
      * Чем меньше число, тем больше нагрузка на диск.
      */
-    private int maxNumOfIndexInOneFile = 8192;
+    private final int maxNumOfIndexInOneFile = 8192;
 
     /**
      * Максимальное кол-во индексных файлов.
      */
-    private int maxNumOfIndexFiles = 65536;
+    private final int maxNumOfIndexFiles = 65536;
 
     @Override
     public void sort(File source, File distance) {
@@ -47,24 +47,12 @@ public class SortLargeFile implements ISortLargeFile {
             // сохраним на диск
             mapping.writeFileFromArray(lengthsAndIndexes, newSaveFile);
             index++;
-        } while (!readBigFile.readToEnd);
-
-        System.out.println((System.currentTimeMillis() - startTime) / 1000 / 60);
-        System.out.println("выполним слияние индексных файлов");
+        } while (!readBigFile.isReadToEnd());
 
         // выполним слияние файлов
         File pathIndexMap = mapping.dualUnionElementsOfArray(filesForMerged);
         //System.out.println(pathIndexMap);
 
-        System.out.println((System.currentTimeMillis() - startTime) / 1000 / 60);
-        System.out.println("Запишем по карте новый файл");
-
         WriteBigFile writeBigFile = new WriteBigFile(source, pathIndexMap, distance);
-        System.out.println((System.currentTimeMillis() - startTime) / 1000 / 60);
     }
-
-    public static void main(String[] args) {
-        new SortLargeFile().sort(new File("C:\\Downloads\\bookRandom.txt"), new File("C:\\Downloads\\SORTbookRandom.txt"));
-    }
-
 }

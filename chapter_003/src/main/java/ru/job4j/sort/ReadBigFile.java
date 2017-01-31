@@ -43,7 +43,15 @@ public class ReadBigFile {
     /**
      * прочитано до конца.
      */
-    public boolean readToEnd;
+    private boolean readToEnd;
+
+    /**
+     * прочитано до конца.
+     * @return - true если файл прочитан до конца.
+     */
+    public boolean isReadToEnd() {
+        return readToEnd;
+    }
 
     /**
      * Метод частично считывает файл. Выполнять пока не прочитает весь файл, о чем символизирует переменная boolean readToEnd. TEST OK.
