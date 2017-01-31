@@ -8,29 +8,9 @@ import java.util.ArrayList;
  */
 public class Mapping {
 
-//    public String[] fileNames = new String[1024];
-//
-//    /**
-//     * Метод создает временные файлы содержащие информацию о длинне строки и индексах.
-//     *
-//     * @throws IOException
-//     */
-//    public void generateFilesIndex() throws IOException {
-//        int index = 0;
-//        do {
-//            int sizeArray = 8;
-//            long[][] lengthsAndIndexes = this.countStringLengthsAndIndexesPosition(sizeArray);
-//            this.bubbleSort(lengthsAndIndexes);
-//            String pathToSaveFile = "C:\\Temp\\0tmp" + index;
-//            this.writeFileFromArray(lengthsAndIndexes, pathToSaveFile);
-//            this.fileNames[index] = pathToSaveFile;
-//            index++;
-//        } while (!(this.readToEnd));
-//    }
-
 
     /**
-     * Сортирует двумерный массив мотодом пузырька. TEST OK.
+     * Сортирует двумерный массив методом пузырька. TEST OK.
      *
      * @param lengthsAndIndexes - массив.
      */
@@ -64,13 +44,13 @@ public class Mapping {
      /**
      * Производит запись данных из массива в файл. TEST OK.
      * @param lengthsAndIndexes - массив для записи в файл.
-     * @param pathToSaveFile -
+     * @param saveFile - файл.
      */
-    public void writeFileFromArray(long[][] lengthsAndIndexes, String pathToSaveFile) {
+    public void writeFileFromArray(long[][] lengthsAndIndexes, File saveFile) {
         StringBuilder stringBuilder = new StringBuilder();
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter(pathToSaveFile);
+            fileWriter = new FileWriter(saveFile);
             for (long[] longs : lengthsAndIndexes) {
                 // не писать если {0, 0}.
                 if (((longs[0] != 0)) || (longs[1] != 0)) {
@@ -98,49 +78,50 @@ public class Mapping {
      * Передает в метод три переменные (2 пути к файлам для слияния) + (1 путь к файлу с результатом).
      * Выполняется пока не останется один файл.
      * @param pathFilesForMerged - массив путей к файлам для слияния.
-     * @return - путь к файлу после слияния.
+     * @return - файл после слияния.
      */
-    public File dualUnionElementsOfArray(String[] pathFilesForMerged) {
+    public File dualUnionElementsOfArray(File[] pathFilesForMerged) {
 
         boolean again = true;
-        String pathFirstFile = null;
-        String pathSecondFile = null;
+        File firstFile = null;
+        File secondFile = null;
         int countLoop = 1;
 
         while (again) {
             again = false;
             for (int index = 0; index < pathFilesForMerged.length; index++) {
                 // получаем первую переменную и в массив передаем null
-                if (pathFirstFile == null) {
+                if (firstFile == null) {
                     if (pathFilesForMerged[index] != null) {
-                        pathFirstFile = pathFilesForMerged[index];
+                        firstFile = pathFilesForMerged[index];
                         pathFilesForMerged[index] = null;
                     }
                     // получаем вторую переменную и в массив передаем null
                 } else {
                     if (pathFilesForMerged[index] != null) {
-                        pathSecondFile = pathFilesForMerged[index];
+                        secondFile = pathFilesForMerged[index];
                         pathFilesForMerged[index] = null;
                     }
                 }
                 // если обе переменные заполнены
-                if ((pathFirstFile != null) && (pathSecondFile != null)) {
+                if ((firstFile != null) && (secondFile != null)) {
                     // передаем в массив новое значение
-                    String newFileName = System.getProperty("java.io.tmpdir") + "\\" + countLoop + "tmp" + pathSecondFile.split("tmp")[1];
+                    String newFileName = System.getProperty("java.io.tmpdir") + "\\" + countLoop + "tmp" + secondFile.getName().split("tmp")[1];
+                    File newFile = new File(newFileName);
                     // вызываем метод mergeFiles();
-                    this.mergeFiles(pathFirstFile, pathSecondFile, newFileName);
-                    pathFilesForMerged[index] = newFileName;
+                    this.mergeFiles(firstFile, secondFile, newFile);
+                    pathFilesForMerged[index] = newFile;
                     // удаляем ненужные файлы
-                    new File(pathFirstFile).delete();
-                    new File(pathSecondFile).delete();
-                    pathFirstFile = null;
-                    pathSecondFile = null;
+                    firstFile.delete();
+                    secondFile.delete();
+                    firstFile = null;
+                    secondFile = null;
                     again = true;
                 }
                 // если дошли до конца а пары не найдено, то записать в последнюю
-                if ((index == pathFilesForMerged.length - 1) && (pathFirstFile != null) && (pathSecondFile == null)) {
-                    pathFilesForMerged[index] = pathFirstFile;
-                    pathFirstFile = null;
+                if ((index == pathFilesForMerged.length - 1) && (firstFile != null) && (secondFile == null)) {
+                    pathFilesForMerged[index] = firstFile;
+                    firstFile = null;
                 }
             }
 //            for (String s : pathFilesForMerged) {
@@ -149,7 +130,8 @@ public class Mapping {
 //            System.out.println("********************" + countLoop);
             countLoop++;
         }
-        return new File(pathFilesForMerged[pathFilesForMerged.length - 1]);
+        // возвращаем последний элемент массива
+        return pathFilesForMerged[pathFilesForMerged.length - 1];
     }
 
 
@@ -157,11 +139,11 @@ public class Mapping {
     /**
      * Выполняет слияние двух отсортированных файлов в один. TEST OK.
      *
-     * @param pathFirstFile  - путь к первому файлу с индексами.
-     * @param pathSecondFile - путь ко второму файлу с индексами.
-     * @param pathResultFile - путь к готовому файлу.
+     * @param firstFile  - первый файл с индексами.
+     * @param secondFile - второй файл с индексами.
+     * @param resultFile - готовый файл.
      */
-    public void mergeFiles(String pathFirstFile, String pathSecondFile, String pathResultFile) {
+    public void mergeFiles(File firstFile, File secondFile, File resultFile) {
         FileReader firstReader = null;
         FileReader secondReader = null;
         BufferedReader firstBufferedReader = null;
@@ -169,11 +151,11 @@ public class Mapping {
         FileWriter fileWriter = null;
 
         try {
-            firstReader = new FileReader(pathFirstFile);
-            secondReader = new FileReader(pathSecondFile);
+            firstReader = new FileReader(firstFile);
+            secondReader = new FileReader(secondFile);
             firstBufferedReader = new BufferedReader(firstReader);
             secondBufferedReader = new BufferedReader(secondReader);
-            fileWriter = new FileWriter(pathResultFile);
+            fileWriter = new FileWriter(resultFile);
 
             boolean again = true;
             boolean readNextA = true;

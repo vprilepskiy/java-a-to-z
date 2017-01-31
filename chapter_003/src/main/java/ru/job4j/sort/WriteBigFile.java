@@ -40,6 +40,7 @@ public class WriteBigFile {
     public void overwriteFileOnMap() {
         try {
             String lineIndex = null;
+            String newLine = "";
             while ((lineIndex = this.bufferedReader.readLine()) != null) {
                 // получить позицию
                 long indexByteBeginningLine = Long.valueOf(lineIndex.split(" ")[1]);
@@ -50,7 +51,8 @@ public class WriteBigFile {
                 if (line != null) {
                     this.fileWriter.write(line);
                 }
-                this.fileWriter.write("\n");
+                this.fileWriter.write(newLine);
+                newLine = "\n";
             }
         } catch (IOException e) {
             e.printStackTrace();

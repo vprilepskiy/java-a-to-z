@@ -12,23 +12,22 @@ public class SortLargeFile implements ISortLargeFile {
     public void sort(File source, File distance) {
         long startTime = System.currentTimeMillis();
 
-//        String source = "C:\\Downloads\\bookRandom.txt";
         ReadBigFile readBigFile = new ReadBigFile(source);
         Mapping mapping = new Mapping();
         int index = 0;
         int sizeArray = 65536;
-        String[] pathFilesForMerged = new String[32768];
+        File[] filesForMerged = new File[32768];
         do {
             // получаем массив содержащий {динна строки; номер байта начало строки}
             long[][] lengthsAndIndexes = readBigFile.countStringLengthsAndIndexesPosition(sizeArray);
             // сортируем его
             mapping.bubbleSort(lengthsAndIndexes);
             // создаем уникальное имя файлу
-            String pathToSaveFile = System.getProperty("java.io.tmpdir") + "\\0tmp" + index;
+            File newSaveFile = new File(System.getProperty("java.io.tmpdir") + "\\0tmp" + index);
             // запишем в массив
-            pathFilesForMerged[index] = pathToSaveFile;
+            filesForMerged[index] = newSaveFile;
             // сохраним на диск
-            mapping.writeFileFromArray(lengthsAndIndexes, pathToSaveFile);
+            mapping.writeFileFromArray(lengthsAndIndexes, newSaveFile);
             index++;
         } while (!readBigFile.readToEnd);
 
@@ -36,7 +35,7 @@ public class SortLargeFile implements ISortLargeFile {
         System.out.println("выполним слияние индексных файлов");
 
         // выполним слияние файлов
-        File pathIndexMap = mapping.dualUnionElementsOfArray(pathFilesForMerged);
+        File pathIndexMap = mapping.dualUnionElementsOfArray(filesForMerged);
         //System.out.println(pathIndexMap);
 
         System.out.println((System.currentTimeMillis() - startTime) / 1000 / 60);

@@ -13,14 +13,14 @@ public class ReadAndWriteFile {
 
     /**
      * Прочитает файл.
-     * @param pathFile - путь к файлу.
+     * @param file - файл для чтения.
      * @return - прочитанная строка.
      */
-    public String readFile(String pathFile){
+    public String readFile(File file){
         FileReader fileReader = null;
         StringBuilder stringBuilder = new StringBuilder();
         try {
-            fileReader = new FileReader(pathFile);
+            fileReader = new FileReader(file);
             int oneByte;
             while ((oneByte = fileReader.read()) != -1) {
                 stringBuilder.append((char) oneByte);
@@ -41,13 +41,13 @@ public class ReadAndWriteFile {
 
     /**
      * Запишет строку в файл.
-     * @param pathFile - путь к файлу.
+     * @param file - файл для записи.
      * @param body - строка.
      */
-    public void writeFile(String pathFile, String body) {
+    public void writeFile(File file, String body) {
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter(pathFile);
+            fileWriter = new FileWriter(file);
             fileWriter.write(body);
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,8 +65,9 @@ public class ReadAndWriteFile {
     public void testHimself(){
         final String pathFile = System.getProperty("java.io.tmpdir") + "\\testFile.tmp";
         final String body = "Test string\nfor test himself";
-        this.writeFile(pathFile, body);
-        Assert.assertThat(body, Is.is(this.readFile(pathFile)));
+        File file = new File(pathFile);
+        this.writeFile(file, body);
+        Assert.assertThat(body, Is.is(this.readFile(file)));
         new File(pathFile).delete();
     }
 

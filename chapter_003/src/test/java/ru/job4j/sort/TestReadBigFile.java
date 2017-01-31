@@ -5,7 +5,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by VLADIMIR on 27.01.2017.
@@ -13,11 +12,30 @@ import java.io.IOException;
 public class TestReadBigFile {
 
     @Test
-    public void testCountStringLengthsAndIndexesPosition() throws IOException {
-        final int sizeArray = 10;
-     //   ReadBigFile readBigFile = new ReadBigFile(System.getProperty("user.dir") + "\\TestFileForSort.txt");
-        ReadBigFile readBigFile = new ReadBigFile(new File(""));
+    public void testCountStringLengthsAndIndexesPosition() {
 
+        File tempFile = new File(System.getProperty("java.io.tmpdir") + "\\TestFileForSort.txt");
+        final String bodyTextFile = "11g Release 2 (11.1.2.4.0) \n" +
+                " \n" +
+                "What's New \n" +
+                "Release Notes \n" +
+                "Certification Information \n" +
+                "Accessibility Information \n" +
+                " \n" +
+                "Oracle JDeveloper and ADF Documentation Library \n" +
+                "Installation Guide for Oracle JDeveloper \n" +
+                "Installation Guide for Oracle Team Productivity Center Server \n" +
+                " \n" +
+                "Oracle ADF Skin Editor Documentation Library \n" +
+                "Installation Guide for Oracle ADF Skin Editor \n" +
+                " \n" +
+                "Oracle JDeveloper 11g and Oracle ADF Code Samples \n" +
+                "JDeveloper and ADF Tutorials";
+
+        new ReadAndWriteFile().writeFile(tempFile, bodyTextFile);
+
+        final int sizeArray = 10;
+        ReadBigFile readBigFile = new ReadBigFile(tempFile);
         final long[][] firstLengthsAndIndexes = readBigFile.countStringLengthsAndIndexesPosition(sizeArray);
         final long[][] firstResult = {{28, 0}, {2, 28}, {12, 30}, {15, 42}, {27, 57}, {27, 84}, {2, 111}, {49, 113}, {42, 162}, {63, 204}};
         Assert.assertThat(firstResult, Is.is(firstLengthsAndIndexes));
@@ -43,6 +61,8 @@ public class TestReadBigFile {
 //            System.out.println();
 //        }
 //        System.out.println(readBigFile.readToEnd);
+
+        tempFile.delete();
     }
 
 }
