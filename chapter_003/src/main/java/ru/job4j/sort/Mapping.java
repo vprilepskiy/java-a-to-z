@@ -1,7 +1,12 @@
 package ru.job4j.sort;
 
-import java.io.*;
-import java.util.ArrayList;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 
 /**
  * Created by VLADIMIR on 17.01.2017.
@@ -74,13 +79,13 @@ public class Mapping {
 
 
     /**
-     * Перебирает попарно элементы массива (пути к файлам). TEST OK.
-     * Передает в метод три переменные (2 пути к файлам для слияния) + (1 путь к файлу с результатом).
+     * Перебирает попарно элементы массива (файлы). TEST OK.
+     * Передает в метод три переменные (2 файла для слияния) + (1 файл с результатом).
      * Выполняется пока не останется один файл.
-     * @param pathFilesForMerged - массив путей к файлам для слияния.
+     * @param filesForMerged - массив файлов для слияния.
      * @return - файл после слияния.
      */
-    public File dualUnionElementsOfArray(File[] pathFilesForMerged) {
+    public File dualUnionElementsOfArray(File[] filesForMerged) {
 
         boolean again = true;
         File firstFile = null;
@@ -89,18 +94,18 @@ public class Mapping {
 
         while (again) {
             again = false;
-            for (int index = 0; index < pathFilesForMerged.length; index++) {
+            for (int index = 0; index < filesForMerged.length; index++) {
                 // получаем первую переменную и в массив передаем null
                 if (firstFile == null) {
-                    if (pathFilesForMerged[index] != null) {
-                        firstFile = pathFilesForMerged[index];
-                        pathFilesForMerged[index] = null;
+                    if (filesForMerged[index] != null) {
+                        firstFile = filesForMerged[index];
+                        filesForMerged[index] = null;
                     }
                     // получаем вторую переменную и в массив передаем null
                 } else {
-                    if (pathFilesForMerged[index] != null) {
-                        secondFile = pathFilesForMerged[index];
-                        pathFilesForMerged[index] = null;
+                    if (filesForMerged[index] != null) {
+                        secondFile = filesForMerged[index];
+                        filesForMerged[index] = null;
                     }
                 }
                 // если обе переменные заполнены
@@ -110,7 +115,7 @@ public class Mapping {
                     File newFile = new File(newFileName);
                     // вызываем метод mergeFiles();
                     this.mergeFiles(firstFile, secondFile, newFile);
-                    pathFilesForMerged[index] = newFile;
+                    filesForMerged[index] = newFile;
                     // удаляем ненужные файлы
                     firstFile.delete();
                     secondFile.delete();
@@ -119,19 +124,19 @@ public class Mapping {
                     again = true;
                 }
                 // если дошли до конца а пары не найдено, то записать в последнюю
-                if ((index == pathFilesForMerged.length - 1) && (firstFile != null) && (secondFile == null)) {
-                    pathFilesForMerged[index] = firstFile;
+                if ((index == filesForMerged.length - 1) && (firstFile != null) && (secondFile == null)) {
+                    filesForMerged[index] = firstFile;
                     firstFile = null;
                 }
             }
-//            for (String s : pathFilesForMerged) {
+//            for (String s : filesForMerged) {
 //                System.out.println(s);
 //            }
 //            System.out.println("********************" + countLoop);
             countLoop++;
         }
         // возвращаем последний элемент массива
-        return pathFilesForMerged[pathFilesForMerged.length - 1];
+        return filesForMerged[filesForMerged.length - 1];
     }
 
 

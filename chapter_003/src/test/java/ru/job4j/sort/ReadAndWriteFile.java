@@ -64,11 +64,10 @@ public class ReadAndWriteFile {
     @Test
     public void testHimself(){
         final String pathFile = System.getProperty("java.io.tmpdir") + "\\testFile.tmp";
-        final String body = "Test string\nfor test himself";
+        final String body = "Test string\nfor testOverwriteFileOnMap himself";
         File file = new File(pathFile);
         this.writeFile(file, body);
         Assert.assertThat(body, Is.is(this.readFile(file)));
         new File(pathFile).delete();
     }
-
 }

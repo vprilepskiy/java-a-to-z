@@ -1,20 +1,29 @@
 package ru.job4j.sort;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.BufferedInputStream;
 
 /**
  * Created by VLADIMIR on 27.01.2017.
  * TEST OK.
  */
 public class ReadBigFile {
+    /**
+     * FileInputStream.
+     */
     private FileInputStream fileInputStream;
+    /**
+     * BufferedInputStream.
+     */
     private BufferedInputStream bufferedInputStream;
 
     /**
      * Конструктор.
      *
-     * @param source
-     * @throws FileNotFoundException
+     * @param source - файл для чтения.
      */
     public ReadBigFile(File source) {
         try {
@@ -26,10 +35,14 @@ public class ReadBigFile {
         }
     }
 
-    // номер байта начала строки
+    /**
+     * номер байта начала строки.
+     */
     private long bytePosition;
 
-    // прочитано до конца.
+    /**
+     * прочитано до конца.
+     */
     public boolean readToEnd;
 
     /**

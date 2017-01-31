@@ -8,6 +8,18 @@ import java.io.File;
  */
 public class SortLargeFile implements ISortLargeFile {
 
+    /**
+     * Максимальное кол-во индексов в одном временном файле.
+     * Чем больше число, тем больше нагрузка на процессор.
+     * Чем меньше число, тем больше нагрузка на диск.
+     */
+    private int maxNumOfIndexInOneFile = 8192;
+
+    /**
+     * Максимальное кол-во индексных файлов.
+     */
+    private int maxNumOfIndexFiles = 65536;
+
     @Override
     public void sort(File source, File distance) {
         long startTime = System.currentTimeMillis();
@@ -15,17 +27,23 @@ public class SortLargeFile implements ISortLargeFile {
         ReadBigFile readBigFile = new ReadBigFile(source);
         Mapping mapping = new Mapping();
         int index = 0;
-        int sizeArray = 65536;
-        File[] filesForMerged = new File[32768];
+
+        File[] filesForMerged = new File[this.maxNumOfIndexFiles];
         do {
             // получаем массив содержащий {динна строки; номер байта начало строки}
-            long[][] lengthsAndIndexes = readBigFile.countStringLengthsAndIndexesPosition(sizeArray);
+            long[][] lengthsAndIndexes = readBigFile.countStringLengthsAndIndexesPosition(this.maxNumOfIndexInOneFile);
             // сортируем его
             mapping.bubbleSort(lengthsAndIndexes);
             // создаем уникальное имя файлу
             File newSaveFile = new File(System.getProperty("java.io.tmpdir") + "\\0tmp" + index);
             // запишем в массив
-            filesForMerged[index] = newSaveFile;
+            try {
+                filesForMerged[index] = newSaveFile;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.err.println("Требуется увеличить значение переменных maxNumOfIndexInOneFile или maxNumOfIndexFiles");
+                e.printStackTrace();
+                break;
+            }
             // сохраним на диск
             mapping.writeFileFromArray(lengthsAndIndexes, newSaveFile);
             index++;

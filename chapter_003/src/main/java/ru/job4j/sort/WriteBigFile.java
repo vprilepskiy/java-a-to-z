@@ -4,6 +4,7 @@ import java.io.*;
 
 /**
  * Created by VLADIMIR on 29.01.2017.
+ * TEST OK.
  */
 public class WriteBigFile {
 

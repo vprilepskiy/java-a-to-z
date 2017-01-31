@@ -26,7 +26,6 @@ public class Sonneteer {
             fileWriter = new FileWriter(pathFile, true);
 
             final int maxNumberLettersInString = 200;
-//            final int maxNumberString = 40000000;
             final int maxNumberString = 40000000;
 
             // цикл строк
