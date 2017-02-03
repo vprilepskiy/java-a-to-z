@@ -27,7 +27,7 @@ public class Server {
             if ("Hello oracle".equals(ask)) {
                 out.println("Hello, dear friend, I'm a oracle.");
                 out.println();
-            } else {
+            } else if (!("exit".equals(ask))) {
                 out.println("I don't understand");
                 out.println();
             }
