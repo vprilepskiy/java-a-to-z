@@ -37,13 +37,7 @@ public class SortLargeFile implements ISortLargeFile {
             // создаем уникальное имя файлу
             File newSaveFile = new File(System.getProperty("java.io.tmpdir") + "\\0tmp" + index);
             // запишем в массив
-            try {
-                filesForMerged[index] = newSaveFile;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.err.println("Требуется увеличить значение переменных maxNumOfIndexInOneFile или maxNumOfIndexFiles");
-                e.printStackTrace();
-                break;
-            }
+            filesForMerged[index] = newSaveFile;
             // сохраним на диск
             mapping.writeFileFromArray(lengthsAndIndexes, newSaveFile);
             index++;

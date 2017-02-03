@@ -27,7 +27,7 @@ public class Client {
             request = console.nextLine();
             out.println(request);
             // читаем из потока
-            if ("exit".equals(request)) {
+            if (!("exit".equals(request))) {
                 while (!(response = in.readLine()).isEmpty()) {
                     System.out.println(response);
                 }
