@@ -109,14 +109,14 @@ public class ReadBigFile {
             try {
                 this.fileInputStream.close();
             } catch (IOException e) {
-                    /*NONE*/
+                e.printStackTrace();
             }
         }
         if (this.bufferedInputStream != null) {
             try {
                 this.bufferedInputStream.close();
             } catch (IOException e) {
-                    /*NONE*/
+                e.printStackTrace();
             }
         }
     }

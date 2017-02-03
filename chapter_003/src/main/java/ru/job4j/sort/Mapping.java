@@ -71,7 +71,7 @@ public class Mapping {
                 fileWriter.flush();
                 fileWriter.close();
             } catch (IOException e) {
-                /*NONE*/
+                e.printStackTrace();
             }
         }
     }

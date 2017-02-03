@@ -89,21 +89,21 @@ public class WriteBigFile {
             try {
                 this.fileReader.close();
             } catch (IOException e) {
-                /*NONE*/
+                e.printStackTrace();
             }
         }
         if (this.bufferedReader != null) {
             try {
                 bufferedReader.close();
             } catch (IOException e) {
-                /*NONE*/
+                e.printStackTrace();
             }
         }
         if (this.randomAccessFile != null) {
             try {
                 this.randomAccessFile.close();
             } catch (IOException e) {
-                /*NONE*/
+                e.printStackTrace();
             }
         }
         if (this.fileWriter != null) {
@@ -111,7 +111,7 @@ public class WriteBigFile {
                 this.fileWriter.flush();
                 this.fileWriter.close();
             } catch (IOException e) {
-                /*NONE*/
+                e.printStackTrace();
             }
         }
     }
