@@ -73,7 +73,7 @@ public class Autoresponder {
                 logFileWriter.flush();
                 logFileWriter.close();
             } catch (IOException e) {
-                /*none*/
+                e.printStackTrace();
             } finally {
                 consoleInput.close();
             }
