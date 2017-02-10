@@ -19,7 +19,7 @@ public class DirectionalControl {
     public DataInputStream dataInputStream;
     public DataOutputStream dataOutputStream;
 
-    public final File homeDirectory;
+//    public final File homeDirectory;
 //    public File currentDirectory;
 
 
@@ -27,26 +27,29 @@ public class DirectionalControl {
     /**
      * Конструктор.
      */
-    public DirectionalControl(Socket socket, File homeDirectory) throws IOException {
+    public DirectionalControl(Socket socket) throws IOException {
 
         this.dataInputStream = new DataInputStream(socket.getInputStream());
         this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
 
-        this.homeDirectory = homeDirectory;
+//        this.homeDirectory = homeDirectory;
 //        this.currentDirectory = homeDirectory;
     }
 
 
     public void selector(Actions actions) throws IOException {
 
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.dataInputStream));
+
         boolean again = true;
 
         while (again) {
             // читаем что послал клиент
-            String select = this.dataInputStream.readUTF();
+            String select = bufferedReader.readLine();
 
             if (selExit.equalsIgnoreCase(select)) {
                 again = false;
+                actions.exit();
             } else if (selShow.equalsIgnoreCase(select)) {
                 // показать все содержимое.
                 actions.show();
@@ -62,12 +65,14 @@ public class DirectionalControl {
                 actions.download(fileName);
             } else if (selUpload.equalsIgnoreCase(select.substring(0, selUpload.length()))) {
                 // закачать фаайл
+                String fileName = select.substring(selUpload.length() + 1, select.length());
+                actions.upload(fileName);
             } else {
                 // неизвестная команда
                 this.dataOutputStream.writeUTF(errSel);
+                this.dataOutputStream.flush();
             }
             // отправка в поток.
-
         }
     }
 

@@ -11,12 +11,10 @@ public class Actions {
     private DataInputStream dataInputStream;
     private DataOutputStream dataOutputStream;
 
-
     private final String slash = System.getProperty("file.separator");
     private final String lineSeparator = System.getProperty("line.separator");
 
     private final File homeDirectory;
-
 
     private File currentDirectory;
 
@@ -32,6 +30,11 @@ public class Actions {
     }
 
 
+    public void exit() throws IOException {
+        this.dataInputStream.close();
+        this.dataOutputStream.close();
+    }
+
 
     /**
      * Отправляет в поток информацию о содержании такущего каталога.
@@ -39,9 +42,6 @@ public class Actions {
      */
     public void show() throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
-        // показать рабочий каталог
-//        stringBuilder.append(this.getCurrentDirectoryAbsolutePath());
-
         // получить список файлов в каталоге
         File[] files = this.currentDirectory.listFiles();
 
@@ -111,7 +111,7 @@ public class Actions {
             // если получен ответ от клиента, что он готов, то начать передачу
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.dataInputStream));
             if ("ready".equals(bufferedReader.readLine())) {
-                // отправка файла
+                // читаем файл и отправляем в поток
                 FileInputStream fileInputStream = new FileInputStream(file);
 
                 int oneByte;
@@ -131,10 +131,28 @@ public class Actions {
     /**
      * Получит из потока отправляемый файл.
      */
-    public void upload() {
+    public void upload(String fileName) throws IOException {
 
+        // клиент отправляет ready?
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.dataInputStream));
+        if ("ready".equals(bufferedReader.readLine())) {
+            StringBuilder pathFile = new StringBuilder();
+            pathFile.append(this.currentDirectory.getAbsolutePath());
+            pathFile.append(this.slash);
+            pathFile.append(fileName);
 
+            this.dataOutputStream.writeUTF("ready");
+//            bufferedReader.close();
 
+            // читаем из потока и пишем в файл
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(pathFile.toString()));
+            int oneByte;
+            while ((oneByte = bufferedReader.read()) != -1) {
+                fileOutputStream.write(oneByte);
+            }
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        }
     }
 
 //    public String getCurrentDirectoryAbsolutePath() {
