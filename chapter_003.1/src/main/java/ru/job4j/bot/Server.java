@@ -14,10 +14,15 @@ import java.net.Socket;
  */
 public class Server {
 
-    public Server(int port) throws IOException {
+    private final Socket socket;
 
-        Socket socket = new ServerSocket(port).accept();
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+    public Server(Socket socket) throws IOException {
+        this.socket = socket;
+    }
+
+    public void start() throws IOException {
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         String ask = null;
         do {
@@ -33,4 +38,11 @@ public class Server {
             }
         } while (!("exit".equals(ask)));
     }
+
+    public static void main(String[] args) throws IOException {
+        try (final Socket socket = new ServerSocket(1111).accept()) {
+            new Server(socket);
+        }
+    }
+
 }
