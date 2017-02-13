@@ -36,6 +36,7 @@ public class Actions {
     }
 
 
+
     /**
      * Отправляет в поток информацию о содержании такущего каталога.
      * @throws IOException
@@ -141,8 +142,8 @@ public class Actions {
             pathFile.append(this.slash);
             pathFile.append(fileName);
 
+            // отвечаем ready
             this.dataOutputStream.writeUTF("ready");
-//            bufferedReader.close();
 
             // читаем из потока и пишем в файл
             FileOutputStream fileOutputStream = new FileOutputStream(new File(pathFile.toString()));

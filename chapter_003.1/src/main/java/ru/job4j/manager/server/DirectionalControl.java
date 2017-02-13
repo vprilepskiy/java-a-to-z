@@ -72,77 +72,7 @@ public class DirectionalControl {
                 this.dataOutputStream.writeUTF(errSel);
                 this.dataOutputStream.flush();
             }
-            // отправка в поток.
         }
     }
-
-//    /**
-//     * Отправляет в поток информацию о содержании такущего каталога.
-//     * @throws IOException
-//     */
-//    public void show() throws IOException {
-//
-//        StringBuilder stringBuilder = new StringBuilder();
-//        stringBuilder.append("The contents of the folder: ");
-//        stringBuilder.append(this.currentDirectory.getAbsolutePath());
-//        stringBuilder.append(lineSeparator);
-//
-//        File[] files = this.currentDirectory.listFiles();
-//
-//        for (File file : files) {
-//            if (file.isDirectory()) {
-//                stringBuilder.append("<DIR> ");
-//            } else {
-//                stringBuilder.append("      ");
-//            }
-//            stringBuilder.append(file.getName());
-//            stringBuilder.append(lineSeparator);
-//        }
-//        this.dataOutputStream.writeUTF(stringBuilder.toString());
-//        this.dataOutputStream.flush();
-//    }
-//
-//    /**
-//     * Переход в каталог выше.
-//     * @param select - Команда.
-//     */
-//    public void goToDirectory(String select) {
-//        StringBuilder stringBuilder = new StringBuilder();
-//        stringBuilder.append(this.currentDirectory.getAbsolutePath());
-//        stringBuilder.append(select);
-//        this.currentDirectory = new File(stringBuilder.toString());
-//    }
-//
-//    /**
-//     * Переход в домашний каталог.
-//     */
-//    public void toHomeDir() {
-//        this.currentDirectory = this.homeDirectory;
-//    }
-//
-//    /**
-//     * Отправит в поток запрашивемый файл.
-//     * @param select
-//     */
-//    public void download(String select) {
-//
-//        StringBuilder stringBuilder = new StringBuilder();
-//        stringBuilder.append(this.currentDirectory.getAbsolutePath());
-//        stringBuilder.append("/");
-//        stringBuilder.append(select.substring(selDownload.length() + 1, select.length()));
-//        File file = new File(stringBuilder.toString());
-//        if (file.isFile()) {
-//            System.out.println("ready " + file.getTotalSpace());
-//        } else {
-//            System.out.println("Fack....");
-//        }
-//    }
-//
-//    /**
-//     * Получит из потока отправляемый файл.
-//     */
-//    public void upload() {
-//
-//    }
 
 }
