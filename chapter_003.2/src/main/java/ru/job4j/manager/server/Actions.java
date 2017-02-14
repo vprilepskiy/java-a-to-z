@@ -3,20 +3,29 @@ package ru.job4j.manager.server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.net.Socket;
 
 /**
  * Created by VLADIMIR on 13.02.2017.
  */
 public interface Actions {
 
+    /**
+     * Входной поток.
+     */
     DataInputStream dataInputStream = null;
+    /**
+     * Выходной поток.
+     */
     DataOutputStream dataOutputStream = null;
-
+    /**
+     * Домашний каталог.
+     */
     File homeDirectory = null;
+    /**
+     * Текущий каталог.
+     */
     File currentDirectory = null;
 
-//    public Actions(Socket socket, File homeDirectory);
 
     /**
      * Выйти.
