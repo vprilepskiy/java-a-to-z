@@ -14,9 +14,10 @@ public class Server implements IServer {
     @Override
     public void start() {
 
-        Settings settings = new Settings("app.properties");
-
-        int port = Integer.getInteger(settings.getValue("port"));
+        final String propertiesFileName = "app.properties";
+        Settings settings = new Settings(propertiesFileName);
+        int port = Integer.valueOf(settings.getValue("port"));
+        System.out.println(port);
         File homeDir = new File(settings.getValue("homeDir"));
 
         try (ServerSocket serverSocket = new ServerSocket(port)){
@@ -26,6 +27,9 @@ public class Server implements IServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public static void main(String[] args) {
+        new Server().start();
     }
 }
