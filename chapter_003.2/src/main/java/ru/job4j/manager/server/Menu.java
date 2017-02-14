@@ -37,7 +37,13 @@ public class Menu implements IMenu {
      */
     public final String errSel = "unknown command";
 
+    /**
+     * Входной поток.
+     */
     public DataInputStream dataInputStream = null;
+    /**
+     * Выходной поток.
+     */
     public DataOutputStream dataOutputStream = null;
 
     /**
@@ -59,30 +65,32 @@ public class Menu implements IMenu {
             String select = null;
             try {
                 select = bufferedReader.readLine();
-                if (selExit.equalsIgnoreCase(select)) {
-                    again = false;
-                    actions.exit();
-                } else if (selShow.equalsIgnoreCase(select)) {
-                    // показать все содержимое.
-                    actions.show();
-                } else if (selGoToDirectory.equals(select.substring(0, selGoToDirectory.length()))) {
-                    // перейти в каталог выше
-                    actions.goToDirectory(select);
-                } else if (selHomeDir.equals(select)) {
-                    // перейти в домашний каталог.
-                    actions.toHomeDir();
-                } else if (selDownload.equalsIgnoreCase(select.substring(0, selDownload.length()))) {
-                    String fileName = select.substring(selDownload.length() + 1, select.length());
-                    // скачать файл
-                    actions.download(fileName);
-                } else if (selUpload.equalsIgnoreCase(select.substring(0, selUpload.length()))) {
-                    // закачать фаайл
-                    String fileName = select.substring(selUpload.length() + 1, select.length());
-                    actions.upload(fileName);
-                } else {
-                    // неизвестная команда
-                    this.dataOutputStream.writeUTF(errSel);
-                    this.dataOutputStream.flush();
+                if (select != null) {
+                    if (selExit.equalsIgnoreCase(select)) {
+                        again = false;
+                        actions.exit();
+                    } else if (selShow.equalsIgnoreCase(select)) {
+                        // показать все содержимое.
+                        actions.show();
+                    } else if (selGoToDirectory.equals(select.substring(0, selGoToDirectory.length()))) {
+                        // перейти в каталог выше
+                        actions.goToDirectory(select);
+                    } else if (selHomeDir.equals(select)) {
+                        // перейти в домашний каталог.
+                        actions.toHomeDir();
+                    } else if (selDownload.equalsIgnoreCase(select.substring(0, selDownload.length()))) {
+                        String fileName = select.substring(selDownload.length() + 1, select.length());
+                        // скачать файл
+                        actions.download(fileName);
+                    } else if (selUpload.equalsIgnoreCase(select.substring(0, selUpload.length()))) {
+                        // закачать фаайл
+                        String fileName = select.substring(selUpload.length() + 1, select.length());
+                        actions.upload(fileName);
+                    } else {
+                        // неизвестная команда
+                        this.dataOutputStream.writeUTF(errSel);
+                        this.dataOutputStream.flush();
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
