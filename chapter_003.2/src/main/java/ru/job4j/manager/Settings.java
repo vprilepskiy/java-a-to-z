@@ -1,22 +1,28 @@
 package ru.job4j.manager;
 
-import java.util.Properties;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
- * Created by VLADIMIR on 13.02.2017.
+ * Created by VLADIMIR on 14.02.2017.
  */
-public interface Settings {
+public class Settings implements ISettings {
 
     /**
-     * Свойства.
+     * Конструктор.
+     * @param propertiesFileName - файл настроек.
      */
-    Properties properties = new Properties();
+    public Settings(String propertiesFileName) {
+        ClassLoader classLoader = Settings.class.getClassLoader();
+        try (InputStream inputStream = classLoader.getResourceAsStream(propertiesFileName)) {
+            this.properties.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-    /**
-     * Возвращает значение по ключу
-     * @param key
-     * @return
-     */
-    public String getValue(String key);
-
+    @Override
+    public String getValue(String key) {
+        return this.properties.getProperty(key);
+    }
 }

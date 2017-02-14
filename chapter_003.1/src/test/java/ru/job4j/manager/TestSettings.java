@@ -18,16 +18,16 @@ import java.nio.file.Paths;
  */
 public class TestSettings {
 
-    @Test
-    public void test() throws IOException {
-
-        final String propertiesFileName = "app.properties";
-        final String key = "testKey";
-        final String value = "testValue";
-
-        Settings settings = new Settings(propertiesFileName);
-        Assert.assertThat(value, Is.is(settings.getValue(key)));
-    }
+//    @Test
+//    public void test() throws IOException {
+//
+//        final String propertiesFileName = "app.properties";
+//        final String key = "testKey";
+//        final String value = "testValue";
+//
+//        Settings settings = new Settings(propertiesFileName);
+//        Assert.assertThat(value, Is.is(settings.getValue(key)));
+//    }
 
 
 }

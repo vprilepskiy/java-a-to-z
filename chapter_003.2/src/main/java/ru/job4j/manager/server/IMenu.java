@@ -7,7 +7,7 @@ import java.io.DataOutputStream;
 /**
  * Created by VLADIMIR on 13.02.2017.
  */
-public interface Menu {
+public interface IMenu {
 
     /**
      * Команда для выхода из цикла.
@@ -47,7 +47,7 @@ public interface Menu {
 //    /**
 //     * Конструктор.
 //     */
-//    public Menu(Socket socket) throws IOException {
+//    public IMenu(Socket socket) throws IOException {
 //
 //        this.dataInputStream = new DataInputStream(socket.getInputStream());
 //        this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -55,8 +55,8 @@ public interface Menu {
 
     /**
      * Вызывает действие в зваисимости от выбранного пункта меню.
-     * @param actions
+     * @param IActions
      */
-    public void menuNavigator(Actions actions);
+    public void menuNavigator(IActions IActions);
 
 }
