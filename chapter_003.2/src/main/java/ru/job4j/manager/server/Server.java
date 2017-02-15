@@ -17,11 +17,11 @@ public class Server implements IServer {
         final String propertiesFileName = "app.properties";
         Settings settings = new Settings(propertiesFileName);
         int port = Integer.valueOf(settings.getValue("port"));
-        System.out.println(port);
         File homeDir = new File(settings.getValue("homeDir"));
 
         try (ServerSocket serverSocket = new ServerSocket(port)){
             Socket socket = serverSocket.accept();
+            System.out.println("server connect");
             Menu menu = new Menu(socket);
             menu.menuNavigator(new Actions(socket, homeDir));
         } catch (IOException e) {

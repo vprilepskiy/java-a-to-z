@@ -40,32 +40,42 @@ public class Menu implements IMenu {
     /**
      * Входной поток.
      */
-    public DataInputStream dataInputStream = null;
+    public DataInputStream dataInputStream;
+//    public InputStream inputStream;
     /**
      * Выходной поток.
      */
-    public DataOutputStream dataOutputStream = null;
+    public DataOutputStream dataOutputStream;
 
     /**
      * Конструктор.
      */
     public Menu(Socket socket) throws IOException {
         this.dataInputStream = new DataInputStream(socket.getInputStream());
+//        this.inputStream = socket.getInputStream();
         this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
     }
 
     @Override
     public void menuNavigator(IActions actions) {
+
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.dataInputStream));
 
         boolean again = true;
 
+        String select = null;
+
         while (again) {
             // читаем что послал клиент
-            String select = null;
+
             try {
                 select = bufferedReader.readLine();
+//                select = this.dataInputStream.readUTF();
+
+                System.out.println(select);
+
                 if (select != null) {
+
                     if (selExit.equalsIgnoreCase(select)) {
                         again = false;
                         actions.exit();

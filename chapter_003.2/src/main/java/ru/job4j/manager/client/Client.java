@@ -18,9 +18,8 @@ public class Client implements IClient {
         String ip = settings.getValue("ip");
         int port = Integer.valueOf(settings.getValue("port"));
 
-        InetAddress inetAddress = null;
         try {
-            inetAddress = InetAddress.getByName(ip);
+            InetAddress inetAddress = InetAddress.getByName(ip);
             Socket socket = new Socket(inetAddress, port);
 
             InputStream inputStream = socket.getInputStream();
@@ -38,7 +37,7 @@ public class Client implements IClient {
                 dataOutputStream.writeUTF(string);
                 dataOutputStream.flush();
                 // читаем из потока.
-                System.out.println("читаем из потока");
+                System.out.println("send: " + string + " читаем из потока");
                 string = dataInputStream.readUTF();
                 System.out.println("client Сервер пислал в ответ: " + string);
                 System.out.println("client Введите фразу для отправки на сервер: ");
