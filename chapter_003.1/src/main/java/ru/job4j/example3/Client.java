@@ -3,15 +3,11 @@ package ru.job4j.example3;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Scanner;
-import java.util.SimpleTimeZone;
 
 /**
+ * Использование классов ввода/вывода с Socket.
+ *
  * Created by VLADIMIR on 20.02.2017.
- *
- *
- *
  */
 public class Client {
 
@@ -22,9 +18,43 @@ public class Client {
         InetAddress inetAddress = InetAddress.getByName(ip);
         Socket socket = new Socket(inetAddress, port);
 
+        new Client().clientStreams(socket);
 //        new Client().clientBufferedStreams(socket);
-        new Client().clientDataStreams(socket);
+//        new Client().clientDataStreams(socket);
     }
+
+
+    /**
+     * Метод с использованием InputStream и OutputStream.
+     * ******НЕ РАБОТАЕТ******
+     */
+    public void clientStreams(Socket socket) throws IOException, InterruptedException {
+        InputStream inputStream = socket.getInputStream();
+        OutputStream outputStream = socket.getOutputStream();
+
+        // ОТПРАВКА
+        String request = "Hello!!!";
+        // ПОЛУЧЕНИЕ
+        String response = null;
+
+        while (true) {
+            Thread.sleep(1000);
+            // ОТПРАВКА
+            outputStream.write(request.getBytes());
+            outputStream.flush();
+            System.out.println("отправлено сообщение: " + request);
+            // ПОЛУЧЕНИЕ
+            int oneByte;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((oneByte = inputStream.read()) != -1){
+                stringBuilder.append((char) oneByte);
+            }
+            response = stringBuilder.toString();
+            System.out.println("получено сообщение: " + response);
+        }
+    }
+
+
 
     /**
      * Метод с использованием BufferedReader и BufferedWriter.
@@ -53,7 +83,9 @@ public class Client {
     }
 
 
-
+    /**
+     * Метод с использованием BufferedReader и BufferedWriter.
+     */
     public void clientDataStreams(Socket socket) throws IOException, InterruptedException {
 
         DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());

@@ -5,10 +5,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
+ * Использование классов ввода/вывода с Socket.
+ *
  * Created by VLADIMIR on 20.02.2017.
- *
- *******НЕ РАБОТАЕТ******
- *
  */
 public class Server {
 
@@ -18,9 +17,46 @@ public class Server {
         // ЖДЕМ КЛИЕНТА
         Socket socket = serverSocket.accept();
 
+        new Server().serverStreams(socket);
 //        new Server().serverBufferedStreams(socket);
-        new Server().serverDataStreams(socket);
+//        new Server().serverDataStreams(socket);
     }
+
+
+    /**
+     * Метод с использованием InputStream и OutputStream.
+     * ******НЕ РАБОТАЕТ******
+     */
+    public void serverStreams(Socket socket) throws IOException {
+        InputStream inputStream = socket.getInputStream();
+        OutputStream outputStream = socket.getOutputStream();
+
+        // ПОЛУЧЕНИЕ
+        String response = null;
+        // ОТПРАВКА
+        String request = null;
+
+        int index = 0;
+        while (true) {
+            // ПОЛУЧЕНИЕ
+            int oneByte;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((oneByte = inputStream.read()) != -1){
+                stringBuilder.append((char) oneByte);
+            }
+            response = stringBuilder.toString();
+            System.out.println("получено сообщение: " + response);
+            // ОТПРАВКА
+            index++;
+            request = response + index;
+
+            outputStream.write(request.getBytes());
+            outputStream.flush();
+            System.out.println("отправлено сообщение: " + request);
+        }
+    }
+
+
 
     /**
      * Метод с использованием BufferedReader и BufferedWriter.
@@ -51,7 +87,9 @@ public class Server {
     }
 
 
-
+    /**
+     * Метод с использованием BufferedReader и BufferedWriter.
+     */
     public void serverDataStreams(Socket socket) throws IOException {
 
         DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
