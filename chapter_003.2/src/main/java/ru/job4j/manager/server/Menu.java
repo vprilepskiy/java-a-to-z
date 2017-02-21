@@ -2,6 +2,7 @@ package ru.job4j.manager.server;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * Created by VLADIMIR on 14.02.2017.
@@ -40,28 +41,34 @@ public class Menu implements IMenu {
     /**
      * Входной поток.
      */
-    public DataInputStream dataInputStream;
-//    public InputStream inputStream;
+//    public DataInputStream dataInputStream;
+    public InputStream inputStream;
     /**
      * Выходной поток.
      */
-    public DataOutputStream dataOutputStream;
+//    public DataOutputStream dataOutputStream;
+    public OutputStream outputStream;
 
     /**
      * Конструктор.
      */
     public Menu(Socket socket) throws IOException {
-        this.dataInputStream = new DataInputStream(socket.getInputStream());
-//        this.inputStream = socket.getInputStream();
-        this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
+//        this.dataInputStream = new DataInputStream(socket.getInputStream());
+        this.inputStream = socket.getInputStream();
+//        this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
+        this.outputStream = socket.getOutputStream();
     }
 
     @Override
     public void menuNavigator(IActions actions) {
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.dataInputStream));
+//        Scanner scanner = new Scanner(this.inputStream);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
+//        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.outputStream));
 
         boolean again = true;
+
+        System.out.println("server " + again);
 
         String select = null;
 
@@ -69,10 +76,11 @@ public class Menu implements IMenu {
             // читаем что послал клиент
 
             try {
-                select = bufferedReader.readLine();
+//                select = bufferedReader.readLine();
 //                select = this.dataInputStream.readUTF();
+                select = bufferedReader.readLine();
 
-                System.out.println(select);
+                System.out.println("server " + select);
 
                 if (select != null) {
 
@@ -98,8 +106,12 @@ public class Menu implements IMenu {
                         actions.upload(fileName);
                     } else {
                         // неизвестная команда
-                        this.dataOutputStream.writeUTF(errSel);
-                        this.dataOutputStream.flush();
+                        this.outputStream.write(errSel.getBytes());
+                        this.outputStream.flush();
+//                        bufferedWriter.write(errSel);
+//                        bufferedWriter.flush();
+//                        this.dataOutputStream.writeUTF(errSel);
+//                        this.dataOutputStream.flush();
                     }
                 }
             } catch (IOException e) {
