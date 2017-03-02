@@ -11,6 +11,8 @@ import java.net.Socket;
  */
 public class Client {
 
+    final String lineSeparator = System.getProperty("line.separator");
+
     public static void main(String[] args) throws IOException, InterruptedException {
         int port = 5000;
         String ip = "127.0.0.1";
@@ -18,22 +20,22 @@ public class Client {
         InetAddress inetAddress = InetAddress.getByName(ip);
         Socket socket = new Socket(inetAddress, port);
 
-        new Client().clientStreams(socket);
+//        new Client().clientStreams(socket);
 //        new Client().clientBufferedStreams(socket);
 //        new Client().clientDataStreams(socket);
+        new Client().clientDataStreamsSendFile(socket);
     }
 
 
     /**
      * Метод с использованием InputStream и OutputStream.
-     * ******НЕ РАБОТАЕТ******
      */
     public void clientStreams(Socket socket) throws IOException, InterruptedException {
         InputStream inputStream = socket.getInputStream();
         OutputStream outputStream = socket.getOutputStream();
 
         // ОТПРАВКА
-        String request = "Hello!!!";
+        String request = "Hello!!! \n";
         // ПОЛУЧЕНИЕ
         String response = null;
 
@@ -46,7 +48,7 @@ public class Client {
             // ПОЛУЧЕНИЕ
             int oneByte;
             StringBuilder stringBuilder = new StringBuilder();
-            while ((oneByte = inputStream.read()) != -1){
+            while ((oneByte = inputStream.read()) != '\n'){
                 stringBuilder.append((char) oneByte);
             }
             response = stringBuilder.toString();
@@ -58,7 +60,7 @@ public class Client {
 
     /**
      * Метод с использованием BufferedReader и BufferedWriter.
-     * ******НЕ РАБОТАЕТ******
+     * РАБОТАЕТ. Требовалось bufferedWriter.newLine();
      */
     public void clientBufferedStreams(Socket socket) throws IOException, InterruptedException {
 
@@ -74,6 +76,7 @@ public class Client {
             Thread.sleep(1000);
             // ОТПРАВКА
             bufferedWriter.write(request);
+            bufferedWriter.newLine();
             bufferedWriter.flush();
             System.out.println("отправлено сообщение: " + request);
             // ПОЛУЧЕНИЕ
@@ -84,7 +87,7 @@ public class Client {
 
 
     /**
-     * Метод с использованием BufferedReader и BufferedWriter.
+     * Метод с использованием DataInputStream и DataOutputStream.
      */
     public void clientDataStreams(Socket socket) throws IOException, InterruptedException {
 
@@ -106,5 +109,37 @@ public class Client {
             response = dataInputStream.readUTF();
             System.out.println("получено сообщение: " + response);
         }
+    }
+
+
+    /**
+     * Метод с использованием DataInputStream и DataOutputStream + BufferedReader и BufferedWriter.
+     */
+    public void clientDataStreamsSendFile(Socket socket) throws IOException {
+
+        DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+        DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+
+        File file = new File("C:\\Temp\\projects\\Tracker\\activity diagram.jpg");
+        FileInputStream fileInputStream = new FileInputStream(file);
+
+        long fileSize = file.length();
+        long index = 0;
+        int oneByte = 0;
+
+        // отправка размера файла.
+        dataOutputStream.writeLong(fileSize);
+        // отправка файла
+        while ((oneByte = fileInputStream.read()) != -1) {
+            dataOutputStream.write(oneByte);
+            System.out.print((char) oneByte);
+            index++;
+        }
+        System.out.println(fileSize + "; " + index);
+        dataOutputStream.flush();
+        fileInputStream.close();
+
+        // читаем
+        System.out.println(dataInputStream.readUTF());
     }
 }
