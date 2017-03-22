@@ -1,7 +1,6 @@
-package ru.job4j.manager.server;
+package ru.job4j.manager;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import ru.job4j.manager.IActions;
 
 
 /**

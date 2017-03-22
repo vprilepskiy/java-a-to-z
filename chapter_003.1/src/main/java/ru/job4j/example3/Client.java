@@ -23,7 +23,8 @@ public class Client {
 //        new Client().clientStreams(socket);
 //        new Client().clientBufferedStreams(socket);
 //        new Client().clientDataStreams(socket);
-        new Client().clientDataStreamsSendFile(socket);
+//        new Client().clientDataStreamsSendFile(socket);
+        new Client().clientDataStreams2(socket);
     }
 
 
@@ -113,7 +114,7 @@ public class Client {
 
 
     /**
-     * Метод с использованием DataInputStream и DataOutputStream + BufferedReader и BufferedWriter.
+     * Метод с использованием DataInputStream и DataOutputStream.
      */
     public void clientDataStreamsSendFile(Socket socket) throws IOException {
 
@@ -142,4 +143,19 @@ public class Client {
         // читаем
         System.out.println(dataInputStream.readUTF());
     }
+
+    public void clientDataStreams2(Socket socket) throws IOException, InterruptedException {
+
+        DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+        DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+
+        // ОТПРАВКА
+        dataOutputStream.writeUTF("Hello");
+        dataOutputStream.writeUTF("World");
+        dataOutputStream.writeInt(5000);
+        dataOutputStream.flush();
+        System.out.println("отправлено сообщение: ");
+        // ПОЛУЧЕНИЕ
+        System.out.println("получено сообщение: " + dataInputStream.readUTF());
+        }
 }

@@ -1,4 +1,4 @@
-package ru.job4j.manager.server;
+package ru.job4j.manager;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -34,11 +34,26 @@ public interface IActions {
      * Отправит в поток запрашивемый файл.
      * @param fileName - имя файла.
      */
-    public void download(String fileName);
+    public void upload(String fileName);
 
     /**
      * Получит из потока отправляемый файл.
      * @param fileName - имя файла.
      */
-    public void upload(String fileName);
+    public void download(String fileName);
+
+    /**
+     * Неизвестная комманда.
+     */
+    public void unknownCommand();
+
+    /**
+     * Отпревить сообщение в поток.
+     */
+    public void sendMessage(String message);
+
+    /**
+     * Считать сообщение из потока.
+     */
+    public void readMessage();
 }

@@ -6,14 +6,14 @@ import java.net.Socket;
 
 /**
  * Использование классов ввода/вывода с Socket.
- *
+ * <p>
  * Created by VLADIMIR on 20.02.2017.
  */
 public class Server {
 
     final String lineSeparator = System.getProperty("line.separator");
 
-    public static void main(String[]args) throws IOException {
+    public static void main(String[] args) throws IOException {
         int port = 5000;
         ServerSocket serverSocket = new ServerSocket(port);
         // ЖДЕМ КЛИЕНТА
@@ -22,7 +22,8 @@ public class Server {
 //        new Server().serverStreams(socket);
 //        new Server().serverBufferedStreams(socket);
 //        new Server().serverDataStreams(socket);
-        new Server().serverDataStreamsAcceptFile(socket);
+//        new Server().serverDataStreamsAcceptFile(socket);
+        new Server().serverDataStreams2(socket);
     }
 
 
@@ -43,7 +44,7 @@ public class Server {
             // ПОЛУЧЕНИЕ
             int oneByte;
             StringBuilder stringBuilder = new StringBuilder();
-            while ((oneByte = inputStream.read()) != '\n'){
+            while ((oneByte = inputStream.read()) != '\n') {
                 stringBuilder.append((char) oneByte);
             }
             response = stringBuilder.toString();
@@ -56,7 +57,6 @@ public class Server {
             System.out.println("отправлено сообщение: " + request);
         }
     }
-
 
 
     /**
@@ -119,7 +119,7 @@ public class Server {
 
 
     /**
-     * Метод с использованием DataInputStream и DataOutputStream + BufferedReader и BufferedWriter.
+     * Метод с использованием DataInputStream и DataOutputStream.
      */
     public void serverDataStreamsAcceptFile(Socket socket) throws IOException {
 
@@ -129,10 +129,12 @@ public class Server {
         File file = new File("C:\\Temp\\projects\\Tracker\\copy_activity diagram.jpg");
         FileOutputStream fileOutputStream = new FileOutputStream(file);
 
+        // читаем размер файла
         long fileSize = dataInputStream.readLong();
         long index = 0;
         int oneByte = 0;
 
+        // читаем побайтово файл
         while (fileSize >= ++index) {
             oneByte = dataInputStream.read();
             fileOutputStream.write(oneByte);
@@ -141,6 +143,24 @@ public class Server {
         fileOutputStream.flush();
         fileOutputStream.close();
 
+        // читаем
         dataOutputStream.writeUTF("file_accepted");
+    }
+
+
+    public void serverDataStreams2(Socket socket) throws IOException {
+
+        DataInputStream dataInputStream0 = new DataInputStream(socket.getInputStream());
+        DataOutputStream dataOutputStream0 = new DataOutputStream(socket.getOutputStream());
+
+        DataInputStream dataInputStream1 = new DataInputStream(socket.getInputStream());
+        DataOutputStream dataOutputStream1 = new DataOutputStream(socket.getOutputStream());
+
+        // ПОЛУЧЕНИЕ
+        System.out.print("получено сообщение: " + dataInputStream0.readUTF() + dataInputStream0.readUTF());
+        System.out.println(dataInputStream1.readInt());
+        // ОТПРАВКА
+        dataOutputStream0.writeUTF("Ohoho...");
+        dataOutputStream0.flush();
     }
 }

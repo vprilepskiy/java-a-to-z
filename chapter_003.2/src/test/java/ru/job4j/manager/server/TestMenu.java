@@ -4,6 +4,8 @@ import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
+import ru.job4j.manager.Actions;
+import ru.job4j.manager.Menu;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -53,7 +55,7 @@ public class TestMenu {
     /**
      * Переопределение методов для тестирования.
      */
-    class ActionTest extends Actions{
+    class ActionTest extends Actions {
 
         private StringBuilder selectedMethods = new StringBuilder();
 
