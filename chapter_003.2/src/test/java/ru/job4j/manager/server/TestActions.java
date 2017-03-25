@@ -26,12 +26,15 @@ public class TestActions {
         // путь к ресурсному каталогу
         File resourceCatalog = new File(new Server().getClass().getResource( "/app.properties").toURI()).getParentFile();
         // создаем тестовые каталоги
-        new File(resourceCatalog.getAbsolutePath() + this.slash + "rootTestCatalog" + this.slash + "firstTestCatalog" + this.slash).mkdirs();
-        new File(resourceCatalog.getAbsolutePath() + this.slash + "rootTestCatalog" + this.slash + "secondTestCatalog" + this.slash).mkdirs();
+        File rootTestCatalog = new File(resourceCatalog, "rootTestCatalog");
+        File firstTestCatalog = new File(rootTestCatalog, "firstTestCatalog");
+        File secondTestCatalog = new File(rootTestCatalog, "secondTestCatalog");
+        firstTestCatalog.mkdirs();
+        secondTestCatalog.mkdirs();
         // создаем тестовые файлы
-        new File(resourceCatalog.getAbsolutePath() + this.slash + "rootTestCatalog" + this.slash + "firstTestCatalog" + this.slash + "firstTestFile.txt").createNewFile();
-        new File(resourceCatalog.getAbsolutePath() + this.slash + "rootTestCatalog" + this.slash + "secondTestCatalog" + this.slash + "secondTestFile.txt").createNewFile();
-        File rootFile = new File(resourceCatalog.getAbsolutePath() + this.slash + "rootTestCatalog" + this.slash + "rootTestFile.txt");
+        new File(firstTestCatalog, "firstTestFile.txt").createNewFile();
+        new File(secondTestCatalog, "secondTestFile.txt").createNewFile();
+        File rootFile = new File(rootTestCatalog, "rootTestFile.txt");
         rootFile.createNewFile();
         // запишем строку
         FileWriter fileWriter = new FileWriter(rootFile);
