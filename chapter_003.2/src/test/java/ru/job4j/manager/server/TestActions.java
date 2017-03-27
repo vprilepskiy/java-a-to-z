@@ -42,8 +42,8 @@ public class TestActions {
         fileWriter.flush();
         fileWriter.close();
         // тестовый каталог
-        this.rootTestCatalog = new File(resourceCatalog.getAbsolutePath() + this.slash + "rootTestCatalog" + this.slash);
-        this.firstTestCatalog = new File(resourceCatalog.getAbsolutePath() + this.slash + "rootTestCatalog" + this.slash + "firstTestCatalog" + this.slash);
+        this.rootTestCatalog = new File(resourceCatalog.getAbsolutePath(), "rootTestCatalog");
+        this.firstTestCatalog = new File(new File(resourceCatalog,"rootTestCatalog"), "firstTestCatalog");
     }
 
 
@@ -104,25 +104,29 @@ public class TestActions {
      * @throws IOException
      */
     @Test
-    public void whenDownloadThenGetStream() throws IOException {
-        final String fileName = "rootTestFile.txt";
-        final String input = "ready";
-        final String expected = "readyABCD";
+    public void whenDownloadThenSetStream() throws IOException {
+        final String fileName = "DownloadFile.txt";
+        final byte[] input = {0, 0, 0, 0, 0, 0, 0, 4, 'A', 'B', 'C', 'D'};
+        byte[] expected = new byte[4];
+        byte[] result = new byte[4];
 
         Socket socket = Mockito.mock(Socket.class);
 
-//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(input.getBytes());
-
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(input);
         Mockito.when(socket.getInputStream()).thenReturn(byteArrayInputStream);
-//        Mockito.when(socket.getOutputStream()).thenReturn(byteArrayOutputStream);
 
         Actions actions = new Actions(socket, this.rootTestCatalog);
         actions.download(fileName);
 
-//        System.out.println(byteArrayOutputStream.toString());
+        File file = new File(this.rootTestCatalog, fileName);
+        FileInputStream fileInputStream = new FileInputStream(file);
+        fileInputStream.read(expected);
+        fileInputStream.close();
 
-//        Assert.assertThat(byteArrayOutputStream.toString().substring(2), Is.is(expected));
+        System.arraycopy(input, 8, result, 0, 4);
+
+        Assert.assertThat(result, Is.is(expected));
+        file.delete();
     }
 
     /**
@@ -131,32 +135,58 @@ public class TestActions {
      */
     @Test
     public void whenUploadThenGetStream() throws IOException {
-        final String fileName = "downloadTestFile.txt";
-        final String input = "ready" + this.lineSeparator + "ABC";
-        final String expected = "ready";
+        final String fileName = "rootTestFile.txt";
+        final byte[] expected = {0, 0, 0, 0, 0, 0, 0, 4, 'A', 'B', 'C', 'D'};
 
         Socket socket = Mockito.mock(Socket.class);
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(input.getBytes());
-
-        Mockito.when(socket.getInputStream()).thenReturn(byteArrayInputStream);
         Mockito.when(socket.getOutputStream()).thenReturn(byteArrayOutputStream);
 
         Actions actions = new Actions(socket, this.rootTestCatalog);
         actions.upload(fileName);
 
-        Assert.assertThat(byteArrayOutputStream.toString().substring(2), Is.is(expected));
+        Assert.assertThat(byteArrayOutputStream.toByteArray(), Is.is(expected));
+    }
 
-        File file = new File(this.rootTestCatalog.getAbsolutePath() + this.slash + fileName);
+    /**
+     * Test for SendMessage.
+     * @throws IOException
+     */
+    @Test
+    public void whenSendMessageThenGetStream() throws IOException {
+        final String message = "Hello world";
+        final byte[] expected = {0, 11, 'H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'};
 
-        FileReader fileReader = new FileReader(file);
-        String result = new BufferedReader(fileReader).readLine();
+        Socket socket = Mockito.mock(Socket.class);
 
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        Mockito.when(socket.getOutputStream()).thenReturn(byteArrayOutputStream);
 
-        Assert.assertThat(result, Is.is("ABC"));
-        fileReader.close();
-        file.delete();
+        Actions actions = new Actions(socket, this.rootTestCatalog);
+        actions.sendMessage(message);
+
+        Assert.assertThat(byteArrayOutputStream.toByteArray(), Is.is(expected));
+    }
+
+    @Test
+    public void whenReadMessageThenSetStream() throws IOException {
+        byte[] input = {0, 11, 'H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'};
+        final String expected = "Hello world\r\n";
+
+        Socket socket = Mockito.mock(Socket.class);
+
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(input);
+        Mockito.when(socket.getInputStream()).thenReturn(byteArrayInputStream);
+
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(result));
+
+        Actions actions = new Actions(socket, this.rootTestCatalog);
+        actions.readMessage();
+
+        Assert.assertThat(result.toString(), Is.is(expected));
+
     }
 
 }

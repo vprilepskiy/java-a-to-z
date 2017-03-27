@@ -108,12 +108,7 @@ public class Actions implements IActions {
 
     @Override
     public void goToDirectory(String select) {
-//        StringBuilder pathDir = new StringBuilder();
-//         путь к текущему каталогу
-//        pathDir.append(this.currentDirectory.getAbsolutePath());
 //        // новый путь (\temp)
-//        pathDir.append(select);
-//        File newDir = new File(pathDir.toString());
         File newDir = new File(this.currentDirectory, select);
         // если путь - папка
         if (newDir.isDirectory()) {
@@ -178,7 +173,7 @@ public class Actions implements IActions {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             // читаем размер файла
             long fileSize = this.dataInputStream.readLong();
-            System.out.println("download file: " + file.getAbsolutePath() + "; size: " +fileSize);
+            System.out.println("download file: " + file.getAbsolutePath() + "; size: " + fileSize);
             long index = 0;
             int oneByte;
             // читаем побайтово из потока и пишем в файл
