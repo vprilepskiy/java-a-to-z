@@ -5,6 +5,9 @@ package ru.job4j.manager.client;
  */
 public interface IClient {
 
-    public void start();
+    /**
+     * Start Client.
+     */
+    void start();
 
 }

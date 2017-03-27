@@ -1,5 +1,6 @@
 package ru.job4j.manager.server;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Before;
@@ -7,7 +8,13 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import ru.job4j.manager.Actions;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.PrintStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.net.URISyntaxException;
 
@@ -15,16 +22,28 @@ import java.net.URISyntaxException;
  * Created by VLADIMIR on 14.02.2017.
  */
 public class TestActions {
+    /**
+     * Корневой тестовый каталог.
+     */
+    private File rootTestCatalog;
+    /**
+     * Спецсимол разделяющий каталоги или файлы.
+     */
+    private final String slash = System.getProperty("file.separator");
+    /**
+     * Спецсимол разделяющий строки.
+     */
+    private final String lineSeparator = System.getProperty("line.separator");
 
-    File rootTestCatalog;
-    File firstTestCatalog;
-    final String slash = System.getProperty("file.separator");
-    final String lineSeparator = System.getProperty("line.separator");
-
+    /**
+     * Предварительные настроки для теста.
+     * @throws URISyntaxException - Exception.
+     * @throws IOException - Exception.
+     */
     @Before
     public void createTestFile() throws URISyntaxException, IOException {
         // путь к ресурсному каталогу
-        File resourceCatalog = new File(new Server().getClass().getResource( "/app.properties").toURI()).getParentFile();
+        File resourceCatalog = new File(new Server().getClass().getResource("/app.properties").toURI()).getParentFile();
         // создаем тестовые каталоги
         File rootTestCatalog = new File(resourceCatalog, "rootTestCatalog");
         File firstTestCatalog = new File(rootTestCatalog, "firstTestCatalog");
@@ -43,14 +62,12 @@ public class TestActions {
         fileWriter.close();
         // тестовый каталог
         this.rootTestCatalog = new File(resourceCatalog.getAbsolutePath(), "rootTestCatalog");
-        this.firstTestCatalog = new File(new File(resourceCatalog,"rootTestCatalog"), "firstTestCatalog");
+//        this.firstTestCatalog = new File(new File(resourceCatalog,"rootTestCatalog"), "firstTestCatalog");
     }
-
-
 
     /**
      * Test Show.
-     * @throws IOException
+     * @throws IOException - Exception.
      */
     @Test
     public void whenShowThenGetStream() throws IOException {
@@ -75,7 +92,7 @@ public class TestActions {
 
     /**
      * Test for goToDirectory and toHomeDir.
-     * @throws IOException
+     * @throws IOException - Exception.
      */
     @Test
     public void whenToDirThenGetStreamAndWhenToHomeDirThenGetStream() throws IOException {
@@ -101,14 +118,15 @@ public class TestActions {
 
     /**
      * Test for download.
-     * @throws IOException
+     * @throws IOException - Exception.
      */
     @Test
     public void whenDownloadThenSetStream() throws IOException {
         final String fileName = "DownloadFile.txt";
         final byte[] input = {0, 0, 0, 0, 0, 0, 0, 4, 'A', 'B', 'C', 'D'};
-        byte[] expected = new byte[4];
-        byte[] result = new byte[4];
+        final byte size = 4;
+        byte[] expected = new byte[size];
+        byte[] result = new byte[size];
 
         Socket socket = Mockito.mock(Socket.class);
 
@@ -123,7 +141,10 @@ public class TestActions {
         fileInputStream.read(expected);
         fileInputStream.close();
 
-        System.arraycopy(input, 8, result, 0, 4);
+        // обрезать с 8го, 4 байта.
+        final int srcPos = 8;
+        final int length = 4;
+        System.arraycopy(input, srcPos, result, 0, length);
 
         Assert.assertThat(result, Is.is(expected));
         file.delete();
@@ -131,7 +152,7 @@ public class TestActions {
 
     /**
      * Test for upload.
-     * @throws IOException
+     * @throws IOException - Exception.
      */
     @Test
     public void whenUploadThenGetStream() throws IOException {
@@ -151,12 +172,12 @@ public class TestActions {
 
     /**
      * Test for SendMessage.
-     * @throws IOException
+     * @throws IOException - Exception.
      */
     @Test
     public void whenSendMessageThenGetStream() throws IOException {
         final String message = "Hello world";
-        final byte[] expected = {0, 11, 'H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'};
+        final byte[] expected = ArrayUtils.addAll(new byte[]{0, 11}, message.getBytes());
 
         Socket socket = Mockito.mock(Socket.class);
 
@@ -169,10 +190,14 @@ public class TestActions {
         Assert.assertThat(byteArrayOutputStream.toByteArray(), Is.is(expected));
     }
 
+    /**
+     * Test for readMessage.
+     * @throws IOException - Exception.
+     */
     @Test
     public void whenReadMessageThenSetStream() throws IOException {
-        byte[] input = {0, 11, 'H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'};
         final String expected = "Hello world\r\n";
+        final byte[] input = ArrayUtils.addAll(new byte[]{0, 11}, expected.getBytes());
 
         Socket socket = Mockito.mock(Socket.class);
 

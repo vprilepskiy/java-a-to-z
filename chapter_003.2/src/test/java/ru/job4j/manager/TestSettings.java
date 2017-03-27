@@ -11,6 +11,10 @@ import java.io.IOException;
  */
 public class TestSettings {
 
+    /**
+     * Test settings.
+     * @throws IOException - Exception.
+     */
     @Test
     public void test() throws IOException {
 

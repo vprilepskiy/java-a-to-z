@@ -15,7 +15,7 @@ public class Settings implements ISettings {
     public Settings(String propertiesFileName) {
         ClassLoader classLoader = Settings.class.getClassLoader();
         try (InputStream inputStream = classLoader.getResourceAsStream(propertiesFileName)) {
-            this.properties.load(inputStream);
+            this.PROPERTIES.load(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -23,6 +23,6 @@ public class Settings implements ISettings {
 
     @Override
     public String getValue(String key) {
-        return this.properties.getProperty(key);
+        return this.PROPERTIES.getProperty(key);
     }
 }

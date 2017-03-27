@@ -1,9 +1,7 @@
 package ru.job4j.manager;
 
-import ru.job4j.manager.IActions;
-import ru.job4j.manager.IMenu;
-
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -15,30 +13,30 @@ public class Menu implements IMenu {
     /**
      * Команда для выхода из цикла.
      */
-    public final String selExit = "EXIT";
+    private final String selExit = "EXIT";
     /**
      * Команда отображения содержимого текущего каталога.
      */
-    public final String selShow = "SHOW";
+    private final String selShow = "SHOW";
     /**
      * Команда для перехода в следующую директорию.
      * Пример: "/NEXT DIR"
      */
-    public final String selGoToDirectory = "/";
+    private final String selGoToDirectory = "/";
     /**
      * Команда для перехода в домашнюю директорию.
      */
-    public final String selHomeDir = "HOME";
+    private final String selHomeDir = "HOME";
     /**
      * Команда для скачивания файла с сервера.
      * Пример: "/DOWNLOAD Example.txt"
      */
-    public final String selDownload = "DOWNLOAD";
+    private final String selDownload = "DOWNLOAD";
     /**
      * Команда для загрузки файла на сервер.
      * Пример: "/UPLOAD Example.txt"
      */
-    public final String selUpload = "UPLOAD";
+    private final String selUpload = "UPLOAD";
     /**
      * Меню для сервера.
      */
@@ -47,14 +45,16 @@ public class Menu implements IMenu {
     /**
      * Входной поток.
      */
-    public DataInputStream dataInputStream;
+    private DataInputStream dataInputStream;
     /**
      * Входной поток.
      */
-    public Scanner console;
+    private Scanner console;
 
     /**
      * Конструктор для сервера.
+     * @param socket - socket server.
+     * @throws IOException exception.
      */
     public Menu(Socket socket) throws IOException {
         this.usingForServer = true;
@@ -63,6 +63,7 @@ public class Menu implements IMenu {
 
     /**
      * Конструктор для клиента.
+     * @throws IOException exception.
      */
     public Menu() throws IOException {
         this.usingForServer = false;
@@ -77,7 +78,7 @@ public class Menu implements IMenu {
         try {
             while (again) {
 
-                if (this.usingForServer == true) {
+                if (this.usingForServer) {
                     // читаем что послал клиент
                     select = this.dataInputStream.readUTF();
                 } else {
@@ -90,7 +91,7 @@ public class Menu implements IMenu {
                     if (this.selExit.equals(select)) {
                         // выход.
                         again = false;
-                        if (this.usingForServer == true) {
+                        if (this.usingForServer) {
                             actions.exit();
                         } else {
                             actions.sendMessage(select);
@@ -98,7 +99,7 @@ public class Menu implements IMenu {
                         }
 
                     } else if (selShow.equals(select)) {
-                        if (this.usingForServer == true) {
+                        if (this.usingForServer) {
                             // показать все содержимое.
                             actions.show();
                         } else {
@@ -108,7 +109,7 @@ public class Menu implements IMenu {
                         }
 
                     } else if (select.startsWith(selGoToDirectory)) {
-                        if (this.usingForServer == true) {
+                        if (this.usingForServer) {
                             // перейти в каталог выше
                             actions.goToDirectory(select);
                         } else {
@@ -118,7 +119,7 @@ public class Menu implements IMenu {
                         }
 
                     } else if (selHomeDir.equals(select)) {
-                        if (this.usingForServer == true) {
+                        if (this.usingForServer) {
                             // перейти в домашний каталог.
                             actions.toHomeDir();
                         } else {
@@ -129,7 +130,7 @@ public class Menu implements IMenu {
 
                     } else if (select.startsWith(selDownload)) {
                         String fileName = select.substring(selDownload.length() + 1, select.length());
-                        if (this.usingForServer == true) {
+                        if (this.usingForServer) {
                             // отправить файл
                             actions.upload(fileName);
                         } else {
@@ -140,7 +141,7 @@ public class Menu implements IMenu {
 
                     } else if (select.startsWith(selUpload)) {
                         String fileName = select.substring(selDownload.length() + 1, select.length());
-                        if (this.usingForServer == true) {
+                        if (this.usingForServer) {
                             // принять файл
                             actions.download(fileName);
                         } else {

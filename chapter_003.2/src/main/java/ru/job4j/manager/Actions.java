@@ -1,6 +1,11 @@
 package ru.job4j.manager;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.net.Socket;
 
 /**
@@ -40,7 +45,8 @@ public class Actions implements IActions {
      * @param homeDirectory - Домашний каталог.
      */
     public Actions(Socket socket, File homeDirectory) {
-        this.currentDirectory = this.homeDirectory = homeDirectory;
+        this.currentDirectory = homeDirectory;
+        this.homeDirectory = homeDirectory;
         try {
             this.dataInputStream = new DataInputStream(socket.getInputStream());
             this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -55,7 +61,8 @@ public class Actions implements IActions {
      * @param socket        - Сокет.
      */
     public Actions(Socket socket) {
-        this.currentDirectory = this.homeDirectory = null;
+        this.currentDirectory = null;
+        this.homeDirectory = null;
         try {
             this.dataInputStream = new DataInputStream(socket.getInputStream());
             this.dataOutputStream = new DataOutputStream(socket.getOutputStream());

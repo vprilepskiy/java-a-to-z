@@ -23,7 +23,7 @@ public class Server implements IServer {
         int port = Integer.valueOf(settings.getValue("port"));
         File homeDir = new File(settings.getValue("homeDir"));
 
-        try (ServerSocket serverSocket = new ServerSocket(port)){
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
             Socket socket = serverSocket.accept();
             System.out.println("server connect");
             Menu menu = new Menu(socket);
@@ -33,6 +33,10 @@ public class Server implements IServer {
         }
     }
 
+    /**
+     * Start server.
+     * @param args - noop.
+     */
     public static void main(String[] args) {
         new Server().start();
     }

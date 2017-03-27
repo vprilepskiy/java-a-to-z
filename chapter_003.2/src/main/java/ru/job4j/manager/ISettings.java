@@ -10,13 +10,13 @@ public interface ISettings {
     /**
      * Свойства.
      */
-    Properties properties = new Properties();
+    Properties PROPERTIES = new Properties();
 
     /**
-     * Возвращает значение по ключу
-     * @param key
-     * @return
+     * Возвращает значение по ключу.
+     * @param key - ключ.
+     * @return - значение.
      */
-    public String getValue(String key);
+    String getValue(String key);
 
 }

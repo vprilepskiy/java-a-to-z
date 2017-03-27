@@ -31,6 +31,10 @@ public class Client implements IClient {
         }
     }
 
+    /**
+     * Start client. Only after start Server.
+     * @param args - noop.
+     */
     public static void main(String[] args) {
         new Client().start();
     }

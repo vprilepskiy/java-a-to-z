@@ -5,6 +5,9 @@ package ru.job4j.manager.server;
  */
 public interface IServer {
 
-    public void start();
+    /**
+     * Start server.
+     */
+    void start();
 
 }
