@@ -18,7 +18,7 @@ public class Bank {
      * Конструктор.
      * @param timeBegin - начало работы.
      * @param timeEnd - окончание работы.
-     * @throws InvalidTimeException
+     * @throws InvalidTimeException - упадет если время начала больше времени окончания.
      */
     public Bank(long timeBegin, long timeEnd) throws InvalidTimeException {
         if (timeBegin < timeEnd) {
@@ -48,17 +48,17 @@ public class Bank {
     /**
      * Массив фиксирующий количество и время.
      */
-    private long [][] countTime = new long [this.maxTraffic * 2][2];
+    private long[][] countTime = new long[this.maxTraffic * 2][2];
 
     /**
      * Добавить в список событие.
      * @param entered - true если человек входит и false если человек выходит.
      * @param time - время вошедшего или вышедшего.
-     * @throws InvalidTimeException
+     * @throws InvalidTimeException - упадет если нарушен порядок времени действий или неверный период рабочего времени.
      */
     public void addEvent(boolean entered, long time) throws InvalidTimeException {
 
-        if ((this.time < time) || (this.timeBegin <= time) || (this.timeEnd >= time)) {
+        if ((this.time < time) && (this.timeBegin <= time) && (this.timeEnd >= time)) {
             this.time = time;
             if (entered) {
                 this.count++;
@@ -83,14 +83,12 @@ public class Bank {
         long time = 0;
 
         for (int i = 0; i < this.countTime.length; i++) {
-            long count = this.countTime[this.index][0];
+            long count = this.countTime[i][0];
             if (count > maxCount) {
                 maxCount = count;
-                time = this.countTime[this.index][1];
+                time = this.countTime[i][1];
             }
         }
         return time;
     }
-
-
 }

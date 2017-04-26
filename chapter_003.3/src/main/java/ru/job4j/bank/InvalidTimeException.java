@@ -5,6 +5,10 @@ package ru.job4j.bank;
  */
 public class InvalidTimeException extends Exception {
 
+    /**
+     * Исключение возникает когда не верные временные рамки.
+     * @param message - сообщение.
+     */
     public InvalidTimeException(String message) {
         super(message);
     }
