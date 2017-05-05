@@ -28,6 +28,7 @@
 		<module>chapter_003.1</module>
 		<module>chapter_003.2</module>
 		<module>chapter_003.3</module>
+		<module>collections_lite</module>
 	</modules>
 
 	<dependencies>
