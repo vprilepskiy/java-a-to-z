@@ -12,7 +12,7 @@ public class ConvertList implements IConvertList {
     public List<Integer> toList(int[][] array) {
         List<Integer> list = new ArrayList<Integer>();
 
-        for (int [] arr : array) {
+        for (int[] arr : array) {
             for (int element : arr) {
                 list.add(element);
             }
@@ -24,7 +24,7 @@ public class ConvertList implements IConvertList {
     @Override
     public int[][] toArray(List<Integer> list, int rows) {
 
-        int[][] array = new int[(list.size() / rows) + ((list.size() % rows) > 0 ? 1 : 0 )][rows];
+        int[][] array = new int[(list.size() / rows) + ((list.size() % rows) > 0 ? 1 : 0)][rows];
 
         int j = 0;
         int i = 0;

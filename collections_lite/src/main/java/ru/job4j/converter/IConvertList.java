@@ -12,7 +12,7 @@ public interface IConvertList {
      * @param array - двумерный массив целых чисел.
      * @return - список.
      */
-    public List<Integer> toList (int[][] array);
+    List<Integer> toList(int[][] array);
 
     /**
      * метод toArray должен равномерно разбить лист на количество строк двумерного массива.
@@ -23,6 +23,6 @@ public interface IConvertList {
      * @param rows - кол-во записей в строке.
      * @return - массив.
      */
-    public int[][] toArray (List<Integer> list, int rows);
+    int[][] toArray(List<Integer> list, int rows);
 
 }

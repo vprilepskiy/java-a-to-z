@@ -1,9 +1,8 @@
-package ru.job4j.performance;
+package ru.job4j.converter;
 
 import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;
-import ru.job4j.converter.ConvertList;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,8 +12,11 @@ import java.util.List;
  */
 public class ConvertListTest {
 
+    /**
+     * Test.
+     */
     @Test
-    public void test() {
+    public void whenSetArrayThenGetList() {
 
         final int[][] array = {{1, 2, 3, 4}, {5, 6, 7, 8}};
         final List<Integer> result = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
@@ -22,20 +24,20 @@ public class ConvertListTest {
         ConvertList convertList = new ConvertList();
 
         Assert.assertThat(result, Is.is(convertList.toList(array)));
-
     }
 
+    /**
+     * Test.
+     */
     @Test
-    public void test2() {
+    public void whenSetListThenGetArray() {
 
         final List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
-        final int rows = 4;
-        final int[][] result = {{1, 2, 3, 4}, {5, 6, 7, 0}};
+        final int rows = 3;
+        final int[][] result = {{1, 2, 3}, {4, 5, 6}, {7, 0, 0}};
 
         ConvertList convertList = new ConvertList();
 
         Assert.assertThat(result, Is.is(convertList.toArray(list, rows)));
-
     }
-
 }
