@@ -25,10 +25,12 @@ public class Throughput implements IThroughput {
 
         long start = System.currentTimeMillis();
 
+        Iterator iterator = collection.iterator();
         for (int i = 0; i < amount; i++) {
-            Iterator iterator = collection.iterator();
-            Object line = iterator.next();
-            collection.remove(line);
+            if (iterator.hasNext()) {
+                iterator.next();
+                iterator.remove();
+            }
         }
 
         return System.currentTimeMillis() - start;
