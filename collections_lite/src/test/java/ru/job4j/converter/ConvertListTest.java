@@ -4,6 +4,7 @@ import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,5 +40,26 @@ public class ConvertListTest {
         ConvertList convertList = new ConvertList();
 
         Assert.assertThat(result, Is.is(convertList.toArray(list, rows)));
+    }
+
+    /**
+     * Test.
+     */
+    @Test
+    public void whenSetListArrThenArray() {
+
+        final int[] arr0 = {1, 2};
+        final int[] arr1 = {3, 4, 5, 6};
+
+        List<int[]> list = new ArrayList<int[]>();
+        list.add(arr0);
+        list.add(arr1);
+
+        final List<Integer> result = Arrays.asList(1, 2, 3, 4, 5, 6);
+
+        ConvertList convertList = new ConvertList();
+
+        Assert.assertThat(result, Is.is(convertList.convert(list)));
+
     }
 }

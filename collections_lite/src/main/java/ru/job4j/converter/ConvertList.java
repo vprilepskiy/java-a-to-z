@@ -39,4 +39,18 @@ public class ConvertList implements IConvertList {
         }
         return array;
     }
+
+    @Override
+    public List<Integer> convert(List<int[]> list) {
+
+        List<Integer> result = new ArrayList<Integer>();
+
+        for (int[] array : list) {
+            for (int element : array) {
+                result.add(element);
+            }
+        }
+
+        return result;
+    }
 }
