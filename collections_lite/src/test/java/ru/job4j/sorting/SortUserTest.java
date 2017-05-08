@@ -13,7 +13,7 @@ import java.util.TreeSet;
 public class SortUserTest {
 
     @Test
-    public void main() {
+    public void test() {
 
         User user0 = new User("Uasya", 22);
         User user1 = new User("Fedor", 44);
@@ -24,7 +24,7 @@ public class SortUserTest {
         set.addAll(Arrays.asList(user0, user1, user2));
 
         for (User user : set) {
-            System.out.println(user);
+            System.out.println(user.getName());
         }
     }
 
