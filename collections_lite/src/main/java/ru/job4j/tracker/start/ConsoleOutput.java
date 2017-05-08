@@ -4,7 +4,6 @@ import ru.job4j.tracker.models.Item;
 import ru.job4j.tracker.models.ItemGetString;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Класс вывода данных в консоль.

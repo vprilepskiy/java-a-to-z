@@ -26,18 +26,18 @@ public class MenuTracker {
      * Мханизмы выполнения вводимых команд.
      */
     private Tracker tracker;
-    /**
-     * Кол-во действий.
-     */
-    private final int numberActions = 9;
+//    /**
+//     * Кол-во действий.
+//     */
+//    private final int numberActions = 9;
     /**
      * Действие.
      */
-    private UserAction[] actions = new UserAction[numberActions];
-    /**
-     * Номер свободной ячейки для объекта UserAction в меню.
-     */
-    private int position = 0;
+    private ArrayList<UserAction> actions = new ArrayList<UserAction>();
+//    /**
+//     * Номер свободной ячейки для объекта UserAction в меню.
+//     */
+//    private int position = 0;
 
     /**
      * Конструктор.
@@ -58,7 +58,7 @@ public class MenuTracker {
      * @param action - действие.
      */
     public void addAction(UserAction action) {
-        this.actions[position++] = action;
+        this.actions.add(action);
     }
 
     /**
@@ -67,16 +67,16 @@ public class MenuTracker {
      * @return - массив доступных меню.
      */
     public int[] fillActions() {
-        addAction(new AddItem("Add item", actions));
-        addAction(new ShowItems("Show Items", actions));
-        addAction(new EditItem("Edit Item", actions));
-        addAction(new FindByName("Find By Name", actions));
-        addAction(new FindByDesc("Find By Desc", actions));
-        addAction(new FindByCreate("Find By Create", actions));
-        addAction(new Delete("Delete", actions));
-        addAction(new AddComens("AddComens", actions));
+        this.addAction(new AddItem("Add item", actions));
+        this.addAction(new ShowItems("Show Items", actions));
+        this.addAction(new EditItem("Edit Item", actions));
+        this.addAction(new FindByName("Find By Name", actions));
+        this.addAction(new FindByDesc("Find By Desc", actions));
+        this.addAction(new FindByCreate("Find By Create", actions));
+        this.addAction(new Delete("Delete", actions));
+        this.addAction(new AddComens("AddComens", actions));
 
-        int[] rangeItems = new int[this.actions.length];
+        int[] rangeItems = new int[this.actions.size()];
         int index = 0;
         for (UserAction userAction : this.actions) {
             if (userAction != null) {
@@ -93,7 +93,7 @@ public class MenuTracker {
      * @param key - элемент массива.
      */
     public void select(int key) {
-        this.actions[key].execute(this.input, this.output, this.tracker);
+        this.actions.get(key).execute(this.input, this.output, this.tracker);
     }
 
     /**
@@ -143,7 +143,7 @@ public class MenuTracker {
          * @param name - название метода.
          * @param actions - действие.
          */
-        private AddItem(String name, UserAction[] actions) {
+        private AddItem(String name, ArrayList<UserAction> actions) {
             super(name, actions);
         }
 
@@ -166,7 +166,7 @@ public class MenuTracker {
          * @param name - название метода.
          * @param actions - действие.
          */
-        private ShowItems(String name, UserAction[] actions) {
+        private ShowItems(String name, ArrayList<UserAction> actions) {
             super(name, actions);
         }
 
@@ -187,7 +187,7 @@ public class MenuTracker {
          * @param name - название метода.
          * @param actions - действие.
          */
-        private EditItem(String name, UserAction[] actions) {
+        private EditItem(String name, ArrayList<UserAction> actions) {
             super(name, actions);
         }
 
@@ -214,7 +214,7 @@ public class MenuTracker {
          * @param name - название метода.
          * @param actions - действие.
          */
-        private FindByName(String name, UserAction[] actions) {
+        private FindByName(String name, ArrayList<UserAction> actions) {
             super(name, actions);
         }
 
@@ -235,7 +235,7 @@ public class MenuTracker {
          * @param name - название метода.
          * @param actions - действие.
          */
-        private FindByDesc(String name, UserAction[] actions) {
+        private FindByDesc(String name, ArrayList<UserAction> actions) {
             super(name, actions);
         }
 
@@ -256,7 +256,7 @@ public class MenuTracker {
          * @param name - название метода.
          * @param actions - действие.
          */
-        private FindByCreate(String name, UserAction[] actions) {
+        private FindByCreate(String name, ArrayList<UserAction> actions) {
             super(name, actions);
         }
 
@@ -277,7 +277,7 @@ public class MenuTracker {
          * @param name - название метода.
          * @param actions - действие.
          */
-        private Delete(String name, UserAction[] actions) {
+        private Delete(String name, ArrayList<UserAction> actions) {
             super(name, actions);
         }
 
@@ -299,7 +299,7 @@ public class MenuTracker {
          * @param name - название метода.
          * @param actions - действие.
          */
-        private AddComens(String name, UserAction[] actions) {
+        private AddComens(String name, ArrayList<UserAction> actions) {
             super(name, actions);
         }
 
