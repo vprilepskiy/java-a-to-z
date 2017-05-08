@@ -1,5 +1,7 @@
 package ru.job4j.tracker.start;
 
+import java.util.ArrayList;
+
 /**
  * Абстрактный класс.
  * @author Vladimir Prilepskiy
@@ -15,14 +17,14 @@ public abstract class BaseAction implements UserAction {
     /**
      * Действия.
      */
-    private UserAction[] actions;
+    private ArrayList<UserAction> actions = new ArrayList<UserAction>();
 
     /**
      * Конструктор.
      * @param name - Название метода.
      * @param actions - Действия.
      */
-    public BaseAction(String name, UserAction[] actions) {
+    public BaseAction(String name, ArrayList<UserAction> actions) {
         this.name = name;
         this.actions = actions;
     }
