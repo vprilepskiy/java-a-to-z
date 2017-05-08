@@ -40,4 +40,13 @@ public class User {
         return this.id;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return o.hashCode() == this.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
 }
