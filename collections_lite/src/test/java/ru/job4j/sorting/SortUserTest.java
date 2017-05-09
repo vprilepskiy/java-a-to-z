@@ -4,10 +4,7 @@ import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -16,7 +13,7 @@ import java.util.Set;
 public class SortUserTest {
 
     /**
-     * Test.
+     * Test sort by age.
      */
     @Test
     public void whenSortingByAge() {
@@ -35,5 +32,27 @@ public class SortUserTest {
         while (itSet.hasNext() && itResult.hasNext()) {
             Assert.assertThat(itResult.next(), Is.is(itSet.next()));
         }
+    }
+
+    /**
+     * Test sort by HashCode.
+     */
+    @Test
+    public void whenSortingByHashCode() {
+
+        final User user0 = new User("Uasya", 15);
+        final User user1 = new User("Fedor", 50);
+        final User user2 = new User("Alex", 30);
+
+        final List<User> userList = Arrays.asList(user0, user1, user2);
+        final TreeMap<Integer, User> result = new TreeMap<>();
+        for (User user : userList) {
+            result.put(user.hashCode(), user);
+        }
+
+        for (Integer i : result.keySet()) {
+            System.out.println(i);
+        }
+
     }
 }
