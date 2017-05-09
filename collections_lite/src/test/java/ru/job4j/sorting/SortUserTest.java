@@ -19,7 +19,7 @@ public class SortUserTest {
      * Test.
      */
     @Test
-    public void test() {
+    public void whenSortingByAge() {
 
         final User user0 = new User("Uasya", 15);
         final User user1 = new User("Fedor", 50);
