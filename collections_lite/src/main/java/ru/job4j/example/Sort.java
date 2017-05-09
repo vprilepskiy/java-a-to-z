@@ -9,6 +9,9 @@ import java.util.Comparator;
  */
 public class Sort {
 
+    /**
+     * String.compareTo возвращает 1, 0, -1.
+     */
     public void compareTest() {
 
         System.out.println("Aleksandr".compareTo("Boris"));
@@ -16,6 +19,9 @@ public class Sort {
         System.out.println("Boris".compareTo("Aleksandr"));
     }
 
+    /**
+     * Comparator. Задает условия сортировки.
+     */
     public void sortCollection() {
 
         ArrayList<String> list = new ArrayList<String>();
@@ -36,12 +42,12 @@ public class Sort {
 
     }
 
+    /**
+     * Main.
+     * @param args - аргументы.
+     */
     public static void main(String[] args) {
         new Sort().compareTest();
         new Sort().sortCollection();
     }
-
-
-
-
 }

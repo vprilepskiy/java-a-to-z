@@ -13,6 +13,6 @@ public interface ISortUser {
      * @param userList - список пользователей.
      * @return - отсортированный список пользователей.
      */
-    Set<User> sort (List<User> userList);
+    Set<User> sort(List<User> userList);
 
 }

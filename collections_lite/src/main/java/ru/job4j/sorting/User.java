@@ -5,23 +5,38 @@ package ru.job4j.sorting;
  */
 public class User implements Comparable<User> {
 
+    /**
+     * Имя.
+     */
     private String name;
 
+    /**
+     * Возраст.
+     */
     private int age;
 
-    public User (String name, int age) {
+    /**
+     * Constructor.
+     * @param name - Имя.
+     * @param age - Возраст.
+     */
+    public User(String name, int age) {
         this.name = name;
         this.age = age;
     }
 
+    /**
+     * Getter.
+     * @return - name.
+     */
     public String getName() {
         return this.name;
     }
 
     /**
      * Сортировка по возрасту.
-     * @param o
-     * @return
+     * @param o - User.
+     * @return - 1 если сравниваемый user моложе этого, -1 если старше, 0 если ровестники.
      */
     @Override
     public int compareTo(User o) {
@@ -33,7 +48,4 @@ public class User implements Comparable<User> {
             return 0;
         }
     }
-
-
-
 }
