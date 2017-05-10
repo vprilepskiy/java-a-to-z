@@ -26,9 +26,7 @@ public class SortUser implements ISortUser {
         userList.sort(new Comparator<User>() {
             @Override
             public int compare(User o1, User o2) {
-                if (o1.hashCode() > o2.hashCode()) return 1;
-                if (o1.hashCode() < o2.hashCode()) return -1;
-                return 0;
+                return Integer.compare(o1.hashCode(), o2.hashCode());
             }
         });
 
@@ -40,9 +38,7 @@ public class SortUser implements ISortUser {
         userList.sort(new Comparator<User>() {
             @Override
             public int compare(User o1, User o2) {
-                if (o1.getName().length() > o2.getName().length()) return 1;
-                if (o1.getName().length() < o2.getName().length()) return -1;
-                return 0;
+                return Integer.compare(o1.getName().length(), o2.getName().length());
             }
         });
         return userList;

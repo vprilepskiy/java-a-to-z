@@ -20,7 +20,7 @@ public class ThroughputTest {
 
         final String line = "String line";
         final int addAmount = (int) Math.pow(8, 7);
-        final int delAmount = (int) Math.pow(8, 5);
+        final int delAmount = (int) Math.pow(8, 4);
 
         Throughput throughput = new Throughput();
 

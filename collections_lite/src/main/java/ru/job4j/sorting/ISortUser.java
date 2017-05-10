@@ -20,13 +20,13 @@ public interface ISortUser {
      * @param userList - список пользователей.
      * @return - отсортированный список пользователей.
      */
-    List<User> sortHash (List<User> userList);
+    List<User> sortHash(List<User> userList);
 
     /**
      * Отсортирует List<User> по длине имени.
      * @param userList - список пользователей.
      * @return - отсортированный список пользователей.
      */
-    List<User> sortLength (List<User> userList);
+    List<User> sortLength(List<User> userList);
 
 }

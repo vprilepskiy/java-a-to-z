@@ -44,9 +44,13 @@ public class User {
     @Override
     public boolean equals(Object o) {
         // сравнение этого объекта с переданным по HashCode.
-        if (this == o) return true;
+        if (this == o) {
+            return true;
+        }
         // сравнение сигнатуры классов (типы данных)
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         User user = (User) o;
         return id == user.id;
