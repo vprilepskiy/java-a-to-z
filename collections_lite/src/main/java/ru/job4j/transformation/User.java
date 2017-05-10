@@ -40,14 +40,21 @@ public class User {
         return this.id;
     }
 
+
     @Override
     public boolean equals(Object o) {
-        return o.hashCode() == this.id;
+        // сравнение этого объекта с переданным по HashCode.
+        if (this == o) return true;
+        // сравнение сигнатуры классов (типы данных)
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return id == user.id;
     }
 
     @Override
     public int hashCode() {
         return this.id;
     }
-
 }
