@@ -40,7 +40,6 @@ public class User {
         return this.id;
     }
 
-
     @Override
     public boolean equals(Object o) {
         // сравнение этого объекта с переданным по HashCode.
