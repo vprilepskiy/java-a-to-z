@@ -46,34 +46,8 @@ public class Processing implements IProcessing {
 
         boolean result = false;
 
-        List<Account> accountList = this.users.get(srcUser);
-
-        boolean foundDebitAccount = false;
-        boolean foundCreditAccount = false;
-
-        Account debitAccount = null;
-        Account creditAccount = null;
-
-        for(Account account : accountList){
-            // дебет
-            if (account.equals(srcAccount)){
-                if ((account.getValue() - amount) >= 0){
-                    debitAccount = account;
-                }
-                foundDebitAccount = true;
-            }
-            // кредит
-            if (account.equals(dstAccount)){
-                if ((account.getValue() + amount) >= 0){
-                    creditAccount = account;
-                }
-                foundCreditAccount = true;
-            }
-            // если srcAccount и dstAccount найдены прекратить итерацию
-            if (foundDebitAccount && foundCreditAccount){
-                break;
-            }
-        }
+        Account debitAccount = this.getValidAccount(srcUser, srcAccount, -1 * amount);
+        Account creditAccount = this.getValidAccount(dstUser, dstAccount, amount);
 
         if ((debitAccount != null) && (creditAccount != null)) {
             debitAccount.setValue(debitAccount.getValue() - amount);
@@ -81,6 +55,29 @@ public class Processing implements IProcessing {
             result = true;
         }
 
+        return result;
+    }
+
+    /**
+     * Проверит состояние счета.
+     * @param user - Пользователь.
+     * @param account - Счет пользователя.
+     * @param amount - Сумма. Если списание, то положительная. Если пополнение, то отрицательная.
+     * @return - Счет пользователя. Null если не найден или операция списания больше чем остаток.
+     */
+    private Account getValidAccount(User user, Account account, double amount) {
+
+        Account result = null;
+        List<Account> accountList = this.users.get(user);
+
+        for(Account acc : accountList) {
+            if (acc.equals(account)) {
+                if ((acc.getValue() + amount) >= 0) {
+                    result = acc;
+                }
+                break;
+            }
+        }
         return result;
     }
 }

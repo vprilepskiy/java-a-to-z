@@ -24,6 +24,8 @@ public class ProcessingTest {
         processing.addAccountToUser(user0, new Account(100, 111));
         processing.addAccountToUser(user0, new Account(200, 222));
 
+        processing.transferMoney(user0, new Account(0, 111), user0, new Account(0, 222), 50);
+
 //        processing.deleteUser(new User("user1", 1));
 
         for (Map.Entry<User, List<Account>> listEntry : processing.users.entrySet()) {
