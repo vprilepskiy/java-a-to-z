@@ -27,22 +27,39 @@ public class Account {
         this.requisites = requisites;
     }
 
+    /**
+     * Банковский счёт.
+     * @param requisites - реквизиты счёта.
+     */
+    public Account(int requisites) {
+        this.value = 0;
+        this.requisites = requisites;
+    }
+
+    /**
+     * Получить состояние счета.
+     * @return - сумма.
+     */
     public double getValue() {
         return value;
     }
 
+    /**
+     * Установить состояние счета.
+     * @param value - сумма.
+     */
     public void setValue(double value) {
         this.value = value;
     }
 
-    public int getRequisites() {
-        return requisites;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Account account = (Account) o;
 

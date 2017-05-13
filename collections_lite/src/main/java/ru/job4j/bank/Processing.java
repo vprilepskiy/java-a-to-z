@@ -10,9 +10,10 @@ import java.util.Map;
  */
 public class Processing implements IProcessing {
 
-    public Map<User, List<Account>> users = new HashMap<>();
-
-
+    /**
+     * Пользователи со счетами.
+     */
+    private Map<User, List<Account>> users = new HashMap<>();
 
     @Override
     public void addUser(User user) {
@@ -70,7 +71,7 @@ public class Processing implements IProcessing {
         Account result = null;
         List<Account> accountList = this.users.get(user);
 
-        for(Account acc : accountList) {
+        for (Account acc : accountList) {
             if (acc.equals(account)) {
                 if ((acc.getValue() + amount) >= 0) {
                     result = acc;

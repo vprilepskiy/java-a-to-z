@@ -38,7 +38,7 @@ public interface IProcessing {
      * @param user - пользователь.
      * @return - банковские счета.
      */
-    List<Account> getUserAccounts (User user);
+    List<Account> getUserAccounts(User user);
 
     /**
      * метод для перечисления денег с одного счёта на другой счёт:
@@ -48,8 +48,8 @@ public interface IProcessing {
      * @param dstUser - пользователь на кого.
      * @param dstAccount - банковский счет.
      * @param amount - сумма.
-     * @return
+     * @return - true если операция успешна. False если операция не успешна.
      */
-    boolean transferMoney (User srcUser, Account srcAccount, User dstUser, Account dstAccount, double amount);
+    boolean transferMoney(User srcUser, Account srcAccount, User dstUser, Account dstAccount, double amount);
 
 }
