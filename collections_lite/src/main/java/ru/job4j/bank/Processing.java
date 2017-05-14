@@ -27,14 +27,18 @@ public class Processing implements IProcessing {
 
     @Override
     public void addAccountToUser(User user, Account account) {
-        List<Account> accountList = this.users.get(user);
-        accountList.add(account);
+        if (this.users.containsKey(user)) {
+            List<Account> accountList = this.users.get(user);
+            accountList.add(account);
+        }
     }
 
     @Override
     public void deleteAccountFromUser(User user, Account account) {
-        List<Account> accountList = this.users.get(user);
-        accountList.remove(user);
+        if (this.users.containsKey(user)) {
+            List<Account> accountList = this.users.get(user);
+            accountList.remove(user);
+        }
     }
 
     @Override
@@ -69,14 +73,18 @@ public class Processing implements IProcessing {
     private Account getValidAccount(User user, Account account, double amount) {
 
         Account result = null;
-        List<Account> accountList = this.users.get(user);
 
-        for (Account acc : accountList) {
-            if (acc.equals(account)) {
-                if ((acc.getValue() + amount) >= 0) {
-                    result = acc;
+        if (this.users.containsKey(user)) {
+
+            List<Account> accountList = this.users.get(user);
+
+            for (Account acc : accountList) {
+                if (acc.equals(account)) {
+                    if ((acc.getValue() + amount) >= 0) {
+                        result = acc;
+                    }
+                    break;
                 }
-                break;
             }
         }
         return result;
