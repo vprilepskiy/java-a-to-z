@@ -33,6 +33,7 @@ public class IteratorEvenNumbersArrayTest {
         IteratorEvenNumbersArray it = new IteratorEvenNumbersArray(values);
 
         it.next();
+
         Assert.assertThat(it.hasNext(), Is.is(true));
     }
 
