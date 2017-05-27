@@ -31,11 +31,8 @@ public class IteratorEvenNumbersArray {
     public boolean hasNext() {
         boolean result = false;
 
-        for (int i = this.index; i < this.values.length; i++) {
-            if ((this.values[i] % 2) == 0) {
-                result = true;
-                break;
-            }
+        if (this.getNextIndex() != -1) {
+            result = true;
         }
 
         return result;
@@ -47,20 +44,27 @@ public class IteratorEvenNumbersArray {
      */
     public Object next() {
 
-        Object result = null;
-        boolean again;
-
-        do {
-            if ((this.values[this.index] % 2) == 0) {
-                result = this.values[this.index];
-                again = false;
-            } else {
-                again = true;
-            }
-            this.index++;
-        } while (again);
+        this.index = this.getNextIndex();
+        Object result = this.values[this.index];
+        this.index++;
 
         return result;
     }
 
+    /**
+     * Найдет следующий индекс элемента, значение которого - четное число.
+     * @return - индекс элемента или -1 если не найден.
+     */
+    private int getNextIndex() {
+        int result = -1;
+
+        for (int i = this.index; i < this.values.length; i++) {
+            if ((this.values[i] % 2) == 0) {
+                result = i;
+                break;
+            }
+        }
+
+        return result;
+    }
 }
