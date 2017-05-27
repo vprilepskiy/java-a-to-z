@@ -3,6 +3,8 @@ package ru.job4j.iterator;
 import java.util.Iterator;
 
 /**
+ * 5.1.3. Создать итератор простые числа. [#15308]
+ *
  * Created by VLADIMIR on 24.05.2017.
  */
 public class IteratorSimpleNumberArray implements Iterator {
@@ -16,6 +18,10 @@ public class IteratorSimpleNumberArray implements Iterator {
      */
     private int index = 0;
 
+    /**
+     * Constructor.
+     * @param values - array.
+     */
     public IteratorSimpleNumberArray(final int[] values) {
         this.values = values;
     }
@@ -24,11 +30,8 @@ public class IteratorSimpleNumberArray implements Iterator {
     public boolean hasNext() {
         boolean result = false;
 
-        for (int i = this.index; i < this.values.length; i++) {
-            if (this.isPrime(this.values[i])) {
-                result = true;
-                break;
-            }
+        if (this.getNextIndex() != -1) {
+            result = true;
         }
 
         return result;
@@ -37,24 +40,19 @@ public class IteratorSimpleNumberArray implements Iterator {
     @Override
     public Object next() {
 
-        Object result = null;
-        boolean again;
-
-        do {
-            if (this.isPrime(this.values[this.index])) {
-                result = this.values[this.index];
-                again = false;
-            } else {
-                again = true;
-            }
-            this.index++;
-        } while (again);
+        this.index = this.getNextIndex();
+        Object result = this.values[this.index];
+        this.index++;
 
         return result;
     }
 
-
-    public boolean isPrime(int value) {
+    /**
+     * Проверит является ли число простым.
+     * @param value - проверяемое число.
+     * @return - true если число простое, false - если число составное.
+     */
+    public boolean isSimple(int value) {
 
         boolean result = true;
 
@@ -70,5 +68,23 @@ public class IteratorSimpleNumberArray implements Iterator {
 
         return result;
     }
+
+    /**
+     * Найдет следующий индекс элемента, значение которого - четное число.
+     * @return - индекс элемента или -1 если не найден.
+     */
+    private int getNextIndex() {
+        int result = -1;
+
+        for (int i = this.index; i < this.values.length; i++) {
+            if (this.isSimple(this.values[i])) {
+                result = i;
+                break;
+            }
+        }
+
+        return result;
+    }
+
 
 }

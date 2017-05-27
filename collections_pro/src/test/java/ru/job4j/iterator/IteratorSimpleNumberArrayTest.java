@@ -9,25 +9,52 @@ import org.junit.Test;
  */
 public class IteratorSimpleNumberArrayTest {
 
+    /**
+     * Test is Simple.
+     */
     @Test
-    public void whenSetNumberThenGetIsSimple(){
+    public void whenSetNumberThenGetIsSimple() {
         final int[] values = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         IteratorSimpleNumberArray it = new IteratorSimpleNumberArray(values);
 
+        final boolean[] expect = new boolean[] {false, false, true, true, false, true, false, true, false, false};
 
-
-        Assert.assertThat(it.isPrime(values[0]), Is.is(false));
-        Assert.assertThat(it.isPrime(values[1]), Is.is(false));
-        Assert.assertThat(it.isPrime(values[2]), Is.is(true));
-        Assert.assertThat(it.isPrime(values[3]), Is.is(true));
-        Assert.assertThat(it.isPrime(values[4]), Is.is(false));
-        Assert.assertThat(it.isPrime(values[5]), Is.is(true));
-        Assert.assertThat(it.isPrime(values[6]), Is.is(false));
-        Assert.assertThat(it.isPrime(values[7]), Is.is(true));
-        Assert.assertThat(it.isPrime(values[8]), Is.is(false));
-        Assert.assertThat(it.isPrime(values[9]), Is.is(false));
+        for (int i = 0; i < values.length; i++) {
+            Assert.assertThat(it.isSimple(values[i]), Is.is(expect[i]));
+        }
     }
 
+    /**
+     * Test hasNext.
+     */
+    @Test
+    public void whenCheckNextPositionShouldReturnTrue() {
+        final int[] values = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        IteratorSimpleNumberArray it = new IteratorSimpleNumberArray(values);
 
+        it.next();
+
+        Assert.assertThat(it.hasNext(), Is.is(true));
+    }
+
+    /**
+     * Test hasNext.
+     */
+    @Test
+    public void whenCheckNextPositionShouldReturnFalse() {
+        final int[] values = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        IteratorSimpleNumberArray it = new IteratorSimpleNumberArray(values);
+
+        // 2
+        it.next();
+        // 3
+        it.next();
+        // 5
+        it.next();
+        // 7
+        it.next();
+
+        Assert.assertThat(it.hasNext(), Is.is(false));
+    }
 
 }
