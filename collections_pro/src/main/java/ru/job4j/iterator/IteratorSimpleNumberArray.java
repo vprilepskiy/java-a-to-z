@@ -28,13 +28,7 @@ public class IteratorSimpleNumberArray implements Iterator {
 
     @Override
     public boolean hasNext() {
-        boolean result = false;
-
-        if (this.getNextIndex() != -1) {
-            result = true;
-        }
-
-        return result;
+        return this.getNextIndex() != -1;
     }
 
     @Override
