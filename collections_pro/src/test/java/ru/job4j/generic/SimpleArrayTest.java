@@ -76,7 +76,6 @@ public class SimpleArrayTest {
             Assert.assertThat(simpleArray.get(i), Is.is(expect[i]));
         }
     }
-
 }
 
 

@@ -53,7 +53,7 @@ public class SimpleArray<T> {
      */
     public void delete(int position) {
         System.arraycopy(this.objects, position + 1, this.objects, position, this.index - position - 1);
-        if ((this.objects.length - 1) > position) {
+        if ((this.objects.length - 1) >= position) {
             this.objects[this.index - 1] = null;
         }
     }
