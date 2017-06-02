@@ -18,36 +18,4 @@ public class RoleStore extends AbstractStore<Role> {
         super(size);
     }
 
-//    /**
-//     * Array.
-//     */
-//    private final SimpleArray<Role> roles;
-//
-//    /**
-//     * Constructor.
-//     * @param size - size of array.
-//     */
-//    public RoleStore(int size) {
-//        this.roles = new SimpleArray<>(size);
-//    }
-//
-//    @Override
-//    public void add(Role value) {
-//        this.roles.add(value);
-//    }
-//
-//    @Override
-//    public void update(int position, Role value) {
-//        this.roles.update(position, value);
-//    }
-//
-//    @Override
-//    public void delete(int position) {
-//        this.roles.delete(position);
-//    }
-//
-//    @Override
-//    public Role get(int position) {
-//        return this.roles.get(position);
-//    }
 }
