@@ -52,7 +52,10 @@ public class SimpleArray<T> {
      * @param position - номер ячейки.
      */
     public void delete(int position) {
-        this.objects[position] = null;
+        System.arraycopy(this.objects, position + 1, this.objects, position, this.index - position - 1);
+        if ((this.objects.length - 1) > position) {
+            this.objects[this.index - 1] = null;
+        }
     }
 
 

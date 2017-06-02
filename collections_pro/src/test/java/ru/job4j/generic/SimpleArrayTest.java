@@ -60,13 +60,21 @@ public class SimpleArrayTest {
      */
     @Test
     public void whenDeleteElement() {
-        final int size = 1;
+        final int size = 4;
         SimpleArray<String> simpleArray = new SimpleArray<>(size);
 
-        simpleArray.add("test");
-        simpleArray.delete(0);
+        simpleArray.add("test0");
+        simpleArray.add("test1");
+        simpleArray.add("test2");
+        simpleArray.add("test3");
 
-        Assert.assertNull(simpleArray.get(0));
+        simpleArray.delete(1);
+
+        String[] expect = {"test0", "test2", "test3", null};
+
+        for (int i = 0; i < size; i++) {
+            Assert.assertThat(simpleArray.get(i), Is.is(expect[i]));
+        }
     }
 
 }
