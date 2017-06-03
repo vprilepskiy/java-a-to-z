@@ -1,7 +1,5 @@
 package ru.job4j.generic.store;
 
-import ru.job4j.generic.SimpleArray;
-
 /**
  * Created by VLADIMIR on 30.05.2017.
  *

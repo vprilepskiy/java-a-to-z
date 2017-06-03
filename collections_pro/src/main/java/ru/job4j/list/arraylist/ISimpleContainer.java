@@ -1,9 +1,8 @@
-package ru.job4j.list.ch;
-
-import java.util.Iterator;
+package ru.job4j.list.arraylist;
 
 /**
  * Created by VLADIMIR on 31.05.2017.
+ * @param <E> - generic.
  */
 public interface ISimpleContainer<E> extends Iterable<E> {
 

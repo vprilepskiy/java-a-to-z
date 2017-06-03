@@ -4,6 +4,7 @@ import ru.job4j.generic.SimpleArray;
 
 /**
  * Created by VLADIMIR on 02.06.2017.
+ * @param <T> - generic.
  */
 public class AbstractStore<T extends Base> implements IStore<T> {
 
