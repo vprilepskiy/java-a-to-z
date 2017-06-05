@@ -1,5 +1,7 @@
 package ru.job4j.list.arraylist;
 
+import ru.job4j.list.ISimpleContainer;
+
 import java.util.Iterator;
 /**
  * Created by VLADIMIR on 31.05.2017.

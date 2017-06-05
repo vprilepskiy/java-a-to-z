@@ -1,4 +1,4 @@
-package ru.job4j.list.arraylist;
+package ru.job4j.list;
 
 /**
  * Created by VLADIMIR on 31.05.2017.
