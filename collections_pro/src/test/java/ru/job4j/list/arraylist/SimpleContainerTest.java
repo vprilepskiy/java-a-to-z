@@ -31,5 +31,4 @@ public class SimpleContainerTest {
             Assert.assertThat(it.next(), Is.is(values[index++]));
         }
     }
-
 }

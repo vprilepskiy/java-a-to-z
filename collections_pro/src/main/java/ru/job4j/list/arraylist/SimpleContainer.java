@@ -1,7 +1,6 @@
 package ru.job4j.list.arraylist;
 
 import java.util.Iterator;
-
 /**
  * Created by VLADIMIR on 31.05.2017.
  * @param <E> - generic.
@@ -38,13 +37,19 @@ public class SimpleContainer<E> implements ISimpleContainer<E> {
 
     @Override
     public void add(E value) {
+        this.expand();
+        this.container[this.index++] = value;
+    }
+
+    /**
+     * Expand size of array in doubly.
+     */
+    private void expand() {
         if (this.index > (this.container.length - 1)) {
-            Object[] container = new Object[this.container.length + 1];
+            Object[] container = new Object[this.container.length * 2];
             System.arraycopy(this.container, 0, container, 0, this.container.length);
             this.container = container;
         }
-
-        this.container[this.index++] = value;
     }
 
     @Override
@@ -56,16 +61,16 @@ public class SimpleContainer<E> implements ISimpleContainer<E> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
 
-            private int index = 0;
+            private int itIndex = 0;
 
             @Override
             public boolean hasNext() {
-                return container.length > this.index;
+                return index > this.itIndex;
             }
 
             @Override
             public E next() {
-                return (E) container[this.index++];
+                return (E) container[this.itIndex++];
             }
         };
     }
