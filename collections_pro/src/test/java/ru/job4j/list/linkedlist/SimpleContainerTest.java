@@ -32,6 +32,9 @@ public class SimpleContainerTest {
         }
     }
 
+    /**
+     * Test.
+     */
     @Test
     public void whenAddElementsThenGetWithIndex() {
 
