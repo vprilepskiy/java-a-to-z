@@ -42,9 +42,9 @@ public class SimpleContainer<E> implements ISimpleContainer<E> {
     public E get(int index) {
         E value = null;
 
-        java.util.Iterator iterator = this.iterator();
-        for (int i = 0; i < index; i++) {
-//            value = iterator.next();
+        Iterator<E> iterator = this.iterator();
+        for (int i = 0; i <= index; i++) {
+            value = iterator.next();
         }
 
         return value;
@@ -55,7 +55,7 @@ public class SimpleContainer<E> implements ISimpleContainer<E> {
         return new Iterator<E>() {
 
             /**
-             * Текущий элемент.
+             * Current element.
              */
             private Element<E> element = firstElement;
 
@@ -84,34 +84,43 @@ public class SimpleContainer<E> implements ISimpleContainer<E> {
  */
 class Element<E>{
 
-//    private final Element<E> prev;
+    /**
+     * Value.
+     */
     private final E value;
+    /**
+     * Link for next Element.
+     */
     private Element<E> next;
 
+    /**
+     * Constructor.
+     * @param value - value.
+     */
     public Element(E value) {
-//        this.prev = prev;
         this.value = value;
     }
 
-
-//    public Element(Element<E> prev, E value) {
-//        this.prev = prev;
-//        this.value = value;
-//    }
-
-//
-//    public Element<E> getPrev() {
-//        return prev;
-//    }
-
+    /**
+     * Getter.
+     * @return - value.
+     */
     public E getValue() {
         return value;
     }
 
+    /**
+     * Getter.
+     * @return - Link for next Element.
+     */
     public Element<E> getNext() {
         return next;
     }
 
+    /**
+     * Setter.
+     * @param next - Link for next Element.
+     */
     public void setNext(Element<E> next) {
         this.next = next;
     }

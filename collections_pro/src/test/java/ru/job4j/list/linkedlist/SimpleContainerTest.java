@@ -16,7 +16,6 @@ public class SimpleContainerTest {
     @Test
     public void whenAddElementsThenGetWithIterator() {
 
-        final int size = 2;
         SimpleContainer<String> simpleContainer = new SimpleContainer();
         final String[] values = {"test0", "test1", "test2", "test3", "test4"};
 
@@ -27,17 +26,25 @@ public class SimpleContainerTest {
         Iterator it = simpleContainer.iterator();
         int index = 0;
 
-        System.out.println(it.hasNext() + "; " + it.next());
-        System.out.println(it.hasNext() + "; " + it.next());
-        System.out.println(it.hasNext() + "; " + it.next());
-        System.out.println(it.hasNext() + "; " + it.next());
-        System.out.println(it.hasNext() + "; " + it.next());
-        System.out.println(it.hasNext());
 
-//        while (MyIterator.hasNext()) {
-//            System.out.println(MyIterator.next());
-//            Assert.assertThat(MyIterator.next(), Is.is(values[index++]));
-//        }
+        while (it.hasNext()) {
+            Assert.assertThat(it.next(), Is.is(values[index++]));
+        }
+    }
+
+    @Test
+    public void whenAddElementsThenGetWithIndex() {
+
+        SimpleContainer<String> simpleContainer = new SimpleContainer();
+        final String[] values = {"test0", "test1", "test2", "test3", "test4"};
+
+        for (String value : values) {
+            simpleContainer.add(value);
+        }
+
+        for (int i = 0; i < values.length; i++) {
+            Assert.assertThat(simpleContainer.get(i), Is.is(values[i]));
+        }
     }
 
 }
