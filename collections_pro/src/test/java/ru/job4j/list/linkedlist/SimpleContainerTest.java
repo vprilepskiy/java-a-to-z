@@ -17,19 +17,22 @@ public class SimpleContainerTest {
     public void whenAddElementsThenGetWithIterator() {
 
         SimpleContainer<String> simpleContainer = new SimpleContainer();
-        final String[] values = {"test0", "test1", "test2", "test3", "test4"};
+        final String[] values = {"test0", "test1", "test2"};
 
         for (String value : values) {
             simpleContainer.add(value);
         }
 
-        Iterator it = simpleContainer.iterator();
+        Iterator<String> it = simpleContainer.iterator();
         int index = 0;
 
-
+        String[] result = new String[values.length];
         while (it.hasNext()) {
-            Assert.assertThat(it.next(), Is.is(values[index++]));
+            result[index++] = it.next();
         }
+
+        Assert.assertThat(result, Is.is(values));
+
     }
 
     /**
@@ -45,9 +48,12 @@ public class SimpleContainerTest {
             simpleContainer.add(value);
         }
 
+        String[] result = new String[values.length];
         for (int i = 0; i < values.length; i++) {
-            Assert.assertThat(simpleContainer.get(i), Is.is(values[i]));
+            result[i] = simpleContainer.get(i);
         }
+
+        Assert.assertThat(result, Is.is(values));
     }
 
 }
