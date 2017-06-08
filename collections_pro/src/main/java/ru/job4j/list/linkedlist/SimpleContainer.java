@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 /**
  * Created by VLADIMIR on 05.06.2017.
+ * @param <E> - generic.
  */
 public class SimpleContainer<E> implements ISimpleContainer<E> {
 
@@ -82,7 +83,7 @@ public class SimpleContainer<E> implements ISimpleContainer<E> {
  * Element of linkedList.
  * @param <E> - type value.
  */
-class Element<E>{
+class Element<E> {
 
     /**
      * Value.
@@ -97,7 +98,7 @@ class Element<E>{
      * Constructor.
      * @param value - value.
      */
-    public Element(E value) {
+    Element(E value) {
         this.value = value;
     }
 
