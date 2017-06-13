@@ -11,7 +11,7 @@ public class Cycle {
      * @param first - первый объект из списка.
      * @return - true - если присутствует зацикливание, false - если остутствует зацикливание.
      */
-    boolean hasCycle(Node first) {
+    public boolean hasCycle(Node first) {
 
         boolean result = false;
         Node tempNode = first;
@@ -33,7 +33,7 @@ public class Cycle {
      * @param first - проверяемый объект.
      * @return - true - если ссылаются, false - если не ссылаются.
      */
-    public boolean hasLinkToBack(Node first) {
+    private boolean hasLinkToBack(Node first) {
 
         boolean result = false;
         Node tempNode = first;
