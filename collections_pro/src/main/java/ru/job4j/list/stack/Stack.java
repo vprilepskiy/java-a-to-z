@@ -2,9 +2,10 @@ package ru.job4j.list.stack;
 
 /**
  * Created by VLADIMIR on 08.06.2017.
- *
+ * <p>
  * Stack - первый пришел - последний вышел. (пирамидка)
- * @param <E>
+ *
+ * @param <E> - Generic.
  */
 public class Stack<E> implements ISimpleContainer<E> {
 
@@ -28,9 +29,9 @@ public class Stack<E> implements ISimpleContainer<E> {
         return element.getValue();
     }
 
-
     /**
      * Element of linkedList.
+     *
      * @param <E> - type value.
      */
     private class Element<E> {
@@ -46,7 +47,8 @@ public class Stack<E> implements ISimpleContainer<E> {
 
         /**
          * Constructor.
-         * @param prev - prev link.
+         *
+         * @param prev  - prev link.
          * @param value - value.
          */
         private Element(Element<E> prev, E value) {
@@ -56,6 +58,7 @@ public class Stack<E> implements ISimpleContainer<E> {
 
         /**
          * Getter.
+         *
          * @return - value.
          */
         public E getValue() {
@@ -64,6 +67,7 @@ public class Stack<E> implements ISimpleContainer<E> {
 
         /**
          * Getter.
+         *
          * @return - Link for next Element.
          */
         public Element<E> getPrev() {
