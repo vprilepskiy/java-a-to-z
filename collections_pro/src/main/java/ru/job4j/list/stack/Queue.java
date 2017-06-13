@@ -43,6 +43,8 @@ public class Queue<E> implements ISimpleContainer<E> {
         Element<E> element = this.firstElement;
         // передать ссылку первому элементу от следующего
         this.firstElement = element.getNext();
+        // gc
+        element.setNext(null);
         // вернуть значение первого элемента
         return element.getValue();
     }

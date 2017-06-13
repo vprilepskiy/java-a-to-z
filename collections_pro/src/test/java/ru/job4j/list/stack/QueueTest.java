@@ -25,4 +25,8 @@ public class QueueTest {
         Assert.assertThat("test1", Is.is(queue.pop()));
         Assert.assertThat("test2", Is.is(queue.pop()));
     }
+
+//    private String getSpace() {
+//        return Runtime.getRuntime().freeMemory() + "; " + Runtime.getRuntime().totalMemory();
+//    }
 }

@@ -25,6 +25,8 @@ public class Stack<E> implements ISimpleContainer<E> {
         Element<E> element = this.lastElement;
         // передать ссылку первому элементу от следующего
         this.lastElement = element.getPrev();
+        // gc
+        element.setPrev(null);
         // вернуть значение первого элемента
         return element.getValue();
     }
@@ -72,6 +74,15 @@ public class Stack<E> implements ISimpleContainer<E> {
          */
         public Element<E> getPrev() {
             return this.prev;
+        }
+
+        /**
+         * Setter.
+         *
+         * @param prev - Link for next Element.
+         */
+        public void setPrev(Element<E> prev) {
+            this.prev = prev;
         }
     }
 }

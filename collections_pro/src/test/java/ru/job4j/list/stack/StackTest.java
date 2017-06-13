@@ -25,7 +25,6 @@ public class StackTest {
         Assert.assertThat("test1", Is.is(stack.pop()));
         Assert.assertThat("test0", Is.is(stack.pop()));
     }
-
 }
 
 
