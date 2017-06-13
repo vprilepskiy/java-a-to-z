@@ -24,7 +24,5 @@ public class QueueTest {
         Assert.assertThat("test0", Is.is(queue.pop()));
         Assert.assertThat("test1", Is.is(queue.pop()));
         Assert.assertThat("test2", Is.is(queue.pop()));
-
     }
-
 }
