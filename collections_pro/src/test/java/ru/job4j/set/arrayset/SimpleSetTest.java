@@ -1,9 +1,8 @@
-package ru.job4j.list.set.arrayset;
+package ru.job4j.set.arrayset;
 
 import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;
-import ru.job4j.set.arrayset.SimpleSet;
 
 import java.util.Iterator;
 
