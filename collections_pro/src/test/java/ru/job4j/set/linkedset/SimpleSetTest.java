@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.job4j.set.linledset.SimpleSet;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -57,20 +58,21 @@ public class SimpleSetTest {
 //        }
 //    }
 //
-//    @Test
-//    public void b() {
-//        String value0 = "test0";
-//        String value1 = "test1";
-//        String value2 = "test2";
-//        String value3 = "test3";
-//        String value4 = "test4";
-//        final String[] values = {value1, value3, value4};
-//
-//        for (String s : values) {
-//            System.out.println(s + "; " + s.hashCode());
-//        }
-//
-//        System.out.println(Arrays.binarySearch(values, value2) + "; " + value2.hashCode());
-//    }
+    @Test
+    public void b() {
+        String value0 = "test0";
+        String value1 = "test1";
+        String value2 = "test2";
+        String value3 = "test3";
+        String value4 = "test4";
+        final String[] values = {value1, value3, value4};
+//        final String[] values = new String[10];
+
+        for (String s : values) {
+            System.out.println(s + "; " + s.hashCode());
+        }
+
+        System.out.println(Arrays.binarySearch(values, value2) + "; " + value2.hashCode());
+    }
 
 }
