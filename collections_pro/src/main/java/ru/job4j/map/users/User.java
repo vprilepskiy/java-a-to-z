@@ -56,4 +56,13 @@ public class User {
         return this.birthday;
     }
 
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", children=" + children +
+                ", birthday=" + birthday.getTimeInMillis() +
+                '}';
+    }
 }
