@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 /**
  * Created by VLADIMIR on 15.06.2017.
+ * @param <E> - generic.
  */
 public class SimpleSet<E> implements ISimpleContainer<E> {
 
@@ -34,7 +35,7 @@ public class SimpleSet<E> implements ISimpleContainer<E> {
 
 
     /**
-     * Default constructor.
+     * Constructor.
      */
     public SimpleSet() {
         this.container = new Object[this.defaultSize];
@@ -69,7 +70,6 @@ public class SimpleSet<E> implements ISimpleContainer<E> {
             // добавить HashCode
             this.addHash((Math.abs(searchKey) - 1), value);
         }
-
     }
 
 
@@ -103,7 +103,7 @@ public class SimpleSet<E> implements ISimpleContainer<E> {
      * @param value - значение для вставки.
      */
     void addInMiddle(int[] array, int index, int value) {
-        // скопировать конец
+        // сдвинуть вправо от индекса
         System.arraycopy(array, index, array, index + 1, array.length - index - 1);
         // вставить значение
         array[index] = value;
@@ -135,5 +135,4 @@ public class SimpleSet<E> implements ISimpleContainer<E> {
             }
         };
     }
-
 }
