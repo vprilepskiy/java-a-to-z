@@ -2,6 +2,7 @@ package ru.job4j.map.users;
 
 import org.junit.Test;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,14 +19,15 @@ public class TestUser {
     @Test
     public void printMap() {
 
+        User user1 = new User("Alex", 0, new GregorianCalendar(2010, 02, 21));
+        User user2 = new User("Alex", 0, new GregorianCalendar(2010, 02, 21));
+
         final Map<User, Object> map = new HashMap<User, Object>();
-        map.put(new User("Alex", 0, new GregorianCalendar(2010, 02, 21)), "test1");
-        map.put(new User("Alex", 0, new GregorianCalendar(2010, 02, 21)), "test2");
+        map.put(user1, "test1");
+        map.put(user2, "test2");
 
         for (Map.Entry<User, Object> entry : map.entrySet()) {
             System.out.println(entry.getKey() + "; " + entry.getValue());
         }
-
     }
-
 }
