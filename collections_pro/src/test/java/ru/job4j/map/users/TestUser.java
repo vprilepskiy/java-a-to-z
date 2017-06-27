@@ -22,6 +22,8 @@ public class TestUser {
         User user1 = new User("Alex", 0, new GregorianCalendar(2010, 02, 21));
         User user2 = new User("Alex", 0, new GregorianCalendar(2010, 02, 21));
 
+        System.out.println(user1.equals(user2));
+
         final Map<User, Object> map = new HashMap<User, Object>();
         map.put(user1, "test1");
         map.put(user2, "test2");
