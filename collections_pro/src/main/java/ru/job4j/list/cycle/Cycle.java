@@ -6,34 +6,12 @@ package ru.job4j.list.cycle;
 public class Cycle {
 
     /**
-     * Выполнит проверку на зацикливание связных списков.
-     *
-     * @param first - первый объект из списка.
-     * @return - true - если присутствует зацикливание, false - если остутствует зацикливание.
-     */
-    public boolean hasCycle(Node first) {
-
-        boolean result = false;
-        Node tempNode = first;
-
-        while (tempNode.getNext() != null) {
-            if (this.hasLinkToBack(tempNode)) {
-                result = true;
-                break;
-            }
-            tempNode = tempNode.getNext();
-        }
-        return result;
-    }
-
-
-    /**
      * Выполнит проверку, что на данный объект не ссылаются все последующие.
      *
      * @param first - проверяемый объект.
      * @return - true - если ссылаются, false - если не ссылаются.
      */
-    private boolean hasLinkToBack(Node first) {
+    public boolean hasCycle(Node first) {
 
         boolean result = false;
         Node tempNode = first;
@@ -51,6 +29,8 @@ public class Cycle {
         return result;
     }
 }
+
+
 
 /**
  * Element of linked list.
