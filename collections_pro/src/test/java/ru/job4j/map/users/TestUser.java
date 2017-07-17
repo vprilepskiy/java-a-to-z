@@ -2,7 +2,6 @@ package ru.job4j.map.users;
 
 import org.junit.Test;
 
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,8 +18,8 @@ public class TestUser {
     @Test
     public void printMap() {
 
-        User user1 = new User("Alex", 0, new GregorianCalendar(2010, 02, 21));
-        User user2 = new User("Alex", 0, new GregorianCalendar(2010, 02, 21));
+        final User user1 = new User("Alex", 0, new GregorianCalendar(2010, 02, 21));
+        final User user2 = new User("Alex", 0, new GregorianCalendar(2010, 02, 21));
 
         System.out.println("hashCode user1 = " + user1.hashCode());
         System.out.println("hashCode user2 = " + user2.hashCode());
