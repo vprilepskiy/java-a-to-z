@@ -6,11 +6,20 @@ import org.junit.Test;
 /**
  * Created by VLADIMIR on 18.07.2017.
  */
-public class userTest {
+public class UserTest {
 
-    User x = new User(0, "Name", "FirstName");
-    User y = new User(0, "Name", "FirstName");
-    User z = new User(0, "Name", "FirstName");
+    /**
+     * User.
+     */
+    private final User x = new User(0, "Name", "FirstName");
+    /**
+     * User.
+     */
+    private final User y = new User(0, "Name", "FirstName");
+    /**
+     * User.
+     */
+    private final User z = new User(0, "Name", "FirstName");
 
     /**
      * РЕФФЛЕКТИВНОСТЬ.
@@ -50,18 +59,18 @@ public class userTest {
      */
     @Test
     public void testEqualsConsistent() {
-        int count = 100;
+        final int count = 100;
         for (int i = 0; i > count; i++) {
             Assert.assertTrue(x.equals(y));
         }
     }
 
     /**
+     * ЕСЛИ NULL ТО FALSE.
      * Если в метод equals передать null, то метод не должен падать в NPE, а должен возвращать false.
      */
     @Test
     public void testEqualsNull() {
         Assert.assertFalse(x.equals(null));
     }
-
 }
