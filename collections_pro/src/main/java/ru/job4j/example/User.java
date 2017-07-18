@@ -60,4 +60,14 @@ public class User {
         }
         return firstName != null ? firstName.equals(user.firstName) : user.firstName == null;
     }
+
+    @Override
+    public int hashCode() {
+        int result = 0;
+        final int simpleNumber = 31;
+        result = simpleNumber * result + id;
+        result = simpleNumber * result + (name != null ? name.hashCode() : 0);
+        result = simpleNumber * result + (firstName != null ? firstName.hashCode() : 0);
+        return result;
+    }
 }

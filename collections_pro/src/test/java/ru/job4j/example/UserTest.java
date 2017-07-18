@@ -22,7 +22,7 @@ public class UserTest {
     private final User z = new User(0, "Name", "FirstName");
 
     /**
-     * РЕФФЛЕКТИВНОСТЬ.
+     * РЕФЛЕКТИВНОСТЬ.
      * Само на себя всегда true.
      */
     @Test
