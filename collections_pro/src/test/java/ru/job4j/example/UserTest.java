@@ -1,5 +1,6 @@
 package ru.job4j.example;
 
+import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -72,5 +73,25 @@ public class UserTest {
     @Test
     public void testEqualsNull() {
         Assert.assertFalse(x.equals(null));
+    }
+
+
+    /**
+     * Одинаковый хеш-код у разных объектов с одинаковыми полями.
+     */
+    @Test
+    public void testHashCodeSame() {
+        Assert.assertTrue(x.hashCode() == y.hashCode());
+    }
+
+    /**
+     * Одинаковый хеш-код у разных объектов с одинаковыми полями.
+     */
+    @Test
+    public void testHashCodeDifferent() {
+        final User u1 = new User(0, "name", "firsName");
+        final User u2 = new User(1, "name", "firsName");
+        Assert.assertFalse(u1.hashCode() == u2.hashCode());
+
     }
 }
