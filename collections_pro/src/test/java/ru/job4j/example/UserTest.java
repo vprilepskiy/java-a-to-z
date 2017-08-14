@@ -1,6 +1,5 @@
 package ru.job4j.example;
 
-import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;
 
