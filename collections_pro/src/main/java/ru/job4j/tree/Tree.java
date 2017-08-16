@@ -87,6 +87,16 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
 
     /**
+     * Get size rows in tree.
+     * @return - count.
+     */
+    public int length() {
+        return this.rowCount;
+    }
+
+
+
+    /**
      * Node.
      *
      * @param <E> - generic.
@@ -255,7 +265,7 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         /**
          * Max size of child elements.
          */
-        final int binaryNumber = 2;
+        private final int binaryNumber = 2;
 
         /**
          * @return - result.
@@ -270,6 +280,4 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
             }
         }
     }
-
-
 }

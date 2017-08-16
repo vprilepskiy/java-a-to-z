@@ -44,6 +44,32 @@ public class TreeTest {
         Assert.assertThat(tree.search(nodeVasiliy, tree.new SearchCondition(("Andrey"))), Is.is(nodeAndrey));
     }
 
+
+
+    /**
+     * Test Add.
+     */
+    @Test
+    public void testAdd() {
+        Tree<String> tree = new Tree();
+
+        int length = 0;
+
+        length++;
+        length++;
+        Assert.assertTrue(tree.add("Vasiliy", "Viktor"));
+        Assert.assertThat(tree.length(), Is.is(length));
+
+        length++;
+        Assert.assertTrue(tree.add("Vasiliy", "Olya"));
+        Assert.assertThat(tree.length(), Is.is(length));
+
+        Assert.assertFalse(tree.add("None", "Olya"));
+        Assert.assertThat(tree.length(), Is.is(length));
+    }
+
+
+
     /**
      * Test Iterator.
      */
@@ -70,6 +96,8 @@ public class TreeTest {
 
         Assert.assertArrayEquals(expect, result);
     }
+
+
 
     /**
      * Test IsBinary.
