@@ -13,5 +13,11 @@ public interface SimpleTree<E extends Comparable<E>> extends Iterable<E> {
      * @return - True - if the tree is empty. True - if a parent is found.
      */
     boolean add(E parent, E child);
+
+    /**
+     * Проверяет количество дочерних элементов в дереве.
+     * @return Если элементов в дереве <= 2 - то дерево бинарное.
+     */
+    boolean isBinary();
 }
 

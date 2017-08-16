@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 
 /**
  * Created by VLADIMIR on 24.07.2017.
+ *
  * @param <E> - generic.
  */
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
@@ -51,6 +52,12 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
             }
         }
         return result;
+    }
+
+    @Override
+    public boolean isBinary() {
+        Node<E> nodeBinary = this.search(this.nodeRoot, new SearchCondition());
+        return nodeBinary != null;
     }
 
 
@@ -106,6 +113,7 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
         /**
          * Getter.
+         *
          * @return - children.
          */
         public List<Node<E>> getChildren() {
@@ -147,6 +155,8 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
         this.index++;
 
+//        System.out.println("sout: " +  this.index + "; " + this.node);
+
         if (sear.getResult()) {
             // выйти из цикла
             this.again = false;
@@ -156,12 +166,18 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
                 if (this.again) {
                     Node<E> child = iterator.next();
                     // рекурсивно вызвать этот метод
-                    node = this.search(child, sear);
+                    this.node = this.search(child, sear);
                 } else {
                     break;
                 }
             }
         }
+
+        // если не сработал поиск
+        if (this.again) {
+            this.node = null;
+        }
+
         return this.node;
     }
 
@@ -179,6 +195,13 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
          * Search by value.
          */
         private E searchValue;
+
+        /**
+         * Constructor.
+         */
+        SearchCondition() {
+            this.setDefaultValues();
+        }
 
         /**
          * Constructor.
@@ -230,16 +253,23 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         }
 
         /**
+         * Max size of child elements.
+         */
+        final int binaryNumber = 2;
+
+        /**
          * @return - result.
          */
         public boolean getResult() {
             if (searchIndex != null) {
                 return this.setCondition(this.searchIndex);
-            }
-            if (searchValue != null) {
+            } else if (searchValue != null) {
                 return this.setCondition(this.searchValue);
+            } else {
+                return node.children.size() >= this.binaryNumber;
             }
-            return false;
         }
     }
+
+
 }

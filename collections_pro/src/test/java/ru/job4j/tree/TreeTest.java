@@ -70,4 +70,18 @@ public class TreeTest {
 
         Assert.assertArrayEquals(expect, result);
     }
+
+    /**
+     * Test IsBinary.
+     */
+    @Test
+    public void testIsBinary() {
+        final Tree<String> tree = new Tree();
+
+        tree.add("Vasiliy", "Viktor");
+        Assert.assertFalse(tree.isBinary());
+
+        tree.add("Vasiliy", "Tanya");
+        Assert.assertTrue(tree.isBinary());
+    }
 }
