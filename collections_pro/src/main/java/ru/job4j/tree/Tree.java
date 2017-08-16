@@ -3,11 +3,18 @@ package ru.job4j.tree;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by VLADIMIR on 24.07.2017.
+ * @param <E> - generic.
  */
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
+
+    /**
+     * Count for rows in tree.
+     */
+    private int rowCount = 0;
 
     /**
      * Root node.
@@ -21,33 +28,51 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         if (this.nodeRoot == null) {
             // создаем родителя
             this.nodeRoot = new Node<>(parent);
-            // добавляем в родителя дочерний элемент
-            this.nodeRoot.children.add(new Node<E>(child));
+            // увеличиваем счетчик
+            this.rowCount++;
+            if (child != null) {
+                // добавляем в родителя дочерний элемент
+                this.nodeRoot.children.add(new Node<E>(child));
+                // увеличиваем счетчик
+                this.rowCount++;
+            }
+            result = true;
+            // если нода не нулевая
         } else {
-            // ищем ноду
+            // ищем родителя
             Node<E> nodeSearch = this.search(this.nodeRoot, new SearchCondition(parent));
-            // добавляем в родителя дочерний элемент
-            nodeSearch.children.add(new Node<E>(child));
+            // если нода найдена
+            if (nodeSearch != null) {
+                // добавляем в родителя дочерний элемент
+                nodeSearch.children.add(new Node<E>(child));
+                // увеличиваем счетчик
+                this.rowCount++;
+                result = true;
+            }
         }
         return result;
     }
-
 
 
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
 
-            int indexIt = 0;
+            /**
+             * Index for iterator.
+             */
+            private int indexIt = 0;
 
             @Override
             public boolean hasNext() {
-//                index
-                return false;
+                return rowCount > this.indexIt;
             }
 
             @Override
             public E next() {
+                if (!this.hasNext()) {
+                    throw new NoSuchElementException();
+                }
                 return search(nodeRoot, new SearchCondition(this.indexIt++)).value;
             }
         };
@@ -56,10 +81,10 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
     /**
      * Node.
+     *
      * @param <E> - generic.
      */
-    private class Node<E> {
-
+    static class Node<E> {
         /**
          * Value.
          */
@@ -71,6 +96,7 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
         /**
          * Constructor.
+         *
          * @param value - value.
          */
         Node(E value) {
@@ -78,66 +104,70 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
             children = new LinkedList<Node<E>>();
         }
 
+        /**
+         * Getter.
+         * @return - children.
+         */
+        public List<Node<E>> getChildren() {
+            return this.children;
+        }
+
         @Override
         public String toString() {
-            return "Node{" +
-                    "value=" + value +
-                    '}';
+            return "Node{ value=" + value + '}';
         }
     }
 
     /**
-     *
+     * Index.
      */
-    int index = -1;
+    private int index;
     /**
-     *
+     * Node.
      */
-    Node<E> node;
+    private Node<E> node;
+    /**
+     * Again.
+     */
+    private boolean again;
 
-    boolean again = true;
 
     /**
-     * Выведет искомый элемент в дереве.
+     * Find node in tree by condition.
+     *
      * @param root - Node root.
      * @param sear - Search condition.
-     * @return
+     * @return - node.
      */
-    private Node<E> search(Node<E> root, SearchCondition sear) {
-
+    Node<E> search(Node<E> root, SearchCondition sear) {
 
         this.node = root;
+
         List<Node<E>> childList = root.children;
 
         this.index++;
 
-        System.out.println(this.index + "; " + this.node);
-
-        // выйти по условию
         if (sear.getResult()) {
-            again = false;
+            // выйти из цикла
+            this.again = false;
         } else {
-//            if (!childList.isEmpty()) {
-            if (true) {
-                Iterator<Node<E>> iterator = childList.iterator();
-                while (iterator.hasNext()) {
-                    if (again == true) {
-                        Node<E> el = iterator.next();
-                        node = this.search(el, sear);
-                    } else {
-                        break;
-                    }
+            Iterator<Node<E>> iterator = childList.iterator();
+            while (iterator.hasNext()) {
+                if (this.again) {
+                    Node<E> child = iterator.next();
+                    // рекурсивно вызвать этот метод
+                    node = this.search(child, sear);
+                } else {
+                    break;
                 }
             }
         }
-
         return this.node;
     }
 
 
-
     /**
-     * Условие поиска.
+     * Search condition for method search.
      */
     class SearchCondition {
 
@@ -152,39 +182,57 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
         /**
          * Constructor.
+         *
          * @param searchIndex - set by index.
          */
-        SearchCondition(int searchIndex){
+        SearchCondition(int searchIndex) {
             this.searchIndex = searchIndex;
+            this.setDefaultValues();
         }
 
         /**
          * Constructor.
+         *
          * @param searchValue - set by value.
          */
-        SearchCondition(E searchValue){
+        SearchCondition(E searchValue) {
             this.searchValue = searchValue;
+            this.setDefaultValues();
+        }
+
+        /**
+         * Reset search condition.
+         */
+        private void setDefaultValues() {
+            index = -1;
+            node = null;
+            again = true;
         }
 
         /**
          * Comparison by index.
+         *
          * @param searchIndex - index.
-         * @return
+         * @return - result.
          */
-        public boolean setCondition(int searchIndex) {
+        private boolean setCondition(int searchIndex) {
             return index == searchIndex;
         }
 
         /**
          * Comparison by value.
+         *
          * @param searchValue - value.
-         * @return
+         * @return - result.
          */
-        public boolean setCondition(E searchValue) {
+        private boolean setCondition(E searchValue) {
             return node.value.compareTo(searchValue) == 0;
         }
 
-        boolean getResult(){
+        /**
+         * @return - result.
+         */
+        public boolean getResult() {
             if (searchIndex != null) {
                 return this.setCondition(this.searchIndex);
             }
@@ -194,205 +242,4 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
             return false;
         }
     }
-
-
-
-    public void a() {
-        Node nodeVasiliy = new Node<>("Vasiliy");
-        Node nodeViktor = new Node<>("Viktor");
-        Node nodeVova = new Node<>("Vova");
-        Node nodeAndrey = new Node<>("Andrey");
-        Node nodeTanya = new Node<>("Tanya");
-        Node nodeDimka = new Node<>("Dimka");
-        Node nodeOlya = new Node<>("Olya");
-        Node nodeMisha = new Node<>("Misha");
-
-        nodeVasiliy.children.add(nodeOlya);
-        nodeVasiliy.children.add(nodeTanya);
-        nodeVasiliy.children.add(nodeViktor);
-
-        nodeOlya.children.add(nodeMisha);
-
-        nodeTanya.children.add(nodeDimka);
-
-        nodeViktor.children.add(nodeAndrey);
-        nodeViktor.children.add(nodeVova);
-
-        System.out.println(this.search(nodeVasiliy, new SearchCondition(10)));
-    }
-
 }
-
-
-//    @Override
-//    public Iterator<E> iterator() {
-//        return new MyIterator();
-//    }
-
-//    /**
-//     * Iterator.
-//     */
-//    private class MyIterator implements Iterator<E>{
-//
-//        /**
-//         * List.
-//         */
-//        private List<Node<E>> nodeList = new LinkedList<>();
-//
-//        /**
-//         * Iterator for list.
-//         */
-//        private final Iterator<Node<E>> iterator;
-//
-//
-//
-//        /**
-//         * Constructor.
-//         */
-//        private MyIterator(){
-//            // add root element
-//            if (nodeRoot != null) {
-//                nodeList.add(nodeRoot);
-//                // convert
-//                this.toList();
-//            }
-//
-//            // get iterator
-//            this.iterator = this.nodeList.iterator();
-//        }
-//
-//
-//        /**
-//         * Проход по дереву с передачей ссылок в список.
-//         */
-//        private void toList() {
-//
-//            // обрабатывать с позиции
-//            int indexProcessNode = 0;
-//
-//            // смотрим сколько элементов в листе
-//            int length = this.nodeList.size();
-//
-//            boolean again;
-//
-//            // горизонтальный обход по дереву
-//            do {
-//                again = false;
-//                // счетчик
-//                int index = 0;
-//                // лист с наследниками
-//                List<Node<E>> nodeListChildren = new LinkedList<>();
-//                // проходим по списку
-//                for (Node<E> tmpNode : this.nodeList) {
-//                    // начать с не обработанных нодов
-//                    if (index >= indexProcessNode) {
-//                        // проверяем на присутствие наследников в ноде
-//                        if ((tmpNode != null) && (!tmpNode.children.isEmpty())) {
-//                            // если наследники есть
-//                            // добавляем в лист children
-//                            nodeListChildren.addAll(tmpNode.children);
-//                            again = true;
-//                        }
-//                    }
-//                    index++;
-//                }
-//                // добавляем children в общий лист
-//                this.nodeList.addAll(nodeListChildren);
-//                // изменяем позицию с которой надо начинать следующую итерацию
-//                indexProcessNode = length;
-//            } while (again);
-//        }
-//
-//
-//        @Override
-//        public boolean hasNext() {
-//            return this.iterator.hasNext();
-//        }
-//
-//        @Override
-//        public E next() {
-//            return this.iterator.next().value;
-//        }
-//    }
-
-
-//    @Override
-//    public Iterator<E> iterator() {
-//        return new Iterator<E>() {
-//
-//            /**
-//             * List.
-//             */
-//            private List<Node<E>> nodeList = new LinkedList<>();
-//
-//            /**
-//             * Iterator for list.
-//             */
-//            private final Iterator<Node<E>> iterator;
-//
-//            /**
-//             * Instance initializer.
-//             */ {
-//                // add root element
-//                if (nodeRoot != null) {
-//                    nodeList.add(nodeRoot);
-//                    // convert
-//                    this.toList();
-//                }
-//                // get iterator
-//                this.iterator = this.nodeList.iterator();
-//            }
-//
-//            /**
-//             * Проход по дереву с передачей ссылок в список.
-//             */
-//            private void toList() {
-//
-//                // обрабатывать с позиции
-//                int indexProcessNode = 0;
-//
-//                // смотрим сколько элементов в листе
-//                int length = this.nodeList.size();
-//
-//                boolean again;
-//
-//                // горизонтальный обход по дереву
-//                do {
-//                    again = false;
-//                    // счетчик
-//                    int index = 0;
-//                    // лист с наследниками
-//                    List<Node<E>> nodeListChildren = new LinkedList<>();
-//                    // проходим по списку
-//                    for (Node<E> tmpNode : this.nodeList) {
-//                        // начать с не обработанных нодов
-//                        if (index >= indexProcessNode) {
-//                            // проверяем на присутствие наследников в ноде
-//                            if ((tmpNode != null) && (!tmpNode.children.isEmpty())) {
-//                                // если наследники есть
-//                                // добавляем в лист children
-//                                nodeListChildren.addAll(tmpNode.children);
-//                                again = true;
-//                            }
-//                        }
-//                        index++;
-//                    }
-//                    // добавляем children в общий лист
-//                    this.nodeList.addAll(nodeListChildren);
-//                    // изменяем позицию с которой надо начинать следующую итерацию
-//                    indexProcessNode = length;
-//                } while (again);
-//            }
-//
-//
-//            @Override
-//            public boolean hasNext() {
-//                return this.iterator.hasNext();
-//            }
-//
-//            @Override
-//            public E next() {
-//                return this.iterator.next().value;
-//            }
-//        };
-//    }

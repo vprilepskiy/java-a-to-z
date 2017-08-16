@@ -1,10 +1,10 @@
 package ru.job4j.tree;
 
+import org.hamcrest.core.Is;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 
 /**
@@ -12,113 +12,62 @@ import java.util.List;
  */
 public class TreeTest {
 
-
+    /**
+     * Test method Search().
+     */
     @Test
-    public void test() {
+    public void testSearch() {
 
-        Tree tree = new Tree<>();
+        Tree<String> tree = new Tree<String>();
 
-        tree.a();
+        Tree.Node nodeVasiliy = new Tree.Node("Vasiliy");
+        Tree.Node nodeViktor = new Tree.Node("Viktor");
+        Tree.Node nodeVova = new Tree.Node("Vova");
+        Tree.Node nodeAndrey = new Tree.Node("Andrey");
+        Tree.Node nodeTanya = new Tree.Node("Tanya");
+        Tree.Node nodeDimka = new Tree.Node("Dimka");
+        Tree.Node nodeOlya = new Tree.Node("Olya");
+        Tree.Node nodeMisha = new Tree.Node<>("Misha");
 
-//        System.out.println(iterator.hasNext());
+        nodeVasiliy.getChildren().add(nodeOlya);
+        nodeVasiliy.getChildren().add(nodeTanya);
+        nodeVasiliy.getChildren().add(nodeViktor);
 
-//        System.out.println(iterator.next());
+        nodeOlya.getChildren().add(nodeMisha);
 
-//        Node node = new Node("Viktor");
-//        node.children.add(new Node("Vova"));
-//        node.children.add(new Node("Andrey"));
+        nodeTanya.getChildren().add(nodeDimka);
 
-//        tree.add("Viktor", "Vova");
+        nodeViktor.getChildren().add(nodeAndrey);
+        nodeViktor.getChildren().add(nodeVova);
 
-//        tree.search(node);
-
-
-
-//        Iterator<String> iterator = tree.iterator();
-//
-//        System.out.println(iterator.hasNext());
-//        System.out.println(iterator.next());
-//        System.out.println(iterator.next());
-
+        Assert.assertThat(tree.search(nodeVasiliy, tree.new SearchCondition((2))), Is.is(nodeMisha));
+        Assert.assertThat(tree.search(nodeVasiliy, tree.new SearchCondition(("Andrey"))), Is.is(nodeAndrey));
     }
 
-
+    /**
+     * Test Iterator.
+     */
     @Test
-    public void test2() {
+    public void testIterator() {
+        final Tree<String> tree = new Tree();
 
-        List<String> list = new LinkedList<>();
-        Iterator<String> iterator = list.iterator();
+        tree.add("Vasiliy", null);
+        tree.add("Vasiliy", "Viktor");
+        tree.add("Vasiliy", "Tanya");
+        tree.add("Viktor", "Andrey");
+        tree.add("Viktor", "Vova");
+        tree.add("Tanya", "Dimka");
 
-        list.add(null);
+        Iterator<String> iterator = tree.iterator();
 
-        System.out.println(list.isEmpty());
-        System.out.println(list.size());
+        final String[] expect = {"Vasiliy", "Viktor", "Andrey", "Vova", "Tanya", "Dimka"};
+        final String[] result = new String[expect.length];
 
-
-
-        System.out.println(iterator.hasNext());
-
-
-    }
-
-
-
-    class st{
-
-        private String s = "0123";
-
-        {
-            System.out.println(this.s);
-        }
-    }
-
-    class MyIterator{
-        Node rootNode;
-
-        MyIterator(Node rootNode) {
-            this.rootNode = rootNode;
+        int index = 0;
+        while (iterator.hasNext()) {
+            result[index++] = iterator.next();
         }
 
-        void next() {
-            if (this.rootNode.children.isEmpty()) {
-                System.out.println(this.rootNode.value);
-            } else {
-
-            }
-        }
-
+        Assert.assertArrayEquals(expect, result);
     }
-
-
-
-    class Node{
-        final Object value;
-        final List<Node> children;
-
-        Node(Object value){
-            this.value = value;
-            children = new LinkedList<Node>();
-        }
-    }
-
-
-
-    @Test
-    public void rekursia() {
-        System.out.println(this.rek(i));
-        System.out.println(this.rek(i));
-    }
-
-    int i = 5;
-
-    private int rek(int number) {
-
-        if (number > 0) {
-            number--;
-            this.rek(number);
-        }
-
-        return number;
-    }
-
 }
