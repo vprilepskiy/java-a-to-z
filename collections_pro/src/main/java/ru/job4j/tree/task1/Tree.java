@@ -1,4 +1,4 @@
-package ru.job4j.tree;
+package ru.job4j.tree.task1;
 
 import java.util.Iterator;
 import java.util.LinkedList;

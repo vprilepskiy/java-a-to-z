@@ -1,4 +1,4 @@
-package ru.job4j.tree;
+package ru.job4j.tree.task1;
 
 import org.hamcrest.core.Is;
 import org.junit.Assert;
