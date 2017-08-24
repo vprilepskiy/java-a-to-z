@@ -5,6 +5,7 @@ package ru.job4j.tree.task2;
  */
 public class Tree implements SimpleTree {
 
+
     /**
      * Node.
      */
@@ -24,8 +25,9 @@ public class Tree implements SimpleTree {
 
         /**
          * Constructor.
+         *
          * @param value - Value.
-         * @param left - Left node.
+         * @param left  - Left node.
          * @param right - Right node.
          */
         Node(int value, Node left, Node right) {
@@ -36,6 +38,7 @@ public class Tree implements SimpleTree {
 
         /**
          * Getter.
+         *
          * @return - value.
          */
         public int getValue() {
@@ -49,7 +52,6 @@ public class Tree implements SimpleTree {
     }
 
 
-
     /**
      * Again.
      */
@@ -59,22 +61,20 @@ public class Tree implements SimpleTree {
      */
     private Node findNode;
 
-    /**
-     * Find value.
-     * @param root - root node.
-     * @param value - find value.
-     * @return - search node.
-     */
-    Node findByValue(Node root, int value) {
+
+    @Override
+    public Node findByValue(Node root, int value) {
         this.findAgain = true;
         this.findNode = null;
         this.findNode = this.find(root, value);
         return this.findNode;
     }
 
+
     /**
      * Find value.
-     * @param root - root node.
+     *
+     * @param root  - root node.
      * @param value - find value.
      * @return - search node.
      */
@@ -102,4 +102,32 @@ public class Tree implements SimpleTree {
     }
 
 
+
+    @Override
+    public boolean isBinary(Node root) {
+        this.findAgain = true;
+        this.findAgain = this.findBinary(root);
+        return !this.findAgain;
+    }
+
+    /**
+     * Find binary node.
+     * @param root - Root node.
+     * @return - False if found. True if not found.
+     */
+    public boolean findBinary(Node root) {
+        if ((this.findAgain) && (root != null)) {
+            // проверяем ноду на двойное значение
+            if ((root.left != null) && (root.right != null)) {
+                this.findAgain = false;
+                // проверяем левое значение
+            } else if (root.left != null) {
+                this.findAgain = this.findBinary(root.left);
+                // проверяем правое значение
+            } else if (root.right != null) {
+                this.findAgain = this.findBinary(root.right);
+            }
+        }
+        return this.findAgain;
+    }
 }
