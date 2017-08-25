@@ -64,6 +64,26 @@ public class TreeTest {
 
         Assert.assertTrue(tree.isBinary(node0));
     }
-}
 
+
+    /**
+     * Test.
+     */
+    @Test
+    public void testAdd() {
+
+        final Tree tree = new Tree();
+        final int[] values = {15, 5, 30, 22, 30};
+
+        for (int i = 0; i < values.length; i++) {
+            tree.add(values[i]);
+        }
+
+        final String expect = "(Node{value=15, left=(Node{value=5, left=null, right=null}), right=(Node{value=30, left=(Node{value=22, left=null, right=(Node{value=30, left=null, right=null})}), right=null})})";
+
+        Assert.assertThat(expect.toString(), Is.is(tree.getRootNode().toString()));
+
+
+    }
+}
 

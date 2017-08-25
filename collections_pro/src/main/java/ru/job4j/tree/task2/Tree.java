@@ -14,6 +14,7 @@ public class Tree implements SimpleTree {
          * Value.
          */
         private int value;
+
         /**
          * Left node.
          */
@@ -42,12 +43,30 @@ public class Tree implements SimpleTree {
          * @return - value.
          */
         public int getValue() {
-            return value;
+            return this.value;
+        }
+
+        /**
+         * Getter.
+         *
+         * @return - value.
+         */
+        public Node getLeft() {
+            return this.left;
+        }
+
+        /**
+         * Getter.
+         *
+         * @return - value.
+         */
+        public Node getRight() {
+            return this.right;
         }
 
         @Override
         public String toString() {
-            return new StringBuilder("Node{value=").append(this.value).append('}').toString();
+            return new StringBuilder("(Node{value=").append(this.value).append(", left=").append(this.left).append(", right=").append(this.right).append("})").toString();
         }
     }
 
@@ -102,7 +121,6 @@ public class Tree implements SimpleTree {
     }
 
 
-
     @Override
     public boolean isBinary(Node root) {
         this.findAgain = true;
@@ -110,12 +128,14 @@ public class Tree implements SimpleTree {
         return !this.findAgain;
     }
 
+
     /**
      * Find binary node.
+     *
      * @param root - Root node.
      * @return - False if found. True if not found.
      */
-    public boolean findBinary(Node root) {
+    private boolean findBinary(Node root) {
         if ((this.findAgain) && (root != null)) {
             // проверяем ноду на двойное значение
             if ((root.left != null) && (root.right != null)) {
@@ -130,4 +150,47 @@ public class Tree implements SimpleTree {
         }
         return this.findAgain;
     }
+
+    /**
+     * Getter.
+     * @return - root node.
+     */
+    Node getRootNode() {
+        return rootNode;
+    }
+
+    /**
+     * Root node.
+     */
+    private Node rootNode;
+
+
+    @Override
+    public void add(int value) {
+        this.rootNode = this.add(this.rootNode, value);
+    }
+
+    /**
+     * Add node in tree.
+     *
+     * @param root  - root node.
+     * @param value - value.
+     * @return - root node.
+     */
+    Node add(Node root, int value) {
+        // если нода нулевая
+        if (root == null) {
+            root = new Node(value, null, null);
+            // если нода не нулевая
+            // проверяем левое значение
+        } else if (root.value >= value) {
+            root.left = this.add(root.left, value);
+            // проверяем правое значение
+        } else if (root.value < value) {
+            root.right = this.add(root.right, value);
+        }
+        return root;
+    }
+
+
 }
