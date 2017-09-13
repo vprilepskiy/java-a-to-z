@@ -11,7 +11,7 @@ import java.util.Iterator;
 public class SimpleContainerTest {
 
     /**
-     * Test.
+     * ATest.
      */
     @Test
     public void whenAddElementsThenGetWithIterator() {
@@ -36,7 +36,7 @@ public class SimpleContainerTest {
     }
 
     /**
-     * Test.
+     * ATest.
      */
     @Test
     public void whenAddElementsThenGetWithIndex() {

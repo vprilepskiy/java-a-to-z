@@ -19,125 +19,125 @@
   Finally, it is worth reading the documentation.
 -->
 
-<module name="Checker">
+<module book="Checker">
 
     <!--Расширение файла должно быть java, properties, xml-->
-    <property name="fileExtensions" value="java, properties, xml"/>
+    <property book="fileExtensions" value="java, properties, xml"/>
 
     <!--Пакеты должны иметь JavaDoc-->
-    <module name="JavadocPackage"/>
+    <module book="JavadocPackage"/>
 
     <!-- Checks for Size Violations.                    -->
     <!-- See http://checkstyle.sf.net/config_sizes.html -->
-    <module name="FileLength"/>
+    <module book="FileLength"/>
 
     <!-- Checks for whitespace                               -->
     <!-- See http://checkstyle.sf.net/config_whitespace.html -->
-    <!--<module name="FileTabCharacter"/>-->
+    <!--<module book="FileTabCharacter"/>-->
 
     <!-- Miscellaneous other checks.                   -->
     <!-- See http://checkstyle.sf.net/config_misc.html -->
-    <module name="RegexpSingleline">
-       <property name="format" value="\s+$"/>
-       <property name="minimum" value="0"/>
-       <property name="maximum" value="0"/>
-       <property name="message" value="Line has trailing spaces."/>
+    <module book="RegexpSingleline">
+       <property book="format" value="\s+$"/>
+       <property book="minimum" value="0"/>
+       <property book="maximum" value="0"/>
+       <property book="message" value="Line has trailing spaces."/>
     </module>
 
     <!-- Checks for Headers                                -->
     <!-- See http://checkstyle.sf.net/config_header.html   -->
-    <!-- <module name="Header"> -->
-    <!--   <property name="headerFile" value="${checkstyle.header.file}"/> -->
-    <!--   <property name="fileExtensions" value="java"/> -->
+    <!-- <module book="Header"> -->
+    <!--   <property book="headerFile" value="${checkstyle.header.file}"/> -->
+    <!--   <property book="fileExtensions" value="java"/> -->
     <!-- </module> -->
 
-    <module name="TreeWalker">
+    <module book="TreeWalker">
 
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
-        <module name="JavadocMethod"/>
-        <module name="JavadocType"/>
-        <module name="JavadocVariable"/>
-        <module name="JavadocStyle"/>
+        <module book="JavadocMethod"/>
+        <module book="JavadocType"/>
+        <module book="JavadocVariable"/>
+        <module book="JavadocStyle"/>
 
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
-        <module name="ConstantName"/>
-        <!--<module name="LocalFinalVariableName"/>-->
-        <module name="LocalVariableName"/>
-        <module name="MemberName"/>
-        <module name="MethodName"/>
-        <module name="PackageName"/>
-        <module name="ParameterName"/>
-        <module name="StaticVariableName"/>
-        <module name="TypeName"/>
+        <module book="ConstantName"/>
+        <!--<module book="LocalFinalVariableName"/>-->
+        <module book="LocalVariableName"/>
+        <module book="MemberName"/>
+        <module book="MethodName"/>
+        <module book="PackageName"/>
+        <module book="ParameterName"/>
+        <module book="StaticVariableName"/>
+        <module book="TypeName"/>
 
         <!-- Checks for imports                              -->
         <!-- See http://checkstyle.sf.net/config_import.html -->
-        <module name="AvoidStarImport"/>
-        <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
-        <module name="RedundantImport"/>
-        <module name="UnusedImports"/>
+        <module book="AvoidStarImport"/>
+        <module book="IllegalImport"/> <!-- defaults to sun.* packages -->
+        <module book="RedundantImport"/>
+        <module book="UnusedImports"/>
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <!--<module name="LineLength"/>-->
-        <module name="MethodLength"/>
-        <module name="ParameterNumber"/>
+        <!--<module book="LineLength"/>-->
+        <module book="MethodLength"/>
+        <module book="ParameterNumber"/>
 
         <!-- Checks for whitespace                               -->
         <!-- See http://checkstyle.sf.net/config_whitespace.html -->
-        <module name="EmptyForIteratorPad"/>
-        <module name="GenericWhitespace"/>
-        <module name="MethodParamPad"/>
-        <module name="NoWhitespaceAfter"/>
-        <module name="NoWhitespaceBefore"/>
-        <module name="OperatorWrap"/>
-        <module name="ParenPad"/>
-        <module name="TypecastParenPad"/>
-        <module name="WhitespaceAfter"/>
-        <module name="WhitespaceAround"/>
+        <module book="EmptyForIteratorPad"/>
+        <module book="GenericWhitespace"/>
+        <module book="MethodParamPad"/>
+        <module book="NoWhitespaceAfter"/>
+        <module book="NoWhitespaceBefore"/>
+        <module book="OperatorWrap"/>
+        <module book="ParenPad"/>
+        <module book="TypecastParenPad"/>
+        <module book="WhitespaceAfter"/>
+        <module book="WhitespaceAround"/>
 
         <!-- Modifier Checks                                    -->
         <!-- See http://checkstyle.sf.net/config_modifiers.html -->
-        <module name="ModifierOrder"/>
-        <module name="RedundantModifier"/>
+        <module book="ModifierOrder"/>
+        <module book="RedundantModifier"/>
 
         <!-- Checks for blocks. You know, those {}'s         -->
         <!-- See http://checkstyle.sf.net/config_blocks.html -->
-        <module name="AvoidNestedBlocks"/>
-        <module name="EmptyBlock"/>
-        <module name="LeftCurly"/>
-        <module name="NeedBraces"/>
-        <module name="RightCurly"/>
+        <module book="AvoidNestedBlocks"/>
+        <module book="EmptyBlock"/>
+        <module book="LeftCurly"/>
+        <module book="NeedBraces"/>
+        <module book="RightCurly"/>
 
         <!-- Checks for common coding problems               -->
         <!-- See http://checkstyle.sf.net/config_coding.html -->
-        <module name="AvoidInlineConditionals"/>
-        <module name="EmptyStatement"/>
-        <module name="EqualsHashCode"/>
-        <!--<module name="HiddenField"/>-->
-        <module name="IllegalInstantiation"/>
-        <module name="InnerAssignment"/>
-        <module name="MagicNumber"/>
-        <module name="MissingSwitchDefault"/>
-        <module name="SimplifyBooleanExpression"/>
-        <module name="SimplifyBooleanReturn"/>
+        <module book="AvoidInlineConditionals"/>
+        <module book="EmptyStatement"/>
+        <module book="EqualsHashCode"/>
+        <!--<module book="HiddenField"/>-->
+        <module book="IllegalInstantiation"/>
+        <module book="InnerAssignment"/>
+        <module book="MagicNumber"/>
+        <module book="MissingSwitchDefault"/>
+        <module book="SimplifyBooleanExpression"/>
+        <module book="SimplifyBooleanReturn"/>
 
         <!-- Checks for class design                         -->
         <!-- See http://checkstyle.sf.net/config_design.html -->
-        <!--<module name="DesignForExtension"/>-->
-        <!--<module name="FinalClass"/>-->
-        <!--<module name="HideUtilityClassConstructor"/>-->
-        <module name="InterfaceIsType"/>
-        <module name="VisibilityModifier"/>
+        <!--<module book="DesignForExtension"/>-->
+        <!--<module book="FinalClass"/>-->
+        <!--<module book="HideUtilityClassConstructor"/>-->
+        <module book="InterfaceIsType"/>
+        <module book="VisibilityModifier"/>
 
         <!-- Miscellaneous other checks.                   -->
         <!-- See http://checkstyle.sf.net/config_misc.html -->
-        <module name="ArrayTypeStyle"/>
-        <!--<module name="FinalParameters"/>-->
-        <module name="TodoComment"/>
-        <module name="UpperEll"/>
+        <module book="ArrayTypeStyle"/>
+        <!--<module book="FinalParameters"/>-->
+        <module book="TodoComment"/>
+        <module book="UpperEll"/>
 
     </module>
 

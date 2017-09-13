@@ -10,7 +10,7 @@ import org.junit.Test;
 public class IteratorSimpleNumberArrayTest {
 
     /**
-     * Test is Simple.
+     * ATest is Simple.
      */
     @Test
     public void whenSetNumberThenGetIsSimple() {
@@ -25,7 +25,7 @@ public class IteratorSimpleNumberArrayTest {
     }
 
     /**
-     * Test hasNext.
+     * ATest hasNext.
      */
     @Test
     public void whenCheckNextPositionShouldReturnTrue() {
@@ -38,7 +38,7 @@ public class IteratorSimpleNumberArrayTest {
     }
 
     /**
-     * Test hasNext.
+     * ATest hasNext.
      */
     @Test
     public void whenCheckNextPositionShouldReturnFalse() {

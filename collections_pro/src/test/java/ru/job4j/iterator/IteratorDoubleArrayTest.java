@@ -10,7 +10,7 @@ import org.junit.Test;
 public class IteratorDoubleArrayTest {
 
     /**
-     * Test.
+     * ATest.
      */
     @Test
     public void whenGetNextCallShouldPointerForward() {
@@ -28,7 +28,7 @@ public class IteratorDoubleArrayTest {
     }
 
     /**
-     * Test.
+     * ATest.
      */
     @Test
     public void whenCheckNextPositionShouldReturnContantValue() {

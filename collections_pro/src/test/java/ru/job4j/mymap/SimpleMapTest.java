@@ -12,7 +12,7 @@ import java.util.Iterator;
 public class SimpleMapTest {
 
     /**
-     * Test Insert and Get.
+     * ATest Insert and Get.
      */
     @Test
     public void whenInsertKeyValueThenGetValuesByKeys() {
@@ -30,7 +30,7 @@ public class SimpleMapTest {
     }
 
     /**
-     * Test expand array.
+     * ATest expand array.
      */
     @Test
     public void whenExpandSize() {
@@ -46,7 +46,7 @@ public class SimpleMapTest {
     }
 
     /**
-     * Test Iterator.
+     * ATest Iterator.
      */
     @Test
     public void whenInsertKeyValueThenGetValuesByIterator() {
@@ -66,7 +66,7 @@ public class SimpleMapTest {
     }
 
     /**
-     * Test replaces value.
+     * ATest replaces value.
      */
     @Test
     public void whenInsertKeyValueThenReplacesValues() {
@@ -85,7 +85,7 @@ public class SimpleMapTest {
     }
 
     /**
-     * Test delete.
+     * ATest delete.
      */
     @Test
     public void whenInsertKeyValueAndDelNodeThenNullValues() {

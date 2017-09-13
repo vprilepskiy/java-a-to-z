@@ -10,7 +10,7 @@ import org.junit.Test;
 public class StackTest {
 
     /**
-     * Test.
+     * ATest.
      */
     @Test
     public void test() {

@@ -36,7 +36,7 @@ public class IteratorArrayTest {
     }
 
     /**
-     * Test.
+     * ATest.
      */
     @Test
     public void whenGetNextCallShouldPointerForward() {
@@ -51,7 +51,7 @@ public class IteratorArrayTest {
     }
 
     /**
-     * Test.
+     * ATest.
      */
     @Test
     public void whenCheckNextPositionShouldReturnContantValue() {
@@ -64,7 +64,7 @@ public class IteratorArrayTest {
     }
 
     /**
-     * Test.
+     * ATest.
      */
     @Test
     public void foreach() {

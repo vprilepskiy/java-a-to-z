@@ -13,7 +13,7 @@ import java.util.Iterator;
 public class TreeTest {
 
     /**
-     * Test method Search().
+     * ATest method Search().
      */
     @Test
     public void testSearch() {
@@ -47,7 +47,7 @@ public class TreeTest {
 
 
     /**
-     * Test Add.
+     * ATest Add.
      */
     @Test
     public void testAdd() {
@@ -71,7 +71,7 @@ public class TreeTest {
 
 
     /**
-     * Test Iterator.
+     * ATest Iterator.
      */
     @Test
     public void testIterator() {
@@ -100,7 +100,7 @@ public class TreeTest {
 
 
     /**
-     * Test IsBinary.
+     * ATest IsBinary.
      */
     @Test
     public void testIsBinary() {

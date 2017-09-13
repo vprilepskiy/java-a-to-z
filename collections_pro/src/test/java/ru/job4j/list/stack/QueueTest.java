@@ -10,7 +10,7 @@ import org.junit.Test;
 public class QueueTest {
 
     /**
-     * Test.
+     * ATest.
      */
     @Test
     public void test() {

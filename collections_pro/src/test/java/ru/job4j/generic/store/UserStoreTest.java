@@ -10,7 +10,7 @@ import org.junit.Test;
 public class UserStoreTest {
 
     /**
-     * Test add and get.
+     * ATest add and get.
      */
     @Test
     public void whenAddUserInUserStoreWhenGetUser() {
@@ -23,7 +23,7 @@ public class UserStoreTest {
     }
 
     /**
-     * Test update.
+     * ATest update.
      */
     @Test
     public void whenAddUserAndUpdate() {
@@ -37,7 +37,7 @@ public class UserStoreTest {
     }
 
     /**
-     * Test delete.
+     * ATest delete.
      */
     @Test
     public void whenAddUserAndDelete() {

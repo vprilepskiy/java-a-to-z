@@ -15,7 +15,7 @@ import java.util.List;
 public class ConverterTest {
 
     /**
-     * Test.
+     * ATest.
      */
     @Test
     public void test() {

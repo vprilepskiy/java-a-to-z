@@ -14,7 +14,7 @@ import java.util.Set;
 public class SimpleArrayTest {
 
     /**
-     * Test add. Type String.
+     * XMLParseTest add. Type String.
      */
     @Test
     public void whenCreateContainerShouldReturnTheSameType() {
@@ -29,7 +29,7 @@ public class SimpleArrayTest {
     }
 
     /**
-     * Test add. Type Integer.
+     * XMLParseTest add. Type Integer.
      */
     @Test
     public void whenTypeIntShouldReturnInt() {
@@ -42,7 +42,7 @@ public class SimpleArrayTest {
     }
 
     /**
-     * Test update. Type String.
+     * XMLParseTest update. Type String.
      */
     @Test
     public void whenUpdateElement() {
@@ -56,7 +56,7 @@ public class SimpleArrayTest {
     }
 
     /**
-     * Test delete. Type String.
+     * XMLParseTest delete. Type String.
      */
     @Test
     public void whenDeleteElement() {

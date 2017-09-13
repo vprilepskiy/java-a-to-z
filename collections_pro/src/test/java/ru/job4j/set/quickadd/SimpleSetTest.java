@@ -12,7 +12,7 @@ import java.util.Iterator;
 public class SimpleSetTest {
 
     /**
-     * Test.
+     * ATest.
      */
     @Test
     public void whenAddElementsThenGetWithIterator() {

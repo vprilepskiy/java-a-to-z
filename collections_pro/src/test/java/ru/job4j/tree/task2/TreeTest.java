@@ -10,7 +10,7 @@ import org.junit.Test;
 public class TreeTest {
 
     /**
-     * Test for findByValue().
+     * ATest for findByValue().
      */
     @Test
     public void testFindByValue() {
@@ -35,7 +35,7 @@ public class TreeTest {
 
 
     /**
-     * Test for isBinary.
+     * ATest for isBinary.
      */
     @Test
     public void testIsBinaryWhenFalse() {
@@ -50,7 +50,7 @@ public class TreeTest {
     }
 
     /**
-     * Test for isBinary.
+     * ATest for isBinary.
      */
     @Test
     public void testIsBinaryWhenTrue() {
@@ -67,7 +67,7 @@ public class TreeTest {
 
 
     /**
-     * Test.
+     * ATest.
      */
     @Test
     public void testAdd() {
