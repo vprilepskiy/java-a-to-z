@@ -16,6 +16,24 @@ public class MainClass {
      */
     public static void main(String[] args) {
 
+        MainClass mn = new MainClass();
+
+        final int numberOfTests = 100;
+        long timeResults = 0;
+
+        for (int i = 0; i < numberOfTests; i++) {
+            timeResults += mn.run();
+        }
+
+        System.out.println(new StringBuilder("Run time: ").append(timeResults / numberOfTests).append(" ms."));
+    }
+
+
+    /**
+     * Main method.
+     * @return - run time (ms.)
+     */
+    public long run() {
         final String fileName = "C:\\Downloads\\orders.xml";
 
         final long start = System.currentTimeMillis();
@@ -26,6 +44,8 @@ public class MainClass {
         Map<String, Map<? super Persons, List<Order>>> market = ordersBook.groupByNamePersons(ordersSum);
         new Printer(market).print();
 
-        System.out.println(new StringBuilder("Run time: ").append(System.currentTimeMillis() - start).append(" ms."));
+        final long result = System.currentTimeMillis() - start;
+
+        return result;
     }
 }
