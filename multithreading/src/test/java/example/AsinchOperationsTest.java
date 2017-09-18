@@ -2,7 +2,6 @@ package example;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 
 /**
  * Created by VLADIMIR on 15.09.2017.
@@ -15,4 +14,7 @@ public class AsinchOperationsTest {
 
     }
 
+    public static void main(String[] args) {
+        new AsinchOperations().a();
+    }
 }

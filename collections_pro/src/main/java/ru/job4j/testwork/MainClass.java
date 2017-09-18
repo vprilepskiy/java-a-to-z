@@ -18,7 +18,7 @@ public class MainClass {
 
         MainClass mn = new MainClass();
 
-        final int numberOfTests = 100;
+        final int numberOfTests = 10;
         long timeResults = 0;
 
         for (int i = 0; i < numberOfTests; i++) {
