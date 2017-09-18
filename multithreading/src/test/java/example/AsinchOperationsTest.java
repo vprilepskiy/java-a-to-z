@@ -9,9 +9,7 @@ import org.junit.Test;
 public class AsinchOperationsTest {
     @Test
     public void a() throws Exception {
-
         new AsinchOperations().a();
-
     }
 
     public static void main(String[] args) {
