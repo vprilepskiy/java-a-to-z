@@ -1,4 +1,4 @@
-package example;
+package example.arsentiev;
 
 /**
  * Created by VLADIMIR on 15.09.2017.

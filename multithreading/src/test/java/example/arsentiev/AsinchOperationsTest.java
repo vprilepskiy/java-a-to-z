@@ -1,5 +1,6 @@
-package example;
+package example.arsentiev;
 
+import example.arsentiev.AsinchOperations;
 import org.junit.Test;
 
 

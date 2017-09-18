@@ -66,14 +66,14 @@
 
  Matching logic:
 
- When new bid/ask order is added into order book you should check opposite book side for matching. Checking always starts from the top of opposite side. To get execution (matching) price of counter orders must overlap (bid>=ask). For example:
+ When new bid/ask order is added into order book you should check opposite book side for matching. Checking always starts from the top of opposite side. To get execution (matching) price of threads orders must overlap (bid>=ask). For example:
 
  bid order at 4.4 matches ask order at 4.3
  ask order at 3.7 matches bid order at 3.8
  opposite side orders with same price matches as well.
 
 
- Matching is a process of execution two counter orders. When orders are matched they current volume is decreased by minimum current volumes of these orders:  volume_executed=min(ask_order,bid_order).  So when there is a match you need to adjust orders quantities. There could be three cases:
+ Matching is a process of execution two threads orders. When orders are matched they current volume is decreased by minimum current volumes of these orders:  volume_executed=min(ask_order,bid_order).  So when there is a match you need to adjust orders quantities. There could be three cases:
 
  Order existing in order book fully filled by incoming order à remove existing, adjust quantity of incoming order and add it
  Incoming order fully filled by existing order à adjust quantity of existing order
