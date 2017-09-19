@@ -1,4 +1,4 @@
-package threads;
+package threads.task1;
 
 import org.hamcrest.core.Is;
 import org.junit.Assert;

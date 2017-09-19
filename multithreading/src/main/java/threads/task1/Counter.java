@@ -1,4 +1,4 @@
-package threads;
+package threads.task1;
 
 /**
  * Created by VLADIMIR on 18.09.2017.
@@ -39,6 +39,9 @@ public class Counter {
  * Thread.
  */
 class Thread0 extends Thread {
+    /**
+     * Run thread.
+     */
     public void run() {
         System.out.format("Space: %d%n", new Counter("Hello Job4j").space());
     }
@@ -48,6 +51,9 @@ class Thread0 extends Thread {
  * Thread.
  */
 class Thread1 extends Thread {
+    /**
+     * Run thread.
+     */
     public void run() {
         System.out.format("Words: %d%n", new Counter("Hello Job4j").words());
     }
@@ -57,8 +63,16 @@ class Thread1 extends Thread {
  * Run threads.
  */
 class MainClass {
+    /**
+     * Number of iterations.
+     */
+    private static final int NUMBER_ITERATIONS = 10;
+    /**
+     * Main class.
+     * @param args - args.
+     */
     public static void main(String[] args) {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < NUMBER_ITERATIONS; i++) {
             new Thread0().start();
             new Thread1().start();
         }

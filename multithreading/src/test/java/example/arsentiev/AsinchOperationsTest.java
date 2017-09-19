@@ -1,6 +1,5 @@
 package example.arsentiev;
 
-import example.arsentiev.AsinchOperations;
 import org.junit.Test;
 
 
@@ -9,8 +8,11 @@ import org.junit.Test;
  */
 public class AsinchOperationsTest {
 
+    /**
+     * Test.
+     */
     @Test
-    public void a() throws Exception {
+    public void a() {
         new AsinchOperations().a();
     }
 }
