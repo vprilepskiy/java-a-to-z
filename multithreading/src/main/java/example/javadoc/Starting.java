@@ -12,6 +12,7 @@ public class Starting {
         /**
          * Run.
          */
+        @Override
         public void run() {
             System.out.println("Hello from a thread!");
         }
