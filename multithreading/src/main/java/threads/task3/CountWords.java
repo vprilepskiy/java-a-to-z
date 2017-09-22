@@ -12,14 +12,29 @@ public class CountWords {
      */
     private static final long WATCH_DOG_TIMER = 1000;
 
+    /**
+     * Count.
+     */
     private final Thread count;
+    /**
+     * Time.
+     */
     private final Thread time;
 
+    /**
+     * Constructor initialize two threads.
+     *
+     * @param line - words.
+     */
     public CountWords(String line) {
         this.count = new Thread(new CountWords.CountChar(line));
         this.time = new Thread(new CountWords.Time());
     }
 
+
+    /**
+     * Start threads.
+     */
     public void count() {
         System.out.println("Start");
         try {
@@ -33,54 +48,54 @@ public class CountWords {
         System.out.println("End");
     }
 
-    public class Time implements Runnable {
 
+    /**
+     * Class interrupter.
+     */
+    public class Time implements Runnable {
         /**
          * Run.
          */
         @Override
         public void run() {
             if (count != null && count.isAlive()) {
-                System.out.printf("%s %s \n", "Terminate: ", count.getName());
+                System.out.printf("%s %s %n", "Terminate: ", count.getName());
                 count.interrupt();
             }
         }
     }
 
 
-
+    /**
+     * Class counter.
+     */
     public class CountChar implements Runnable {
 
+        /**
+         * Counter.
+         */
         private final Counter counter;
 
+        /**
+         * Constructor initialize counter.
+         *
+         * @param line - words.
+         */
         public CountChar(String line) {
             this.counter = new Counter(line);
         }
 
+        /**
+         * Run.
+         */
         @Override
         public void run() {
+
+            int words = this.counter.words();
             if (!count.isInterrupted()) {
-                System.out.println(this.counter.words());
+                System.out.printf("%s %d %n", "Words", words);
             }
         }
-    }
-
-}
-
-class MainClass {
-
-
-    public static void main(String[] args) {
-
-        new CountWords("safasdf asdf").count();
-
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < 10000000; i++) {
-            sb.append("A ");
-        }
-
-        new CountWords(sb.toString()).count();
     }
 
 
