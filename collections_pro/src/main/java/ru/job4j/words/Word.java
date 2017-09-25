@@ -35,7 +35,7 @@ public class Word {
         Arrays.parallelSort(arr1);
         Arrays.parallelSort(arr2);
 
-        // equals Strings.
-        return new String(arr1).equals(new String(arr2));
+        // equals arrays.
+        return Arrays.equals(arr1, arr2);
     }
 }
