@@ -30,7 +30,8 @@
 		<module>chapter_003.3</module>
 		<module>collections_lite</module>
 		<module>collections_pro</module>
-	</modules>
+        <module>SQL_JDBC</module>
+    </modules>
 
 	<dependencies>
 		<dependency>
