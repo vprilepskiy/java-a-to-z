@@ -25,6 +25,7 @@ public interface ISQLBuilder {
 
     /**
      * Get SQL query.
+     * @return - SQL.
      */
     String getSelect();
 }

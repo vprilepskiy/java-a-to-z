@@ -1,7 +1,5 @@
 package query;
 
-import java.util.Arrays;
-
 /**
  * Created by VLADIMIR on 28.09.2017.
  */
@@ -52,12 +50,12 @@ public class SQLBuilder implements ISQLBuilder {
     private String unionForConditions = " AND ";
 
     @Override
-    public void setAnd(){
+    public void setAnd() {
         this.unionForConditions = " AND ";
     };
 
     @Override
-    public void setOr(){
+    public void setOr() {
         this.unionForConditions = " OR ";
     };
 

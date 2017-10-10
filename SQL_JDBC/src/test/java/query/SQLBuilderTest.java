@@ -9,6 +9,9 @@ import org.junit.Test;
  */
 public class SQLBuilderTest {
 
+    /**
+     * Test.
+     */
     @Test
     public void getSelect() {
 
