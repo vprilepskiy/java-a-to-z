@@ -1,7 +1,7 @@
 package tracker.start;
 
-import ru.job4j.tracker.models.Item;
-import ru.job4j.tracker.models.ItemGetString;
+
+import tracker.models.Item;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class ConsoleOutput implements Output {
 		int index = 0;
 		for (Item item : items) {
 			if (item != null) {
-				System.out.println("№ " + index + "; " + new ItemGetString(item).getLine());
+				System.out.printf("%S %d %S %S \n" , "№", index, ";", item.toString());
 			}
 			index++;
 		}

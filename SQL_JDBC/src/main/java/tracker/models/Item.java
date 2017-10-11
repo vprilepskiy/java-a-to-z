@@ -1,5 +1,7 @@
 package tracker.models;
 
+import java.util.Arrays;
+
 /**
  * Класс деталь.
  * @author Vladimir Prilepskiy
@@ -125,5 +127,17 @@ public class Item {
 	 */
 	public String[] getComment() {
 		return comment;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("name: ");
+		sb.append(this.name);
+		sb.append("; desc: ");
+		sb.append(this.description);
+		sb.append("; create: ");
+		sb.append(this.create);
+		return sb.toString();
 	}
 }

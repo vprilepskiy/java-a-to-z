@@ -1,6 +1,7 @@
 package tracker.start;
 
-import ru.job4j.tracker.models.Item;
+
+import tracker.models.Item;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,7 +17,7 @@ public class Tracker {
 	/**
 	 * Лист заявок.
 	 */
-	private ArrayList<Item> items = new ArrayList<Item>();
+	private ArrayList<Item> items = new ArrayList<>();
 
 	/**
 	 * для ключа.

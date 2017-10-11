@@ -1,7 +1,7 @@
 package tracker.start;
 
-import ru.job4j.tracker.models.Item;
-import ru.job4j.tracker.models.Task;
+import tracker.models.Item;
+import tracker.models.Task;
 
 import java.util.ArrayList;
 
@@ -26,18 +26,10 @@ public class MenuTracker {
      * Мханизмы выполнения вводимых команд.
      */
     private Tracker tracker;
-//    /**
-//     * Кол-во действий.
-//     */
-//    private final int numberActions = 9;
     /**
      * Действие.
      */
     private ArrayList<UserAction> actions = new ArrayList<UserAction>();
-//    /**
-//     * Номер свободной ячейки для объекта UserAction в меню.
-//     */
-//    private int position = 0;
 
     /**
      * Конструктор.

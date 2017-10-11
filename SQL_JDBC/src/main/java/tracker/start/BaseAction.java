@@ -17,7 +17,7 @@ public abstract class BaseAction implements UserAction {
     /**
      * Действия.
      */
-    private ArrayList<UserAction> actions = new ArrayList<UserAction>();
+    private ArrayList<UserAction> actions = new ArrayList<>();
 
     /**
      * Конструктор.

@@ -16,7 +16,7 @@ public class ConsoleInput implements Input {
 	private Scanner scanner = new Scanner(System.in);
 
 	/**
-	 * Задать вопрос, получить ответ.
+	 * Выведет в консоль переданный аргумент и вернет строку введеную в консоль.
 	 * @param question - запрос.
 	 * @return - введенное с консоли.
 	 */

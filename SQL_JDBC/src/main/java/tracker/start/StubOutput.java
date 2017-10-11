@@ -1,7 +1,8 @@
 package tracker.start;
 
-import ru.job4j.tracker.models.Item;
-import ru.job4j.tracker.models.ItemGetString;
+
+
+import tracker.models.Item;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class StubOutput implements Output {
 		int index = 0;
 		for (Item item : items) {
 			if (item != null) {
-				this.asks[index] = "№ " + index + "; " + new ItemGetString(item).getLine();
+				this.asks[index] = String.format("%S %d %S %S \n" , "№", index, ";", item.toString());
 			}
 			index++;
 		}
