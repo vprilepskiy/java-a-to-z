@@ -1,37 +1,64 @@
-CREATE DATABASE Job4J;
+--CREATE DATABASE Job4J;
 
 
-
-
-
-/* right_roles */
-CREATE TABLE right_roles (
-	id SERIAL PRIMARY KEY, --PK
-	add BOOLEAN NOT NULL DEFAULT false, 
-	delete BOOLEAN NOT NULL DEFAULT false, 
-	update BOOLEAN NOT NULL DEFAULT false,
-	UNIQUE(add, delete, update)
-);
-
-INSERT INTO right_roles (add, delete, update) VALUES ('true', 'true', 'true');
-INSERT INTO right_roles (add, delete, update) VALUES ('true', 'false', 'true');
-INSERT INTO right_roles (add, delete, update) VALUES ('true', 'false', 'false');
-
-
+/*
+DROP TABLE roles CASCADE;
+DROP TABLE rights CASCADE;
+DROP TABLE right_roles CASCADE;
+DROP TABLE users CASCADE;
+DROP TABLE category_item CASCADE;
+DROP TABLE status_item CASCADE;
+DROP TABLE items CASCADE;
+DROP TABLE comments CASCADE;
+DROP TABLE files CASCADE;
+*/
 
 
 /* roles */
 CREATE TABLE roles (
 	id SERIAL PRIMARY KEY, --PK
 	role CHARACTER VARYING (100) NOT NULL,
-	right_role_id INTEGER REFERENCES right_roles(id), --FK
 	UNIQUE(role)
 );
 
-INSERT INTO roles (role, right_role_id) VALUES ('Master', (SELECT id FROM right_roles WHERE add = 'true' AND delete = 'true' AND update = 'true'));
-INSERT INTO roles (role, right_role_id) VALUES ('Admin', (SELECT id FROM right_roles WHERE add = 'true' AND delete = 'false' AND update = 'true'));
-INSERT INTO roles (role, right_role_id) VALUES ('User', (SELECT id FROM right_roles WHERE add = 'true' AND delete = 'false' AND update = 'false'));
+INSERT INTO roles (role) VALUES ('Master');
+INSERT INTO roles (role) VALUES ('Admin');
+INSERT INTO roles (role) VALUES ('User');
 
+
+
+
+
+/* rights */
+CREATE TABLE rights (
+	id SERIAL PRIMARY KEY, --PK
+	description CHARACTER VARYING (100) NOT NULL,
+	UNIQUE(description)
+);
+
+INSERT INTO rights (description) VALUES ('Add');
+INSERT INTO rights (description) VALUES ('Delete');
+INSERT INTO rights (description) VALUES ('Update');
+
+
+
+/* right_roles */
+
+CREATE TABLE right_roles (
+	id SERIAL PRIMARY KEY, --PK
+	rights_id INTEGER REFERENCES rights(id), --FK
+	role_id INTEGER REFERENCES roles(id), --FK
+	UNIQUE(rights_id, role_id)
+);
+
+INSERT INTO right_roles (rights_id, role_id) VALUES ((SELECT id FROM rights WHERE description = 'Add'), (SELECT id FROM roles WHERE role = 'Master'));
+INSERT INTO right_roles (rights_id, role_id) VALUES ((SELECT id FROM rights WHERE description = 'Delete'), (SELECT id FROM roles WHERE role = 'Master'));
+INSERT INTO right_roles (rights_id, role_id) VALUES ((SELECT id FROM rights WHERE description = 'Update'), (SELECT id FROM roles WHERE role = 'Master'));
+
+INSERT INTO right_roles (rights_id, role_id) VALUES ((SELECT id FROM rights WHERE description = 'Add'), (SELECT id FROM roles WHERE role = 'Admin'));
+INSERT INTO right_roles (rights_id, role_id) VALUES ((SELECT id FROM rights WHERE description = 'Update'), (SELECT id FROM roles WHERE role = 'Admin'));
+
+INSERT INTO right_roles (rights_id, role_id) VALUES ((SELECT id FROM rights WHERE description = 'Add'), (SELECT id FROM roles WHERE role = 'User'));
 
 
 
