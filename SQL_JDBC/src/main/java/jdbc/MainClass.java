@@ -63,7 +63,7 @@ public class MainClass implements IMainClass {
         db.setConnection(this.url, this.username, this.password);
 
         // менеджер работы с БД
-        DB.Manager manager = new DB.Manager();
+        DB.Manager manager = db.new Manager();
         // запрос названия таблицы
         String selectTableTest = "SELECT table_name FROM information_schema.tables WHERE table_name = 'test'";
 

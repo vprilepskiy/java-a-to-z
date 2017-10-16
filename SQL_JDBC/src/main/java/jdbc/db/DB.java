@@ -19,7 +19,7 @@ public class DB {
     /**
      * Connection.
      */
-    private static Connection connection;
+    private Connection connection;
 
 
     /**
@@ -54,7 +54,7 @@ public class DB {
     /**
      * Manager for DB.
      */
-    public static class Manager {
+    public class Manager {
 
         /**
          * Select rows.
