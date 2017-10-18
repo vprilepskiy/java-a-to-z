@@ -1,10 +1,10 @@
-package tracker.start;
+package tracker.io;
 
 
 
 import tracker.models.Item;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Интерфейс вывода данных.
@@ -18,5 +18,5 @@ public interface Output {
 	 * Получает ответы от Tracker.
 	 * @param items - массив заявок.
 	 */
-	void answer(ArrayList<Item> items);
+	void answer(List<Item> items);
 }

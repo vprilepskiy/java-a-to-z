@@ -1,9 +1,7 @@
-package tracker.start;
-
+package tracker.io;
 
 import tracker.models.Item;
-
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Класс вывода данных в консоль.
@@ -18,13 +16,11 @@ public class ConsoleOutput implements Output {
 	 * @param items - заявки.
 	 */
 	@Override
-	public void answer(ArrayList<Item> items) {
-		int index = 0;
+	public void answer(List<Item> items) {
 		for (Item item : items) {
 			if (item != null) {
-				System.out.printf("%S %d %S %S \n" , "№", index, ";", item.toString());
+				System.out.println(item);
 			}
-			index++;
 		}
 	}
 }

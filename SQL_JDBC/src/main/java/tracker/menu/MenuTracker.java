@@ -1,9 +1,12 @@
-package tracker.start;
+package tracker.menu;
 
+import tracker.io.Input;
+import tracker.io.Output;
 import tracker.models.Item;
 import tracker.models.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Класс.
@@ -66,7 +69,7 @@ public class MenuTracker {
         this.addAction(new FindByDesc("Find By Desc", actions));
         this.addAction(new FindByCreate("Find By Create", actions));
         this.addAction(new Delete("Delete", actions));
-        this.addAction(new AddComens("AddComens", actions));
+        this.addAction(new AddCommens("AddComens", actions));
 
         int[] rangeItems = new int[this.actions.size()];
         int index = 0;
@@ -106,22 +109,10 @@ public class MenuTracker {
      * @return - массив доступных элементов.
      */
     private int[] getRang(Tracker tracker) {
-        ArrayList<Item> items = tracker.getAll();
-        int index = 0;
-        for (Item item : items) {
-            if (item != null) {
-                index++;
-            }
-        }
-        int[] rang = new int[index];
-        index = 0;
-        int indexItem = 0;
-        for (Item item : items) {
-            if (item != null) {
-                rang[index] = indexItem;
-                index++;
-            }
-            indexItem++;
+        List<Item> items = tracker.getAll();
+        int[] rang = new int[items.size()];
+        for (int i = 0; i < items.size(); i++) {
+            rang[i] = items.get(i).getId();
         }
         return rang;
     }
@@ -185,9 +176,11 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Output output, Tracker tracker) {
+            // получить элементы доступные для редактирования
             int[] range = getRang(tracker);
-            int index = input.ask("Please enter the number task: ", range);
-            String id = tracker.getAll().get(index).getId();
+
+            // ввод с консоли номера элемента
+            int id = input.ask("Please enter the number task: ", range);
             String name = input.ask("Please enter the task's name: ");
             String desc = input.ask("Please enter the task's description: ");
             Task task = new Task(name, desc);
@@ -195,6 +188,7 @@ public class MenuTracker {
             tracker.update(task);
         }
     }
+
 
     /**
      * Внутренний класс. Найти по имени.
@@ -254,7 +248,7 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Output output, Tracker tracker) {
-            String create = input.ask("Please enter the task's create: ");
+            String create = input.ask("Please enter the task's createTable: ");
             output.answer(tracker.findByCreate(Long.parseLong(create)));
         }
     }
@@ -284,14 +278,14 @@ public class MenuTracker {
     /**
      * Внутренний класс. Добавить коментарии.
      */
-    private class AddComens extends BaseAction {
+    private class AddCommens extends BaseAction {
 
         /**
          * Добавить коментарии.
          * @param name - название метода.
          * @param actions - действие.
          */
-        private AddComens(String name, ArrayList<UserAction> actions) {
+        private AddCommens(String name, ArrayList<UserAction> actions) {
             super(name, actions);
         }
 

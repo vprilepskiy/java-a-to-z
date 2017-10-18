@@ -1,6 +1,5 @@
 package tracker.models;
 
-import java.util.Arrays;
 
 /**
  * Класс деталь.
@@ -23,13 +22,9 @@ public class Item {
 	 */
 	private long create;
 	/**
-	 * Комментарии.
-	 */
-	private String[] comment;
-	/**
 	 * Уникальный ключ.
 	 */
-	private String id;
+	private int id;
 
 	/**
 	 * Конструктор пустой.
@@ -77,16 +72,8 @@ public class Item {
 	 * Setter.
 	 * @param id - уникальный ключ.
 	 */
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
-	}
-
-	/**
-	 * Setter.
-	 * @param comment - комментарии.
-	 */
-	public void setComment(String[] comment) {
-		this.comment = comment;
 	}
 
 	/**
@@ -117,22 +104,16 @@ public class Item {
 	 * Getter.
 	 * @return уникальный ключ.
 	 */
-	public String getId() {
+	public int getId() {
 		return id;
-	}
-
-	/**
-	 * Getter.
-	 * @return - комментарии.
-	 */
-	public String[] getComment() {
-		return comment;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("name: ");
+		sb.append("id: ");
+		sb.append(this.id);
+		sb.append("; name: ");
 		sb.append(this.name);
 		sb.append("; desc: ");
 		sb.append(this.description);

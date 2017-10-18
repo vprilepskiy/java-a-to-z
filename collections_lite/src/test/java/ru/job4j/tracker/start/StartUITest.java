@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 public class StartUITest {
 
     /**
-     * Рередает команды и возвращает ответы.
+     * Передает команды и возвращает ответы.
      * @param answers - команды.
      * @return - ответы.
      */

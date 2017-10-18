@@ -6,19 +6,26 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Created by VLADIMIR on 12.10.2017.
  */
 public class Example {
 
-
+    /**
+     * Main.
+     * @param args - args.
+     * @throws IOException - exception.
+     */
     public static void main(String[] args) throws IOException {
         new Example().parseSqlRu();
     }
 
+    /**
+     * Parse.
+     * @throws IOException - ex.
+     */
     public void parse4pdaRu() throws IOException {
 
         Document document = Jsoup.connect("http://4pda.ru").get();
@@ -36,7 +43,10 @@ public class Example {
     }
 
 
-
+    /**
+     * Parse.
+     * @throws IOException - ex.
+     */
     public void parseSqlRu() throws IOException {
         Document document = Jsoup.connect("http://www.sql.ru/forum/job/1").get();
         Elements forumTableElements = document.getElementsByAttributeValue("class", "forumTable");

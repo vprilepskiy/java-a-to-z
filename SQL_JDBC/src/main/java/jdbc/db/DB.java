@@ -57,6 +57,16 @@ public class DB {
     public class Manager {
 
         /**
+         * Get connection.
+         * @return - connection.
+         */
+        protected Connection getConnection() {
+            return connection;
+        }
+
+
+
+        /**
          * Select rows.
          * @param sql - SQL.
          * @return - Entries.
@@ -64,6 +74,8 @@ public class DB {
         public List<Entry> getRows(String sql) {
             return this.getRows(sql, 0);
         }
+
+
 
 
         /**
@@ -94,19 +106,12 @@ public class DB {
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
-                try {
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (st != null) {
-                        st.close();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                this.close(rs, st);
             }
             return rows;
         }
+
+
 
 
         /**
@@ -131,14 +136,12 @@ public class DB {
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
-                try {
-                    st.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                this.close(st);
             }
             return insertRows;
         }
+
+
 
 
         /**
@@ -153,6 +156,19 @@ public class DB {
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
+                this.close(st);
+            }
+        }
+
+
+
+
+        /**
+         * Close resources.
+         * @param st - Statement.
+         */
+        protected void close(Statement st) {
+            if (st != null) {
                 try {
                     st.close();
                 } catch (SQLException e) {
@@ -161,6 +177,24 @@ public class DB {
             }
         }
 
+
+
+
+        /**
+         * Close resources.
+         * @param rs - ResultSet.
+         * @param st - Statement.
+         */
+        protected void close(ResultSet rs, Statement st) {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            this.close(st);
+        }
     }
 
 

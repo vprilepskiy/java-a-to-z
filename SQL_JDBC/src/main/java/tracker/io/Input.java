@@ -1,4 +1,4 @@
-package tracker.start;
+package tracker.io;
 
 /**
  * Интерфейс ввода данных.

@@ -1,4 +1,6 @@
-package tracker.start;
+package tracker.io;
+
+import tracker.menu.MenuOutException;
 
 import java.util.Scanner;
 

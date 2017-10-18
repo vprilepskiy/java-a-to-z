@@ -1,4 +1,6 @@
-package tracker.start;
+package tracker.io;
+
+import tracker.menu.MenuOutException;
 
 /**
  * Класс ввода данных для тестирования.
@@ -46,7 +48,22 @@ public class StabInput implements Input {
 		if (exist) {
 			return key;
 		} else {
-			throw new MenuOutException("Out of menu range.");
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("Out of menu rang!!!");
+			sb.append('\n');
+
+			sb.append("value entered: ");
+			sb.append(key);
+			sb.append('\n');
+
+			for (int validValue : range) {
+				sb.append("valid value :");
+				sb.append(validValue);
+				sb.append('\n');
+			}
+
+			throw new MenuOutException(sb.toString());
 		}
 	}
 }

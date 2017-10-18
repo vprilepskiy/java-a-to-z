@@ -1,4 +1,6 @@
-package tracker.start;
+package tracker.io;
+
+import tracker.menu.MenuOutException;
 
 /**
  * Класс ввода данных с консоли с обработкой ошибок.
@@ -22,7 +24,6 @@ public class ValidateInput extends ConsoleInput {
                 value = super.ask(question, range);
                 invalid = false;
             } catch (MenuOutException moe) {
-                //moe.printStackTrace();
                 System.out.println("Please select key from menu.");
             } catch (NumberFormatException nfe) {
                 System.out.println("Please enter validate date again.");

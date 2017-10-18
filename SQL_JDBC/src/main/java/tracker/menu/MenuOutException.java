@@ -1,4 +1,4 @@
-package tracker.start;
+package tracker.menu;
 
 /**
  * Собственный Exception наследованный от RuntimeException.

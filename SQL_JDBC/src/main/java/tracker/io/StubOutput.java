@@ -1,10 +1,8 @@
-package tracker.start;
-
-
+package tracker.io;
 
 import tracker.models.Item;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Класс вывода данных в массив.
@@ -24,12 +22,12 @@ public class StubOutput implements Output {
 	 * @param items - заявки.
 	 */
 	@Override
-	public void answer(ArrayList<Item> items) {
+	public void answer(List<Item> items) {
 		this.asks = new String[items.size()];
 		int index = 0;
 		for (Item item : items) {
 			if (item != null) {
-				this.asks[index] = String.format("%S %d %S %S \n" , "№", index, ";", item.toString());
+				this.asks[index] = String.format("№ %d; name: %s; desc: %s", item.getId(), item.getName(), item.getDescription());
 			}
 			index++;
 		}
