@@ -30,7 +30,10 @@
 		<module>chapter_003.3</module>
 		<module>collections_lite</module>
 		<module>collections_pro</module>
+		<module>multithreading</module>
         <module>SQL_JDBC</module>
+		<module>Site_saver</module>
+        <module>Servlet_JSP</module>
     </modules>
 
 	<dependencies>
