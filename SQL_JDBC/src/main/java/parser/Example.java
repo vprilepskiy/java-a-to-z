@@ -113,7 +113,7 @@ public class Example {
 
 //            System.out.println("+++" + forumTableResultsElement.text());
 //            System.out.println("++++++" + forumTableResultsElement.getElementsByAttribute("href"));
-            for (Element hrefElement : forumTableResultsElement.getElementsByAttribute("href")){
+            for (Element hrefElement : forumTableResultsElement.getElementsByAttribute("href")) {
                 System.out.println("+++++++++" + hrefElement.attr("href"));
             }
 
@@ -139,7 +139,7 @@ public class Example {
 
         if (forumTableResultsElements.size() > 0) {
             Element forumTableResultsElement = forumTableResultsElements.get(1);
-            for (Element hrefElement : forumTableResultsElement.getElementsByAttribute("href")){
+            for (Element hrefElement : forumTableResultsElement.getElementsByAttribute("href")) {
                 System.out.println("+++++++++" + hrefElement.attr("href"));
             }
 
