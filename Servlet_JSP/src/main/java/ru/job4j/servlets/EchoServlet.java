@@ -14,10 +14,10 @@ import java.io.PrintWriter;
  */
 public class EchoServlet extends HttpServlet {
 
-    private static final Logger log = Logger.getLogger(EchoServlet.class);
+    private static final Logger LOG = Logger.getLogger(EchoServlet.class);
 
     /**
-     *
+     * doGet.
      * @param req - Получил от клиента.
      * @param resp - Ответ для клиента.
      * @throws ServletException
@@ -25,13 +25,15 @@ public class EchoServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         System.out.println("run doGet");
 
         resp.setContentType("text/html");
-        resp.getOutputStream().write("hello world".getBytes());
-//        PrintWriter writer = new PrintWriter(resp.getOutputStream());
-//        writer.append("hello world");
-//        writer.flush();
-//        writer.close();
+
+//        resp.getOutputStream().write("hello world".getBytes());
+        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        writer.append("hello world");
+        writer.flush();
+        writer.close();
     }
 }
