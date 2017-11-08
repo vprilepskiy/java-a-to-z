@@ -14,19 +14,20 @@ import java.io.PrintWriter;
  */
 public class EchoServlet extends HttpServlet {
 
+    /**
+     * Logger.
+     */
     private static final Logger LOG = Logger.getLogger(EchoServlet.class);
 
     /**
      * doGet.
      * @param req - Получил от клиента.
      * @param resp - Ответ для клиента.
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException - ex.
+     * @throws IOException - ex.
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        System.out.println("run doGet");
 
         resp.setContentType("text/html");
 
