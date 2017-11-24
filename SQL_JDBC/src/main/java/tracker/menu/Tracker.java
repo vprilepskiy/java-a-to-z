@@ -27,7 +27,7 @@ public class Tracker {
 
 	/**
 	 * Constructor.
-	 * @param db - db.
+	 * @param db - store.
 	 * @param settings - settings.
 	 */
 	public Tracker(DB db, Settings settings) {
