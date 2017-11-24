@@ -56,6 +56,7 @@ public class UserStore {
             if (this.connection == null) {
                 this.connection = DriverManager.getConnection(url, username, password);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
