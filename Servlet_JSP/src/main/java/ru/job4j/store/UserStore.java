@@ -7,6 +7,9 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.apache.tomcat.jdbc.pool.PoolProperties;
+
 /**
  * Created by VLADIMIR on 22.11.2017.
  * <p>
@@ -55,17 +58,37 @@ public class UserStore {
      * @param password - Password.
      */
     public void setConnection(String url, String username, String password) {
-        try {
-            Class.forName(settings.getValue("db_driver_name"));
+        final PoolProperties p = new PoolProperties();
 
-            if (this.connection == null) {
-                this.connection = DriverManager.getConnection(url, username, password);
+        p.setUrl(url);
+        p.setDriverClassName(settings.getValue("db_driver_name"));
+        p.setUsername(username);
+        p.setPassword(password);
+        p.setJmxEnabled(true);
+        p.setTestWhileIdle(false);
+        p.setTestOnBorrow(true);
+        p.setValidationQuery("SELECT 1");
+        p.setTestOnReturn(false);
+        p.setValidationInterval(30000);
+        p.setTimeBetweenEvictionRunsMillis(30000);
+        p.setMaxActive(100);
+        p.setInitialSize(10);
+        p.setMaxWait(10000);
+        p.setRemoveAbandonedTimeout(60);
+        p.setMinEvictableIdleTimeMillis(30000);
+        p.setMinIdle(10);
+        p.setLogAbandoned(true);
+        p.setRemoveAbandoned(true);
+        p.setJdbcInterceptors(String.format("%s%s", "org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;", "org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"));
+        final DataSource datasource = new DataSource();
+        datasource.setPoolProperties(p);
+
+        if (this.connection == null) {
+            try {
+                this.connection = datasource.getConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
@@ -108,6 +131,34 @@ public class UserStore {
         }
 
         return users;
+    }
+
+
+    /**
+     * Get user by name.
+     *
+     * @return - user.
+     */
+    public User getByName(User user) {
+
+        User result = new User("");
+
+        try (PreparedStatement st = connection.prepareStatement(settings.getValue("SQL_SELECT_USER"))) {
+            st.setString(1, user.getName());
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    final String name = rs.getString("name");
+                    final String login = rs.getString("login");
+                    final String email = rs.getString("email");
+                    final String createDate = rs.getString("create_date");
+                    result = new User(name, login, email, createDate);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
 

@@ -32,7 +32,7 @@ public class EchoServlet extends HttpServlet {
         resp.setContentType("text/html");
 
 //        resp.getOutputStream().write("hello world".getBytes());
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        final PrintWriter writer = new PrintWriter(resp.getOutputStream());
         writer.append("hello world");
         writer.flush();
         writer.close();
