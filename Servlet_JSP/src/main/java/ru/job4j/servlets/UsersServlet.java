@@ -13,6 +13,9 @@ import java.io.PrintWriter;
 import java.util.List;
 
 /**
+ * Connect to the database.
+ * Provide REST API.
+ *
  * Created by VLADIMIR on 22.11.2017.
  */
 public class UsersServlet extends HttpServlet {

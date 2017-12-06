@@ -45,7 +45,7 @@ public class FaceServlet extends HttpServlet {
         sb.append("    </tr>");
 
         // тело таблицы
-        for (User user : users.get()) {
+        for (User user : this.users.get()) {
             sb.append("<tr>");
             sb.append("    <td>").append(user.getName()).append("</td>");
             sb.append("    <td>").append(user.getLogin()).append("</td>");
@@ -68,7 +68,7 @@ public class FaceServlet extends HttpServlet {
 
         // кнопка ADD
         sb.append("<form action='" + req.getContextPath() + "/face/add' method='get'>");
-        sb.append("  <button type='submit'>Add</button>");
+        sb.append("    <button type='submit'>Add</button>");
         sb.append("</form>");
 
         // закрыть теги

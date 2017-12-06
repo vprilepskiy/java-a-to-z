@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
+ * Example Servlet - Hello world!
+ *
  * Created by VLADIMIR on 26.10.2017.
  */
 public class EchoServlet extends HttpServlet {

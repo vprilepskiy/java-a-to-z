@@ -27,6 +27,8 @@
     </servlet-mapping>
 
 
+
+    <!-- FACE SERVLET -->
     <!--VIEW-->
     <servlet>
         <servlet-name>FaceServlet</servlet-name>
@@ -72,6 +74,44 @@
     <servlet-mapping>
         <servlet-name>FaceServletDelete</servlet-name>
         <url-pattern>/face/delete</url-pattern>
+    </servlet-mapping>
+
+
+
+    <!-- JSP SERVLET -->
+    <!--ADD-->
+    <servlet>
+        <servlet-name>JSPServletAdd</servlet-name>
+        <servlet-class>ru.job4j.servlets.JSPServletAdd</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>JSPServletAdd</servlet-name>
+        <url-pattern>/JSP/add</url-pattern>
+    </servlet-mapping>
+
+
+    <!--UPDATE-->
+    <servlet>
+        <servlet-name>JSPServletUpdate</servlet-name>
+        <servlet-class>ru.job4j.servlets.JSPServletUpdate</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>JSPServletUpdate</servlet-name>
+        <url-pattern>/JSP/update</url-pattern>
+    </servlet-mapping>
+
+
+    <!--DELETE-->
+    <servlet>
+        <servlet-name>JSPServletDelete</servlet-name>
+        <servlet-class>ru.job4j.servlets.JSPServletDelete</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>JSPServletDelete</servlet-name>
+        <url-pattern>/JSP/delete</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -74,7 +74,7 @@ public class UserStore {
         p.setMaxActive(100);
         p.setInitialSize(10);
         p.setMaxWait(10000);
-        p.setRemoveAbandonedTimeout(60);
+        p.setRemoveAbandonedTimeout(60*60*24);
         p.setMinEvictableIdleTimeMillis(30000);
         p.setMinIdle(10);
         p.setLogAbandoned(true);
