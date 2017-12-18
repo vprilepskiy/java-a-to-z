@@ -14,6 +14,10 @@ public class User {
      */
     private final String login;
     /**
+     * Password.
+     */
+    private final String password;
+    /**
      * Email.
      */
     private final String email;
@@ -21,6 +25,47 @@ public class User {
      * Create date.
      */
     private final String createDate;
+
+    /**
+     * Role.
+     */
+    private final Role role;
+
+
+    /**
+     * Constructor.
+     * @param name - name.
+     * @param login - login.
+     * @param password - password.
+     * @param email - email.
+     * @param role - role.
+     */
+    public User(String name, String login, String password, String email, String createDate, Role role) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.createDate = createDate;
+        this.role = role;
+    }
+
+
+    /**
+     * Constructor.
+     * @param name - name.
+     * @param login - login.
+     * @param password - password.
+     * @param email - email.
+     * @param role - role.
+     */
+    public User(String name, String login, String password, String email, Role role) {
+        this.name = name;
+        this.login = login;
+        this.email = email;
+        this.createDate = "";
+        this.password = password;
+        this.role = role;
+    }
 
     /**
      * Constructor.
@@ -34,6 +79,8 @@ public class User {
         this.login = login;
         this.email = email;
         this.createDate = createDate;
+        this.password = null;
+        this.role = null;
     }
 
     /**
@@ -47,6 +94,8 @@ public class User {
         this.login = login;
         this.email = email;
         this.createDate = "";
+        this.password = null;
+        this.role = null;
     }
 
     /**
@@ -58,6 +107,8 @@ public class User {
         this.login = "";
         this.email = "";
         this.createDate = "";
+        this.password = null;
+        this.role = null;
     }
 
     /**
@@ -92,6 +143,14 @@ public class User {
         return this.createDate;
     }
 
+    public String getPassword() {
+        return this.password;
+    }
+
+    public Role getRole() {
+        return this.role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -111,14 +170,17 @@ public class User {
         return name != null ? name.hashCode() : 0;
     }
 
+
     @Override
     public String toString() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("User_name='").append(this.name);
         sb.append("', Login='").append(this.login);
+        sb.append("', Password='").append(this.password);
         sb.append("', Email='").append(this.email);
         sb.append("', Create_date='").append(this.createDate);
+        sb.append(this.role);
         sb.append("';");
 
         return sb.toString();

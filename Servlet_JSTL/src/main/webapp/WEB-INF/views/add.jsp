@@ -13,7 +13,7 @@
 <head>
     <title>JSTL Page</title>
 </head>
-<body>
+<br>
 
 <%--кнопка назад--%>
 <form action='${pageContext.request.contextPath}/' method='get'>
@@ -25,7 +25,16 @@
 <form action='${pageContext.request.contextPath}/add' method='post'>
     Name : <input type='text' name='name'/><br/>
     Login : <input type='text' name='login'/><br/>
-    Email : <input type='text' name='email'/><br/><br/>
+    Password : <input type='password' name='password'/><br/>
+    Email : <input type='text' name='email'/><br/>
+    Role : <select name="role">
+    <c:forEach items="${roles}" var="getRole">
+        <option value='${getRole.description}'>
+            <c:out value="${getRole.description}"></c:out>
+        </option>
+    </c:forEach>
+</select>
+    <br/>
     <input type='submit' value='Add'><br/>
 </form>
 <br/>

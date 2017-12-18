@@ -24,7 +24,20 @@
 <form action='${pageContext.request.contextPath}/update' method='post'>
     Name : <input value='${user.name}' type='text' name='name' readonly/><br/>
     Login : <input value='${user.login}' type='text' name='login'/><br/>
+    Password : <input value='${user.password}' type='password' name='password'/><br/>
     Email : <input value='${user.email}' type='text' name='email'/><br/><br/>
+    Role : <select name="role">
+    <%--Роль по умолчанию--%>
+    <option value='${user.role.description}' selected disabled hidden>
+        <c:out value="${user.role.description}"></c:out>
+    </option>
+        <%--выбор роли--%>
+    <c:forEach items="${roles}" var="getRole">
+        <option value='${getRole.description}'>
+            <c:out value="${getRole.description}"></c:out>
+        </option>
+    </c:forEach>
+</select>
     <input type='submit' value='Update'><br/>
 </form>
 <br/>

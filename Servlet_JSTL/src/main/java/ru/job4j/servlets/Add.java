@@ -1,5 +1,6 @@
 package ru.job4j.servlets;
 
+import ru.job4j.models.Role;
 import ru.job4j.models.User;
 import ru.job4j.store.UserStore;
 
@@ -34,10 +35,12 @@ public class Add extends HttpServlet {
 
         final String name = req.getParameter("name");
         final String login = req.getParameter("login");
+        final String password = req.getParameter("password");
         final String email = req.getParameter("email");
+        final Role role = new Role(req.getParameter("role"));
 
         // добавить в БД
-        final Integer rows = users.add(new User(name, login, email));
+        final Integer rows = this.users.add(new User(name, login, password, email, role));
         req.setAttribute("rows", rows);
 
         // вернуться на исходную страницу add
