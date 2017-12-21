@@ -37,7 +37,6 @@ public class Delete extends HttpServlet {
         resp.setContentType("text/html");
 
         final String userName = req.getParameter("userName");
-        System.out.println(userName);
 
         // удалить запись из БД
         final Integer rows = users.delete(new User(userName));
