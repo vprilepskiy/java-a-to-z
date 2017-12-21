@@ -1,8 +1,6 @@
 package ru.job4j.servlets;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import ru.job4j.models.User;
 import ru.job4j.store.UserStore;
 import javax.servlet.ServletException;
