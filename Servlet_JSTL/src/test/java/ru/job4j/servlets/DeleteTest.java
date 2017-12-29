@@ -23,15 +23,6 @@ import static org.junit.Assert.*;
  */
 public class DeleteTest {
 
-    /**
-     * Override forward to jsp.
-     */
-    class Delete extends ru.job4j.servlets.Delete {
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            // none
-        }
-    }
 
 
     /**

@@ -9,6 +9,7 @@ import ru.job4j.models.Role;
 import ru.job4j.models.User;
 import ru.job4j.store.UserStore;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,16 +24,6 @@ import static org.junit.Assert.*;
  */
 public class UpdateTest {
 
-    /**
-     * Override forward to jsp.
-     */
-    class Update extends ru.job4j.servlets.Update {
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            // none
-        }
-    }
-
 
     /**
      * Test.
@@ -42,6 +33,7 @@ public class UpdateTest {
         // затычки
         final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+        final RequestDispatcher dispatcher = Mockito.mock(RequestDispatcher.class);
 
         final UserStore users = UserStore.getInstance();
         // добавить юзера в БД
@@ -56,6 +48,7 @@ public class UpdateTest {
         Mockito.when(request.getParameter("password")).thenReturn(editUser.getPassword());
         Mockito.when(request.getParameter("email")).thenReturn(editUser.getEmail());
         Mockito.when(request.getParameter("role")).thenReturn(editUser.getRole().getDescription());
+        Mockito.when(request.getRequestDispatcher("/WEB-INF/views/update.jsp")).thenReturn(dispatcher);
 
         // обновить юзера в БД сервлетом
         new Update().doPost(request, response);

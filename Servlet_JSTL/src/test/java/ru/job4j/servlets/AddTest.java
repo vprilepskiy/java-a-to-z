@@ -9,6 +9,7 @@ import ru.job4j.models.Role;
 import ru.job4j.models.User;
 import ru.job4j.store.UserStore;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,16 +21,6 @@ import java.util.List;
  */
 public class AddTest {
 
-    /**
-     * Override forward to jsp.
-     */
-    class Add extends ru.job4j.servlets.Add {
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            // none
-        }
-    }
-
 
     /**
      * Test.
@@ -40,6 +31,7 @@ public class AddTest {
         // затычки
         final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+        final RequestDispatcher dispatcher = Mockito.mock(RequestDispatcher.class);
 
         final User user = new User("test_name", "test_login", "test_password", "test_email", new Role("User"));
 
@@ -49,6 +41,7 @@ public class AddTest {
         Mockito.when(request.getParameter("password")).thenReturn(user.getPassword());
         Mockito.when(request.getParameter("email")).thenReturn(user.getEmail());
         Mockito.when(request.getParameter("role")).thenReturn(user.getRole().getDescription());
+        Mockito.when(request.getRequestDispatcher("/WEB-INF/views/add.jsp")).thenReturn(dispatcher);
 
         // добавить юзера в БД сервлетом
         new Add().doPost(request, response);

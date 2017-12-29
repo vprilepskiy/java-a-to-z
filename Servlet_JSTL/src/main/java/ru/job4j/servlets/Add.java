@@ -4,6 +4,7 @@ import ru.job4j.models.Role;
 import ru.job4j.models.User;
 import ru.job4j.store.UserStore;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
