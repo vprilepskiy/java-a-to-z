@@ -1,0 +1,113 @@
+<!--descriptor-->
+
+<web-app>
+
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>ru.job4j.servlets.AuthFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+
+    <!--Signin-->
+    <servlet>
+        <servlet-name>Signin</servlet-name>
+        <servlet-class>ru.job4j.servlets.SigninController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Signin</servlet-name>
+        <url-pattern>/signin</url-pattern>
+    </servlet-mapping>
+
+
+    <!--AJAX-->
+    <!--Conn DB-->
+    <servlet>
+        <servlet-name>ConnDB</servlet-name>
+        <servlet-class>ru.job4j.servlets.json.ConnDB</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ConnDB</servlet-name>
+        <url-pattern>/conn</url-pattern>
+    </servlet-mapping>
+
+
+    <!--Users-->
+    <servlet>
+        <servlet-name>Users</servlet-name>
+        <servlet-class>ru.job4j.servlets.json.UsersView</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Users</servlet-name>
+        <url-pattern>/view</url-pattern>
+    </servlet-mapping>
+
+
+    <!--Edit user-->
+    <servlet>
+    <servlet-name>EditUser</servlet-name>
+    <servlet-class>ru.job4j.servlets.json.EditUser</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+    <servlet-name>EditUser</servlet-name>
+    <url-pattern>/EditUser</url-pattern>
+    </servlet-mapping>
+
+
+    <!--Add user-->
+    <servlet>
+        <servlet-name>AddUser</servlet-name>
+        <servlet-class>ru.job4j.servlets.json.AddUser</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddUser</servlet-name>
+        <url-pattern>/AddUser</url-pattern>
+    </servlet-mapping>
+
+
+    <!--Delete user-->
+    <servlet>
+        <servlet-name>DeleteUser</servlet-name>
+        <servlet-class>ru.job4j.servlets.json.DeleteUser</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteUser</servlet-name>
+        <url-pattern>/DeleteUser</url-pattern>
+    </servlet-mapping>
+
+
+    <!--Get available options for User-->
+    <servlet>
+        <servlet-name>OptionsUser</servlet-name>
+        <servlet-class>ru.job4j.servlets.json.AvailableOptionsUser</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OptionsUser</servlet-name>
+        <url-pattern>/OptionsUser</url-pattern>
+    </servlet-mapping>
+
+
+    <!--Country and City for User-->
+    <servlet>
+        <servlet-name>AddCountryAndCity</servlet-name>
+        <servlet-class>ru.job4j.servlets.json.AddCountryAndCity</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddCountryAndCity</servlet-name>
+        <url-pattern>/AddCountryAndCity</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>

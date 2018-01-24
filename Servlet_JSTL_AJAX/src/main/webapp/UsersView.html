@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Html page with js</title>
+
+    <style type="text/css">
+        .headline {
+            height: 80px; /* Высота слоя */
+            background: #FEDFC0;
+            border-bottom: 2px solid #7B5427;
+        }
+
+        .headline h2 {
+            padding: 20px;
+            margin: 0;
+            text-align: center;
+        }
+
+        .input_form {
+            position: absolute;
+            overflow: auto;
+            top: 90px; /* Расстояние от верхнего края */
+            left: 10%; /* Расстояние от левого края */
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        $(
+            $.ajax('./view', {
+                method: 'get',
+                complete: function (data) {
+                    var result = "<tr>" +
+                        "<th>Name</th>" +
+                        "<th>Login</th>" +
+                        "<th>Email</th>" +
+                        "<th>Country</th>" +
+                        "<th>City</th>" +
+                        "</tr>";
+                    var users = JSON.parse(data.responseText);
+                    for (var i = 0; i != users.length; ++i) {
+                        result += "<tr>" +
+                            "<td>" +
+                            "<a href='EditUser.html?name=" + users[i].name + "'>" +
+                            users[i].name +
+                            "</a>" +
+                            "</td>" +
+                            "<td>" + users[i].login + "</td>" +
+                            "<td>" + users[i].email + "</td>" +
+                            "<td>" + users[i].country + "</td>" +
+                            "<td>" + users[i].city + "</td>" +
+                            "</tr>";
+                    }
+                    var table = document.getElementById("users");
+                    table.innerHTML = result;
+                }
+            })
+        );
+
+
+        /**
+         * Redirect to url.
+         * @param url - url.
+         */
+        function redirect(url) {
+            window.location.replace(url);
+        }
+    </script>
+</head>
+<body>
+
+<div class="headline">
+    <h2>Users...</h2>
+</div>
+<div class="input_form">
+    <table border='1' id="users">
+        <th>Name</th>
+        <th>Login</th>
+        <th>Email</th>
+    </table>
+    <div class="button">
+        <br/>
+        <input type="button" value="Add user" onclick="redirect('EditUser.html?AddMode=true')"/>
+    </div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .main {
+            position: absolute; /* Абсолютное позиционирование */
+            width: 70%; /* Ширина слоя в процентах */
+            height: 30%; /* Высота слоя в процентах */
+            left: 30%; /* Положение слоя от левого края */
+            top: 30%; /* Положение слоя от верхнего края */
+            margin-left: -20%; /* Отступ слева */
+            margin-top: -15%; /* Отступ сверху */
+            background: #FEDFC0; /* Цвет фона */
+        }
+    </style>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+
+        /**
+         * Get URL parameter
+         */
+        function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1));
+            var sURLVariables = sPageURL.split('&');
+            var sParameterName;
+
+            for (var i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+
+
+        /**
+         * Выполит действия в зависимости от надатой кнопки (Редактировать/Добавить).
+         */
+        $(
+            function () {
+                var addMode = getUrlParameter("AddMode");
+                if (addMode) {
+                    // если нажата кнопка добавить пользователя
+                    console.log("addMode");
+                    // удалить из html кнопку update
+                    var button = document.getElementById("button_update");
+                    button.remove();
+                    // удалить из html кнопку delete
+                    var button = document.getElementById("button_delete");
+                    button.remove();
+
+                    var name = document.getElementById("name");
+                    name.removeAttribute("readonly");
+                    // если нажата кнопка изменить пользователя
+                } else {
+                    console.log("editMode");
+                    // заполнить страницу данными редактируемого пользователя
+                    editMode();
+                    // удалить из html кнопку add
+                    var button = document.getElementById("button_add");
+                    button.remove();
+                }
+            }
+        );
+
+
+        /**
+         * Заполнить страницу данными редактируемого пользователя.
+         */
+        function editMode() {
+            // заполнит форму редактируемого юзера
+            $(
+                $.ajax('./EditUser', {
+                    method: 'get',
+                    data: ({name: getUrlParameter('name')}),
+                    complete: function (data) {
+                        var user = JSON.parse(data.responseText);
+
+                        // получить из сервлета переменные
+                        var name = user.name;
+                        var login = user.login;
+                        var password = user.password;
+                        var email = user.email;
+                        var role = user.role.description;
+                        var country = user.country;
+                        var city = user.city;
+
+                        // записать переменные в документ
+                        document.getElementById("name").setAttribute("value", name);
+                        document.getElementById("login").setAttribute("value", login);
+                        document.getElementById("password").setAttribute("value", password);
+                        document.getElementById("email").setAttribute("value", email);
+                        document.getElementById("country").setAttribute("value", country);
+                        document.getElementById("country").innerHTML = country;
+                        document.getElementById("city").setAttribute("value", city);
+                        document.getElementById("city").innerHTML = city;
+                        document.getElementById("role").setAttribute("value", role);
+                        document.getElementById("role").innerHTML = role;
+
+                        // добавить список доступных городов
+                        updateOptionCity(false, country);
+                    }
+                })
+            );
+        };
+
+
+        /**
+         * Заполнить страницу данными по выбору стран и ролей.
+         */
+        $(
+            $.ajax('./OptionsUser', {
+                method: 'get',
+                complete: function (data) {
+                    var json = JSON.parse(data.responseText);
+
+                    var roles = json.rolesForEdit;
+                    var countries = json.countries;
+
+                    // заполнить варианты выбора возможных ролей
+                    for (var i = 0; i != roles.length; ++i) {
+                        // добавить опцию возможные роли
+                        var option = document.createElement("option");
+                        option.setAttribute("value", roles[i].description);
+                        option.innerHTML = roles[i].description;
+                        document.getElementById("select_role").appendChild(option);
+                    }
+
+                    // заполнить варианты выбора возможных стран
+                    for (var i = 0; i != countries.length; ++i) {
+                        // добавить опцию возможные страны
+                        var option = document.createElement("option");
+                        option.setAttribute("value", countries[i]);
+                        option.innerHTML = countries[i];
+                        document.getElementById("select_country").appendChild(option);
+                    }
+                }
+            })
+        );
+
+
+        /**
+         * Заполнить страницу данными по выбору стран.
+         * @param deleteOldOption - удалить старые значения.
+         */
+        function updateOptionCountries(deleteOldOption) {
+            $(
+                $.ajax('./OptionsUser', {
+                    method: 'get',
+                    complete: function (data) {
+                        var json = JSON.parse(data.responseText);
+                        var countries = json.countries;
+
+                        // удалить варианты выбора возможных стран
+                        if (deleteOldOption) {
+                            var select_country = document.getElementById("select_country");
+                            while (select_country.firstChild) {
+                                select_country.removeChild(select_country.firstChild);
+                            }
+                        }
+
+                        // заполнить варианты выбора возможных стран
+                        for (var i = 0; i != countries.length; ++i) {
+                            // добавить опцию возможные страны
+                            var option = document.createElement("option");
+                            option.setAttribute("value", countries[i]);
+                            option.innerHTML = countries[i];
+                            document.getElementById("select_country").appendChild(option);
+                        }
+                    }
+                })
+            );
+        };
+
+
+
+        /**
+         * Изменит список городов по выбранной стране.
+         * @param deleteOldOption - удалить старые значения.
+         * @param country - страна.
+         */
+        function updateOptionCity(deleteOldOption, country) {
+            $(
+                // получит города по стране
+                $.ajax('./OptionsUser', {
+                    method: 'post',
+                    data: ({country: country}),
+                    complete: function (data) {
+                        var cities = JSON.parse(data.responseText);
+
+                        // удалить варианты выбора возможных городов
+                        if (deleteOldOption) {
+                            var select_city = document.getElementById("select_city");
+                            while (select_city.firstChild) {
+                                select_city.removeChild(select_city.firstChild);
+                            }
+                        }
+
+                        // заполнить варианты выбора возможных городов
+                        for (var i = 0; i != cities.length; ++i) {
+                            // добавить опцию возможные города
+                            var option = document.createElement("option");
+                            option.setAttribute("value", cities[i]);
+                            option.innerHTML = cities[i];
+                            document.getElementById("select_city").appendChild(option);
+                        }
+                    }
+                })
+            );
+        };
+
+
+        /**
+         * Отработает при изменении поля Страна.
+         */
+        $(document).ready(function () {
+            $("select[name='country']").bind("change", function () {
+                var country = $("select[name='country']").val();
+                updateOptionCity(true, country);
+            })
+        });
+
+
+        /**
+         * добавит в БД страну и город, обновит меню выбора городов и стран.
+         */
+        function addCityAndCountry() {
+
+            var country = document.getElementsByName("add_country").item(0).value;
+            var city = document.getElementsByName("add_city").item(0).value;
+            var args = [country, city];
+            if (validate(args)) {
+                $(
+                    // добавит страну и город
+                    $.ajax('./AddCountryAndCity', {
+                        method: 'post',
+                        data: ({country: country, city: city}),
+                        complete: function () {
+                            // обновить варианты выбора стран
+                            updateOptionCountries(true);
+                            // обновить варианты выбора городов по выбранной стране
+                            country = $("select[name='country']").val();
+                            updateOptionCity(true, country);
+                        }
+                    })
+                );
+            } else {
+                alert("Empty args!");
+            }
+        };
+
+
+        /**
+         * Переадресует на страницу.
+         * @param url - url.
+         */
+        function redirect(url) {
+            window.location.replace(url);
+        };
+
+
+        /**
+         * Вернет false если один из аргументов будет пустым.
+         * @param args - аргументы.
+         */
+        function validate(args) {
+            var result = true;
+
+            for(var i = 0; i < args.length; i++) {
+                if (args[i] == "") {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        };
+
+
+        /**
+         * Внести изменения в БД.
+         * @param urlServlet - url servlet.
+         */
+        function changeUser(urlServlet) {
+            var name = document.getElementById("name").value;
+            var login = document.getElementById("login").value;
+            var password = document.getElementById("password").value;
+            var email = document.getElementById("email").value;
+
+            var index_role = document.getElementById("select_role").options.selectedIndex;
+            var role = document.getElementById("select_role").options[index_role].value;
+
+            var index_country = document.getElementById("select_country").options.selectedIndex;
+            var country = document.getElementById("select_country").options[index_country].value;
+
+            var index_city = document.getElementById("select_city").options.selectedIndex;
+            var city = document.getElementById("select_city").options[index_city].value;
+
+            var args = [name, login, password, email, role, country, city];
+            if (validate(args)) {
+                $(
+                    // внесет изменения в БД
+                    $.ajax(urlServlet, {
+                        method: 'post',
+                        data: ({name: name, login: login, password: password, email: email, role: role, country: country, city: city}),
+                        complete: redirect("UsersView.html")
+                    })
+                );
+            } else {
+                alert("Empty args!");
+            }
+        };
+
+
+        /**
+         * Удалить пользователя.
+         */
+        function deleteUser() {
+            var name = getUrlParameter('name');
+
+            if (confirm("Delete user: " + name + "?")) {
+                $(
+                    // удалит юзера
+                    $.ajax('./DeleteUser', {
+                        method: 'post',
+                        data: ({name: getUrlParameter('name')}),
+                        complete: redirect("UsersView.html")
+                    })
+                );
+            }
+        };
+    </script>
+
+</head>
+<body class="main">
+
+
+<!--кнопка назад-->
+<form action="UsersView.html" method='get'>
+    <button type='submit'>Back</button>
+</form>
+
+<br/>
+
+<!--кнопка удалить-->
+<form>
+    <button id="button_delete" type='button' onclick="deleteUser();">Delete user</button>
+</form>
+
+
+<br/>
+
+
+<!--редактрирование пользователя-->
+<form action='EditUser.html' method='get'>
+    Name : <input id="name" value="" type='text' name='name' placeholder="Name" readonly/><br/>
+    Login : <input id="login" value="" type='text' name='login' placeholder="Login"/><br/>
+    Password : <input id="password" value="" type='password' name='password' placeholder="Password"/><br/>
+    Email : <input id="email" value="" type="email" name='email' placeholder="Email"/><br/><br/>
+    <!--Страна-->
+    <label>Country : </label><select id="select_country" name="country">
+    <!--Страна по умолчанию-->
+    <option id="country" value="" selected disabled hidden></option>
+</select>
+    <!--Город-->
+    <label>City : </label><select id="select_city" name="city">
+    <!--Город по умолчанию-->
+    <option id="city" value="" selected disabled hidden></option>
+    <!--выбор города-->
+    <!--<option value="city1">city1</option>-->
+    <!--<option value="city2">city2</option>-->
+</select>
+    <!--Роль-->
+    <label>Role:</label><select id="select_role" name="role">
+    <!--Роль по умолчанию-->
+    <option id="role" value="" selected disabled hidden></option>
+    <!--выбор роли-->
+    <!--<option value="role_1_val">role_1_val</option>-->
+    <!--<option value="role_2_val">role_2_val</option>-->
+</select>
+    <input id="button_update" type='button' value='Update' onclick="changeUser('./EditUser');">
+    <input id="button_add" type='button' value='Add user' onclick="changeUser('./AddUser')">
+    <br/>
+</form>
+
+
+<!--заполнить страну и город-->
+<form>
+    <label>Add Country</label><input value="" type="text" name="add_country"/>
+    <label>Add City</label><input value="" type="text" name="add_city">
+    <input type="button" value="Add Country and City" onclick="addCityAndCountry();">
+</form>
+
+
+</body>
+</html>
