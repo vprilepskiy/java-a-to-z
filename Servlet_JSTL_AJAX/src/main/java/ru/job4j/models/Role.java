@@ -9,24 +9,23 @@ import java.util.Set;
 public class Role {
 
     /**
+     * Description.
+     */
+    private final String description;
+
+    /**
+     * Rights.
+     */
+    private final Set<String> rights = new HashSet<>();
+
+
+    /**
      * Constructor.
      * @param description - description.
      */
     public Role(String description) {
         this.description = description;
     }
-
-
-    /**
-     * Description.
-     */
-    private final String description;
-
-
-    /**
-     * Rights.
-     */
-    private final Set<String> rights = new HashSet<>();
 
 
     /**

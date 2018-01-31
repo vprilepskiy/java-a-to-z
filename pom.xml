@@ -36,6 +36,7 @@
         <module>Servlet_JSP</module>
 		<module>Servlet_JSTL</module>
 		<module>Servlet_JSTL_AJAX</module>
+        <module>Servlet_DAO</module>
     </modules>
 
 	<dependencies>

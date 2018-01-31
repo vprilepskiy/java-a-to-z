@@ -22,10 +22,6 @@ public class User {
      */
     private final String email;
     /**
-     * Create date.
-     */
-    private final String createDate;
-    /**
      * Role.
      */
     private final Role role;
@@ -53,7 +49,6 @@ public class User {
         this.name = name;
         this.login = login;
         this.email = email;
-        this.createDate = "";
         this.password = password;
         this.role = role;
         this.country = country;
@@ -65,19 +60,11 @@ public class User {
      * @param name - name.
      * @param login - login.
      * @param email - email.
-     * @param createDate - create date.
      * @param country - country.
      * @param city - city.
      */
-    public User(String name, String login, String email, String createDate, String country, String city) {
-        this.name = name;
-        this.login = login;
-        this.email = email;
-        this.createDate = createDate;
-        this.password = null;
-        this.role = null;
-        this.country = country;
-        this.city = city;
+    public User(String name, String login, String email, String country, String city) {
+        this(name, login, null, email, null, country, city);
     }
 
     /**
@@ -85,14 +72,7 @@ public class User {
      * @param name - name.
      */
     public User(String name) {
-        this.name = name;
-        this.login = "";
-        this.email = "";
-        this.createDate = "";
-        this.password = null;
-        this.role = null;
-        this.country = null;
-        this.city = null;
+        this(name, null, null, null, null);
     }
 
     /**
@@ -117,14 +97,6 @@ public class User {
      */
     public String getEmail() {
         return this.email;
-    }
-
-    /**
-     * Get create date.
-     * @return - create date.
-     */
-    public String getCreateDate() {
-        return this.createDate;
     }
 
     /**
@@ -186,7 +158,6 @@ public class User {
         sb.append("', Login='").append(this.login);
         sb.append("', Password='").append(this.password);
         sb.append("', Email='").append(this.email);
-        sb.append("', Create_date='").append(this.createDate);
         sb.append("', Country='").append(this.country);
         sb.append("', City='").append(this.city);
         sb.append(this.role);

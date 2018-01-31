@@ -22,20 +22,11 @@ public class UserStore {
      */
     private static final UserStore INSTANCE = new UserStore();
 
-    /**
-     * Empty constructor.
-     */
-    private UserStore() {
-    }
 
     /**
-     * Getter.
-     *
-     * @return - Class INSTANCE
+     * Settings.
      */
-    public static UserStore getInstance() {
-        return INSTANCE;
-    }
+    private final Settings settings = new Settings("store.properties");
 
 
     /**
@@ -45,9 +36,20 @@ public class UserStore {
 
 
     /**
-     * Settings.
+     * Empty constructor.
      */
-    private final Settings settings = new Settings("store.properties");
+    private UserStore() {
+    }
+
+
+    /**
+     * Getter.
+     *
+     * @return - Class INSTANCE
+     */
+    public static UserStore getInstance() {
+        return INSTANCE;
+    }
 
 
     /**
@@ -122,10 +124,9 @@ public class UserStore {
                 final String name = rs.getString("name");
                 final String login = rs.getString("login");
                 final String email = rs.getString("email");
-                final String createDate = rs.getString("create_date");
                 final String country = rs.getString("country");
                 final String city = rs.getString("city");
-                users.add(new User(name, login, email, createDate, city, country));
+                users.add(new User(name, login, email, city, country));
             }
 
         } catch (SQLException e) {
