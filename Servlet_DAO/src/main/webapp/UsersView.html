@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UsersView</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        $(
+            $.ajax('./UsersView', {
+                method: 'get',
+                complete: function (data) {
+                    var result = "<tr>" +
+                        "<th>Name</th>" +
+                        "<th>Login</th>" +
+                        "<th>Email</th>" +
+                        "</tr>";
+                    var users = JSON.parse(data.responseText);
+                    for (var i = 0; i != users.length; ++i) {
+                        result += "<tr>" +
+                            "<td>" + users[i].name + "</td>" +
+                            "<td>" + users[i].login + "</td>" +
+                            "<td>" + users[i].email + "</td>" +
+                            "</tr>";
+                    }
+                    var table = document.getElementById("users");
+                    table.innerHTML = result;
+                }
+            })
+        );
+    </script>
+
+</head>
+<body>
+    UsersView
+
+    <table border='1' id="users">
+        <th>Name</th>
+        <th>Login</th>
+        <th>Email</th>
+    </table>
+</body>
+</html>

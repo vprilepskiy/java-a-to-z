@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <script>
+        /**
+         * Вернет false если один из аргументов будет пустым.
+         * @param args - аргументы.
+         */
+        function validate(args) {
+            var result = true;
+
+            for(var i = 0; i < args.length; i++) {
+                if (args[i] == "") {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        };
+
+
+
+        function signIn() {
+            var login = document.getElementsByName("login").item(0).value;
+            var password = document.getElementsByName("password").item(0).value;
+            var args = [login, password];
+            if (validate(args)) {
+                $(
+                    $.ajax('./CheckIn', {
+                        method: 'post',
+                        data: ({login: login, password: password}),
+                        complete: function (data) {
+
+                            var response = JSON.parse(data.responseText);
+                            var status = response.status;
+                            var url = response.url;
+
+                            if (status === 'Ok') {
+                                window.location.replace(url);
+                            } else {
+                                var htmlErrorMessage = document.getElementById("message");
+                                htmlErrorMessage.innerHTML = status;
+                            }
+                        }
+                    })
+                );
+            } else {
+                alert("Not filled in login/password!")
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+<p id="message"></p>
+
+<form>
+    <label>Login</label><input type="text" name="login"/>
+    <label>Password</label><input type="password" name="password"/>
+    <input type="button" value="Sign in..." onclick="signIn();"/>
+</form>
+
+</body>
+</html>

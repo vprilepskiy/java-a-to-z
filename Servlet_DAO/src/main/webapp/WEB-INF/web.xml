@@ -2,6 +2,40 @@
 
 <web-app>
 
+    <!--Conn DB-->
+    <servlet>
+        <servlet-name>ConnDB</servlet-name>
+        <servlet-class>ru.job4j.controller.servlets.ConnDB</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>ConnDB</servlet-name>
+        <url-pattern>/conn</url-pattern>
+    </servlet-mapping>
+
+
+    <!--Check In-->
+    <servlet>
+        <servlet-name>CheckIn</servlet-name>
+        <servlet-class>ru.job4j.controller.servlets.CheckIn</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CheckIn</servlet-name>
+        <url-pattern>/CheckIn</url-pattern>
+    </servlet-mapping>
+
+
+    <!--Users view-->
+    <servlet>
+        <servlet-name>UsersView</servlet-name>
+        <servlet-class>ru.job4j.view.servlets.UsersView</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UsersView</servlet-name>
+        <url-pattern>/UsersView</url-pattern>
+    </servlet-mapping>
 
 </web-app>

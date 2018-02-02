@@ -17,11 +17,6 @@ public class DataBase {
      */
     private static final DataBase INSTANCE = new DataBase();
 
-    /**
-     * Empty constructor.
-     */
-    private DataBase() {
-    }
 
     /**
      * Getter.
@@ -43,6 +38,13 @@ public class DataBase {
      * Settings.
      */
     private final Settings settings = new Settings("store.properties");
+
+
+    /**
+     * Empty constructor.
+     */
+    private DataBase() {
+    }
 
 
     /**

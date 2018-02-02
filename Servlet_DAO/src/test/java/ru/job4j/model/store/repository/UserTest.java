@@ -46,15 +46,15 @@ public class UserTest {
 //        repositoryUser.create();
 //    }
 
-//    @Test
-//    public void read() throws Exception {
-//        User repositoryUser = new User();
-//        repositoryUser.setUser(new ru.job4j.model.entity.User(9, "", "", "", "", 9));
-//        repositoryUser.read();
-//        System.out.println(repositoryUser.getRole());
-//        System.out.println(repositoryUser.getAddress());
-//        System.out.println(repositoryUser.getMusicTypes());
-//    }
+    @Test
+    public void read() throws Exception {
+        User repositoryUser = new User();
+        repositoryUser.setUser(new ru.job4j.model.entity.User(9, "", "", "", "", 9));
+        repositoryUser.read();
+        System.out.println(repositoryUser.getRole());
+        System.out.println(repositoryUser.getAddress());
+        System.out.println(repositoryUser.getMusicTypes());
+    }
 
     @Test
     public void find() throws Exception {
