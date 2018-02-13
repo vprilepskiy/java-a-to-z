@@ -30,7 +30,6 @@ public class UsersView extends HttpServlet {
             users = new ru.job4j.model.store.dao.User().read();
             mapper.writeValue(writer, users);
             writer.flush();
-            writer.close();
         }
     }
 }

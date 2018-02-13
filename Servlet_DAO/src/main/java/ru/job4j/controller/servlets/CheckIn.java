@@ -61,11 +61,9 @@ public class CheckIn extends HttpServlet {
             String url = String.format("%s/UsersView.html", req.getContextPath());
             mapper.writeValue(writer, new ForSend("Ok", url));
             writer.flush();
-            writer.close();
         } else {
             mapper.writeValue(writer, new ForSend("Invalid Login/Password", null));
             writer.flush();
-            writer.close();
         }
     }
 
