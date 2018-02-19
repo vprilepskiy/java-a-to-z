@@ -37,7 +37,9 @@
 		<module>Servlet_JSTL</module>
 		<module>Servlet_JSTL_AJAX</module>
         <module>Servlet_DAO</module>
-    </modules>
+        <module>Hibernate</module>
+		<module>Spring_IoC</module>
+	</modules>
 
 	<dependencies>
 		<dependency>

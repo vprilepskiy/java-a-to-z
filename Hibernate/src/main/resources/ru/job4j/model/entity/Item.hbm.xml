@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping>
+    <class name="ru.job4j.model.entity.Item" table="items">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+        <property name="desc" column="description" update="false"/>
+        <property name="created" column="created" update="false"/>
+        <property name="done" column="done"/>
+    </class>
+</hibernate-mapping>

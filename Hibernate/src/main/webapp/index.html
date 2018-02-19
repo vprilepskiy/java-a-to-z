@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <script>
+
+        function tamesTampToString(tamesTamp) {
+            var date = new Date(tamesTamp);
+            return date.toUTCString();
+        }
+
+        /**
+         * View all or done items.
+         */
+        function viewAllItems(all) {
+            $(
+                // get items
+                $.ajax('./viewItems', {
+                    method: 'get',
+                    data: ({view_all_items: all}),
+                    complete: function (data) {
+                        var items = JSON.parse(data.responseText);
+
+                        // Title table.
+                        var result = "<tr>" +
+                            "<th>Id</th>" +
+                            "<th>Description</th>" +
+                            "<th>Create date</th>" +
+                            "<th>Done</th>" +
+                            "</tr>";
+
+                        for (var i = 0; i != items.length; ++i) {
+
+                            // String "checked" if done true.
+                            var checked = "";
+                            if (items[i].done == true) {
+                                checked = "checked";
+                            }
+
+                            // element checkbox "done".
+                            var done = "<input type='checkbox' " + checked + " onclick='updateDone(" + items[i].id + ", this.checked)'>"
+                            var dateTime = new Date(items[i].created).getUTCDate();
+                            console.log(dateTime);
+
+                            result += "<tr>" +
+                                "<td>" + items[i].id + "</td>" +
+                                "<td>" + items[i].desc + "</td>" +
+                                "<td>" + tamesTampToString(items[i].created) + "</td>" +
+                                "<td>" + done + "</td>" +
+                                "</tr>";
+                        }
+
+                        // write table in html
+                        var table = document.getElementById("table_items");
+                        table.innerHTML = result;
+                    }
+                })
+            );
+        };
+
+
+
+
+        /**
+         * Save item in DB.
+         */
+        function saveOrUpdateItem(id, desc, done) {
+            $(
+                $.ajax('./saveOrUpdateItem', {
+                    method: 'post',
+                    data: ({item_id: id, item_description: desc, item_done: done}),
+                    complete: function () {
+                        // view items
+                        viewAllItems(document.getElementById("viewAllItems").checked);
+                    }
+                })
+            );
+        }
+
+
+        /**
+         * Save item in DB.
+         */
+        function updateDone (id, state) {
+            saveOrUpdateItem(id, "", state);
+        };
+
+
+        /**
+         * Save item in DB.
+         */
+        function saveItem(description) {
+            saveOrUpdateItem(0, description.value, false);
+            // clear
+            description.value = "";
+        };
+
+
+        viewAllItems(true);
+
+    </script>
+</head>
+<body>
+<div>
+    <form action id="add_new_item">
+        <label>Description: </label>
+        <input type="text" id="description">
+        <input type="button" value="Add" onclick="saveItem(document.getElementById('description'))">
+    </form>
+</div>
+
+<div id="view_all_items">
+    <div>
+        <label>All items</label>
+        <input type="checkbox" id="viewAllItems" checked onclick="viewAllItems(this.checked)">
+    </div>
+    <div>
+        <table border='1' id="table_items">
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Create date</th>
+                <th>Done</th>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

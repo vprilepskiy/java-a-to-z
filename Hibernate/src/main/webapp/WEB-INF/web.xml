@@ -1,0 +1,113 @@
+<!--descriptor-->
+
+<web-app>
+
+    <!--<filter>-->
+        <!--<filter-name>AuthFilter</filter-name>-->
+        <!--<filter-class>ru.job4j.servlets.AuthFilter</filter-class>-->
+    <!--</filter>-->
+
+    <!--<filter-mapping>-->
+        <!--<filter-name>AuthFilter</filter-name>-->
+        <!--<url-pattern>*</url-pattern>-->
+    <!--</filter-mapping>-->
+
+    <!--&lt;!&ndash;Signin&ndash;&gt;-->
+    <!--<servlet>-->
+        <!--<servlet-name>Signin</servlet-name>-->
+        <!--<servlet-class>ru.job4j.servlets.SigninController</servlet-class>-->
+    <!--</servlet>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Signin</servlet-name>-->
+        <!--<url-pattern>/signin</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+
+    <!--AJAX-->
+    <!--Conn DB-->
+    <servlet>
+        <servlet-name>PreparePropertiesHibernate</servlet-name>
+        <servlet-class>ru.job4j.model.store.PreparePropertiesHibernateServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PreparePropertiesHibernate</servlet-name>
+        <url-pattern>/PrepareProperties</url-pattern>
+    </servlet-mapping>
+
+
+    <!--Users-->
+    <servlet>
+        <servlet-name>SaveOrUpdateItem</servlet-name>
+        <servlet-class>ru.job4j.controller.servlets.SaveOrUpdateItem</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SaveOrUpdateItem</servlet-name>
+        <url-pattern>/saveOrUpdateItem</url-pattern>
+    </servlet-mapping>
+
+
+    <!--&lt;!&ndash;Edit user&ndash;&gt;-->
+    <!--<servlet>-->
+    <!--<servlet-name>EditUser</servlet-name>-->
+    <!--<servlet-class>ru.job4j.servlets.json.EditUser</servlet-class>-->
+    <!--</servlet>-->
+
+    <!--<servlet-mapping>-->
+    <!--<servlet-name>EditUser</servlet-name>-->
+    <!--<url-pattern>/EditUser</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+
+    <!--&lt;!&ndash;Add user&ndash;&gt;-->
+    <!--<servlet>-->
+        <!--<servlet-name>AddUser</servlet-name>-->
+        <!--<servlet-class>ru.job4j.servlets.json.AddUser</servlet-class>-->
+    <!--</servlet>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>AddUser</servlet-name>-->
+        <!--<url-pattern>/AddUser</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+
+    <!--&lt;!&ndash;Delete user&ndash;&gt;-->
+    <!--<servlet>-->
+        <!--<servlet-name>DeleteUser</servlet-name>-->
+        <!--<servlet-class>ru.job4j.servlets.json.DeleteUser</servlet-class>-->
+    <!--</servlet>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>DeleteUser</servlet-name>-->
+        <!--<url-pattern>/DeleteUser</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+
+    <!--&lt;!&ndash;Get available options for User&ndash;&gt;-->
+    <!--<servlet>-->
+        <!--<servlet-name>OptionsUser</servlet-name>-->
+        <!--<servlet-class>ru.job4j.servlets.json.AvailableOptionsUser</servlet-class>-->
+    <!--</servlet>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>OptionsUser</servlet-name>-->
+        <!--<url-pattern>/OptionsUser</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+
+    <!--Country and City for User-->
+    <servlet>
+        <servlet-name>viewItems</servlet-name>
+        <servlet-class>ru.job4j.view.servlets.Items</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>viewItems</servlet-name>
+        <url-pattern>/viewItems</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>
