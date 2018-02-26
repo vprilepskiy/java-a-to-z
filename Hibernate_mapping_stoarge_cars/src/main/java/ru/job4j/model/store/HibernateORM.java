@@ -5,7 +5,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import ru.job4j.model.entity.Item;
+import ru.job4j.model.entity.Car;
+import ru.job4j.model.entity.VIN;
+
 import java.util.List;
 
 /**
@@ -62,7 +64,7 @@ public class HibernateORM {
      * Get session.
      * @return
      */
-    private SessionFactory getSessionFactory() {
+    public SessionFactory getSessionFactory() {
         if (this.sessionFactory == null) {
             throw new NullPointerException();
         }
@@ -70,45 +72,44 @@ public class HibernateORM {
     }
 
 
-    /**
-     * Get items.
-     * @param all - if false then view done.
-     * @return - items.
-     */
-    public List<Item> getItems(boolean all) {
-        List<Item> items;
-
-        try (final Session session = this.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            String hql;
-            if (all) {
-                hql = "from Item order by id";
-            } else {
-                hql = "from Item where done = true order by id";
-            }
-
-            items = session.createQuery(hql, Item.class).list();
-            session.getTransaction().commit();
-        }
-        return items;
-    }
 
 
-    /**
-     * Save or update.
-     * @param item - item.
-     */
-    public void saveOrUpdate(Item item) {
-        try (final Session session = this.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            // item in state "Transient"
-            session.saveOrUpdate(item);
-            // now item in state "Persistent"
-            session.getTransaction().commit();
-        }
-        // session.close();
-        // now item in state "Detached"
-    }
+//    public List<Object> getRows(Class c) {
+//        List<Object> objects;
+//
+//        try (final Session session = this.getSessionFactory().openSession()) {
+//            session.beginTransaction();
+//            String hql = "from " + c.getName();
+//
+//            objects = session.createQuery(hql, c).list();
+//            session.getTransaction().commit();
+//        }
+//        return objects;
+//    }
+//
+//
+//    public void setRowsForSelectedObject() {
+//
+//        try (final Session session = HibernateORM.getInstance().sessionFactory.openSession()) {
+//            session.beginTransaction();
+//            final List<Car> cars = session.createQuery("from Car", Car.class).list();
+//            session.getTransaction().commit();
+//        }
+//    }
+//
+//
+//
+//    public void saveOrUpdate(Object o) {
+//        try (final Session session = this.getSessionFactory().openSession()) {
+//            session.beginTransaction();
+//            // item in state "Transient"
+//            session.saveOrUpdate(o);
+//            // now item in state "Persistent"
+//            session.getTransaction().commit();
+//        }
+//        // session.close();
+//        // now item in state "Detached"
+//    }
 
 
     /**

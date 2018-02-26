@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping>
+    <class name="ru.job4j.model.entity.Car" table="cars">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+
+        <property name="mark" column="mark"/>
+
+        <property name="model" column="model"/>
+
+        <!--в таблице VIN есть car_id-->
+        <set name="vins" table="vin" inverse="true" cascade="save-update" lazy="true" fetch="select">
+            <key column="car_id"/>
+            <one-to-many class="ru.job4j.model.entity.VIN"/>
+        </set>
+    </class>
+</hibernate-mapping>
