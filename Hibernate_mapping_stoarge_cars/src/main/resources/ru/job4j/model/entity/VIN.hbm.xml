@@ -6,9 +6,22 @@
         </id>
         <property name="number" column="number"/>
 
-        <many-to-one name="car" class="ru.job4j.model.entity.Car" fetch="select">
+        <many-to-one name="car" class="ru.job4j.model.entity.Car" fetch="select" cascade="save-update">
             <column name="car_id"/>
         </many-to-one>
+
+        <!--one-to-one-->
+        <!--unique foreign key (sales_odrer_id)-->
+        <many-to-one name="salesOrder" class="ru.job4j.model.entity.SalesOrder">
+            <column name="sales_odrer_id" unique="true"/>
+        </many-to-one>
+
+
+        <!--many-to-many-->
+        <set name="options" table="vin_to_options" inverse="true" lazy="true" fetch="select">
+            <key column="vin_id"/>
+            <many-to-many class="ru.job4j.model.entity.Options" column="options_id"/>
+        </set>
 
     </class>
 </hibernate-mapping>

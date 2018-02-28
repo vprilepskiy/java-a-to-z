@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.model.entity.Car;
+import ru.job4j.model.entity.SalesOrder;
 import ru.job4j.model.entity.VIN;
 
 import java.util.HashSet;
@@ -20,7 +21,6 @@ import static org.junit.Assert.*;
  */
 public class HibernateORMTest {
 
-
     @Before
     public void setUp() throws Exception {
         HibernateORM.getInstance().setUp();
@@ -31,13 +31,13 @@ public class HibernateORMTest {
     public void setRows() {
         Car vesta = new Car("Lada", "Vesta");
         vesta.setVins(new HashSet<>());
-        vesta.getVins().add(new VIN("V123"));
-        vesta.getVins().add(new VIN("V456"));
+        vesta.getVins().add(new VIN("V123", vesta, null));
+        vesta.getVins().add(new VIN("V456", vesta, null));
 
         Car xRay = new Car("Lada", "xRay");
         xRay.setVins(new HashSet<>());
-        xRay.getVins().add(new VIN("x123"));
-        xRay.getVins().add(new VIN("x456"));
+        xRay.getVins().add(new VIN("x123", xRay, null));
+        xRay.getVins().add(new VIN("x456", xRay, null));
 
         try (final Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
             session.beginTransaction();
@@ -45,21 +45,45 @@ public class HibernateORMTest {
             // delete old rows
             session.createQuery("delete from VIN").executeUpdate();
             session.createQuery("delete from Car").executeUpdate();
+            session.createQuery("delete from SalesOrder").executeUpdate();
+            session.createQuery("delete from Options").executeUpdate();
+
             // add new rows
-            session.saveOrUpdate(vesta);
-            session.saveOrUpdate(xRay);
+            session.save(vesta);
+            session.save(xRay);
 
             session.getTransaction().commit();
         }
 
         // disconnect ... new connect
-
+        // assert Cars and VIN.
         try (final Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
             session.beginTransaction();
             final List<Car> cars = session.createQuery("from Car", Car.class).list();
 
-            System.out.println("Cars: " + cars);
-            System.out.println("Vin: = " + cars.get(0).getVins());
+            assertTrue(cars.contains(vesta));
+            assertTrue(cars.contains(xRay));
+
+            assertTrue(cars.get(0).getVins().contains(new VIN("V123", vesta, null)));
+
+            session.getTransaction().commit();
+        }
+
+
+        // disconnect ... new connect
+        // add sales order
+        try (final Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
+            session.beginTransaction();
+
+            int i = 0;
+            final List<Car> cars = session.createQuery("from Car", Car.class).list();
+            for (Car car : cars) {
+                for (VIN vin : car.getVins()) {
+                    SalesOrder order = new SalesOrder(i++);
+                    session.saveOrUpdate(order);
+                    vin.setSalesOrder(order);
+                }
+            }
 
             session.getTransaction().commit();
         }
@@ -67,16 +91,12 @@ public class HibernateORMTest {
 
 
     @Test
-    public void setRowsForSelectedObject() {
+    public void test() {
         try (final Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
             session.beginTransaction();
-            List<Car> cars = session.createQuery("from Car", Car.class).list();
-//            List<VIN> vins = new LinkedList<>();
-//            vins.add(new VIN("V123"));
 
-            System.out.println("vins: " + cars.get(0).getVins());
+            // create structure if hibernate.hbm2ddl.auto = "update"
 
-            System.out.println("cars: " + cars);
             session.getTransaction().commit();
         }
     }

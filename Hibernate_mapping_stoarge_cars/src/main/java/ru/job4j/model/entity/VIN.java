@@ -1,6 +1,7 @@
 package ru.job4j.model.entity;
 
-import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by VLADIMIR on 19.02.2018.
@@ -10,11 +11,14 @@ public class VIN {
     private int id;
     private String number;
     private Car car;
+    private SalesOrder salesOrder;
+    private Set<Options> options = new HashSet<>();
 
 
-
-    public VIN(String number) {
+    public VIN(String number, Car car, SalesOrder salesOrder) {
         this.number = number;
+        this.car = car;
+        this.salesOrder = salesOrder;
     }
 
     public VIN() {
@@ -42,6 +46,22 @@ public class VIN {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public SalesOrder getSalesOrder() {
+        return salesOrder;
+    }
+
+    public void setSalesOrder(SalesOrder salesOrder) {
+        this.salesOrder = salesOrder;
+    }
+
+    public Set<Options> getOptions() {
+        return options;
+    }
+
+    public void setOptions(Set<Options> options) {
+        this.options = options;
     }
 
     @Override

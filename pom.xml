@@ -40,7 +40,8 @@
         <module>Hibernate</module>
 		<module>Spring_IoC</module>
 		<module>Hibernate_mapping_stoarge_cars</module>
-	</modules>
+        <module>Hibernate_sale_cars</module>
+    </modules>
 
 	<dependencies>
 		<dependency>

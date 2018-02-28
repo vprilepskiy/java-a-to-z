@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping>
+    <class name="ru.job4j.model.entity.Options" table="options">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+
+        <property name="description" column="description"/>
+
+
+        <!--many-to-many-->
+        <set name="vins" table="vin_to_options" inverse="false" lazy="true" fetch="select" cascade="all">
+            <key column="options_id"/>
+            <many-to-many class="ru.job4j.model.entity.VIN" column="vin_id"/>
+        </set>
+
+    </class>
+</hibernate-mapping>
