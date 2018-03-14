@@ -11,6 +11,8 @@
 
     <artifactId>Hibernate_sale_cars</artifactId>
 
+    <packaging>war</packaging>
+
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>

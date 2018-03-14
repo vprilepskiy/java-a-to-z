@@ -9,12 +9,15 @@ import java.util.Set;
 public class BodyType {
 
     private int id;
-
     private String description;
 
-    private Set<Item> items = new HashSet<>();
 
+    public BodyType() {
+    }
 
+    public BodyType(String description) {
+        this.description = description;
+    }
 
     public int getId() {
         return id;
@@ -30,14 +33,6 @@ public class BodyType {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(Set<Item> items) {
-        this.items = items;
     }
 
 

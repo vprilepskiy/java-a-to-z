@@ -8,20 +8,14 @@ import java.sql.Timestamp;
 public class Item {
 
     private int id;
-
     private Mark mark;
-
     private Model model;
-
     private BodyType bodyType;
-
-    private Timestamp year;
-
+    private int year;
     private int price;
-
     private byte[] photo;
-
     private boolean active;
+    private Timestamp created;
 
 
 
@@ -57,11 +51,11 @@ public class Item {
         this.bodyType = bodyType;
     }
 
-    public Timestamp getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(Timestamp year) {
+    public void setYear(int year) {
         this.year = year;
     }
 
@@ -87,5 +81,13 @@ public class Item {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
     }
 }

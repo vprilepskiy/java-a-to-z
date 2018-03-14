@@ -4,7 +4,9 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.IOUtils;
+import org.hibernate.Session;
+import ru.job4j.model.entity.Item;
+import ru.job4j.model.store.HibernateORM;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,12 +23,45 @@ import java.util.List;
  */
 public class FileUpload extends HttpServlet {
 
+    /**
+     * Write file in DB.
+     * @param req - Request.
+     * @param resp - Response.
+     * @throws ServletException - Exception.
+     * @throws IOException - Exception.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final ru.job4j.model.entity.Item photo = this.fileUpload(req);
+
+        try (Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
+            session.beginTransaction();
+
+            Item item = session.get(Item.class, photo.getId());
+            item.setPhoto(photo.getPhoto());
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        resp.sendRedirect("/MyItems.html");
+    }
+
+
+    /**
+     * Get from Request photo and item_id.
+     * @param req - request.
+     * @return - photo.
+     */
+    private ru.job4j.model.entity.Item fileUpload(HttpServletRequest req) {
+        final Item photo = new Item();
 
         // Убедитесь, что у нас есть запрос на загрузку файла
         boolean isMultipart = ServletFileUpload.isMultipartContent(req);
-
+        if (!isMultipart) {
+            throw new IllegalArgumentException();
+        }
 
         // Создание фабрики для файлов на диске.
         DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -42,65 +76,33 @@ public class FileUpload extends HttpServlet {
 
         // Разбор запроса
         try {
-            List<FileItem> items = upload.parseRequest(req);
+            List<FileItem> fileItems = upload.parseRequest(req);
 
             // Обработать загруженные элементы
-            Iterator<FileItem> iter = items.iterator();
-            while (iter.hasNext()) {
-                FileItem item = iter.next();
+            Iterator<FileItem> it = fileItems.iterator();
+            while (it.hasNext()) {
+                FileItem item = it.next();
 
                 if (item.isFormField()) {
-                    processFormField(item);
+                    // Обработать регулярное поле формы
+                    String name = item.getFieldName();
+                    String value = item.getString();
+                    if (name.equals("item_id")) {
+                        int itemId = Integer.parseInt(value);
+                        photo.setId(itemId);
+                    }
                 } else {
-                    processUploadedFile(item);
+                    // Обработка загрузки файла
+                    byte[] bytes = item.get();
+                    photo.setPhoto(bytes);
                 }
             }
         } catch (FileUploadException e) {
             e.printStackTrace();
         }
-    }
 
-
-    private void processFormField(FileItem item) {
-        // Обработать регулярное поле формы
-        if (item.isFormField()) {
-            String name = item.getFieldName();
-            String value = item.getString();
-        }
-    }
-
-
-    private void processUploadedFile(FileItem item) {
-        // Обработка загрузки файла
-        if (!item.isFormField()) {
-            String fieldName = item.getFieldName();
-            String fileName = item.getName();
-            String contentType = item.getContentType();
-            boolean isInMemory = item.isInMemory();
-            long sizeInBytes = item.getSize();
-        }
-    }
-
-
-    /**
-     * Записать в файл или в поток.
-     * @param item
-     * @param writeToFile
-     * @throws Exception
-     */
-    private void upload(FileItem item, Boolean writeToFile) throws Exception {
-        // Обработка загрузки файла
-        if (writeToFile) {
-            File uploadedFile = new File ("sdf");
-            item.write (uploadedFile);
-        } else {
-            InputStream uploadedStream = item.getInputStream ();
-            uploadedStream.close ();
-        }
-    }
-
-
-    private byte[] inputStreamToByteArray(InputStream inputStream) throws IOException {
-        return IOUtils.toByteArray(inputStream);
+        return photo;
     }
 }
+
+

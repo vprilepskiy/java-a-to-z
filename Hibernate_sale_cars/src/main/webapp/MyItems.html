@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+
+        var base64 = "data:image/png;base64, ";
+
+
+        /**
+         * Показать мои детали.
+         */
+        function viewMyItems() {
+            $(
+                $.ajax('./MyItems', {
+                    method: 'get',
+                    complete: function (data) {
+
+                        console.log(data.responseText);
+
+                        if (data.responseText != '') {
+
+                            var items = JSON.parse(data.responseText);
+
+                            var result = "<tr>" +
+                                "<th>id</th>" +
+                                "<th>Mark</th>" +
+                                "<th>Model</th>" +
+                                "<th>Body type</th>" +
+                                "<th>Year</th>" +
+                                "<th>Price</th>" +
+                                "<th>Created</th>" +
+                                "<th>Active</th>" +
+                                "<th>Photo</th>" +
+                                "<th></th>" +
+                                "</tr>";
+
+                            for (var i = 0; i != items.length; ++i) {
+
+                                var check = ' ';
+
+                                var form_add_photo = "<form method='POST' enctype='multipart/form-data' action='/FileUpload'>" +
+                                    "Photo: <input type='file' name='upfile'>" +
+                                    "<input type='number' about='attributes for upload' value='" + items[i].id + "' name='item_id' hidden>" +
+                                    "<input type='submit' value='Add'>"
+                                "</form>";
+
+                                var photo = "<img src='" + base64 + items[i].photo + "'>";
+
+                                if (items[i].active == true) {
+                                    check = ' checked ';
+                                }
+
+                                result += "<tr>" +
+                                    "<td>" + items[i].id + "</td>" +
+                                    "<td>" + items[i].mark.description + "</td>" +
+                                    "<td>" + items[i].model.description + "</td>" +
+                                    "<td>" + items[i].bodyType.description + "</td>" +
+                                    "<td>" + items[i].year + "</td>" +
+                                    "<td>" + items[i].price + "</td>" +
+                                    "<td>" + new Date(items[i].created).toUTCString() + "</td>" +
+                                    "<td>" +
+                                    "<input type='checkbox' value='" + items[i].id + "'" + check + "onchange='setState(this.value, this.checked);'" + "/>" +
+                                    "</td>" +
+                                    "<td>" + photo + "</td>" +
+                                    "<td>" + form_add_photo + "</td>" +
+                                    "</tr>";
+                            }
+
+                            var table = document.getElementById("View_my_items");
+                            table.innerHTML = result;
+                        } else {
+                            console.log("Items: responseText is empty");
+                        }
+                    }
+                })
+            );
+        }
+        ;
+
+
+        /**
+         * Типы кузовов.
+         */
+        function viewBodyTypes() {
+            $(
+                $.ajax('./BodyTypes', {
+                    method: 'get',
+                    complete: function (data) {
+
+                        console.log(data.responseText);
+
+                        if (data.responseText != '') {
+
+                            var bodyTypes = JSON.parse(data.responseText);
+
+                            for (var i = 0; i != bodyTypes.length; ++i) {
+                                var option = document.createElement("option");
+                                option.setAttribute("value", bodyTypes[i].id);
+                                option.innerHTML = bodyTypes[i].description;
+                                document.getElementById("select_body_type").appendChild(option);
+                            }
+                        } else {
+                            console.log("BodyTypes: responseText is empty");
+                        }
+                    }
+                })
+            );
+        }
+        ;
+
+
+        /**
+         * Марки и модели.
+         * Загружается один раз.
+         */
+        var MARKS;
+
+        /**
+         * Получить марки и модели. Передать в глобальную переменную.
+         */
+        function getMarks() {
+            $.ajax('./Marks', {
+                method: 'get',
+//                    async: false,
+                complete: function (data) {
+
+                    console.log(data.responseText);
+
+                    if (data.responseText != '') {
+                        var marks = JSON.parse(data.responseText);
+                        MARKS = marks;
+                        viewMarks(MARKS);
+                        viewModels(MARKS, MARKS[0].id);
+                    } else {
+                        console.log("Marks: responseText is empty");
+                    }
+                }
+            });
+        }
+        ;
+
+        /**
+         * Отобразить возможные марки.
+         * @param marks - марки.
+         */
+        function viewMarks(marks) {
+            if (marks != '') {
+
+                for (var i = 0; i != marks.length; ++i) {
+//                    console.log('viewMarks: ' + i + marks[i])
+                    var option = document.createElement("option");
+                    option.setAttribute("value", marks[i].id);
+                    option.innerHTML = marks[i].description;
+                    document.getElementById("select_mark").appendChild(option);
+                }
+            } else {
+                console.log("Marks: JSON Text is empty");
+            }
+        }
+        ;
+
+        /**
+         * Отобразить возможные модели по id марки.
+         * @param marks - марки.
+         * @param id - номер марки.
+         */
+        function viewModels(marks, id) {
+            if (marks != '') {
+
+                console.log("viewModels marks:" + marks.toString());
+
+                for (var i = 0; i != marks.length; ++i) {
+                    if (marks[i].id == id) {
+
+                        // удалить варианты выбора
+                        var select_model = document.getElementById("select_model");
+                        while (select_model.firstChild) {
+                            select_model.removeChild(select_model.firstChild);
+                        }
+
+                        console.log("viewModels marks[i].id:" + marks[i].id);
+
+                        for (var j = 0; j != marks[i].models.length; ++j) {
+
+                            console.log("viewModels marks[i].models:" + marks[i].models);
+
+                            // добавить варианты выбора
+                            var option = document.createElement("option");
+                            option.setAttribute("value", marks[i].models[j].id);
+                            option.innerHTML = marks[i].models[j].description;
+                            document.getElementById("select_model").appendChild(option);
+                        }
+                    }
+                }
+
+            } else {
+                console.log("Marks: JSON Text is empty");
+            }
+        }
+        ;
+
+
+        /**
+         * Добавить новое объявление.
+         */
+        function addItem() {
+            var index_mark = document.getElementById("select_mark").options.selectedIndex;
+            var mark_id = document.getElementById("select_mark").options[index_mark].value;
+
+            var index_model = document.getElementById("select_model").options.selectedIndex;
+            var model_id = document.getElementById("select_model").options[index_model].value;
+
+            var index_body_type = document.getElementById("select_body_type").options.selectedIndex;
+            var body_type_id = document.getElementById("select_body_type").options[index_body_type].value;
+
+            var year = document.getElementById("year").value;
+
+            var price = document.getElementById("price").value;
+
+            $.ajax('./Item', {
+                method: 'post',
+                data: ({mark_id: mark_id, model_id: model_id, body_type_id: body_type_id, year: year, price: price}),
+                complete: function () {
+                    viewMyItems();
+                }
+            });
+        };
+
+
+        /**
+         * Изменить состояние объявления.
+         * @param item_id - номер объявления.
+         * @param state - состояние.
+         */
+        function setState(item_id, state) {
+            $.ajax('./SetStateItem', {
+                method: 'post',
+                data: ({item_id: item_id, state: state}),
+                complete: function (data) {
+                    viewMyItems();
+                }
+            });
+        };
+
+
+        viewMyItems();
+        viewBodyTypes();
+        getMarks();
+
+    </script>
+
+</head>
+<body>
+
+<a href="MainPage.html">All items</a>
+
+<div>
+    <table id="View_my_items" border="1px">
+
+    </table>
+</div>
+<div>
+    <form about="Add new Item">
+
+        <table>
+            <tr>
+                <td>
+                    <label>Mark</label>
+                </td>
+                <td>
+                    <select id="select_mark" onchange="viewModels(MARKS, this.value)"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Model</label>
+                </td>
+                <td>
+                    <select id="select_model"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Body type</label>
+                </td>
+                <td>
+                    <select id="select_body_type"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Year</label>
+                </td>
+                <td>
+                    <input id="year" type="number" id="year" value="1900" min="1900" max="2099"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Price</label>
+                </td>
+                <td>
+                    <input id="price" type="number" id="price" value="0" min="0" max="999999999"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <!--<input type="checkbox" value="1" checked onchange='setState(this.value, this.checked);'>-->
+                </td>
+                <td>
+                    <input type="button" value="Add item..." onclick="addItem();"/>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+</body>
+</html>

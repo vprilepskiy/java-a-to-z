@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping>
+
+
+    <class name="ru.job4j.model.entity.Item" table="items">
+
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+
+        <many-to-one name="mark" class="ru.job4j.model.entity.Mark" lazy="false">
+            <column name="mark_id"/>
+        </many-to-one>
+
+        <many-to-one name="model" class="ru.job4j.model.entity.Model" lazy="false">
+            <column name="model_id"/>
+        </many-to-one>
+
+        <many-to-one name="bodyType" class="ru.job4j.model.entity.BodyType" lazy="false">
+            <column name="body_type_id"/>
+        </many-to-one>
+
+        <property name="year" column="year"/>
+
+        <property name="price" column="price"/>
+
+        <property name="photo" column="photo"/>
+
+        <property name="active" column="active"/>
+
+        <property name="created" column="created"/>
+
+    </class>
+
+
+</hibernate-mapping>

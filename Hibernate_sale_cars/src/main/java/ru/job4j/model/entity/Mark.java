@@ -9,12 +9,20 @@ import java.util.Set;
 public class Mark {
 
     private int id;
-
     private String description;
+    private Set<Model> models = new HashSet<>();
 
-    private Set<Item> items = new HashSet<>();
+    public Mark() {
+    }
 
+    public Mark(String description) {
+        this.description = description;
+    }
 
+    public Mark(String description, Set<Model> models) {
+        this.description = description;
+        this.models = models;
+    }
 
     public int getId() {
         return id;
@@ -32,14 +40,13 @@ public class Mark {
         this.description = description;
     }
 
-    public Set<Item> getItems() {
-        return items;
+    public Set<Model> getModels() {
+        return models;
     }
 
-    public void setItems(Set<Item> items) {
-        this.items = items;
+    public void setModels(Set<Model> models) {
+        this.models = models;
     }
-
 
     @Override
     public String toString() {

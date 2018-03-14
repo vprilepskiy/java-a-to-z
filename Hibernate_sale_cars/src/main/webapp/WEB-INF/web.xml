@@ -1,0 +1,159 @@
+<!--descriptor-->
+
+<web-app>
+
+
+    <!--Conn DB-->
+    <servlet>
+        <servlet-name>PreparePropertiesHibernate</servlet-name>
+        <servlet-class>ru.job4j.model.store.PreparePropertiesHibernateServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PreparePropertiesHibernate</servlet-name>
+        <url-pattern>/PrepareProperties</url-pattern>
+    </servlet-mapping>
+
+
+    <welcome-file-list>
+        <welcome-file>MainPage.html</welcome-file>
+    </welcome-file-list>
+
+
+
+    <!--**** CONTROLLER ****-->
+    <!--LogIn-->
+    <servlet>
+        <servlet-name>LogIn</servlet-name>
+        <servlet-class>ru.job4j.controller.servlet.LogIn</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LogIn</servlet-name>
+        <url-pattern>/LogIn</url-pattern>
+    </servlet-mapping>
+
+
+    <!--LogOut-->
+    <servlet>
+        <servlet-name>LogOut</servlet-name>
+        <servlet-class>ru.job4j.controller.servlet.LogOut</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LogOut</servlet-name>
+        <url-pattern>/LogOut</url-pattern>
+    </servlet-mapping>
+
+
+    <!--Registration-->
+    <servlet>
+        <servlet-name>Registration</servlet-name>
+        <servlet-class>ru.job4j.controller.servlet.Registration</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Registration</servlet-name>
+        <url-pattern>/Registration</url-pattern>
+    </servlet-mapping>
+
+
+    <!--Item-->
+    <servlet>
+        <servlet-name>Item</servlet-name>
+        <servlet-class>ru.job4j.controller.servlet.Item</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Item</servlet-name>
+        <url-pattern>/Item</url-pattern>
+    </servlet-mapping>
+
+
+    <!--SetStateItem-->
+    <servlet>
+        <servlet-name>SetStateItem</servlet-name>
+        <servlet-class>ru.job4j.controller.servlet.SetStateItem</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SetStateItem</servlet-name>
+        <url-pattern>/SetStateItem</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>FileUpload</servlet-name>
+        <servlet-class>ru.job4j.controller.servlet.FileUpload</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>FileUpload</servlet-name>
+        <url-pattern>/FileUpload</url-pattern>
+    </servlet-mapping>
+
+
+
+    <!--**** VIEW ****-->
+    <!--SessionUser-->
+    <servlet>
+        <servlet-name>SessionUser</servlet-name>
+        <servlet-class>ru.job4j.view.servlet.SessionUser</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SessionUser</servlet-name>
+        <url-pattern>/SessionUser</url-pattern>
+    </servlet-mapping>
+
+
+    <!--Items-->
+    <servlet>
+        <servlet-name>Items</servlet-name>
+        <servlet-class>ru.job4j.view.servlet.Items</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Items</servlet-name>
+        <url-pattern>/Items</url-pattern>
+    </servlet-mapping>
+
+
+    <!--MyItems-->
+    <servlet>
+        <servlet-name>MyItems</servlet-name>
+        <servlet-class>ru.job4j.view.servlet.MyItems</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MyItems</servlet-name>
+        <url-pattern>/MyItems</url-pattern>
+    </servlet-mapping>
+
+
+    <!--BodyTypes-->
+    <servlet>
+        <servlet-name>BodyTypes</servlet-name>
+        <servlet-class>ru.job4j.view.servlet.BodyTypes</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>BodyTypes</servlet-name>
+        <url-pattern>/BodyTypes</url-pattern>
+    </servlet-mapping>
+
+
+    <!--Marks-->
+    <servlet>
+        <servlet-name>Marks</servlet-name>
+        <servlet-class>ru.job4j.view.servlet.Marks</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Marks</servlet-name>
+        <url-pattern>/Marks</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>
