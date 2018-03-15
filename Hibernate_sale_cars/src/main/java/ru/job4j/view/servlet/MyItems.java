@@ -26,7 +26,7 @@ import java.util.Set;
 public class MyItems extends HttpServlet {
 
     /**
-     * My items.fgd
+     * My items.
      * @param req
      * @param resp
      * @throws ServletException
