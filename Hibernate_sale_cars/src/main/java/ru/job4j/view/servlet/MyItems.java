@@ -26,7 +26,7 @@ import java.util.Set;
 public class MyItems extends HttpServlet {
 
     /**
-     * My items.
+     * My items. wdre..
      * @param req
      * @param resp
      * @throws ServletException
