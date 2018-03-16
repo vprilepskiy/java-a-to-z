@@ -98,7 +98,7 @@
                                 htmlMessage.innerHTML = response;
                             }
 
-                            viewAllItems();
+                            viewAllItems(false, false, 0);
                         }
                     })
                 );
@@ -148,8 +148,6 @@
                     data: ({today: today, with_photo: with_photo, mark_id: mark_id}),
                     complete: function (data) {
 
-                        console.log(data.responseText);
-
                         if (data.responseText != '') {
 
                             var items = JSON.parse(data.responseText);
@@ -197,8 +195,6 @@
             $.ajax('./Marks', {
                 method: 'get',
                 complete: function (data) {
-
-                    console.log(data.responseText);
 
                     if (data.responseText != '') {
                         var marks = JSON.parse(data.responseText);

@@ -40,76 +40,9 @@ public class Items extends HttpServlet {
         boolean withPhoto = Boolean.parseBoolean(req.getParameter("with_photo"));
         int markId = Integer.parseInt(req.getParameter("mark_id"));
 
-
-        try (Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
-            session.beginTransaction();
-
-            final CriteriaBuilder builder = session.getCriteriaBuilder();
-            final CriteriaQuery<Item> queryRoot = builder.createQuery(Item.class);
-            final Root<Item> root = queryRoot.from(Item.class);
-            queryRoot.select(root);
-
-            // условия выборки
-            List<Predicate> predicates = new LinkedList<>();
-            // только активные
-            predicates.add(builder.equal(root.get("active"), true));
-            // за сегодня
-            if (today) {
-                predicates.add(builder.between(root.get("created"), this.startOfDay(), this.endOfDay()));
-            }
-            // только с фото
-            if (withPhoto) {
-                predicates.add(builder.isNotNull(root.get("photo")));
-            }
-            // определенной марки
-            if (markId != 0) {
-                Mark mark = session.get(Mark.class, markId);
-                predicates.add(builder.equal(root.get("mark"), mark));
-            }
-
-            // установить условия
-            queryRoot.where(builder.and(
-                    predicates.toArray(new Predicate[predicates.size()])
-            ));
-
-            // сортировать по id.
-            queryRoot.orderBy(builder.asc(root.get("id")));
-
-            Query<Item> query = session.createQuery(queryRoot);
-            List<Item> items = query.list();
-
-            session.getTransaction().commit();
-
-            mapper.writeValue(writer, items);
-            writer.flush();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mapper.writeValue(writer, HibernateORM.getInstance().getItems(today, withPhoto, markId));
+        writer.flush();
     }
-
-
-    private Timestamp startOfDay() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return new Timestamp(calendar.getTimeInMillis());
-    }
-
-
-    private Timestamp endOfDay() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);
-        calendar.set(Calendar.MILLISECOND, 999);
-        return new Timestamp(calendar.getTimeInMillis());
-    }
-
 }
 
 

@@ -35,15 +35,6 @@ public class SetStateItem extends HttpServlet {
         int itemId = Integer.parseInt(req.getParameter("item_id"));
         boolean state = Boolean.parseBoolean(req.getParameter("state"));
 
-        try (Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
-            session.beginTransaction();
-
-            Item item = session.get(Item.class, itemId);
-            item.setActive(state);
-
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        HibernateORM.getInstance().setActive(itemId, state);
     }
 }

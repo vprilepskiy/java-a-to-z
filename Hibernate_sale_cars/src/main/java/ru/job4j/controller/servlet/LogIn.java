@@ -38,7 +38,7 @@ public class LogIn extends HttpServlet {
         final String login = req.getParameter("login");
         final String password = req.getParameter("password");
 
-        final User user = this.getUserByLoginPass(login, password);
+        final User user = HibernateORM.getInstance().getUserByLoginPass(login, password);
 
         if (user != null) {
             // передать в сессию залогиненного пользователя
@@ -50,32 +50,5 @@ public class LogIn extends HttpServlet {
             mapper.writeValue(writer, "Invalid Login/Password");
             writer.flush();
         }
-    }
-
-
-    /**
-     * Get User by Login/Password.
-     * @param login
-     * @param password
-     * @return
-     */
-    private User getUserByLoginPass(String login, String password) {
-        User result = null;
-
-        try (Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
-            session.beginTransaction();
-
-            final String hql = "from User where login = :login and password = :password";
-
-            final Query<User> query = session.createQuery(hql, User.class);
-            query.setParameter("login", login);
-            query.setParameter("password", password);
-
-            result = query.uniqueResult();
-
-            session.getTransaction().commit();
-        }
-
-        return result;
     }
 }

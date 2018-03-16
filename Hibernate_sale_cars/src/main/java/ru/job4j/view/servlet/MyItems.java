@@ -40,22 +40,7 @@ public class MyItems extends HttpServlet {
         final PrintWriter writer = new PrintWriter(resp.getOutputStream());
         User user = (User) req.getSession().getAttribute("sessionUser");
 
-
-        try (Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
-            session.beginTransaction();
-
-            Query<User> query = session.createQuery("from User where id = :id");
-            query.setParameter("id", user.getId());
-            user = query.uniqueResult();
-            Set<Item> items = user.getItems();
-
-            session.getTransaction().commit();
-
-            mapper.writeValue(writer, items);
-            writer.flush();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mapper.writeValue(writer, HibernateORM.getInstance().getItems(user));
+        writer.flush();
     }
 }

@@ -1,12 +1,9 @@
 package ru.job4j.model.store;
 
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.hamcrest.core.Is;
+import org.junit.*;
+import ru.job4j.model.entity.Item;
 import ru.job4j.model.entity.User;
-import ru.job4j.model.store.defaultData.Marks;
 
 /**
  * Created by VLADIMIR on 05.03.2018.
@@ -19,30 +16,36 @@ public class HibernateORMTest {
 
 
     @Test
-    public void getSessionFactory() throws Exception {
-        try (final Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
-            session.beginTransaction();
+    public void testAllMethods() {
+        final String login = "testLogin";
+        final String password = "testPassword";
 
-            final String hql = "from User where login = :login and password = :password";
+        HibernateORM.getInstance().addUser(login, password);
+        final User user = HibernateORM.getInstance().getUserByLoginPass(login, password);
 
+        Assert.assertThat(login, Is.is(user.getLogin()));
+        Assert.assertThat(password, Is.is(user.getPassword()));
 
-            Query<User> query = session.createQuery(hql, User.class);
-            query.setParameter("login", "a");
-            query.setParameter("password", "a");
-            User user = query.uniqueResult();
-            System.out.println(user);
-
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
+        HibernateORM.getInstance().addItem(user, 0, 0, 0, 0, 0);
+        for (Item item : HibernateORM.getInstance().getItems(user)) {
+            Assert.assertThat(item.getId(), Is.is(1));
+            Assert.assertTrue(item.isActive());
+            Assert.assertNull(item.getPhoto());
+            break;
         }
-    }
 
-    @Test
-    public void aVoid() {
-        for (Marks mark : Marks.values()) {
-            System.out.println(mark.getMark());
-            System.out.println(mark.getMark().getModels());
+        Item photo = new Item();
+        photo.setId(1);
+        photo.setPhoto(new byte[]{0, 1, 2});
+
+        HibernateORM.getInstance().updatePhoto(photo);
+        HibernateORM.getInstance().setActive(1, false);
+
+        for (Item item : HibernateORM.getInstance().getItems(user)) {
+            Assert.assertThat(item.getId(), Is.is(1));
+            Assert.assertFalse(item.isActive());
+            Assert.assertThat(item.getPhoto(), Is.is(new byte[]{0, 1, 2}));
+            break;
         }
     }
 

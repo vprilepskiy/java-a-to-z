@@ -42,31 +42,7 @@ public class Item extends HttpServlet {
         int year = Integer.parseInt(req.getParameter("year"));
         int price = Integer.parseInt(req.getParameter("price"));
 
-        try (Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
-            session.beginTransaction();
-
-            Mark mark = session.get(Mark.class, markId);
-            Model model = session.get(Model.class, modelId);
-            BodyType bodyType = session.get(BodyType.class, bodyTypeId);
-
-            ru.job4j.model.entity.Item item = new ru.job4j.model.entity.Item();
-            item.setMark(mark);
-            item.setModel(model);
-            item.setBodyType(bodyType);
-            item.setYear(year);
-            item.setPrice(price);
-            item.setActive(true);
-            item.setCreated(new Timestamp(System.currentTimeMillis()));
-
-            // добавить объявление
-            int id = (int) session.save(item);
-
-            // привязать это объявление к текущему юзеру.
-            session.get(User.class, user.getId()).getItems().add(item);
-
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // add new Item in DB.
+        HibernateORM.getInstance().addItem(user, markId, modelId, bodyTypeId, year, price);
     }
 }

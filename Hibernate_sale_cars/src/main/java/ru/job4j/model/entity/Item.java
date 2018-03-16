@@ -1,6 +1,7 @@
 package ru.job4j.model.entity;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 /**
  * Created by VLADIMIR on 26.02.2018.
@@ -89,5 +90,21 @@ public class Item {
 
     public void setCreated(Timestamp created) {
         this.created = created;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", mark=" + mark +
+                ", model=" + model +
+                ", bodyType=" + bodyType +
+                ", year=" + year +
+                ", price=" + price +
+                ", photo=" + Arrays.toString(photo) +
+                ", active=" + active +
+                ", created=" + created +
+                '}';
     }
 }

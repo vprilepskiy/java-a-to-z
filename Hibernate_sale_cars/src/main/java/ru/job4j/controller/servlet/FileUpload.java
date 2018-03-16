@@ -4,7 +4,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.hibernate.Session;
 import ru.job4j.model.entity.Item;
 import ru.job4j.model.store.HibernateORM;
 
@@ -32,18 +31,9 @@ public class FileUpload extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final ru.job4j.model.entity.Item photo = this.fileUpload(req);
+        final Item photo = this.fileUpload(req);
 
-        try (Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
-            session.beginTransaction();
-
-            Item item = session.get(Item.class, photo.getId());
-            item.setPhoto(photo.getPhoto());
-
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        HibernateORM.getInstance().updatePhoto(photo);
 
         resp.sendRedirect("/MyItems.html");
     }
@@ -54,7 +44,7 @@ public class FileUpload extends HttpServlet {
      * @param req - request.
      * @return - photo.
      */
-    private ru.job4j.model.entity.Item fileUpload(HttpServletRequest req) {
+    private Item fileUpload(HttpServletRequest req) {
         final Item photo = new Item();
 
         // Убедитесь, что у нас есть запрос на загрузку файла

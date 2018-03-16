@@ -35,8 +35,7 @@ public class Registration extends HttpServlet {
         final String login = req.getParameter("login");
         final String password = req.getParameter("password");
 
-        final User user = this.addUser(login, password);
-
+        final User user = HibernateORM.getInstance().addUser(login, password);
 
         if (user != null) {
             // передать в сессию зарегестрировавшегося пользователя
@@ -49,33 +48,5 @@ public class Registration extends HttpServlet {
             mapper.writeValue(writer, "User witch login already exists!");
             writer.flush();
         }
-    }
-
-
-
-    /**
-     * Add User by Login/Password.
-     * @param login - login.
-     * @param password - password.
-     * @return - new User if not exists.
-     */
-    public User addUser(String login, String password) {
-        User user = null;
-
-        try (Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
-            session.beginTransaction();
-
-            user = new User(login, password);
-            int id = (int) session.save(user);
-
-            session.getTransaction().commit();
-        } catch (ConstraintViolationException e) {
-            // если нарушено условие уникальности
-            user = null;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return user;
     }
 }

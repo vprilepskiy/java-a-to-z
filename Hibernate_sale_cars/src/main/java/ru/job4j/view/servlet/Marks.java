@@ -28,19 +28,7 @@ public class Marks extends HttpServlet {
         final ObjectMapper mapper = new ObjectMapper();
         final PrintWriter writer = new PrintWriter(resp.getOutputStream());
 
-        try (Session session = HibernateORM.getInstance().getSessionFactory().openSession()) {
-            session.beginTransaction();
-
-            List<Mark> marks = session.createQuery("from Mark", Mark.class).list();
-
-            session.getTransaction().commit();
-
-            mapper.writeValue(writer, marks);
-            writer.flush();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        mapper.writeValue(writer, HibernateORM.getInstance().getMarks());
+        writer.flush();
     }
 }
