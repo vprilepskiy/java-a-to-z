@@ -7,6 +7,6 @@ public class JdbcStorage implements IStorage {
 
     @Override
     public void add(User user) {
-
+        System.out.println("store to memory");
     }
 }

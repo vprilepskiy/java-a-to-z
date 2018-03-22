@@ -1,16 +1,17 @@
 package ru.job4j;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import static org.junit.Assert.*;
 
 /**
- * Created by VLADIMIR on 19.02.2018.
+ * Created by VLADIMIR on 21.03.2018.
  */
 public class UserStorageTest {
-
 
 
     @Test
@@ -27,7 +28,6 @@ public class UserStorageTest {
 
     @Test
     public void whenLoadContextShouldGetBeansMemoryStorage() throws Exception {
-
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
 
         MemoryStorage memoryStorage = context.getBean(MemoryStorage.class);
@@ -39,7 +39,6 @@ public class UserStorageTest {
 
     @Test
     public void whenLoadContextShouldGetBeansUserStorage() throws Exception {
-
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
 
         UserStorage userStorage = context.getBean(UserStorage.class);
@@ -49,15 +48,16 @@ public class UserStorageTest {
     }
 
 
+
     @Test
     public void whenLoadContextShouldGetBeansJdbcStorage() throws Exception {
-
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
+        AbstractApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
 
         JdbcStorage jdbcStorage = context.getBean(JdbcStorage.class);
         jdbcStorage.add(new User());
 
+        context.registerShutdownHook();
+
         assertNotNull(jdbcStorage);
     }
-
 }

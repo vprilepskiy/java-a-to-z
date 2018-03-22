@@ -39,8 +39,11 @@
         <module>Servlet_DAO</module>
         <module>Hibernate</module>
 		<module>Spring_IoC</module>
+		<module>Spring_IoC_Annotation</module>
 		<module>Hibernate_mapping_stoarge_cars</module>
         <module>Hibernate_sale_cars</module>
+        <module>Spring_IoC_Example</module>
+
     </modules>
 
 	<dependencies>
@@ -96,12 +99,6 @@
 			<groupId>taglibs</groupId>
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.10.19</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

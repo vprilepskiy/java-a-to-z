@@ -4,12 +4,14 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="ru.job4j"/>
 
-    <bean id="memory" class="ru.job4j.MemoryStorage"/>
+    <!--создаем бины-->
+    <bean id="memoryStorage" class="ru.job4j.MemoryStorage"/>
+    <bean id="jdbcStorage" class="ru.job4j.JdbcStorage"/>
 
-    <!--<bean id="storage" class="ru.job4j.UserStorage">-->
-        <!--<constructor-arg name="iStorage" ref="memory"/>-->
-    <!--</bean>-->
+    <!--создем бин с конструктором-->
+    <bean id="storage" class="ru.job4j.UserStorage">
+        <constructor-arg name="iStorage" ref="memoryStorage"/>
+    </bean>
 
 </beans>

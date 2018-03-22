@@ -1,12 +1,9 @@
 package ru.job4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by VLADIMIR on 19.02.2018.
  */
-@Component
 public class UserStorage {
 
     /**
@@ -18,7 +15,6 @@ public class UserStorage {
      * Constructor.
      * @param iStorage - iStorage.
      */
-    @Autowired
     public UserStorage(IStorage iStorage) {
         this.iStorage = iStorage;
     }
