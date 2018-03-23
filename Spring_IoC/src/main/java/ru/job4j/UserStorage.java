@@ -1,6 +1,8 @@
 package ru.job4j;
 
 
+import org.springframework.context.annotation.Bean;
+
 /**
  * Created by VLADIMIR on 19.02.2018.
  */
@@ -11,6 +13,7 @@ public class UserStorage {
      */
     private final IStorage iStorage;
 
+
     /**
      * Constructor.
      * @param iStorage - iStorage.
@@ -18,6 +21,7 @@ public class UserStorage {
     public UserStorage(IStorage iStorage) {
         this.iStorage = iStorage;
     }
+
 
     /**
      * Add user.

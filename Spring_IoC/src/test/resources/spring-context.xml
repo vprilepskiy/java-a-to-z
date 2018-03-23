@@ -14,7 +14,7 @@
 
     <!--создем бин с конструктором-->
     <bean id="storage" class="ru.job4j.UserStorage">
-        <constructor-arg name="iStorage" ref="jdbcStorage"/>
+        <constructor-arg name="iStorage" ref="memoryStorage"/>
     </bean>
 
 </beans>
