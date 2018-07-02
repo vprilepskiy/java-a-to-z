@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<form>
+    <div><label> User Name : <input id="user_name" type="text" name="username"/> </label></div>
+    <div><label> Password: <input id="user_password_1" type="password" name="password"/> </label></div>
+    <div><label> Password: <input id="user_password_2" type="password" name="password"/> </label></div>
+    <div><input type="button" value="Registration..."
+                onclick="addNewUser((document.getElementById('user_name').value),
+                                    (document.getElementById('user_password_1').value),
+                                    (document.getElementById('user_password_2').value))"/>
+    </div>
+    <div>
+        <p id="message"></p>
+    </div>
+</form>
+
+<script>
+    function addNewUser(user_name, user_password_1, user_password_2) {
+        if (user_password_1 === user_password_2) {
+            $(
+                $.ajax('./all/registration', {
+                    method: 'post',
+                    data: ({login: user_name, password: user_password_1}),
+                    complete: function (data) {
+                        var response = JSON.parse(data.responseText);
+                        var htmlMessage = document.getElementById("message");
+
+                        htmlMessage.innerHTML = response;
+                    }
+                })
+            );
+        } else {
+            alert("Passwords are not the same!");
+        }
+    }
+</script>
+</body>
+</html>

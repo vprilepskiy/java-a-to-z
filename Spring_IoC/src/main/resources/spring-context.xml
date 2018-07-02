@@ -16,5 +16,6 @@
     <bean id="storage" class="ru.job4j.UserStorage">
         <constructor-arg name="iStorage" ref="jdbcStorage"/>
     </bean>
+    <bean id="sessionFactory"/>
 
 </beans>

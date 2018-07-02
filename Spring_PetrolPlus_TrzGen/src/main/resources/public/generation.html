@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+    <title>Title</title>
+
+    <script>
+        /**
+         * Заполнить форму данными.
+         */
+        function getDataForm() {
+            $(
+                $.ajax('./api/getDataForm', {
+                    method: 'get',
+                    complete: function (data) {
+                        var json = JSON.parse(data.responseText);
+
+                        // карта оператора
+                        var operatorCard = json.operatorCard;
+                        // список АЗС
+                        var azs = json.azs;
+                        // номер эмитента
+                        var p5Config = json.p5Config;
+
+                        // заполнить варианты выбора (Точка обслуживания)
+                        for (var i = 0; i != azs.length; ++i) {
+                            // добавить опцию
+                            var option = document.createElement("option");
+                            option.setAttribute("value", azs[i].idTochkiObslugivaniya);
+                            option.innerHTML = '[' + azs[i].idEmitent + ',' + azs[i].idFiliala + ',' + azs[i].idTochkiObslugivaniya + '] ' + azs[i].nazvanie;
+                            document.getElementById("device").appendChild(option);
+                        }
+
+                        $("#card_emitent").val(p5Config.idEmitent);
+                        $("#emitent_name").html('[' + p5Config.idEmitent + '] ' + p5Config.nameEmitent);
+                        $("#emitent_version").html('version: ' + p5Config.version);
+                        $("#service_card").val(operatorCard.grNomer);
+                    }
+                })
+            );
+        }
+        ;
+
+
+        /**
+         * Дополняет нулями вначале.
+         * @param emitent
+         * @param number
+         * @returns {string}
+         */
+        function formatCardNumber(emitent, number) {
+
+            var emitent = emitent.toString();
+            var number = number.toString();
+
+            for (var i = 4 - emitent.length; i >= 1; --i) {
+                emitent = '0'.concat(emitent);
+            }
+            ;
+
+            for (var i = 6 - number.length; i >= 1; --i) {
+                number = '0'.concat(number);
+            }
+            ;
+
+            return emitent.concat(number);
+        }
+        ;
+
+
+        function getCardServicesAndClient(grNumber) {
+            $(
+                $.ajax('./api/card_services_and_client/' + grNumber, {
+                    method: 'get',
+                    complete: function (data) {
+                        var json = JSON.parse(data.responseText);
+
+                        // клиент
+                        var client = json.client;
+                        // кошельки за что
+                        var forWhat = json.forWhat;
+                        // кошельки чем
+                        var than = json.than;
+
+                        // название клиента
+                        $("#client_name").val('[' + client.idFirmy + '] ' + client.name);
+
+                        // очистить опции
+                        $("#product_for_what").empty();
+
+                        // заполнить варианты выбора (За что)
+                        for (var i = 0; i != forWhat.length; ++i) {
+                            // добавить опцию
+                            var option = document.createElement("option");
+                            option.setAttribute("value", forWhat[i].idUslugi);
+                            option.innerHTML = '[' + forWhat[i].idUslugi + '] ' + forWhat[i].nazvanieUslugi + ' (' + forWhat[i].edIzmereniya + ')';
+                            document.getElementById("product_for_what").appendChild(option);
+                        }
+
+                        // очистить опции
+                        $("#product_than").empty();
+
+                        // заполнить варианты выбора (Чем)
+                        for (var i = 0; i != than.length; ++i) {
+                            // добавить опцию
+                            var option = document.createElement("option");
+                            option.setAttribute("value", than[i].idUslugi);
+                            option.innerHTML = '[' + than[i].idUslugi + '] ' + than[i].nazvanieUslugi + ' (' + than[i].edIzmereniya + ')';
+                            document.getElementById("product_than").appendChild(option);
+                        }
+                    }
+                })
+            );
+        }
+        ;
+
+
+        function getTransactions(grNumber, date_trz, periodLastDaysTrz) {
+            $(
+                $.ajax('./api/transactions/' + grNumber, {
+                    method: 'get',
+                    data: ({
+                        dateTrz: date_trz,
+                        periodLastDaysTrz: periodLastDaysTrz
+                    }),
+                    complete: function (data) {
+                        var json = JSON.parse(data.responseText);
+
+                        var transactionsLocal = json;
+
+                        // очистить таблицу
+                        $("#transactions_local").empty();
+
+                        // заполнить таблицу (Транзакции локальные)
+                        // шапка
+                        $("#transactions_local").append('<tr>' +
+                            '<th>nomerTerminala</th>' +
+                            '<th>operatziya</th>' +
+                            '<th>data</th>' +
+                            '<th>vremya</th>' +
+                            '<th>grNomer</th>' +
+                            '<th>idKlienta</th>' +
+                            '<th>idKoshZaChto</th>' +
+                            '<th>idKoshSchem</th>' +
+                            '<th>summaZaChto</th>' +
+                            '<th>summaChemRealno</th>' +
+                            '</tr>');
+
+                        // таблица
+                        for (var i = 0; i != transactionsLocal.length; ++i) {
+
+                            var row = '<tr>';
+
+                            // если дебет
+                            if (transactionsLocal[i].operatziya != 0) {
+                                row = '<tr bgcolor="#ffbcbf">';
+                                // если генератором
+                                if (transactionsLocal[i].otkudaTranz == 4) {
+                                    row = '<tr bgcolor="#ff5d61">';
+                                }
+                                // если возврат
+                            } else {
+                                row = '<tr bgcolor="#dcffe0">';
+                                // если генератором
+                                if (transactionsLocal[i].otkudaTranz == 4) {
+                                    row = '<tr bgcolor="#62d66a">';
+                                }
+                            }
+
+                            row += '<td>' + transactionsLocal[i].nomerTerminala + '</td>' +
+                                '<td>' + transactionsLocal[i].operatziya + '</td>' +
+                                '<td>' + transactionsLocal[i].data + '</td>' +
+                                '<td>' + printTime(transactionsLocal[i].vremya) + '</td>' +
+                                '<td>' + transactionsLocal[i].grNomer + '</td>' +
+                                '<td>' + transactionsLocal[i].idKlienta + '</td>' +
+                                '<td>' + transactionsLocal[i].idKoshZaChto + '</td>' +
+                                '<td>' + transactionsLocal[i].idKoshSchem + '</td>' +
+                                '<td>' + transactionsLocal[i].summaZaChto + '</td>' +
+                                '<td>' + transactionsLocal[i].summaChemRealno + '</td>' +
+                                '</tr>';
+                            $("#transactions_local").append(row);
+                        }
+                    }
+                })
+            );
+        }
+
+
+        function printTime(seconds) {
+            var timeStr = padStr(Math.floor(seconds / 3600)) + ':' +
+                padStr(Math.floor((seconds % 3600) / 60)) + ':' +
+                padStr(Math.floor(seconds % 60));
+            return timeStr;
+        }
+
+        function padStr(i) {
+            return (i < 10) ? "0" + i : "" + i;
+        }
+
+
+        /**
+         * Добавить транзакцию в БД.
+         */
+        function addTransaction() {
+
+            var device = $("#device").val();
+            var type_operation = $("#type_operation").val();
+            var date = Date.parse($("#date_trz").val());
+            var time = $("#time_trz").val();
+            var card_emitent = $("#card_emitent").val();
+            var card_number = formatCardNumber($('#card_emitent').val(), $('#card_number').val());
+            var product_for_what = $("#product_for_what").val();
+            var product_than = $("#product_than").val();
+            var amount_for_what = $("#amount_for_what").val();
+            var amount_than = $("#amount_than").val();
+            var service_card = $("#service_card").val();
+
+            console.log(device);
+            console.log(type_operation);
+            console.log(date);
+            console.log(time);
+            console.log(card_emitent);
+            console.log(card_number);
+            console.log(product_for_what);
+            console.log(product_than);
+            console.log(amount_for_what);
+            console.log(amount_than);
+            console.log(service_card);
+
+            $(
+                $.ajax('./api/addTransaction', {
+                    method: 'post',
+                    data: ({
+                        device: device,
+                        type_operation: type_operation,
+                        date: date,
+                        time: time,
+                        card_emitent: card_emitent,
+                        card_number: card_number,
+                        product_for_what: product_for_what,
+                        product_than: product_than,
+                        amount_for_what: amount_for_what,
+                        amount_than: amount_than,
+                        service_card: service_card
+                    }),
+                    complete: function (data) {
+                        var json = JSON.parse(data.responseText);
+                        console.log(json);
+
+                    }
+                })
+            );
+        }
+        ;
+
+        function onfocusCard() {
+
+            var options = "<option value='1'>1</option>" +
+                "<option value='2'>2</option>" +
+                "<option value='3'>3</option>" +
+                "<option value='4'>4</option>" +
+                "<option value='5'>5</option>" +
+                "<option value='6'>6</option>" +
+                "<option value='7'>7</option>" +
+                "<option value='8'>8</option>" +
+                "<option value='9'>9</option>" +
+                "<option value='10'>10</option>";
+
+            // очистить опции
+            $("#product_for_what").empty();
+
+            // добавить опции по умолчанию
+            $("#product_for_what").append(options);
+
+            // очистить опции
+            $("#product_than").empty();
+
+            // добавить опции по умолчанию
+            $("#product_than").append(options);
+
+            // очистить таблицу
+            $("#transactions_local").empty();
+
+            $("#client_name").val('none');
+        }
+        ;
+
+        function onblurCard() {
+            var grNumber = formatCardNumber($('#card_emitent').val(), $('#card_number').val());
+            getCardServicesAndClient(grNumber);
+
+            var date = Date.parse($("#date_trz").val());
+            getTransactions(grNumber, date, $('#period').val());
+        }
+        ;
+
+        getDataForm();
+    </script>
+</head>
+<body>
+
+<div>
+    <h4 id="emitent_name"></h4>
+    <h5 id="emitent_version"></h5>
+    <form>
+        <table>
+            <tr>
+                <!--загрузить возможные варианты выбора АЗС-->
+                <td>Точка обслуживания</td>
+                <td><select id="device"></select></td>
+            </tr>
+            <tr>
+                <td>Тип операции</td>
+                <td><select id="type_operation">
+                    <option value="0">Дебет</option>
+                    <option value="4">Возврат на счет</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Дата и время</td>
+                <td><input type="date" id="date_trz">
+                    <input type="time" id="time_trz" onchange="console.log(this.value)"></td>
+            </tr>
+            <tr>
+                <td>Номер карты</td>
+                <td><input type="number" id="card_emitent" min="1" max="9999" value="" disabled>
+                    <input type="number" id="card_number" min="1" max="999999" value=""
+                           onfocus="onfocusCard()" ;
+                           onblur="onblurCard()"></td>
+            </tr>
+            <tr>
+                <td>Фирма</td>
+                <td><input type="text" id="client_name" value="none" title="Название клиента" size="40" disabled></td>
+            </tr>
+            <tr>
+                <td>За что</td>
+                <td><select id="product_for_what">
+                </select></td>
+                <td>Чем</td>
+                <td><select id="product_than">
+                </select></td>
+            </tr>
+            <tr>
+                <td>Сумма за что</td>
+                <td><input type="number" id="amount_for_what" min="0" max="999999999" step="0.01" value="0"></td>
+                <td>Сумма чем</td>
+                <td><input type="number" id="amount_than" min="0" max="999999999" step="0.01" value="0"></td>
+            </tr>
+            <tr>
+                <td>Номер служебной карты</td>
+                <td><input type="number" id="service_card" value="" disabled></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="button" value="Press" onclick="addTransaction();"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+
+        </table>
+    </form>
+
+    <div>
+        <label>За последние &plusmn </label><input type="number" id="period" min="0" max="365" value="0"><label>дней</label>
+        <table id="transactions_local" border="1">
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
