@@ -1,4 +1,4 @@
-package ru.prilepskiy.controller.test;
+package ru.prilepskiy.controller.signin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
