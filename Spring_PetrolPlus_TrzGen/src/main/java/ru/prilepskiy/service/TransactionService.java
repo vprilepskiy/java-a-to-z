@@ -116,7 +116,7 @@ public class TransactionService {
 
 
     /**
-     * Парсит время в формате "Hh:Mm" в секунды.
+     * Парсит время в формате "Hh:Mm:Ss" в секунды.
      *
      * @param time
      * @return
@@ -125,7 +125,7 @@ public class TransactionService {
         final String[] timeHhMm = time.split(":");
         final int timeHh = Integer.parseInt(timeHhMm[0]);
         final int timeMm = Integer.parseInt(timeHhMm[1]);
-        final int timeSs = 0;
+        final int timeSs = Integer.parseInt(timeHhMm[2]);
         return (timeHh * 60 * 60) + (timeMm * 60) + timeSs;
     }
 

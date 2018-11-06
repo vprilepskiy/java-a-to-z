@@ -1,3 +1,10 @@
+-- Drop all
+drop table SPC_GEN_USER_ROLE;
+drop table SPC_GEN_ROLE;
+drop table SPC_GEN_USER;
+drop table SPC_GEN_TRZ;
+drop sequence HIBERNATE_SEQUENCE;
+
 -- Create table
 create table SPC_GEN_ROLE
 (

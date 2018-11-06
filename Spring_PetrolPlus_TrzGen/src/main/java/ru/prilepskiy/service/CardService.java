@@ -48,7 +48,7 @@ public class CardService {
      * @return
      */
     public Card getClientCard(long grNomer) {
-        return this.cardRepository.findFirstByTipKartyAndGrNomer(TipKarty.CLIENT.index(), grNomer);
+        return this.cardRepository.findFirstByTipKartyAndIdPrinadlejnostiAndGrNomer(TipKarty.CLIENT.index(), IdPrinadlejnosti.FIRMA.index(), grNomer);
     }
 
     /**
@@ -168,6 +168,26 @@ public class CardService {
         private final int index;
 
         TipKarty(int index) {
+            this.index = index;
+        }
+
+        public int index() {
+            return index;
+        }
+    }
+
+    enum IdPrinadlejnosti {
+
+        PERSONAL(1),
+        FIRMA(2),
+        CHASTNOE_LITSO(3),
+        TERMINALS(7),
+        TOCHKA_OBSL(8),
+        EMITENTS(9);
+
+        private final int index;
+
+        IdPrinadlejnosti(int index) {
             this.index = index;
         }
 

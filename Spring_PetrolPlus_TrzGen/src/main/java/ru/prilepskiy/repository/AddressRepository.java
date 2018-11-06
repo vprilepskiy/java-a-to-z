@@ -14,6 +14,6 @@ public interface AddressRepository extends CrudRepository<Address, AddressPK> {
      * @param idEmitent
      * @return
      */
-    Iterable<Address> findByIdEmitent(Long idEmitent);
+    Iterable<Address> findByIdEmitentOrderByIdTochkiObslugivaniya(Long idEmitent);
 
 }

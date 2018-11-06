@@ -1,6 +1,7 @@
 package ru.prilepskiy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.prilepskiy.domain.TransactionLocal;
 import ru.prilepskiy.repository.TransactionLocalRepository;
@@ -18,6 +19,6 @@ public class TransactionLocalService {
     TransactionLocalRepository transactionLocalRepository;
 
     public Iterable<TransactionLocal> findByDataBetweenAndGrNomer(Date endData, Date startData, long grNomer) {
-        return this.transactionLocalRepository.findByDataBetweenAndGrNomer(endData, startData, grNomer);
+        return this.transactionLocalRepository.findByDataBetweenAndGrNomerOrderByDataAscVremyaAsc(endData, startData, grNomer);
     }
 }

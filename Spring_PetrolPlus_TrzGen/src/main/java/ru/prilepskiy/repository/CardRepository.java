@@ -24,7 +24,7 @@ public interface CardRepository extends CrudRepository<Card, Long> {
      * @param grNomer
      * @return
      */
-    Card findFirstByTipKartyAndGrNomer(long tipKarty, long grNomer);
+    Card findFirstByTipKartyAndIdPrinadlejnostiAndGrNomer(long tipKarty, long idPrinadlejnosti, long grNomer);
 
 
     @Query(value = "select t.ID_FIRMY, t.NAME from Ecfil002 as t", nativeQuery = true)

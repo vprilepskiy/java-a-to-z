@@ -1,4 +1,4 @@
-package ru.prilepskiy.controller.signin;
+package ru.prilepskiy.controller.security;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.security.Principal;
  */
 
 // url по умолчанию для всех методов
-@RequestMapping("/")
+@RequestMapping("/api/config")
 @RestController
 public class RegistrationController {
 
@@ -32,7 +32,7 @@ public class RegistrationController {
      * @param password
      * @return
      */
-    @PostMapping("/public/registration")
+    @PostMapping("/registration")
     public String registration(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) {
         if (this.userService.addUser(login, password) != null) {
             return "Ok";
@@ -45,9 +45,15 @@ public class RegistrationController {
      * Показать всех пользователей.
      * @return
      */
-    @GetMapping("/public/users")
+    @GetMapping("/users")
     public Iterable<User> getAllUsers() {
         return this.userService.getAll();
+    }
+
+
+    @PostMapping("/deleteUser")
+    public void deleteUser(@RequestParam(value = "id") Integer id) {
+        this.userService.deleteUser(id);
     }
 
 
@@ -68,11 +74,11 @@ public class RegistrationController {
      * @param user
      * @return
      */
-    @PostMapping(path = "/public/addUserJson", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String add(@RequestBody User user) {
-        this.userService.add(user);
-        return "redirect:users";
-    }
+//    @PostMapping(path = "/public/addUserJson", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public String add(@RequestBody User user) {
+//        this.userService.add(user);
+//        return "redirect:users";
+//    }
 
 
     /**
@@ -81,11 +87,11 @@ public class RegistrationController {
      * @param user
      * @return
      */
-    @PostMapping("/addUserAttributes")
-    public String add0(@ModelAttribute User user) {
-        this.userService.add(user);
-        return "redirect:users";
-    }
+//    @PostMapping("/addUserAttributes")
+//    public String add0(@ModelAttribute User user) {
+//        this.userService.add(user);
+//        return "redirect:users";
+//    }
 
     /**
      * Вернет зарегестрированного пользователя.
@@ -98,7 +104,7 @@ public class RegistrationController {
     }
 
 
-    @GetMapping("/public/guid")
+    @GetMapping("/guid")
     public String getGuId() {
         return this.userService.getGuId();
     }

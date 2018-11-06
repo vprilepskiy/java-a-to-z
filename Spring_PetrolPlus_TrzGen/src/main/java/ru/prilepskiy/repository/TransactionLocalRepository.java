@@ -1,5 +1,6 @@
 package ru.prilepskiy.repository;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 import ru.prilepskiy.domain.TransactionLocal;
 
@@ -11,6 +12,6 @@ import java.util.List;
  */
 public interface TransactionLocalRepository extends CrudRepository<TransactionLocal, String> {
 
-    List<TransactionLocal> findByDataBetweenAndGrNomer(Date endData, Date startData, long grNomer);
+    List<TransactionLocal> findByDataBetweenAndGrNomerOrderByDataAscVremyaAsc(Date endData, Date startData, long grNomer);
 
 }

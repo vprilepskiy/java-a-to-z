@@ -115,4 +115,8 @@ public class UserService implements UserDetailsService {
     public String getGuId() {
         return this.userRepository.getGuId();
     }
+
+    public void deleteUser(Integer id) {
+        this.userRepository.delete(id);
+    }
 }

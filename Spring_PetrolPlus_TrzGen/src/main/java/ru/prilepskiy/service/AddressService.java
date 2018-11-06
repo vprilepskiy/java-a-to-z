@@ -30,6 +30,6 @@ public class AddressService {
      */
     public Iterable<Address> get() {
         final P5Config p5Config = this.p5ConfigRepository.findFirstByOrderByIdEmitentAsc();
-        return this.addressRepository.findByIdEmitent(p5Config.getIdEmitent());
+        return this.addressRepository.findByIdEmitentOrderByIdTochkiObslugivaniya(p5Config.getIdEmitent());
     }
 }
