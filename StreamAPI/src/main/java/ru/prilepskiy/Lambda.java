@@ -1,5 +1,6 @@
 package ru.prilepskiy;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,6 +11,9 @@ public class Lambda {
 
         strings.forEach(s -> System.out.println(s));
         strings.forEach(System.out::println);
+
+        final List<String> result = new ArrayList<>();
+        strings.forEach(result::add);
     }
 
 }
