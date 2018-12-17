@@ -98,11 +98,11 @@ public class StreamAPI {
 
         // .peek - можно использовать для отладки (не завершает как forEach)
         String result = list.stream()
-            .peek(s -> System.out.println("peek            " + s))
+            .peek(s -> System.out.println("peek              " + s))
             .filter(s -> s.contains("o"))
-            .peek(s -> System.out.println("peek filter('o') " + s))
+            .peek(s -> System.out.println("peek filter('o')  " + s))
             .limit(2)
-            .peek(s -> System.out.println("peek limit(2)    " + s))
+            .peek(s -> System.out.println("peek limit(2)     " + s))
             .collect(Collectors.joining(", ", "[", "]"));
         System.out.println(result);
     }
