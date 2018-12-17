@@ -95,5 +95,15 @@ public class StreamAPI {
         Map<Boolean, List<String>> map2 = list.stream()
             .collect(Collectors.partitioningBy(s -> s.contains("o")));
         System.out.println("Collectors.partitioningBy(s -> s.contains(\"o\"); " + map2);
+
+        // .peek - можно использовать для отладки (не завершает как forEach)
+        String result = list.stream()
+            .peek(s -> System.out.println("peek            " + s))
+            .filter(s -> s.contains("o"))
+            .peek(s -> System.out.println("peek filter('o') " + s))
+            .limit(2)
+            .peek(s -> System.out.println("peek limit(2)    " + s))
+            .collect(Collectors.joining(", ", "[", "]"));
+        System.out.println(result);
     }
 }
