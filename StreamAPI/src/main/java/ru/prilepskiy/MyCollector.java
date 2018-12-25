@@ -3,6 +3,7 @@ package ru.prilepskiy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MyCollector {
 
@@ -16,13 +17,16 @@ public class MyCollector {
         );
 
         // [Null, One, Two]
-        final ArrayList<String> result = peoples.stream().collect(
+        final List<String> result = peoples.stream().collect(
             () -> new ArrayList<>(), //supplier
             (arr, a) -> arr.add(a.name), //accumulator
             (arr1, arr2) -> arr1.addAll(arr2) //combiner
         );
 
-        System.out.println(peoples);
+        // [Null, One, Two]
+        final List<String> result1 = peoples.stream().map(a -> a.name).collect(Collectors.toList());
+        
+        System.out.println(result);
     }
 
 
