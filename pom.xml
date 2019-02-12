@@ -47,6 +47,7 @@
         <module>Spring_boot_test_work_Vocalize</module>
         <module>Spring_PetrolPlus_TrzGen</module>
         <module>StreamAPI</module>
+        <module>Class_Equal</module>
 
     </modules>
 
