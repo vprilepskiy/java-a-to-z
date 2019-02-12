@@ -16,7 +16,7 @@ public class test {
         calendar.add(Calendar.MILLISECOND, 0);
         calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        Long s = calendar.getTimeInMillis() / 1000;
+        Long s = calendar.getTimeInMillis();
 
         System.out.println(s);
 
@@ -28,7 +28,6 @@ public class test {
         System.out.println(localDate);
 
         System.out.println(localDate.toEpochDay());
-
     }
 
 }

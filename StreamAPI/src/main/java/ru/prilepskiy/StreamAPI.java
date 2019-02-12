@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -105,5 +106,10 @@ public class StreamAPI {
             .peek(s -> System.out.println("peek limit(2)     " + s))
             .collect(Collectors.joining(", ", "[", "]"));
         System.out.println(result);
+
+        // Max
+        String s = list.stream().max(Comparator.comparing(arg -> arg.length())).orElse(null);
+        System.out.println("Max: " + s);
+
     }
 }

@@ -7,11 +7,13 @@ public class Student {
     private String name;
     private Speciality speciality;
     private int year;
+    private Boolean active;
 
-    public Student(String name, Speciality speciality, int year) {
+    public Student(String name, Speciality speciality, int year, Boolean active) {
         this.name = name;
         this.speciality = speciality;
         this.year = year;
+        this.active = active;
     }
 
     public String getName() {
@@ -38,6 +40,14 @@ public class Student {
         this.year = year;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,20 +55,23 @@ public class Student {
         Student student = (Student) o;
         return year == student.year &&
             Objects.equals(name, student.name) &&
-            speciality == student.speciality;
+            speciality == student.speciality &&
+            Objects.equals(active, student.active);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, speciality, year);
+        return Objects.hash(name, speciality, year, active);
     }
 
     @Override
     public String toString() {
-        return "Student{" +
-            "name='" + name + '\'' +
-            ", speciality=" + speciality +
-            ", year=" + year +
-            '}';
+        final StringBuffer sb = new StringBuffer("Student{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", speciality=").append(speciality);
+        sb.append(", year=").append(year);
+        sb.append(", active=").append(active);
+        sb.append('}');
+        return sb.toString();
     }
 }
