@@ -46,6 +46,8 @@
         <module>Spring_MVC_Example</module>
         <module>Spring_boot_test_work_Vocalize</module>
         <module>Spring_PetrolPlus_TrzGen</module>
+		<module>Spring_Sale_Cars</module>
+		<module>Spring_sale_cars_2</module>
         <module>StreamAPI</module>
         <module>Class_Equal</module>
 

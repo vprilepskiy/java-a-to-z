@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="6.11.2">
-<file name="C:\projects\vprilepskiy\chapter_001.3\src\main\java\ru\job4j\package-info.java">
+<file name="C:\Repository\java-a-to-z\chapter_001.3\src\main\java\ru\job4j\package-info.java">
 </file>
-<file name="C:\projects\vprilepskiy\chapter_001.3\src\main\java\ru\job4j\Point.java">
+<file name="C:\Repository\java-a-to-z\chapter_001.3\src\main\java\ru\job4j\Point.java">
 </file>
-<file name="C:\projects\vprilepskiy\chapter_001.3\src\main\java\ru\job4j\Triangle.java">
+<file name="C:\Repository\java-a-to-z\chapter_001.3\src\main\java\ru\job4j\Triangle.java">
 </file>
-<file name="C:\projects\vprilepskiy\chapter_001.3\src\test\java\ru\job4j\package-info.java">
+<file name="C:\Repository\java-a-to-z\chapter_001.3\src\test\java\ru\job4j\package-info.java">
 </file>
-<file name="C:\projects\vprilepskiy\chapter_001.3\src\test\java\ru\job4j\PointTest.java">
+<file name="C:\Repository\java-a-to-z\chapter_001.3\src\test\java\ru\job4j\PointTest.java">
 </file>
-<file name="C:\projects\vprilepskiy\chapter_001.3\src\test\java\ru\job4j\TriangleTest.java">
+<file name="C:\Repository\java-a-to-z\chapter_001.3\src\test\java\ru\job4j\TriangleTest.java">
 </file>
 </checkstyle>

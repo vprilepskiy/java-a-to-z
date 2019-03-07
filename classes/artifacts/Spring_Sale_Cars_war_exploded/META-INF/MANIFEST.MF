@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Implementation-Version: 1.5.11.RELEASE
+Built-By: pvv
+Implementation-Vendor-Id: org.springframework.boot
+Created-By: IntelliJ IDEA
+Build-Jdk: 1.8.0_181
+Main-Class: ${start-class}
+

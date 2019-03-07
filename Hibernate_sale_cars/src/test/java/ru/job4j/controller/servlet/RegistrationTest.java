@@ -18,12 +18,11 @@ public class RegistrationTest {
     }
 
 
-//    @Test
-//    public void registration() throws Exception {
-//        Registration registration = new Registration();
-//        User user = registration.addUser("b", "b");
-//        System.out.println(user);
-//    }
+    @Test
+    public void registration() throws Exception {
+
+        System.out.println("aaaaaa");
+    }
 
 
     @After

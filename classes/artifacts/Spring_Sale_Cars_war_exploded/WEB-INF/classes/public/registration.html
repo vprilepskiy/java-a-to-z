@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <!-- jQuery library -->
+    <script src="js/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color: #F5F5F5">
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <!-- Brand/logo -->
+    <a class="navbar-brand" href="/generation.html">ГЕНЕРАТОР ТРАНЗАКЦИЙ</a>
+
+    <!-- Links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/registration.html">настройки</a>
+        </li>
+        <li class="nav-item">
+
+        </li>
+
+    </ul>
+
+    <span class="navbar-nav  ml-auto">
+        <form action="/logout" method="post">
+            <input type="submit" value="Выйти"/>
+        </form>
+    </span>
+</nav>
+
+<div class="container">
+    <div class="shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="row">
+            <label class="col-3">Логин</label>
+            <input class="col-3" id="user_name" type="text" name="username"/>
+        </div>
+        <div class="row">
+            <label class="col-3">Пароль</label>
+            <input class="col-3" id="user_password_1" type="password" name="password"/>
+        </div>
+        <div class="row">
+            <label class="col-3">Повторите пароль</label>
+            <input class="col-3" id="user_password_2" type="password" name="password"/>
+        </div>
+        <div class="row">
+            <div class="col-3"></div>
+            <input class="col-3" type="button" value="Добавить"
+                    onclick="addNewUser((document.getElementById('user_name').value),
+                                    (document.getElementById('user_password_1').value),
+                                    (document.getElementById('user_password_2').value))"/>
+            <p class="col-3" id="message"></p>
+        </div>
+
+        <div>
+            <table class="p-4 table table-condensed table-sm   shadow p-3 mb-5 bg-white rounded" id="users">
+            </table>
+        </div>
+
+    </div>
+    <p class="my_sign">developed by Vladimir Prilepskiy 2018</p>
+</div>
+
+<script>
+    function addNewUser(user_name, user_password_1, user_password_2) {
+        if (user_password_1 === user_password_2) {
+            $(
+                $.ajax('./api/config/registration', {
+                    method: 'post',
+                    async: false,
+                    data: ({login: user_name, password: user_password_1}),
+                    complete: function (data) {
+                        var response = data.responseText;
+                        var htmlMessage = document.getElementById("message");
+
+                        htmlMessage.innerHTML = response;
+                    }
+                })
+            );
+        } else {
+            alert("Passwords are not the same!");
+        }
+        getAllUsers();
+    };
+
+    function getAllUsers() {
+        $(
+            $.ajax('./api/config/users', {
+                method: 'get',
+                complete: function (data) {
+                    var json = JSON.parse(data.responseText);
+                    var users = json;
+
+                    // очистить таблицу
+                    $("#users").empty();
+
+                    // заполнить таблицу
+                    // шапка
+                    $("#users").append('<tr>' +
+                        '<th>№</th>' +
+                        '<th>Список зарегистрированных пользователей</th>' +
+                        '<th></th>' +
+                        '</tr>');
+
+                    // таблица
+                    for (var i = 0; i != users.length; ++i) {
+
+                        var row = '<tr>';
+
+                        row += '<td>' + (i + 1) + '</td>' +
+                            '<td>' + users[i].username + '</td>' +
+                            '<td>' + '<button class="btn btn-danger" onclick="deleteUser(' + users[i].id + ')">&#10008</button>' + '</td>' +
+                            '</tr>';
+                        $("#users").append(row);
+                    }
+                }
+            })
+        );
+    };
+
+    function deleteUser(id) {
+        $(
+            $.ajax('./api/config/deleteUser', {
+                method: 'post',
+                async: false,
+                data: ({id: id}),
+                complete: function (data) {
+                    var response = data.responseText;
+                    var htmlMessage = document.getElementById("message");
+
+                    htmlMessage.innerHTML = response;
+                }
+            })
+        );
+        getAllUsers();
+    }
+
+    getAllUsers();
+</script>
+
+
+</body>
+</html>

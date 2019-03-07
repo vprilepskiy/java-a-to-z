@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+    <!--<script src="js/generation_controller.js"></script>-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
+    <!--<script src="js/jquery.maskedinput.js"></script>-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>-->
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/generation_controller.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.maskedinput.js"></script>
+    <script src="js/jquery.timepicker.min.js"></script>
+
+    <link rel="stylesheet" href="css/jquery.timepicker.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <title>Генератор транзакций</title>
+
+</head>
+<body style="background-color: #F5F5F5">
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <!-- Brand/logo -->
+    <a class="navbar-brand" href="/generation.html">ГЕНЕРАТОР ТРАНЗАКЦИЙ</a>
+
+    <!-- Links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/registration.html">настройки</a>
+        </li>
+        <li class="nav-item">
+
+        </li>
+
+    </ul>
+
+    <span class="navbar-nav  ml-auto">
+        <form action="/logout" method="post">
+            <input type="submit" value="Выйти"/>
+        </form>
+    </span>
+</nav>
+
+<div class="container">
+    <h4 id="emitent_name"></h4>
+    <h5 id="emitent_version"></h5>
+    <div>
+        <div class="shadow-lg p-3 mb-5 bg-white rounded">
+
+            <div class="row">
+                <!--загрузить возможные варианты выбора АЗС-->
+                <div class="col-2"><label>Точка обслуживания</label></div>
+                <div class="col-2"><select id="device"></select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-2"><label>Тип операции</label></div>
+                <div class="col-2">
+                    <select id="type_operation">
+                        <option value="0">Дебет</option>
+                        <option value="4">Возврат на счет</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-2">Дата и время</label>
+                <form class="col-4">
+                    <input type="date" id="date_trz" value="1900-01-01">
+                    <!--<input type="time" id="time_trz" step="1" value="00:00:00">-->
+                    <input type="text" id="time_trz" value="00:00:00">
+                </form>
+            </div>
+
+            <div class="row">
+                <div class="col-2"><label>Номер карты</label></div>
+                <div class="col-4">
+                    <input type="number" id="card_emitent" min="1" max="9999" value="0000" disabled>
+                    <input type="number" id="card_number" min="1" max="999999" value="000000"
+                           onfocus="onfocusCard()"
+                           oninput="onblurCard()"
+                           onblur="onblurCard()">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-2"><label>Фирма</label></div>
+                <div class="col-2"><input type="text" id="client_name" value="none" title="Название клиента" size="40" disabled></div>
+            </div>
+
+            <div class="row">
+                <div class="col-2"><label>За что</label></div>
+                <div class="col-2"><select id="product_for_what" onchange="onchangeSameProduct()"></select></div>
+                <div class="col-2 text-right"><label>Чем</label></div>
+                <div class="col-2"><select id="product_than" onchange="onchangeSameProduct()"></select></div>
+            </div>
+
+            <!--<div class="row">-->
+                <!--<div class="col-2"><label></label></div>-->
+                <!--<div class="col-2"></div>-->
+            <!--</div>-->
+
+            <div class="row">
+                <div class="col-2"><label>Сумма за что</label></div>
+                <div class="col-2"><input type="number" id="amount_for_what" min="0" max="999999999" step="0.01" value="0" oninput="onchangeSameProduct()"></div>
+                <div class="col-2 text-right"><label>Сумма чем</label></div>
+                <div class="col-2"><input type="number" id="amount_than" min="0" max="999999999" step="0.01" value="0"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-2"><label>Номер служебной карты</label></div>
+                <div class="col-2"><input type="number" id="service_card" value="" disabled></div>
+            </div>
+
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-2">
+                    <input class="btn btn-success" type="button" value="Записать" onclick="addTransactionConfirm();">
+                </div>
+                <div class="col-4"><label id="successful"></label></div>
+            </div>
+
+
+
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <label>Таблица транзакций за &plusmn </label><input type="number" id="period" min="0" max="365" value="31"
+                                                                                               oninput="onblurCard()"
+                                                                                               onblur="onblurCard()"><label> дней.</label>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed table-sm   shadow p-3 mb-5 bg-white rounded" id="transactions_local" style="font-size: 80%">
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <p class="my_sign">developed by Vladimir Prilepskiy 2018</p>
+
+    </div>
+</div>
+
+
+
+</body>
+</html>
