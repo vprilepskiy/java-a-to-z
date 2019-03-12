@@ -50,8 +50,9 @@
 		<module>Spring_sale_cars_2</module>
         <module>StreamAPI</module>
         <module>Class_Equal</module>
+		<module>Spring_MVC_Data_Sale_Cars</module>
 
-    </modules>
+	</modules>
 
 	<dependencies>
 		<dependency>
