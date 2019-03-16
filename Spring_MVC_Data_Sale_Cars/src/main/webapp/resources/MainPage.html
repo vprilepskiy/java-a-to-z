@@ -55,8 +55,8 @@
 
                                 var check = items[i].active ? ' checked ' : ' ';
 
-                                var form_add_photo = "<form method='POST' enctype='multipart/form-data' action='../api/FileUpload'>" +
-                                    "Photo: <input type='file' name='upfile'>" +
+                                var form_add_photo = "<form method='POST' enctype='multipart/form-data' action='../api/io/upload'>" +
+                                    "Photo: <input type='file' name='file'>" +
                                     "<input type='number' about='attributes for upload' value='" + items[i].id + "' name='itemId' hidden>" +
                                     "<input type='submit' value='Add'>"
                                 "</form>";
@@ -334,6 +334,12 @@
                 </td>
             </tr>
         </table>
+    </form>
+</div>
+<div>
+    <form method='POST' action='../api/io/upload' enctype='multipart/form-data'>
+        <input type='file' name='file' /><br/>
+        <input type='submit' value='Submit' />
     </form>
 </div>
 
