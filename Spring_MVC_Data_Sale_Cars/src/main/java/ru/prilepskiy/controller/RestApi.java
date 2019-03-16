@@ -1,7 +1,10 @@
 package ru.prilepskiy.controller;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import ru.prilepskiy.entity.BodyTypesEntity;
 import ru.prilepskiy.entity.ItemsEntity;
 import ru.prilepskiy.entity.MarksEntity;
+import ru.prilepskiy.service.BobyTypeService;
 import ru.prilepskiy.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +27,9 @@ public class RestApi {
 
     @Autowired
     MarkService markService;
+
+    @Autowired
+    BobyTypeService bobyTypeService;
 
     @Deprecated
     @GetMapping("/a")
@@ -48,5 +54,15 @@ public class RestApi {
     @GetMapping("/Marks")
     public Iterable<MarksEntity> getMarks() {
         return this.markService.getMarks();
+    }
+
+    @GetMapping("/BodyTypes")
+    public Iterable<BodyTypesEntity> getBodyTypes() {
+        return this.bobyTypeService.getBodyTapes();
+    }
+
+    @PostMapping("/Item")
+    public ItemsEntity addItem(int markId, int modelId, int bodyTypeId, int year, int price) {
+        return this.itemService.addItem(markId, modelId, bodyTypeId, year, price);
     }
 }
