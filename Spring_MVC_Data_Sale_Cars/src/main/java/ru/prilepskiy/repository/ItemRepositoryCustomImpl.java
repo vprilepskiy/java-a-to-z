@@ -27,7 +27,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
     MarksRepository marksRepository;
 
     @Override
-    public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId) {
+    public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId, boolean active) {
 
         final CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         final CriteriaQuery<ItemsEntity> queryRoot = builder.createQuery(ItemsEntity.class);
@@ -37,7 +37,9 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         // условия выборки
         List<Predicate> predicates = new LinkedList<>();
         // только активные
-        predicates.add(builder.equal(root.get("active"), true));
+        if (active) {
+            predicates.add(builder.equal(root.get("active"), active));
+        }
         // за сегодня
         if (today) {
             predicates.add(builder.between(root.get("created"), this.startOfDay(), this.endOfDay()));

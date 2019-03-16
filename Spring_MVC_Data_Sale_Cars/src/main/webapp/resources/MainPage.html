@@ -19,18 +19,19 @@
             var with_photo = document.getElementById("witch_photo").checked;
             var index_mark = document.getElementById("select_mark_filter").options.selectedIndex;
             var mark_id = document.getElementById("select_mark_filter").options[index_mark].value;
+            var active = document.getElementById("active").checked;
 
-            viewAllItems(today, with_photo, mark_id);
+            viewAllItems(today, with_photo, mark_id, active);
         }
 
         /**
          * Показать все детали.
          */
-        function viewAllItems(today, with_photo, mark_id) {
+        function viewAllItems(today, with_photo, mark_id, active) {
             $(
                 $.ajax('../api/Items', {
                     method: 'get',
-                    data: ({today: today, withPhoto: with_photo, markId: mark_id}),
+                    data: ({today: today, withPhoto: with_photo, markId: mark_id, active: active}),
                     complete: function (data) {
                         console.log('Items', data.responseText);
                         if (data.responseText != '') {
@@ -52,11 +53,11 @@
 
                             for (var i = 0; i != items.length; ++i) {
 
-                                var check = ' ';
+                                var check = items[i].active ? ' checked ' : ' ';
 
                                 var form_add_photo = "<form method='POST' enctype='multipart/form-data' action='../api/FileUpload'>" +
                                     "Photo: <input type='file' name='upfile'>" +
-                                    "<input type='number' about='attributes for upload' value='" + items[i].id + "' name='item_id' hidden>" +
+                                    "<input type='number' about='attributes for upload' value='" + items[i].id + "' name='itemId' hidden>" +
                                     "<input type='submit' value='Add'>"
                                 "</form>";
 
@@ -230,7 +231,7 @@
                 method: 'post',
                 data: ({markId: mark_id, modelId: model_id, bodyTypeId: body_type_id, year: year, price: price}),
                 complete: function () {
-                    viewMyItems();
+                    viewItems();
                 }
             });
         };
@@ -243,15 +244,15 @@
         function setState(item_id, state) {
             $.ajax('../api/SetStateItem', {
                 method: 'post',
-                data: ({item_id: item_id, state: state}),
+                data: ({itemId: item_id, state: state}),
                 complete: function (data) {
-                    viewMyItems();
+                    viewItems();
                 }
             });
         };
 
         // init
-        viewAllItems(false, false, 0);
+        viewAllItems(false, false, 0, false);
         viewBodyTypes();
         getMarks();
     </script>
@@ -263,6 +264,7 @@
         <label>Today: </label><input id="today" type="checkbox">
         <label>Witch photo: </label><input id="witch_photo" type="checkbox">
         <label>Mark: </label><select id="select_mark_filter"><option value="0">All marks</option></select>
+        <label>Active: </label><input id="active" type="checkbox">
         <input type="button" value="filer" onclick="viewItems();">
     </form>
 </div>

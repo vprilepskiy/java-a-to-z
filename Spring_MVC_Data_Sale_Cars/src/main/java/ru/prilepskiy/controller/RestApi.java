@@ -47,8 +47,8 @@ public class RestApi {
 
 
     @GetMapping("/Items")
-    public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId) {
-        return this.itemService.getItems(today, withPhoto, markId);
+    public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId, boolean active) {
+        return this.itemService.getItems(today, withPhoto, markId, active);
     }
 
     @GetMapping("/Marks")
@@ -64,5 +64,15 @@ public class RestApi {
     @PostMapping("/Item")
     public ItemsEntity addItem(int markId, int modelId, int bodyTypeId, int year, int price) {
         return this.itemService.addItem(markId, modelId, bodyTypeId, year, price);
+    }
+
+    @PostMapping("/SetStateItem")
+    public ItemsEntity setActive(int itemId, boolean state) {
+        return this.itemService.setActive(itemId, state);
+    }
+
+    @PostMapping("/FileUpload")
+    public ItemsEntity updatePhoto(ItemsEntity photo) {
+        return this.itemService.updatePhoto(photo);
     }
 }

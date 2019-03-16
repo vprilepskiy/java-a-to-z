@@ -67,9 +67,10 @@ public class ItemService {
      *
      * @param photo - photo(int id, photo byte[])
      */
-    public void updatePhoto(ItemsEntity photo) {
+    public ItemsEntity updatePhoto(ItemsEntity photo) {
         ItemsEntity item = this.itemRepository.findById(photo.getId()).get();
         item.setPhoto(photo.getPhoto());
+        return item;
     }
 
     /**
@@ -104,9 +105,10 @@ public class ItemService {
      * @param itemId - id item.
      * @param state - parameter.
      */
-    public void setActive(int itemId, boolean state) {
+    public ItemsEntity setActive(int itemId, boolean state) {
         ItemsEntity item = this.itemRepository.findById(itemId).get();
         item.setActive(state);
+        return item;
     }
 
     /**
@@ -116,8 +118,8 @@ public class ItemService {
      * @param markId - on mark Id.
      * @return - items.
      */
-    public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId) {
-        return this.itemRepositoryCustom.getItems(today, withPhoto, markId);
+    public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId, boolean active) {
+        return this.itemRepositoryCustom.getItems(today, withPhoto, markId, active);
     }
 
 }
