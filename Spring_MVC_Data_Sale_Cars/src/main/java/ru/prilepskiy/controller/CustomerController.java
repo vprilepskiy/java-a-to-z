@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+@Deprecated
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {

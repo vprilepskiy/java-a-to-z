@@ -5,6 +5,7 @@ import ru.prilepskiy.exception.ResourceNotFoundException;
 
 import java.util.List;
 
+@Deprecated
 public interface CustomerService {
 
 	public List<Customer> getCustomers();
