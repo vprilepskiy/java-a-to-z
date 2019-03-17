@@ -19,9 +19,7 @@ import java.util.List;
 import java.util.stream.StreamSupport;
 
 @Service
-//@Repository
 @Transactional
-//@Lazy
 public class ItemService {
 
     @Autowired
@@ -45,24 +43,6 @@ public class ItemService {
 
     public Iterable<ItemsEntity> findAll() {
         return this.itemRepository.findAll();
-    }
-
-    public ItemsEntity save() {
-        ItemsEntity itemsEntity = new ItemsEntity();
-
-        MarksEntity marksEntity = StreamSupport.stream(this.marksRepository.findAll().spliterator(), false).findFirst().get();
-        BodyTypesEntity bodyTypesEntity = StreamSupport.stream(this.bodyTypesRepository.findAll().spliterator(), false).findFirst().get();
-
-        bodyTypesEntity.setDescription("Crossover");
-
-        itemsEntity.setMark(new MarksEntity(marksEntity.getId()));
-        itemsEntity.setModel(marksEntity.getModels().stream().findFirst().get());
-        itemsEntity.setBodyType(bodyTypesEntity);
-        itemsEntity.setYear(2000);
-        itemsEntity.setPrice(250000);
-        itemsEntity.setActive(true);
-        itemsEntity.setCreated(new Timestamp(new Date().getTime()));
-        return this.itemRepository.save(itemsEntity);
     }
 
     /**

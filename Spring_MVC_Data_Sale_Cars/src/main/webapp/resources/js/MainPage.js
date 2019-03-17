@@ -44,11 +44,10 @@ function viewAllItems(today, with_photo, mark_id, active) {
 
                         var check = items[i].active ? ' checked ' : ' ';
 
-                        var form_add_photo = "<form method='POST' enctype='multipart/form-data' id='fileUploadForm'>" +
+                        var form_add_photo = "<form method='POST' enctype='multipart/form-data' class='fileUploadForm'>" +
                             "Photo: <input type='file' name='files'>" +
                             "<input type='number' value='" + items[i].id + "' name='itemId' about='attributes for upload' hidden>" +
-                            "<input type='button' value='Add0' onclick='fire_ajax_submit();'/>" +
-                            "<input type='submit' value='Add' id='btnSubmit'>"
+                            "<input type='button' value='Attach image' onclick='file_ajax_submit(this);'/>" +
                         "</form>";
 
                         var photo = "<img src='" + base64 + items[i].photo + "'>";
@@ -240,6 +239,34 @@ function setState(item_id, state) {
         }
     });
 };
+
+/**
+ * Загрузить картинку.
+ * @param element
+ */
+function file_ajax_submit(element) {
+
+    var data = new FormData(element.parentElement);
+
+    data.append("CustomField", "This is some extra data, testing");
+
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "/api/io/upload",
+        data: data,
+        processData: false, //prevent jQuery from automatically transforming the data into a query string
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+            viewItems();
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+        }
+    });
+}
 
 // init
 viewAllItems(false, false, 0, false);
