@@ -39,6 +39,9 @@ public class ItemService {
     @Autowired
     BodyTypesRepository bodyTypesRepository;
 
+    public ItemsEntity findById(int id) {
+        return this.itemRepository.findById(id).get();
+    }
 
     public Iterable<ItemsEntity> findAll() {
         return this.itemRepository.findAll();
@@ -70,7 +73,7 @@ public class ItemService {
     public ItemsEntity updatePhoto(ItemsEntity photo) {
         ItemsEntity item = this.itemRepository.findById(photo.getId()).get();
         item.setPhoto(photo.getPhoto());
-        return item;
+        return this.itemRepository.save(item);
     }
 
     /**

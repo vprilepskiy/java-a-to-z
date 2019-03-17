@@ -1,16 +1,17 @@
 package ru.prilepskiy.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.prilepskiy.entity.ItemsEntity;
+import ru.prilepskiy.service.ItemService;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.StringJoiner;
 
 /**
  * Created by VLADIMIR on 16.03.2019.
@@ -20,8 +21,8 @@ import java.util.StringJoiner;
 @RestController
 public class UploadController {
 
-    //Save the uploaded file to this folder
-    private static String UPLOADED_FOLDER = "C://Downloads//";
+    @Autowired
+    ItemService itemService;
 
     @GetMapping("/")
     public String index() {
@@ -29,32 +30,18 @@ public class UploadController {
     }
 
     @PostMapping("/upload")
-    public String singleFileUpload(@RequestParam("file") MultipartFile file, int itemId,
-                                   RedirectAttributes redirectAttributes) {
-
-        if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-            return "redirect:uploadStatus";
+    public ItemsEntity singleFileUpload(Integer itemId, MultipartFile[] files) {
+        ItemsEntity item = new ItemsEntity();
+        if (files.length > 0) {
+            try {
+                item.setId(itemId);
+                item.setPhoto(files[0].getBytes());
+                item = this.itemService.updatePhoto(item);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-        try {
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
-
-            redirectAttributes.addFlashAttribute("message",
-                    "You successfully uploaded '" + file.getOriginalFilename() + "'");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "redirect:/uploadStatus";
+        return item;
     }
-
-    @GetMapping("/uploadStatus")
-    public String uploadStatus() {
-        return "uploadStatus";
-    }
-
 }

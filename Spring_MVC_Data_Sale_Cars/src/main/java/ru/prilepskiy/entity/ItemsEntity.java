@@ -1,5 +1,7 @@
 package ru.prilepskiy.entity;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -91,7 +93,8 @@ public class ItemsEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "photo")
+    @Type(type = "org.hibernate.type.MaterializedBlobType")
+    @Column(name = "photo", length = 1024 * 1024 * 10)
     public byte[] getPhoto() {
         return photo;
     }
