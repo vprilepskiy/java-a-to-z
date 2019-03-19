@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.RequestContext;
 import ru.prilepskiy.config.CustomAuthenticationProvider;
+import ru.prilepskiy.entity.UserEntity;
 import ru.prilepskiy.service.UserService;
 
 import java.security.Principal;
@@ -41,6 +42,21 @@ public class SecureController {
 
     @PostMapping("/login")
     public String login(String login, String password) {
+        return this.setContextAuthentication(login, password);
+    }
+
+    @PostMapping("/registration")
+    public String registration(String login, String password) {
+        if (this.userService.findByLogin(login).iterator().hasNext()) {
+            return "Registration error!";
+        } else {
+            this.userService.save(login, password);
+            this.setContextAuthentication(login, password);
+            return "Ok";
+        }
+    }
+
+    private String setContextAuthentication(String login, String password) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(login, password);
         Authentication auth = this.authenticationProvider.authenticate(usernamePasswordAuthenticationToken);
         if (auth == null) {
@@ -49,11 +65,6 @@ public class SecureController {
         SecurityContext sc = SecurityContextHolder.getContext();
         sc.setAuthentication(auth);
         return "Ok";
-    }
-
-    @PostMapping("/registration")
-    public String registration(String login, String password) {
-        return this.userService.registration(login, password);
     }
 
 }

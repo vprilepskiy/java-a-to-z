@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.prilepskiy.service.MarkService;
 
+import java.security.Principal;
 import java.util.List;
 @RequestMapping("/api")
 @RestController
-public class RestApi {
+public class ItemController {
 
     @Autowired
     ItemService itemService;
@@ -27,8 +28,8 @@ public class RestApi {
     BobyTypeService bobyTypeService;
 
     @GetMapping("/Items")
-    public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId, boolean active) {
-        return this.itemService.getItems(today, withPhoto, markId, active);
+    public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId, boolean active, boolean onlyMy) {
+        return this.itemService.getItems(today, withPhoto, markId, active, onlyMy);
     }
 
     @GetMapping("/Marks")
@@ -42,8 +43,8 @@ public class RestApi {
     }
 
     @PostMapping("/Item")
-    public ItemsEntity addItem(int markId, int modelId, int bodyTypeId, int year, int price) {
-        return this.itemService.addItem(markId, modelId, bodyTypeId, year, price);
+    public ItemsEntity addItem(Principal principal, int markId, int modelId, int bodyTypeId, int year, int price) {
+        return this.itemService.addItem(principal, markId, modelId, bodyTypeId, year, price);
     }
 
     @PostMapping("/SetStateItem")

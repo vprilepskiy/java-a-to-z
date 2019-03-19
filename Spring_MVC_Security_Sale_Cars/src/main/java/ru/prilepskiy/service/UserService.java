@@ -17,15 +17,14 @@ public class UserService {
         return this.userRepository.findByLoginAndPassword(login, password);
     }
 
-    public String registration(String login, String password) {
-        if (this.userRepository.findByLogin(login).iterator().hasNext()) {
-            return "Registration error!";
-        } else {
-            UserEntity user = new UserEntity();
-            user.setLogin(login);
-            user.setPassword(password);
-            this.userRepository.save(user);
-            return "Ok";
-        }
+    public Iterable<UserEntity> findByLogin(String login) {
+        return this.userRepository.findByLogin(login);
+    }
+
+    public UserEntity save(String login, String password) {
+        UserEntity user = new UserEntity();
+        user.setLogin(login);
+        user.setPassword(password);
+        return this.userRepository.save(user);
     }
 }

@@ -38,6 +38,7 @@
         <label>Witch photo: </label><input id="witch_photo" type="checkbox">
         <label>Mark: </label><select id="select_mark_filter"><option value="0">All marks</option></select>
         <label>Active: </label><input id="active" type="checkbox">
+        <span id="only_my" style="visibility: hidden"><label>Only my: </label><input id="only_my_checkbox" type="checkbox"></span>
         <input type="button" value="filer" onclick="viewItems();">
     </form>
 </div>
@@ -56,7 +57,7 @@
     </table>
 </div>
 <div>
-    <form about="Add new Item">
+    <form about="Add new Item" id="add_item_form" style="visibility: hidden">
         <table>
             <tr>
                 <td>

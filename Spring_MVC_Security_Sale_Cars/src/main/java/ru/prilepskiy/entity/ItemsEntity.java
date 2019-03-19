@@ -22,6 +22,7 @@ import java.util.Objects;
 @Table(name = "items")
 public class ItemsEntity implements Serializable {
     private int id;
+    private UserEntity user;
     private MarksEntity mark;
     private ModelsEntity model;
     private BodyTypesEntity bodyType;
@@ -40,6 +41,16 @@ public class ItemsEntity implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "user_id", nullable = false)
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)

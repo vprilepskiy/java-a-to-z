@@ -1,9 +1,11 @@
 package ru.prilepskiy.repository;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import ru.prilepskiy.entity.ItemsEntity;
 import ru.prilepskiy.entity.MarksEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.prilepskiy.entity.UserEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,8 +29,11 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
     @Autowired
     MarksRepository marksRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Override
-    public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId, boolean active) {
+    public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId, boolean active, boolean onlyMy) {
 
         final CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         final CriteriaQuery<ItemsEntity> queryRoot = builder.createQuery(ItemsEntity.class);
@@ -50,8 +56,14 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         }
         // определенной марки
         if (markId != 0) {
-            MarksEntity mark = marksRepository.findById(markId).get();
+            MarksEntity mark = this.marksRepository.findById(markId).get();
             predicates.add(builder.equal(root.get("mark"), mark));
+        }
+        // только мои объявления
+        if (onlyMy) {
+            Principal principal = SecurityContextHolder.getContext().getAuthentication();
+            UserEntity user = this.userRepository.findByLogin(principal.getName()).iterator().next();
+            predicates.add(builder.equal(root.get("user"), user));
         }
 
         // установить условия

@@ -4,6 +4,7 @@ import ru.prilepskiy.entity.BodyTypesEntity;
 import ru.prilepskiy.entity.ItemsEntity;
 import ru.prilepskiy.entity.MarksEntity;
 import ru.prilepskiy.entity.ModelsEntity;
+import ru.prilepskiy.entity.UserEntity;
 import ru.prilepskiy.repository.BodyTypesRepository;
 import ru.prilepskiy.repository.ItemRepository;
 import ru.prilepskiy.repository.ItemRepositoryCustom;
@@ -12,7 +13,9 @@ import ru.prilepskiy.repository.ModelsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.prilepskiy.repository.UserRepository;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +24,9 @@ import java.util.stream.StreamSupport;
 @Service
 @Transactional
 public class ItemService {
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     ItemRepository itemRepository;
@@ -65,12 +71,14 @@ public class ItemService {
      * @param year        - year.
      * @param price       - price.
      */
-    public ItemsEntity addItem(int markId, int modelId, int bodyTypeId, int year, int price) {
+    public ItemsEntity addItem(Principal principal, int markId, int modelId, int bodyTypeId, int year, int price) {
+        UserEntity user = this.userRepository.findByLogin(principal.getName()).iterator().next();
         MarksEntity mark = this.marksRepository.findById(markId).get();
         ModelsEntity model = this.modelsRepository.findById(modelId).get();
         BodyTypesEntity bodyType = this.bodyTypesRepository.findById(bodyTypeId).get();
 
         ItemsEntity item = new ItemsEntity();
+        item.setUser(user);
         item.setMark(mark);
         item.setModel(model);
         item.setBodyType(bodyType);
@@ -101,8 +109,8 @@ public class ItemService {
      * @param markId - on mark Id.
      * @return - items.
      */
-    public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId, boolean active) {
-        return this.itemRepositoryCustom.getItems(today, withPhoto, markId, active);
+    public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId, boolean active, boolean onlyMy) {
+        return this.itemRepositoryCustom.getItems(today, withPhoto, markId, active, onlyMy);
     }
 
 }

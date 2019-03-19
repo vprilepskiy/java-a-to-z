@@ -21,7 +21,6 @@ public class UserEntity {
     private int id;
     private String login;
     private String password;
-    private Set<ItemsEntity> items;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,15 +52,5 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="item_id", insertable=true, updatable=true)
-    public Set<ItemsEntity> getItems() {
-        return items;
-    }
-
-    public void setItems(Set<ItemsEntity> items) {
-        this.items = items;
     }
 }

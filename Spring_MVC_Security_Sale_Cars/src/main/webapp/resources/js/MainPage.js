@@ -9,18 +9,19 @@ function viewItems() {
     var index_mark = document.getElementById("select_mark_filter").options.selectedIndex;
     var mark_id = document.getElementById("select_mark_filter").options[index_mark].value;
     var active = document.getElementById("active").checked;
+    var only_my = document.getElementById("only_my_checkbox").checked;
 
-    viewAllItems(today, with_photo, mark_id, active);
+    viewAllItems(today, with_photo, mark_id, active, only_my);
 }
 
 /**
  * Показать все детали с учетом параметров.
  */
-function viewAllItems(today, with_photo, mark_id, active) {
+function viewAllItems(today, with_photo, mark_id, active, only_my) {
     $(
         $.ajax('../api/Items', {
             method: 'get',
-            data: ({today: today, withPhoto: with_photo, markId: mark_id, active: active}),
+            data: ({today: today, withPhoto: with_photo, markId: mark_id, active: active, onlyMy: only_my}),
             complete: function (data) {
                 console.log('Items', data.responseText);
                 if (data.responseText != '') {
@@ -292,6 +293,12 @@ function viewSessionStatus() {
                     // скрыть блок
                     document.getElementById("LogIn_form").style.visibility = 'hidden';
 
+                    // показать блок
+                    document.getElementById("add_item_form").style.visibility = 'visible';
+
+                    // показать блок
+                    document.getElementById("only_my").style.visibility = 'visible';
+
                 } else {
                     // скрыть блок
                     document.getElementById("LogOut_form").style.visibility = 'hidden';
@@ -299,6 +306,11 @@ function viewSessionStatus() {
                     // показать блок
                     document.getElementById("LogIn_form").style.visibility = 'visible';
 
+                    // скрыть блок
+                    document.getElementById("add_item_form").style.visibility = 'hidden';
+
+                    // скрыть блок
+                    document.getElementById("only_my").style.visibility = 'hidden';
                 }
             }
         })
@@ -345,7 +357,7 @@ function signIn() {
                     htmlMessage.innerHTML = response;
                 }
 
-                viewAllItems(false, false, 0, false);
+                viewAllItems(false, false, 0, false, false);
             }
         })
     } else {
@@ -370,7 +382,7 @@ function signOut() {
 ;
 
 // init
-viewAllItems(false, false, 0, false);
+viewAllItems(false, false, 0, false, false);
 viewBodyTypes();
 getMarks();
 viewSessionStatus();
