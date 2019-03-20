@@ -50,6 +50,7 @@
         <module>Class_Equal</module>
 		<module>Spring_MVC_Data_Sale_Cars</module>
 		<module>Spring_MVC_Security_Sale_Cars</module>
+        <module>Spring_Boot_Sale_Cars</module>
 
 	</modules>
 
