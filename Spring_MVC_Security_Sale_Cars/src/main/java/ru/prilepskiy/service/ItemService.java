@@ -17,9 +17,7 @@ import ru.prilepskiy.repository.UserRepository;
 
 import java.security.Principal;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
