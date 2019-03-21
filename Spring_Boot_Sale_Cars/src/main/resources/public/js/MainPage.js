@@ -351,10 +351,10 @@ function signIn() {
                 var response = data.responseText;
                 var htmlMessage = document.getElementById("message");
 
-                if (response === 'Ok') {
+                if (response === 'true') {
                     viewSessionStatus();
                 } else {
-                    htmlMessage.innerHTML = response;
+                    htmlMessage.innerHTML = 'Введите правильный логин/пароль';
                 }
 
                 viewAllItems(false, false, 0, false, false);

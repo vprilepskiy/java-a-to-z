@@ -10,7 +10,6 @@ import ru.prilepskiy.entity.UserEntity;
 import ru.prilepskiy.repository.UserRepository;
 
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
@@ -34,7 +33,7 @@ public class UserService {
     }
 
     public Optional<UserEntity> findByLogin(String login) {
-        return Optional.of(this.userRepository.findFirstByLogin(login));
+        return Optional.ofNullable(this.userRepository.findFirstByLogin(login));
     }
 
     public UserEntity save(String login, String password) {

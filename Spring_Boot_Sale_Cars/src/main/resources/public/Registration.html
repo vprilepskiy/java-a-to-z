@@ -38,27 +38,26 @@
             var login = document.getElementsByName("login").item(0).value;
             var password_1 = document.getElementsByName("password_1").item(0).value;
             var password_2 = document.getElementsByName("password_2").item(0).value;
+            var htmlMessage = document.getElementById("message");
             var args = [login, password_1, password_2];
             if (validate(args)) {
                 if (password_1 === password_2) {
-                    $(
-                        $.ajax('../auth/registration', {
-                            method: 'post',
-                            data: ({login: login, password: password_1}),
-                            complete: function (data) {
-
-                                var response = data.responseText;
-
-                                var htmlMessage = document.getElementById("message");
-
-                                if (response === 'Ok') {
-                                    window.location.replace("MainPage.html");
-                                } else {
-                                    htmlMessage.innerHTML = response;
-                                }
+                    $.ajax('../auth/registration', {
+                        method: 'post',
+                        data: ({login: login, password: password_1}),
+                        complete: function (data) {
+                            if (data.responseText === 'true') {
+                                window.location.replace("MainPage.html");
                             }
-                        })
-                    );
+                        },
+                        error: function (e) {
+                            if (e.status === 401) {
+                                htmlMessage.innerHTML = 'Пользователь с таким именем уже существует!';
+                            } else {
+                                console.log("ERROR : ", e);
+                            }
+                        }
+                    })
                 } else {
                     alert("Passwords do not match!")
                 }

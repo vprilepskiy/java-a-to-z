@@ -13,15 +13,15 @@ public class ContextAuthentication {
     @Autowired
     CustomAuthenticationProvider authenticationProvider;
 
-    public String set(String login, String password) {
+    public boolean auth(String login, String password) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(login, password);
         Authentication auth = this.authenticationProvider.authenticate(usernamePasswordAuthenticationToken);
         if (auth == null) {
-            return "Auth error!";
+            return false;
+        } else {
+            SecurityContext sc = SecurityContextHolder.getContext();
+            sc.setAuthentication(auth);
+            return true;
         }
-        SecurityContext sc = SecurityContextHolder.getContext();
-        sc.setAuthentication(auth);
-        return "Ok";
     }
-
 }

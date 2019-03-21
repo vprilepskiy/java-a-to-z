@@ -1,16 +1,12 @@
 package ru.prilepskiy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.prilepskiy.config.ContextAuthentication;
-import ru.prilepskiy.config.CustomAuthenticationProvider;
+import ru.prilepskiy.exception.UnauthorizedException;
 import ru.prilepskiy.service.UserService;
 
 import java.security.Principal;
@@ -36,17 +32,17 @@ public class SecureController {
     }
 
     @PostMapping("/login")
-    public String login(String login, String password) {
-        return this.contextAuthentication.set(login, password);
+    public boolean login(String login, String password) {
+        return this.contextAuthentication.auth(login, password);
     }
 
     @PostMapping("/registration")
-    public String registration(String login, String password) {
+    public boolean registration(String login, String password) {
         if (this.userService.findByLogin(login).isPresent()) {
-            return "Registration error!";
+            throw new UnauthorizedException();
         } else {
             this.userService.save(login, password);
-            return this.contextAuthentication.set(login, password);
+            return this.contextAuthentication.auth(login, password);
         }
     }
 }

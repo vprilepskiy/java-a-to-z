@@ -24,6 +24,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(SecureController.class)
 public class SecureControllerTest {
 
+    private String STRING = "text";
+    private String TRUE = Boolean.TRUE.toString();
+    private String FALSE = Boolean.FALSE.toString();
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -48,15 +52,31 @@ public class SecureControllerTest {
     @WithMockUser(username = "user")
     public void login() throws Exception {
         // mock auth
-        BDDMockito.given(this.contextAuthentication.set("user", "password"))
-            .willReturn("Ok");
+        BDDMockito.given(this.contextAuthentication.auth(STRING, STRING))
+            .willReturn(true);
         // run REST request
         this.mockMvc.perform(post("/auth/login")
             .with(csrf())
-            .param("login","user")
-            .param("password","password")
+            .param("login",STRING)
+            .param("password",STRING)
             .accept(MediaType.APPLICATION_JSON))
-            .andExpect(content().string("Ok"))
+            .andExpect(content().string(TRUE))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(username = "user")
+    public void login_error() throws Exception {
+        // mock auth
+        BDDMockito.given(this.contextAuthentication.auth(STRING, STRING))
+            .willReturn(false);
+        // run REST request
+        this.mockMvc.perform(post("/auth/login")
+            .with(csrf())
+            .param("login",STRING)
+            .param("password",STRING)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(content().string(FALSE))
             .andExpect(status().isOk());
     }
 
@@ -64,14 +84,31 @@ public class SecureControllerTest {
     @WithMockUser(username = "user")
     public void registration() throws Exception {
         // mock userService
-        UserEntity user = new UserEntity();
-        user.setLogin("user");
-        user.setPassword("password");
         BDDMockito.given(this.userService.findByLogin("user"))
             .willReturn(Optional.empty());
         // mock auth
-        BDDMockito.given(this.contextAuthentication.set("user", "password"))
-            .willReturn("Ok");
+        BDDMockito.given(this.contextAuthentication.auth(STRING, STRING))
+            .willReturn(true);
+
+        // run REST request
+        this.mockMvc.perform(post("/auth/registration")
+            .with(csrf())
+            .param("login", STRING)
+            .param("password",STRING)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(content().string(TRUE))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(username = "user")
+    public void registration_error() throws Exception {
+        // mock userService
+        BDDMockito.given(this.userService.findByLogin("user"))
+            .willReturn(Optional.of(new UserEntity()));
+        // mock auth
+        BDDMockito.given(this.contextAuthentication.auth("user", "password"))
+            .willReturn(true);
 
         // run REST request
         this.mockMvc.perform(post("/auth/registration")
@@ -79,7 +116,6 @@ public class SecureControllerTest {
             .param("login","user")
             .param("password","password")
             .accept(MediaType.APPLICATION_JSON))
-            .andExpect(content().string("Ok"))
-            .andExpect(status().isOk());
+            .andExpect(status().is4xxClientError());
     }
 }
