@@ -62,7 +62,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         // только мои объявления
         if (onlyMy) {
             Principal principal = SecurityContextHolder.getContext().getAuthentication();
-            UserEntity user = this.userRepository.findByLogin(principal.getName()).iterator().next();
+            UserEntity user = this.userRepository.findFirstByLogin(principal.getName());
             predicates.add(builder.equal(root.get("user"), user));
         }
 

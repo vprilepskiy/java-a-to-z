@@ -28,17 +28,17 @@ public class ItemController {
     @Autowired
     BobyTypeService bobyTypeService;
 
-    @GetMapping("/Items")
+    @GetMapping("/Items.skip")
     public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId, boolean active, boolean onlyMy) {
         return this.itemService.getItems(today, withPhoto, markId, active, onlyMy);
     }
 
-    @GetMapping("/Marks")
+    @GetMapping("/Marks.skip")
     public Iterable<MarksEntity> getMarks() {
         return this.markService.getMarks();
     }
 
-    @GetMapping("/BodyTypes")
+    @GetMapping("/BodyTypes.skip")
     public Iterable<BodyTypesEntity> getBodyTypes() {
         return this.bobyTypeService.getBodyTapes();
     }

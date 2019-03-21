@@ -25,17 +25,16 @@ public class UserService {
     }
 
     public Optional<UserEntity> findByLoginAndPassword(String login, String password) {
-        Iterable<UserEntity> users = this.userRepository.findByLogin(login);
-        Optional<UserEntity> user = StreamSupport.stream(users.spliterator(), false).findFirst();
-        if (user.isPresent() && this.bcryptPasswordEncoder().matches(password, user.get().getPassword())) {
-            return user;
+        UserEntity user = this.userRepository.findFirstByLogin(login);
+        if (user != null && this.bcryptPasswordEncoder().matches(password, user.getPassword())) {
+            return Optional.of(user);
         } else {
             return Optional.empty();
         }
     }
 
-    public Iterable<UserEntity> findByLogin(String login) {
-        return this.userRepository.findByLogin(login);
+    public Optional<UserEntity> findByLogin(String login) {
+        return Optional.of(this.userRepository.findFirstByLogin(login));
     }
 
     public UserEntity save(String login, String password) {

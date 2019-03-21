@@ -19,7 +19,7 @@ function viewItems() {
  */
 function viewAllItems(today, with_photo, mark_id, active, only_my) {
     $(
-        $.ajax('../api/Items', {
+        $.ajax('../api/Items.skip', {
             method: 'get',
             data: ({today: today, withPhoto: with_photo, markId: mark_id, active: active, onlyMy: only_my}),
             complete: function (data) {
@@ -85,7 +85,7 @@ function viewAllItems(today, with_photo, mark_id, active, only_my) {
  */
 function viewBodyTypes() {
     $(
-        $.ajax('../api/BodyTypes', {
+        $.ajax('../api/BodyTypes.skip', {
             method: 'get',
             complete: function (data) {
 
@@ -121,7 +121,7 @@ var MARKS;
  * Получить марки и модели. Передать в глобальную переменную.
  */
 function getMarks() {
-    $.ajax('../api/Marks', {
+    $.ajax('../api/Marks.skip', {
         method: 'get',
         complete: function (data) {
 

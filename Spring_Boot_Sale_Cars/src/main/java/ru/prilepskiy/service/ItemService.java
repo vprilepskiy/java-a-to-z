@@ -1,6 +1,7 @@
 package ru.prilepskiy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.prilepskiy.entity.BodyTypesEntity;
@@ -41,21 +42,15 @@ public class ItemService {
     @Autowired
     BodyTypesRepository bodyTypesRepository;
 
-    public ItemsEntity findById(int id) {
-        return this.itemRepository.findById(id).get();
-    }
-
-    public Iterable<ItemsEntity> findAll() {
-        return this.itemRepository.findAll();
-    }
-
     /**
      * Add photo in Item.
      *
      * @param photo - photo(int id, photo byte[])
      */
     public ItemsEntity updatePhoto(ItemsEntity photo) {
-        ItemsEntity item = this.itemRepository.findById(photo.getId()).get();
+        Principal principal = SecurityContextHolder.getContext().getAuthentication();
+        UserEntity user = this.userRepository.findFirstByLogin(principal.getName());
+        ItemsEntity item = this.itemRepository.findFirstByIdAndUser(photo.getId(), user);
         item.setPhoto(photo.getPhoto());
         return this.itemRepository.save(item);
     }
@@ -70,7 +65,7 @@ public class ItemService {
      * @param price       - price.
      */
     public ItemsEntity addItem(Principal principal, int markId, int modelId, int bodyTypeId, int year, int price) {
-        UserEntity user = this.userRepository.findByLogin(principal.getName()).iterator().next();
+        UserEntity user = this.userRepository.findFirstByLogin(principal.getName());
         MarksEntity mark = this.marksRepository.findById(markId).get();
         ModelsEntity model = this.modelsRepository.findById(modelId).get();
         BodyTypesEntity bodyType = this.bodyTypesRepository.findById(bodyTypeId).get();
@@ -95,7 +90,9 @@ public class ItemService {
      * @param state - parameter.
      */
     public ItemsEntity setActive(int itemId, boolean state) {
-        ItemsEntity item = this.itemRepository.findById(itemId).get();
+        Principal principal = SecurityContextHolder.getContext().getAuthentication();
+        UserEntity user = this.userRepository.findFirstByLogin(principal.getName());
+        ItemsEntity item = this.itemRepository.findFirstByIdAndUser(itemId, user);
         item.setActive(state);
         return item;
     }

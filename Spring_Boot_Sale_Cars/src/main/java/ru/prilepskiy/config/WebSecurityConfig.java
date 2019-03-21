@@ -15,11 +15,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // все запросы должны быть обработаны через фильтр
             .authorizeRequests()
             // пропустить
-            .antMatchers("/**").permitAll()
-            // пропустить
+            .antMatchers("/*.html").permitAll()
+            .antMatchers("/js/*.js").permitAll()
             .antMatchers("/auth/**").permitAll()
+            .antMatchers("/api/*.skip").permitAll()
             // пропустить
-            .antMatchers("/api/**").permitAll() //временно
+//            .antMatchers("/api/**").permitAll() //временно
             // все пользователи должны быть авторизованы
             .anyRequest().authenticated()
             .and()

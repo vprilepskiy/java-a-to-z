@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.prilepskiy.config.ContextAuthentication;
 import ru.prilepskiy.config.CustomAuthenticationProvider;
 import ru.prilepskiy.service.UserService;
 
@@ -23,7 +24,7 @@ public class SecureController {
     UserService userService;
 
     @Autowired
-    CustomAuthenticationProvider authenticationProvider;
+    ContextAuthentication contextAuthentication;
 
     @GetMapping("/user")
     public String getPrincipal(Principal principal) {
@@ -36,28 +37,16 @@ public class SecureController {
 
     @PostMapping("/login")
     public String login(String login, String password) {
-        return this.setContextAuthentication(login, password);
+        return this.contextAuthentication.set(login, password);
     }
 
     @PostMapping("/registration")
     public String registration(String login, String password) {
-        if (this.userService.findByLogin(login).iterator().hasNext()) {
+        if (this.userService.findByLogin(login).isPresent()) {
             return "Registration error!";
         } else {
             this.userService.save(login, password);
-            return this.setContextAuthentication(login, password);
+            return this.contextAuthentication.set(login, password);
         }
     }
-
-    private String setContextAuthentication(String login, String password) {
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(login, password);
-        Authentication auth = this.authenticationProvider.authenticate(usernamePasswordAuthenticationToken);
-        if (auth == null) {
-            return "Auth error!";
-        }
-        SecurityContext sc = SecurityContextHolder.getContext();
-        sc.setAuthentication(auth);
-        return "Ok";
-    }
-
 }
