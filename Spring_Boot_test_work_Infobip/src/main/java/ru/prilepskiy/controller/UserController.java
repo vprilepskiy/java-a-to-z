@@ -2,13 +2,13 @@ package ru.prilepskiy.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.prilepskiy.response.Register;
+import ru.prilepskiy.response.Account;
 
 @RestController
 public class UserController {
     @GetMapping("/register")
-    public Register register(String url) {
-        return new Register(true, "Your account is opened", "pass");
+    public Account register(String url) {
+        return new Account(true, "Your account is opened", "pass");
     }
 
 }
