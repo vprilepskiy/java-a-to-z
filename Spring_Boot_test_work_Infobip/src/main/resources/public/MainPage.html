@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--main conroller-->
+    <script src="js/MainPage.js"></script>
+</head>
+<body>
+
+<div about="registration">
+    <p id="message"></p>
+
+    <div id="LogOut_form" style="visibility: hidden">
+        <button id="buttonSignOut" onclick="signOut();">Sign out...</button>
+    </div>
+    <div id="LogIn_form">
+        <form>
+            <label>Login</label><input type="text" name="login"/>
+            <label>Password</label><input type="password" name="password"/>
+            <input type="button" value="Sign in..." onclick="signIn();"/>
+        </form>
+
+        <a href="Registration.html">Registration</a>
+    </div>
+</div>
+
+<div about="filters">
+    <form>
+        <label>Today: </label><input id="today" type="checkbox">
+        <label>Witch photo: </label><input id="witch_photo" type="checkbox">
+        <label>Mark: </label><select id="select_mark_filter"><option value="0">All marks</option></select>
+        <label>Active: </label><input id="active" type="checkbox">
+        <span id="only_my" style="visibility: hidden"><label>Only my: </label><input id="only_my_checkbox" type="checkbox"></span>
+        <input type="button" value="filer" onclick="viewItems();">
+    </form>
+</div>
+
+<div>
+    <table id="View_all_items" border="1px">
+        <tr>
+            <th>id</th>
+            <th>Mark</th>
+            <th>Model</th>
+            <th>Body type</th>
+            <th>Year</th>
+            <th>Price</th>
+            <th>Created</th>
+        </tr>
+    </table>
+</div>
+<div>
+    <form about="Add new Item" id="add_item_form" style="visibility: hidden">
+        <table>
+            <tr>
+                <td>
+                    <label>Mark</label>
+                </td>
+                <td>
+                    <select id="select_mark" onchange="viewModels(MARKS, this.value)"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Model</label>
+                </td>
+                <td>
+                    <select id="select_model"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Body type</label>
+                </td>
+                <td>
+                    <select id="select_body_type"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Year</label>
+                </td>
+                <td>
+                    <input id="year" type="number" id="year" value="1900" min="1900" max="2099"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Price</label>
+                </td>
+                <td>
+                    <input id="price" type="number" id="price" value="0" min="0" max="999999999"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <!--<input type="checkbox" value="1" checked onchange='setState(this.value, this.checked);'>-->
+                </td>
+                <td>
+                    <input type="button" value="Add item..." onclick="addItem();"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>

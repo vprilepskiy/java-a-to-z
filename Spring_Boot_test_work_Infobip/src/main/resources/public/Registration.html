@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        /**
+         * Вернет false если один из аргументов будет пустым.
+         * @param args - аргументы.
+         */
+        function validate(args) {
+            var result = true;
+
+            for (var i = 0; i < args.length; i++) {
+                if (args[i] == "") {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        }
+        ;
+
+
+        /**
+         * Добавит нового пльзователя в БД.
+         * Вернет статус 'Ok' или 'Error'.
+         */
+        function registration() {
+            var login = document.getElementsByName("login").item(0).value;
+            var password_1 = document.getElementsByName("password_1").item(0).value;
+            var password_2 = document.getElementsByName("password_2").item(0).value;
+            var htmlMessage = document.getElementById("message");
+            var args = [login, password_1, password_2];
+            if (validate(args)) {
+                if (password_1 === password_2) {
+                    $.ajax('../auth/registration', {
+                        method: 'post',
+                        data: ({login: login, password: password_1}),
+                        complete: function (data) {
+                            if (data.responseText === 'true') {
+                                window.location.replace("MainPage.html");
+                            }
+                        },
+                        error: function (e) {
+                            if (e.status === 401) {
+                                htmlMessage.innerHTML = 'Пользователь с таким именем уже существует!';
+                            } else {
+                                console.log("ERROR : ", e);
+                            }
+                        }
+                    })
+                } else {
+                    alert("Passwords do not match!")
+                }
+            } else {
+                alert("Not filled in login/password!");
+            }
+        }
+        ;
+    </script>
+
+</head>
+<body>
+
+<p id="message"></p>
+
+<div>
+    <form>
+        <label>Login</label><input type="text" name="login"/>
+        <label>Password</label><input type="password" name="password_1"/>
+        <label>Password</label><input type="password" name="password_2"/>
+        <input type="button" value="Registration..." onclick="registration();"/>
+    </form>
+</div>
+
+</body>
+</html>
