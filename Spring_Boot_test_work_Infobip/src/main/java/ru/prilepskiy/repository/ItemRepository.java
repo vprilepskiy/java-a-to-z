@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ItemRepository extends CrudRepository<ItemsEntity, Integer> {
 
-    ItemsEntity findFirstByUrlAndRedirectTypeAndUser(String url, Integer redirectType, UserEntity user);
+    ItemsEntity findFirstByUrlAndUser(String url, UserEntity user);
 
     Iterable<ItemsEntity> findByUser(UserEntity user);
 

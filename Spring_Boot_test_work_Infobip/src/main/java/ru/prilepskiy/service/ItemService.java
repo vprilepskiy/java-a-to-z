@@ -25,17 +25,16 @@ public class ItemService {
     @Autowired
     Utils utils;
 
-    public String saveOrUpdateAndGetId(String url, Integer redirectType) {
+    public String saveOrUpdateAndGetId(String url) {
         Principal principal = SecurityContextHolder.getContext().getAuthentication();
         UserEntity user = this.userRepository.findFirstByUsername(principal.getName());
-        ItemsEntity item = this.itemRepository.findFirstByUrlAndRedirectTypeAndUser(url, redirectType, user);
+        ItemsEntity item = this.itemRepository.findFirstByUrlAndUser(url, user);
         if (item != null) {
             item.setCount(Math.incrementExact(item.getCount()));
             item = this.itemRepository.save(item);
         } else {
             item = new ItemsEntity();
             item.setUrl(url);
-            item.setRedirectType(redirectType);
             item.setUser(user);
             item.setCount(1);
             item = this.itemRepository.save(item);

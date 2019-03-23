@@ -20,11 +20,9 @@ public class ItemController {
     @Autowired
     ItemService itemService;
 
-    //TODO: Не понятен смысл redirectType.
-
     @PostMapping("/register")
-    public Register register(String url, Integer redirectType) {
-        String idBase36 = this.itemService.saveOrUpdateAndGetId(url, redirectType);
+    public Register register(String url) {
+        String idBase36 = this.itemService.saveOrUpdateAndGetId(url);
         return new Register(String.format("%s%s", this.domainUrl, idBase36));
     }
 
