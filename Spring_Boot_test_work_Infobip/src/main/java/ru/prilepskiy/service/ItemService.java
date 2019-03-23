@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.prilepskiy.entity.ItemsEntity;
 import ru.prilepskiy.entity.UserEntity;
+import ru.prilepskiy.helper.Utils;
 import ru.prilepskiy.repository.ItemRepository;
 import ru.prilepskiy.repository.UserRepository;
 
@@ -21,20 +22,29 @@ public class ItemService {
     @Autowired
     ItemRepository itemRepository;
 
-    public ItemsEntity saveOrUpdate(String url, Integer redirectType) {
+    @Autowired
+    Utils utils;
+
+    public String saveOrUpdateAndGetId(String url, Integer redirectType) {
         Principal principal = SecurityContextHolder.getContext().getAuthentication();
         UserEntity user = this.userRepository.findFirstByUsername(principal.getName());
-        ItemsEntity findItem = this.itemRepository.findFirstByUrlAndRedirectTypeAndUser(url, redirectType, user);
-        if (findItem != null) {
-            findItem.setCount(Math.incrementExact(findItem.getCount()));
-            return this.itemRepository.save(findItem);
+        ItemsEntity item = this.itemRepository.findFirstByUrlAndRedirectTypeAndUser(url, redirectType, user);
+        if (item != null) {
+            item.setCount(Math.incrementExact(item.getCount()));
+            item = this.itemRepository.save(item);
         } else {
-            ItemsEntity item = new ItemsEntity();
+            item = new ItemsEntity();
             item.setUrl(url);
             item.setRedirectType(redirectType);
             item.setUser(user);
             item.setCount(1);
-            return this.itemRepository.save(item);
+            item = this.itemRepository.save(item);
         }
+        return this.utils.toBase36(item.getId());
+    }
+
+    public Iterable<ItemsEntity> findItemsByUsername(String username) {
+        UserEntity user = this.userRepository.findFirstByUsername(username);
+        return this.itemRepository.findByUser(user);
     }
 }

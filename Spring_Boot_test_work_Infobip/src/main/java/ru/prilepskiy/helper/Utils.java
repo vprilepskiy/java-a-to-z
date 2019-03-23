@@ -1,18 +1,19 @@
 package ru.prilepskiy.helper;
 
 import org.apache.commons.text.RandomStringGenerator;
+import org.springframework.stereotype.Component;
+
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 
-
+@Component
 public class Utils {
 
     public String toBase36(int i) {
-        return new BigInteger(1, ByteBuffer.allocate(4).putInt(i).array()).toString(36);
+        return Integer.toString(i, 36);
     }
 
     public String generatePassword() {
-         return new RandomStringGenerator.Builder().withinRange('a', 'z').build().generate(32);
+        return new RandomStringGenerator.Builder().withinRange('0', 'z').build().generate(8);
     }
-
 }

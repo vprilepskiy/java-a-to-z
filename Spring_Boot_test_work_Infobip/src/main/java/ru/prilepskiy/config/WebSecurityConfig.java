@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // все запросы должны быть обработаны через фильтр
             .authorizeRequests()
             // пропустить
-            .antMatchers("/api/*.skip").permitAll()
+            .antMatchers("/account").permitAll()
             // все пользователи должны быть авторизованы
             .anyRequest().authenticated()
             .and()

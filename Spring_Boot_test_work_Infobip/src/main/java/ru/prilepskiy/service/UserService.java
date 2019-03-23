@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.prilepskiy.entity.RoleEntity;
 import ru.prilepskiy.entity.UserEntity;
+import ru.prilepskiy.helper.Utils;
 import ru.prilepskiy.repository.RoleRepository;
 import ru.prilepskiy.repository.UserRepository;
 
@@ -22,6 +23,8 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private Utils utils;
 
     @PostConstruct
     public void init() {
@@ -40,7 +43,7 @@ public class UserService implements UserDetailsService {
         return userDetails;
     }
 
-    public Optional<UserEntity> addUserIfNotExist(String login) {
+    public Optional<String> saveUserIfNotExistAndGetPassword(String login) {
         if (this.userRepository.findByUsername(login) != null) {
             return Optional.empty();
         } else {
@@ -48,13 +51,15 @@ public class UserService implements UserDetailsService {
             final UserEntity user = new UserEntity();
             user.setAuthorities(Arrays.asList(role));
             user.setUsername(login);
+            String password = this.utils.generatePassword();
             // зашифоровать пароль
-            user.setPassword(new BCryptPasswordEncoder().encode("1111"));
+            user.setPassword(new BCryptPasswordEncoder().encode(password));
             user.setAccountNonExpired(true);
             user.setAccountNonLocked(true);
             user.setCredentialsNonExpired(true);
             user.setEnabled(true);
-            return Optional.of(this.userRepository.save(user));
+            this.userRepository.save(user);
+            return Optional.of(password);
         }
     }
 }
