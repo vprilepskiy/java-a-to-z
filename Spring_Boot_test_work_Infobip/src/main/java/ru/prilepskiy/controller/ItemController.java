@@ -11,7 +11,6 @@ import ru.prilepskiy.service.ItemService;
 import java.security.Principal;
 import java.util.List;
 
-@RequestMapping("/api")
 @RestController
 public class ItemController {
 

@@ -11,4 +11,8 @@ public class UserController {
         return new Account(true, "Your account is opened", "pass");
     }
 
+    //TODO: Написать контроллеры.
+    //TODO: Добавить генерацию пароля.
+    //TODO: Добавить в return shortened URL.
+
 }

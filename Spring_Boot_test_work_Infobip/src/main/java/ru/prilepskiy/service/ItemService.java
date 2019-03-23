@@ -21,7 +21,7 @@ public class ItemService {
     @Autowired
     ItemRepository itemRepository;
 
-    public ItemsEntity addItem(String url, Integer redirectType) {
+    public ItemsEntity saveOrUpdate(String url, Integer redirectType) {
         Principal principal = SecurityContextHolder.getContext().getAuthentication();
         UserEntity user = this.userRepository.findFirstByUsername(principal.getName());
         ItemsEntity findItem = this.itemRepository.findFirstByUrlAndRedirectTypeAndUser(url, redirectType, user);

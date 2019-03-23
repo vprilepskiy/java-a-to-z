@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
         return userDetails;
     }
 
-    public Optional<UserEntity> addUser(String login) {
+    public Optional<UserEntity> addUserIfNotExist(String login) {
         if (this.userRepository.findByUsername(login) != null) {
             return Optional.empty();
         } else {
