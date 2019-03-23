@@ -6,6 +6,6 @@ import ru.prilepskiy.entity.UserEntity;
 
 public interface ItemRepository extends CrudRepository<ItemsEntity, Integer> {
 
-    ItemsEntity findFirstByIdAndUser(Integer id, UserEntity user);
+    ItemsEntity findFirstByUrlAndRedirectTypeAndUser(String url, Integer redirectType, UserEntity user);
 
 }

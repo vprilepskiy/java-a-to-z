@@ -26,16 +26,6 @@ public class ItemController {
 
     @PostMapping("/Item")
     public ItemsEntity addItem(Principal principal, int markId, int modelId, int bodyTypeId, int year, int price) {
-        return this.itemService.addItem(principal, markId, modelId, bodyTypeId, year, price);
-    }
-
-    @PostMapping("/SetStateItem")
-    public ItemsEntity setActive(int itemId, boolean state) {
-        return this.itemService.setActive(itemId, state);
-    }
-
-    @PostMapping("/FileUpload")
-    public ItemsEntity updatePhoto(ItemsEntity photo) {
-        return this.itemService.updatePhoto(photo);
+        return null;
     }
 }

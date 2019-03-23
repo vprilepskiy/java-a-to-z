@@ -1,7 +1,6 @@
 package ru.prilepskiy.helper;
 
 import org.apache.commons.text.RandomStringGenerator;
-
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 

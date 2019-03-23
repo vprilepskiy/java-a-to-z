@@ -21,14 +21,20 @@ public class ItemService {
     @Autowired
     ItemRepository itemRepository;
 
-
-    public ItemsEntity addItem(Principal principal, int markId, int modelId, int bodyTypeId, int year, int price) {
-        UserEntity user = this.userRepository.findFirstByLogin(principal.getName());
-
-        ItemsEntity item = new ItemsEntity();
-        item.setUser(user);
-
-        // добавить объявление
-        return this.itemRepository.save(item);
+    public ItemsEntity addItem(String url, Integer redirectType) {
+        Principal principal = SecurityContextHolder.getContext().getAuthentication();
+        UserEntity user = this.userRepository.findFirstByUsername(principal.getName());
+        ItemsEntity findItem = this.itemRepository.findFirstByUrlAndRedirectTypeAndUser(url, redirectType, user);
+        if (findItem != null) {
+            findItem.setCount(Math.incrementExact(findItem.getCount()));
+            return this.itemRepository.save(findItem);
+        } else {
+            ItemsEntity item = new ItemsEntity();
+            item.setUrl(url);
+            item.setRedirectType(redirectType);
+            item.setUser(user);
+            item.setCount(1);
+            return this.itemRepository.save(item);
+        }
     }
 }

@@ -1,45 +1,60 @@
 package ru.prilepskiy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import ru.prilepskiy.entity.RoleEntity;
 import ru.prilepskiy.entity.UserEntity;
+import ru.prilepskiy.repository.RoleRepository;
 import ru.prilepskiy.repository.UserRepository;
 
+import javax.annotation.PostConstruct;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Service
-@Transactional
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-    @Bean
-    public PasswordEncoder bcryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    public Optional<UserEntity> findByLoginAndPassword(String login, String password) {
-        UserEntity user = this.userRepository.findFirstByLogin(login);
-        if (user != null && this.bcryptPasswordEncoder().matches(password, user.getPassword())) {
-            return Optional.of(user);
-        } else {
-            return Optional.empty();
+    @PostConstruct
+    public void init() {
+        if (this.roleRepository.findByAuthority("USER") == null) {
+            final RoleEntity role = new RoleEntity("USER");
+            this.roleRepository.save(role);
         }
     }
 
-    public Optional<UserEntity> findByLogin(String login) {
-        return Optional.ofNullable(this.userRepository.findFirstByLogin(login));
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        final UserDetails userDetails = this.userRepository.findByUsername(username);
+        if (userDetails == null) {
+            throw new UsernameNotFoundException("User " + username + " was not found!");
+        }
+        return userDetails;
     }
 
-    public UserEntity save(String login, String password) {
-        UserEntity user = new UserEntity();
-        user.setLogin(login);
-        user.setPassword(this.bcryptPasswordEncoder().encode(password));
-        return this.userRepository.save(user);
+    public Optional<UserEntity> addUser(String login) {
+        if (this.userRepository.findByUsername(login) != null) {
+            return Optional.empty();
+        } else {
+            final RoleEntity role = this.roleRepository.findByAuthority("USER");
+            final UserEntity user = new UserEntity();
+            user.setAuthorities(Arrays.asList(role));
+            user.setUsername(login);
+            // зашифоровать пароль
+            user.setPassword(new BCryptPasswordEncoder().encode("1111"));
+            user.setAccountNonExpired(true);
+            user.setAccountNonLocked(true);
+            user.setCredentialsNonExpired(true);
+            user.setEnabled(true);
+            return Optional.of(this.userRepository.save(user));
+        }
     }
 }

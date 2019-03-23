@@ -18,6 +18,7 @@ import java.io.Serializable;
 public class ItemsEntity implements Serializable {
     private int id;
     private String url;
+    private Integer redirectType;
     private UserEntity user;
     private Integer count;
 
@@ -40,6 +41,16 @@ public class ItemsEntity implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Basic
+    @Column(name = "redirect_type")
+    public Integer getRedirectType() {
+        return redirectType;
+    }
+
+    public void setRedirectType(Integer redirectType) {
+        this.redirectType = redirectType;
     }
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
