@@ -19,6 +19,8 @@ import java.util.Optional;
 @Service
 public class UserService implements UserDetailsService {
 
+    private final String defaultRole = "USER";
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -28,9 +30,8 @@ public class UserService implements UserDetailsService {
 
     @PostConstruct
     public void init() {
-        if (this.roleRepository.findByAuthority("USER") == null) {
-            final RoleEntity role = new RoleEntity("USER");
-            this.roleRepository.save(role);
+        if (this.roleRepository.findByAuthority(defaultRole) == null) {
+            this.roleRepository.save(new RoleEntity(defaultRole));
         }
     }
 
@@ -47,7 +48,7 @@ public class UserService implements UserDetailsService {
         if (this.userRepository.findByUsername(login) != null) {
             return Optional.empty();
         } else {
-            final RoleEntity role = this.roleRepository.findByAuthority("USER");
+            final RoleEntity role = this.roleRepository.findByAuthority(defaultRole);
             final UserEntity user = new UserEntity();
             user.setAuthorities(Arrays.asList(role));
             user.setUsername(login);

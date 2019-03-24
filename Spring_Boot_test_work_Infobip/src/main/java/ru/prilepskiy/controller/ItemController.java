@@ -15,7 +15,7 @@ import java.util.stream.StreamSupport;
 @RestController
 public class ItemController {
 
-    private String domainUrl = "http://short.com/";
+    private final String domainUrl = "http://short.com/";
 
     @Autowired
     ItemService itemService;

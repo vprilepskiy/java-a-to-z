@@ -1,10 +1,8 @@
 package ru.prilepskiy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.prilepskiy.entity.UserEntity;
 import ru.prilepskiy.response.Account;
 import ru.prilepskiy.service.UserService;
 

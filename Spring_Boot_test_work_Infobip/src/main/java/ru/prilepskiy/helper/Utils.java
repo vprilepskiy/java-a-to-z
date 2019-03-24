@@ -3,9 +3,6 @@ package ru.prilepskiy.helper;
 import org.apache.commons.text.RandomStringGenerator;
 import org.springframework.stereotype.Component;
 
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-
 @Component
 public class Utils {
 
