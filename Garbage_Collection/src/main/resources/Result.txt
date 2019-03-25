@@ -1,0 +1,66 @@
+VM Options: -Xmx10m
+GC стабильно вызывается при нехватке памяти в heap.
+220000 элементов * 24kb = ~5156Mb. (по логу Used Memory: 5998)
+
+##### Heap utilization statistics [KB]: BEGIN #####
+Used Memory: 583
+Free Memory: 9144
+Total Memory: 9728
+Max Memory: 9728
+i: 0
+i: 20000
+i: 40000
+i: 60000
+i: 80000
+i: 100000
+i: 120000
+i: 140000
+i: 160000
+i: 180000
+i: 200000
+##### Heap utilization statistics [KB]: END #####
+Used Memory: 6581
+Free Memory: 3146
+Total Memory: 9728
+Max Memory: 9728
+##### Heap utilization statistics [KB]: DIFFERENT #####
+Used Memory: 5998
+Free Memory: -5998
+Total Memory: 0
+Max Memory: 0
+220000
+##### Heap utilization statistics [KB]: BEGIN #####
+Used Memory: 6622
+Free Memory: 3105
+Total Memory: 9728
+Max Memory: 9728
+i: 0
+i: 20000
+##### Heap utilization statistics [KB]: *************** Run GC *************** #####
+Used Memory: 2103
+Free Memory: 7624
+Total Memory: 9728
+Max Memory: 9728
+i: 40000
+i: 60000
+i: 80000
+i: 100000
+i: 120000
+i: 140000
+i: 160000
+i: 180000
+i: 200000
+Disconnected from the target VM, address: '127.0.0.1:57064', transport: 'socket'
+##### Heap utilization statistics [KB]: END #####
+Used Memory: 6520
+Free Memory: 2183
+Total Memory: 8704
+Max Memory: 9216
+##### Heap utilization statistics [KB]: DIFFERENT #####
+Used Memory: -102
+Free Memory: -922
+Total Memory: -1024
+Max Memory: -512
+220000
+
+Process finished with exit code 0
