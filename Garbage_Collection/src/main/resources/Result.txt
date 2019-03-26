@@ -1,6 +1,9 @@
 VM Options: -Xmx10m
+
 GC стабильно вызывается при нехватке памяти в heap.
-220000 элементов * 24kb = ~5156Mb. (по логу Used Memory: 5998)
+220000 элементов * 24b = ~5156Mb. (по логу Used Memory: 5998)
+Особой разницы в поведении программы при вызове метода System.gc(); я не увидел.
+
 
 ##### Heap utilization statistics [KB]: BEGIN #####
 Used Memory: 583
