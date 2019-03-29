@@ -1,5 +1,6 @@
 package ru.prilepskiy.service;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import ru.prilepskiy.entity.BodyTypesEntity;
 import ru.prilepskiy.entity.ItemsEntity;
 import ru.prilepskiy.entity.MarksEntity;
@@ -26,6 +27,7 @@ public class ItemService {
     ItemRepository itemRepository;
 
     @Autowired
+    @Qualifier("itemRepositoryCustomJdbcImpl")
     ItemRepositoryCustom itemRepositoryCustom;
 
     @Autowired
