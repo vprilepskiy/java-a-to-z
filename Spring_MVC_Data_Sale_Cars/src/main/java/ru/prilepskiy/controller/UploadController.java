@@ -14,7 +14,7 @@ import java.io.IOException;
 public class UploadController {
 
     @Autowired
-    ItemService itemService;
+    private ItemService itemService;
 
     @GetMapping("/")
     public String index() {

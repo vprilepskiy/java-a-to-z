@@ -19,7 +19,7 @@ import java.util.List;
 public class ItemRepositoryCustomJdbcImpl implements ItemRepositoryCustom {
 
     @Autowired
-    PersistenceJPAConfig jpaConfig;
+    private PersistenceJPAConfig jpaConfig;
 
     @Override
     public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId, boolean active) {

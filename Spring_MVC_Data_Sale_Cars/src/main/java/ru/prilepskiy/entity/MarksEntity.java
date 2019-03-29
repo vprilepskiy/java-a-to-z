@@ -24,7 +24,6 @@ public class MarksEntity {
     public MarksEntity() {
     }
 
-
     public MarksEntity(int id) {
         this.id = id;
     }

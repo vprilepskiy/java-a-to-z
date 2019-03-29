@@ -18,13 +18,13 @@ import java.util.List;
 public class RestApi {
 
     @Autowired
-    ItemService itemService;
+    private ItemService itemService;
 
     @Autowired
-    MarkService markService;
+    private MarkService markService;
 
     @Autowired
-    BobyTypeService bobyTypeService;
+    private BobyTypeService bobyTypeService;
 
     @GetMapping("/Items")
     public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId, boolean active) {

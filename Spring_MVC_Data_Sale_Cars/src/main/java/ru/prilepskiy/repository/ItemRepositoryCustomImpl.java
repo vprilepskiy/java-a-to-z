@@ -21,10 +21,10 @@ import java.util.List;
 public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Autowired
-    MarksRepository marksRepository;
+    private MarksRepository marksRepository;
 
     @Override
     public List<ItemsEntity> getItems(boolean today, boolean withPhoto, int markId, boolean active) {
