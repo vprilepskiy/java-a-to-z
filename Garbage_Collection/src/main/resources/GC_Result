@@ -1,0 +1,4 @@
+-XX:+UseSerialGC    10 sec
+-XX:+UseParallelGC  46 sec
+-XX:+USeParNewGC    10 sec
+-XX:+UseG1GC        80 sec
