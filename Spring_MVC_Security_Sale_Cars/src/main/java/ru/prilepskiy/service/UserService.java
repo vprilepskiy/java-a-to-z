@@ -27,11 +27,7 @@ public class UserService {
     public Optional<UserEntity> findByLoginAndPassword(String login, String password) {
         Iterable<UserEntity> users = this.userRepository.findByLogin(login);
         Optional<UserEntity> user = StreamSupport.stream(users.spliterator(), false).findFirst();
-        if (user.isPresent() && this.bcryptPasswordEncoder().matches(password, user.get().getPassword())) {
-            return user;
-        } else {
-            return Optional.empty();
-        }
+        return user.filter(u -> this.bcryptPasswordEncoder().matches(password, u.getPassword()));
     }
 
     public Iterable<UserEntity> findByLogin(String login) {

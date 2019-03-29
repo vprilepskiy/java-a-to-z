@@ -24,12 +24,8 @@ public class UserService {
     }
 
     public Optional<UserEntity> findByLoginAndPassword(String login, String password) {
-        UserEntity user = this.userRepository.findFirstByLogin(login);
-        if (user != null && this.bcryptPasswordEncoder().matches(password, user.getPassword())) {
-            return Optional.of(user);
-        } else {
-            return Optional.empty();
-        }
+        Optional<UserEntity> user = Optional.ofNullable(this.userRepository.findFirstByLogin(login));
+        return user.filter(u -> this.bcryptPasswordEncoder().matches(password, u.getPassword()));
     }
 
     public Optional<UserEntity> findByLogin(String login) {
