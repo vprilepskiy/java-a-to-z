@@ -11,24 +11,28 @@ import static org.junit.Assert.*;
 
 public class FileReaderTest {
 
+    /**
+     * В тесте выполняются следующие шаги:
+     *  создать временный файл
+     *  записать значение
+     *  чтение из файла
+     *  проверка что файл существует
+     *  проверка что файл успешно удален
+     *  проверка что файла не существует
+     *  проверка что выполняется чтение из кэша
+     * @throws IOException
+     */
     @Test
     public void read() throws IOException {
         final String text = "Hello World !!!";
-        // создать временный файл
         final File tempFile = File.createTempFile("tempFile", ".tmp");
-        // записать значение
         Files.write(Paths.get(tempFile.getAbsolutePath()), text.getBytes());
 
         FileReader fileReader = new FileReader();
-        // чтение из файла
         assertEquals(text, fileReader.read(tempFile.getAbsolutePath()));
-        // файл существует
         assertTrue(tempFile.exists());
-        // файл успешно удален
         assertTrue(tempFile.delete());
-        // файла не существует
         assertFalse(tempFile.exists());
-        // чтение из кэша
         assertEquals(text, fileReader.read(tempFile.getAbsolutePath()));
     }
 }

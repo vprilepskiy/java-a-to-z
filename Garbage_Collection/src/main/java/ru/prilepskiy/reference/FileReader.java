@@ -9,10 +9,10 @@ import java.util.stream.Stream;
 
 public class FileReader {
 
-    private Cache<String, String> cache = new Cache<>();
+    private final Cache<String, String> cache = new Cache<>();
 
     public String read(String path) {
-        String result;
+        String result = null;
         Optional<String> cacheValue = this.cache.get(path);
         if (cacheValue.isPresent()) {
             result = cacheValue.get();
