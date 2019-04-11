@@ -1,0 +1,1 @@
+package wait.task2;
