@@ -1,4 +1,4 @@
-package ru.prilepskiy.executor;
+package example.executor;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
