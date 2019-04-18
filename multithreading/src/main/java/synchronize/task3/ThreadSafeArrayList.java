@@ -8,6 +8,10 @@ public class ThreadSafeArrayList<T> implements Iterable<T> {
 
     private List<T> list = new ArrayList();
 
+    public synchronized boolean add(T element) {
+        return this.list.add(element);
+    }
+
     @Override
     public synchronized Iterator<T> iterator() {
         return copy(this.list).iterator();
