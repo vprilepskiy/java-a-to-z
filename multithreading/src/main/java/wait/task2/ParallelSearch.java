@@ -2,22 +2,27 @@ package wait.task2;
 
 import wait.task1.SimpleBlockingQueue;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 public class ParallelSearch {
+
+    private volatile static Thread consumer;
+    private volatile static Thread producer;
 
     public static void main(String[] args) {
         final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(2);
-        AtomicBoolean isAlive = new AtomicBoolean(true);
 
-        final Thread consumer = new Thread(() -> {
-                while (isAlive.get()) {
+        consumer = new Thread(() -> {
+                while (!(producer.getState() == Thread.State.TERMINATED)) {
                     System.out.println(queue.poll());
+                    try {
+                        Thread.sleep(30);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         );
 
-        final Thread producer = new Thread(() -> {
+        producer = new Thread(() -> {
             for (int index = 0; index != 3; index++) {
                 try {
                     queue.offer(index);
@@ -26,7 +31,6 @@ public class ParallelSearch {
                     e.printStackTrace();
                 }
             }
-            isAlive.set(false);
         });
 
         consumer.start();

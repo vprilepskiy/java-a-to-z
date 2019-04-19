@@ -25,7 +25,7 @@ public class SimpleBlockingQueue<T> {
     public void offer(T value) throws InterruptedException {
         synchronized(this.lock) {
             if (this.queue.size() >= this.permitSize) {
-                this.lock.wait(5000);
+                this.lock.wait();
             }
             this.queue.offer(value);
         }
