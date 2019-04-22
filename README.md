@@ -1,4 +1,8 @@
-# JOB4J
+# Курс JOB4J.ru
+**_Темы: Java SE, Java EE, JS, Шаблоны проектирования, OOP, Maven, Gradle, Collections, Multithreading, JDBC, SQL.
+Frameworks: Servlet, Hibernate, Spring, Rest API_**
+
+
 **Инструменты:**
 Maven, jUnit, Git, IntelliJ Idea, Сheckstyle.
 
