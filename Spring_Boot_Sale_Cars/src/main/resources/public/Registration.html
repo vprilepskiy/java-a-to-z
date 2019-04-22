@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="css/jquery.timepicker.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <script>
         /**
@@ -52,7 +52,7 @@
                         },
                         error: function (e) {
                             if (e.status === 401) {
-                                htmlMessage.innerHTML = 'Пользователь с таким именем уже существует!';
+                                htmlMessage.innerHTML = 'User with the same name already exists!';
                             } else {
                                 console.log("ERROR : ", e);
                             }
@@ -69,17 +69,25 @@
     </script>
 
 </head>
-<body>
+<body style="background-color: #F5F5F5">
 
-<p id="message"></p>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <!-- Brand/logo -->
+    <a class="navbar-brand" href="/MainPage.html">Sale cars</a>
+</nav>
 
-<div>
-    <form>
-        <label>Login</label><input type="text" name="login"/>
-        <label>Password</label><input type="password" name="password_1"/>
-        <label>Password</label><input type="password" name="password_2"/>
-        <input type="button" value="Registration..." onclick="registration();"/>
-    </form>
+<div class="container">
+    <div class="shadow-lg p-3 mb-5 bg-white rounded">
+        <div>
+            <form>
+                <label>Login</label><input type="text" name="login"/>
+                <label>Password</label><input type="password" name="password_1"/>
+                <label>Password</label><input type="password" name="password_2"/>
+                <input type="button" value="Registration..." onclick="registration();"/>
+            </form>
+            <p id="message"></p>
+        </div>
+    </div>
 </div>
 
 </body>

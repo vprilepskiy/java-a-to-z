@@ -17,6 +17,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // пропустить
             .antMatchers("/*.html").permitAll()
             .antMatchers("/js/*.js").permitAll()
+            .antMatchers("/css/*.css").permitAll()
             .antMatchers("/auth/**").permitAll()
             .antMatchers("/api/*.skip").permitAll()
             // пропустить

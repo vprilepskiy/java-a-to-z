@@ -285,7 +285,7 @@ function viewSessionStatus() {
 
                     // отобразить логин зарегестрировавшегося пользователя
                     var htmlMessage = document.getElementById("message");
-                    htmlMessage.innerHTML = login;
+                    htmlMessage.innerHTML = "User name: " + login;
 
                     // показать блок
                     document.getElementById("LogOut_form").style.visibility = 'visible';
@@ -299,6 +299,9 @@ function viewSessionStatus() {
                     // показать блок
                     document.getElementById("only_my").style.visibility = 'visible';
 
+                    // скрыть блок
+                    document.getElementById("Reg_form").style.visibility = 'hidden';
+
                 } else {
                     // скрыть блок
                     document.getElementById("LogOut_form").style.visibility = 'hidden';
@@ -311,6 +314,9 @@ function viewSessionStatus() {
 
                     // скрыть блок
                     document.getElementById("only_my").style.visibility = 'hidden';
+
+                    // показать блок
+                    document.getElementById("Reg_form").style.visibility = 'visible';
                 }
             }
         })
