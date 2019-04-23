@@ -2,8 +2,8 @@ package pools;
 
 import wait.task1.SimpleBlockingQueue;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Конструктор создает зациклевшиеся потоки и запускает их.
@@ -12,7 +12,7 @@ import java.util.Map;
 public class ThreadPool {
 
     private final int cores = Runtime.getRuntime().availableProcessors();
-    private final Map<Object, Thread> threads = new HashMap<>();
+    private final Set<Thread> threads = new HashSet<>();
     private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>(cores * 4);
 
     /**
@@ -21,23 +21,15 @@ public class ThreadPool {
      */
     public ThreadPool() {
         for (int i = 1; i <= this.cores; i++) {
-            Object lock = new Object();
-            this.threads.put(lock, this.runner(lock));
+            this.threads.add(this.runner());
         }
     }
 
     /**
      * Добавлять задачи в блокирующую очередь tasks.
-     * Разбудит ожидающие потоки.
      */
     public void work(Runnable job) throws InterruptedException {
         this.tasks.offer(job);
-
-        for (Object lock : this.threads.keySet()) {
-            synchronized (lock) {
-                lock.notify();
-            }
-        }
     }
 
     /**
@@ -45,22 +37,14 @@ public class ThreadPool {
      * Если выполнение закончилось, то берет следующую.
      * Поток можно прервать методом interrupt().
      */
-    private Thread runner(Object lock) {
+    private Thread runner() {
         Thread thread = new Thread() {
             @Override
             public void run() {
-                synchronized (lock) {
-                    while (!Thread.currentThread().isInterrupted()) {
-                        Runnable task = tasks.poll();
-                        if (task != null) {
-                            task.run();
-                        } else {
-                            try {
-                                lock.wait();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
+                while (!Thread.currentThread().isInterrupted() || tasks.size() > 0) {
+                    Runnable task = tasks.poll();
+                    if (task != null) {
+                        task.run();
                     }
                 }
                 System.out.printf("%s exit %n", Thread.currentThread().getName());
@@ -71,15 +55,10 @@ public class ThreadPool {
     }
 
     /**
-     * Остановить выполнение.
+     * Выполнить оставшиеся задания и остановится.
      */
     public void shutdown() {
-        for (Map.Entry<Object, Thread> entries : threads.entrySet()) {
-            synchronized (entries.getKey()) {
-                entries.getKey().notify();
-                entries.getValue().interrupt();
-            }
-        }
+        threads.forEach(thread -> thread.interrupt());
     }
 
 
