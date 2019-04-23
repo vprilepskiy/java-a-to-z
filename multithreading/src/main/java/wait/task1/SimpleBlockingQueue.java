@@ -37,4 +37,8 @@ public class SimpleBlockingQueue<T> {
             return this.queue.poll();
         }
     }
+
+    public int size() {
+        return this.queue.size();
+    }
 }

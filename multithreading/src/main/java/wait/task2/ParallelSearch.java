@@ -11,7 +11,7 @@ public class ParallelSearch {
         final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(2);
 
         consumer = new Thread(() -> {
-                while (!(producer.getState() == Thread.State.TERMINATED)) {
+                while (producer.getState() != Thread.State.TERMINATED || queue.size() != 0) {
                     System.out.println(queue.poll());
                     try {
                         Thread.sleep(30);
