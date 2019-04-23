@@ -1,5 +1,7 @@
 var base64 = "data:image/png;base64, ";
 
+var loggedIn = false;
+
 /**
  * Показать все детали. Параметры взять с DOM.
  */
@@ -51,6 +53,8 @@ function viewAllItems(today, with_photo, mark_id, active, only_my) {
                             "<input type='button' value='Загрузить' onclick='file_ajax_submit(this);'/>" +
                         "</form>";
 
+                        var form_add_photo = loggedIn ? form_add_photo : "";
+
                         var photo = "<img src='" + base64 + items[i].photo + "' alt='none', height='120'>";
 
                         result += "<tr>" +
@@ -60,7 +64,7 @@ function viewAllItems(today, with_photo, mark_id, active, only_my) {
                             "<td>" + items[i].bodyType.description + "</td>" +
                             "<td>" + items[i].year + "</td>" +
                             "<td>" + items[i].price + "</td>" +
-                            "<td>" + DateFormat.format.date(new Date(items[i].created), 'dd/MM/yyyy HH:mm"ss') + "</td>" +
+                            "<td>" + DateFormat.format.date(new Date(items[i].created), 'dd/MM/yyyy HH:mm:ss') + "</td>" +
                             "<td>" +
                             "<input type='checkbox' value='" + items[i].id + "'" + check + "onchange='setState(this.value, this.checked);'" + "/>" +
                             "</td>" +
@@ -280,7 +284,7 @@ function viewSessionStatus() {
                 console.log(data.responseText);
 
                 if (data.responseText != '') {
-
+                    loggedIn = true;
                     var login = data.responseText;
 
                     // отобразить логин зарегестрировавшегося пользователя
@@ -303,6 +307,8 @@ function viewSessionStatus() {
                     $("#Reg_form").hide("slow");
 
                 } else {
+                    loggedIn = false;
+
                     // скрыть блок
                     $("#LogOut_form").hide("slow");
 
