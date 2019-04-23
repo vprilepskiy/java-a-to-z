@@ -18,7 +18,7 @@ public class NonBlockingCache {
      */
     public Base update(Base base) {
         return this.map.computeIfPresent(base.getId(), (k, v) -> {
-            if (!base.equals(v)) {
+            if (base.getVersion() != v.getVersion()) {
                 throw new OptimisticException();
             }
             v.setVersion(v.getVersion() + 1);
