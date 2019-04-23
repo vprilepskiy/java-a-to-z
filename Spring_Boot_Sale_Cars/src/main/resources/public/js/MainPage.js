@@ -46,12 +46,12 @@ function viewAllItems(today, with_photo, mark_id, active, only_my) {
                         var check = items[i].active ? ' checked ' : ' ';
 
                         var form_add_photo = "<form method='POST' enctype='multipart/form-data' class='fileUploadForm'>" +
-                            "Photo: <input type='file' name='files'>" +
+                            "<input type='file' name='files'>" +
                             "<input type='number' value='" + items[i].id + "' name='itemId' about='attributes for upload' hidden>" +
-                            "<input type='button' value='Attach image' onclick='file_ajax_submit(this);'/>" +
+                            "<input type='button' value='Загрузить' onclick='file_ajax_submit(this);'/>" +
                         "</form>";
 
-                        var photo = "<img src='" + base64 + items[i].photo + "'>";
+                        var photo = "<img src='" + base64 + items[i].photo + "' alt='none', height='120'>";
 
                         result += "<tr>" +
                             "<td>" + items[i].id + "</td>" +
@@ -60,7 +60,7 @@ function viewAllItems(today, with_photo, mark_id, active, only_my) {
                             "<td>" + items[i].bodyType.description + "</td>" +
                             "<td>" + items[i].year + "</td>" +
                             "<td>" + items[i].price + "</td>" +
-                            "<td>" + new Date(items[i].created).toUTCString() + "</td>" +
+                            "<td>" + DateFormat.format.date(new Date(items[i].created), 'dd/MM/yyyy HH:mm"ss') + "</td>" +
                             "<td>" +
                             "<input type='checkbox' value='" + items[i].id + "'" + check + "onchange='setState(this.value, this.checked);'" + "/>" +
                             "</td>" +
@@ -288,35 +288,35 @@ function viewSessionStatus() {
                     htmlMessage.innerHTML = "User name: " + login;
 
                     // показать блок
-                    document.getElementById("LogOut_form").style.visibility = 'visible';
+                    $("#LogOut_form").show("slow");
 
                     // скрыть блок
-                    document.getElementById("LogIn_form").style.visibility = 'hidden';
+                    $("#LogIn_form").hide("slow");
 
                     // показать блок
-                    document.getElementById("add_item_form").style.visibility = 'visible';
+                    $("#add_item_form").show("slow");
 
                     // показать блок
-                    document.getElementById("only_my").style.visibility = 'visible';
+                    $("#only_my").show("slow");
 
                     // скрыть блок
-                    document.getElementById("Reg_form").style.visibility = 'hidden';
+                    $("#Reg_form").hide("slow");
 
                 } else {
                     // скрыть блок
-                    document.getElementById("LogOut_form").style.visibility = 'hidden';
+                    $("#LogOut_form").hide("slow");
 
                     // показать блок
-                    document.getElementById("LogIn_form").style.visibility = 'visible';
+                    $("#LogIn_form").show("slow");
 
                     // скрыть блок
-                    document.getElementById("add_item_form").style.visibility = 'hidden';
+                    $("#add_item_form").hide();
 
                     // скрыть блок
-                    document.getElementById("only_my").style.visibility = 'hidden';
+                    $("#only_my").hide("slow");
 
                     // показать блок
-                    document.getElementById("Reg_form").style.visibility = 'visible';
+                    $("#Reg_form").show("slow");
                 }
             }
         })

@@ -6,6 +6,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/dateFormat.min.js"></script>
     <script src="js/MainPage.js"></script>
 
     <link rel="stylesheet" href="css/jquery.timepicker.min.css">
@@ -23,14 +24,14 @@
     <!-- Links -->
     <ul class="navbar-nav">
         <li class="nav-item">
-            <div id="Reg_form" style="visibility: visible">
+            <div id="Reg_form">
                 <a class="nav-link" href="/Registration.html">User registration</a>
             </div>
         </li>
     </ul>
 
     <span class="navbar-nav  ml-auto">
-        <div id="LogOut_form" style="visibility: hidden">
+        <div id="LogOut_form">
             <button id="buttonSignOut" onclick="signOut();">Выйти</button>
         </div>
     </span>
@@ -59,58 +60,25 @@
 
     <div class="shadow-lg p-3 mb-5 bg-white rounded">
 
-        <div>
-            <form about="Add new Item" id="add_item_form" style="visibility: hidden">
-                <table>
-                    <tr>
-                        <td>
-                            <label>Mark</label>
-                        </td>
-                        <td>
-                            <select id="select_mark" onchange="viewModels(MARKS, this.value)"></select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Model</label>
-                        </td>
-                        <td>
-                            <select id="select_model"></select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Body type</label>
-                        </td>
-                        <td>
-                            <select id="select_body_type"></select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Year</label>
-                        </td>
-                        <td>
-                            <input id="year" type="number" id="year" value="1900" min="1900" max="2099"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Price</label>
-                        </td>
-                        <td>
-                            <input id="price" type="number" id="price" value="0" min="0" max="999999999"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <!--<input type="checkbox" value="1" checked onchange='setState(this.value, this.checked);'>-->
-                        </td>
-                        <td>
-                            <input type="button" value="Add item..." onclick="addItem();"/>
-                        </td>
-                    </tr>
-                </table>
+        <div about="Add new Item">
+            <form id="add_item_form">
+                <label>Mark</label>
+                <select id="select_mark" onchange="viewModels(MARKS, this.value)"></select>
+
+                <label>Model</label>
+
+                <select id="select_model"></select>
+
+                <label>Body type</label>
+                <select id="select_body_type"></select>
+
+                <label>Year</label>
+                <input id="year" type="number" id="year" value="1900" min="1900" max="2099"/>
+
+                <label>Price</label>
+                <input id="price" type="number" id="price" value="0" min="0" max="999999999"/>
+
+                <input type="button" class="btn btn-success col-2" value="Add item..." onclick="addItem();"/>
             </form>
         </div>
 
@@ -118,10 +86,12 @@
             <form>
                 <label>Today: </label><input id="today" type="checkbox">
                 <label>Witch photo: </label><input id="witch_photo" type="checkbox">
-                <label>Mark: </label><select id="select_mark_filter"><option value="0">All marks</option></select>
+                <label>Mark: </label><select id="select_mark_filter">
+                <option value="0">All marks</option>
+            </select>
                 <label>Active: </label><input id="active" type="checkbox">
-                <span id="only_my" style="visibility: hidden"><label>Only my: </label><input id="only_my_checkbox" type="checkbox"></span>
-                <input type="button" value="filer" onclick="viewItems();">
+                <span id="only_my"><label>Only my: </label><input id="only_my_checkbox" type="checkbox"></span>
+                <input type="button" class="btn btn-info" value="filer" onclick="viewItems();">
             </form>
         </div>
     </div>
@@ -134,7 +104,7 @@
 
         </div>
 
-        <table class="table table-condensed table-sm   shadow p-3 mb-5 bg-white rounded"  id="View_all_items">
+        <table class="table table-condensed table-sm   shadow p-3 mb-5 bg-white rounded" id="View_all_items">
             <tr>
                 <th>id</th>
                 <th>Mark</th>
@@ -146,12 +116,6 @@
             </tr>
         </table>
     </div>
-
-
-
 </div>
-
-
-
 </body>
 </html>
