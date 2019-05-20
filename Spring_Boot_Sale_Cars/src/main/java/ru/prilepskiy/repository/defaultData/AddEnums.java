@@ -23,13 +23,19 @@ public class AddEnums {
 
     @Bean
     public Iterable<BodyTypesEntity> bodyTypes() {
-        final Set<BodyTypesEntity> bodyTypes = Arrays.stream(BodyTypes.values()).map(bt -> bt.getBodyType()).collect(Collectors.toSet());
-        return this.bodyTypesRepository.saveAll(bodyTypes);
+        if (this.bodyTypesRepository.count() == 0) {
+            final Set<BodyTypesEntity> bodyTypes = Arrays.stream(BodyTypes.values()).map(bt -> bt.getBodyType()).collect(Collectors.toSet());
+            return this.bodyTypesRepository.saveAll(bodyTypes);
+        }
+        return null;
     }
 
     @Bean
     public Iterable<MarksEntity> marks() {
-        final Set<MarksEntity> marks = Arrays.stream(Marks.values()).map(bt -> bt.getMark()).collect(Collectors.toSet());
-        return marksRepository.saveAll(marks);
+        if (this.marksRepository.count() == 0) {
+            final Set<MarksEntity> marks = Arrays.stream(Marks.values()).map(bt -> bt.getMark()).collect(Collectors.toSet());
+            return marksRepository.saveAll(marks);
+        }
+        return null;
     }
 }
