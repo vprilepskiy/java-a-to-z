@@ -53,8 +53,9 @@
         <module>Spring_Boot_Sale_Cars</module>
 		<module>Spring_Boot_test_work_Infobip</module>
 		<module>Garbage_Collection</module>
+        <module>Logics</module>
 
-	</modules>
+    </modules>
 
 	<dependencies>
 		<dependency>
