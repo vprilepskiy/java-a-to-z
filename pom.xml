@@ -54,8 +54,10 @@
 		<module>Spring_Boot_test_work_Infobip</module>
 		<module>Garbage_Collection</module>
         <module>Logics</module>
+        <module>Mapper</module>
+		<module>Annotation</module>
 
-    </modules>
+	</modules>
 
 	<dependencies>
 		<dependency>
