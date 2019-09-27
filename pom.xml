@@ -57,6 +57,7 @@
         <module>Mapper</module>
 		<module>Annotation</module>
         <module>Examples</module>
+        <module>Sprig_Boot_Elastic</module>
 
     </modules>
 
