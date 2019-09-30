@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-@Document(indexName = "User", type = "User")
+@Document(indexName = "user", type = "user")
 public class User {
 
     public User() {
