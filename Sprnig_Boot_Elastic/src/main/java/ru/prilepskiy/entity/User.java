@@ -17,12 +17,13 @@ public class User {
     public User(String id, String name) {
         this.id = id;
         this.name = name;
+        this.lastUpdateDate = Calendar.getInstance();
     }
 
     @Id
     private String id;
     private String name;
-    private Calendar lastUpdateDate = Calendar.getInstance();
+    private Calendar lastUpdateDate;
     private List<Role> roles = new ArrayList();
 
     public String getId() {
