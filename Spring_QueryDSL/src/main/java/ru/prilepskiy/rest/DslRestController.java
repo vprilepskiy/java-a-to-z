@@ -1,13 +1,16 @@
 package ru.prilepskiy.rest;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.prilepskiy.service.SchoolService;
 
+@Deprecated
 @RestController
-public class Echo {
+@RequestMapping("/dsl")
+public class DslRestController {
 
-    public Echo(SchoolService schoolService) {
+    public DslRestController(SchoolService schoolService) {
         this.schoolService = schoolService;
     }
 
@@ -18,7 +21,7 @@ public class Echo {
         return "echo";
     }
 
-    @GetMapping(path = "/jpa")
+    @GetMapping(path = "/dsl")
     public Integer dsl() {
         return this.schoolService.dsl();
     }

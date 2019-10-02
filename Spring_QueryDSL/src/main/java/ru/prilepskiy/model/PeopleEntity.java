@@ -1,23 +1,30 @@
 package ru.prilepskiy.model;
 
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+
 /**
  * Человек.
  */
+@MappedSuperclass
 public class PeopleEntity extends BaseEntity {
 
     /**
      * Имя.
      */
+    @Column
     private String firstName;
 
     /**
      * Отчество.
      */
+    @Column
     private String middleName;
 
     /**
      * Фамилия.
      */
+    @Column
     private String lastName;
 
     public String getFirstName() {
