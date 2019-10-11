@@ -4,5 +4,5 @@ import org.springframework.stereotype.Repository;
 import ru.prilepskiy.model.SchoolEntity;
 
 @Repository
-public interface SchoolJpaRepository extends SimpleJpaRepository<SchoolEntity, Integer> {
+public interface SchoolJpaRepository extends SpringJpaRepository<SchoolEntity, Integer> {
 }

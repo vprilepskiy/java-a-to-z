@@ -7,7 +7,7 @@ import javax.persistence.MappedSuperclass;
  * Человек.
  */
 @MappedSuperclass
-public class PeopleEntity extends BaseEntity {
+public abstract class PeopleEntity extends BaseEntity {
 
     /**
      * Имя.
