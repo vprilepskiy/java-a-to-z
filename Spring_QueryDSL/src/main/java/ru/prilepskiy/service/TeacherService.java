@@ -1,16 +1,12 @@
 package ru.prilepskiy.service;
 
-import com.mysema.query.jpa.JPASubQuery;
-import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.BooleanBuilder;
 import org.springframework.stereotype.Service;
-import ru.prilepskiy.model.QSchoolClassEntity;
-import ru.prilepskiy.model.QSchoolEntity;
 import ru.prilepskiy.model.QTeacherEntity;
+import ru.prilepskiy.model.SchoolClassEntity;
 import ru.prilepskiy.model.TeacherEntity;
 import ru.prilepskiy.repository.TeacherRepository;
 import ru.prilepskiy.search.TeacherSearchCriteria;
-
-import java.util.Optional;
 
 @Service
 public class TeacherService {
@@ -26,8 +22,42 @@ public class TeacherService {
     }
 
     public Iterable<TeacherEntity> find(TeacherSearchCriteria criteria) {
-        BooleanExpression teacherFirstName = QTeacherEntity.teacherEntity.firstName.contains(criteria.getTeacherFirstName());
-        BooleanExpression schoolId = QTeacherEntity.teacherEntity.classes.any().school.id.eq(criteria.getClassId());
-        return this.repository.findAll(teacherFirstName.and(schoolId));
+        final BooleanBuilder where = new BooleanBuilder();
+
+        if (criteria.getSchoolId() != null) {
+            where.and(QTeacherEntity.teacherEntity.classes.any().school.id.eq(criteria.getSchoolId()));
+        }
+
+        if (criteria.getClassId() != null) {
+            final SchoolClassEntity schoolClassEntity = new SchoolClassEntity();
+            schoolClassEntity.setId(criteria.getClassId());
+            where.and(QTeacherEntity.teacherEntity.classes.contains(schoolClassEntity));
+        }
+
+        if (criteria.getTeacherFirstName() != null) {
+            where.and(QTeacherEntity.teacherEntity.firstName.contains(criteria.getTeacherFirstName()));
+        }
+
+        if (criteria.getTeacherMiddleName() != null) {
+            where.and(QTeacherEntity.teacherEntity.middleName.contains(criteria.getTeacherFirstName()));
+        }
+
+        if (criteria.getTeacherLastName() != null) {
+            where.and(QTeacherEntity.teacherEntity.lastName.contains(criteria.getTeacherLastName()));
+        }
+
+        if (criteria.getStudentFirstName() != null) {
+            where.and(QTeacherEntity.teacherEntity.classes.any().students.any().firstName.contains(criteria.getStudentFirstName()));
+        }
+
+        if (criteria.getStudentMiddleName() != null) {
+            where.and(QTeacherEntity.teacherEntity.classes.any().students.any().middleName.contains(criteria.getStudentMiddleName()));
+        }
+
+        if (criteria.getStudentLastName() != null) {
+            where.and(QTeacherEntity.teacherEntity.classes.any().students.any().lastName.contains(criteria.getStudentLastName()));
+        }
+
+        return this.repository.findAll(where);
     }
 }

@@ -1,45 +1,55 @@
 package ru.prilepskiy.search;
 
+import org.springframework.lang.Nullable;
+
 public class TeacherSearchCriteria {
 
     /**
      * Идентификатор школы.
      */
+    @Nullable
     private Integer schoolId;
 
     /**
      * Идентификатор класса.
      */
+    @Nullable
     private Integer classId;
 
     /**
      * Имя учителя.
      */
+    @Nullable
     private String teacherFirstName;
 
     /**
      * Отчество учителя.
      */
+    @Nullable
     private String teacherMiddleName;
 
     /**
      * Фамилия учителя.
      */
+    @Nullable
     private String teacherLastName;
 
     /**
      * Имя ученика.
      */
+    @Nullable
     private String studentFirstName;
 
     /**
      * Отчество ученика.
      */
+    @Nullable
     private String studentMiddleName;
 
     /**
      * Фамилия ученика.
      */
+    @Nullable
     private String studentLastName;
 
     public Integer getSchoolId() {

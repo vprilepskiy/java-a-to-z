@@ -26,8 +26,8 @@ public class TeacherRest {
 
     @PostMapping(path = "/search")
     public Iterable<TeacherEntity> search(TeacherSearchCriteria criteria) {
-        return this.teacherService.find(criteria);
+        Iterable<TeacherEntity> teacher = this.teacherService.find(criteria);
+        //TODO: Mapping
+        return teacher;
     }
-
-
 }
