@@ -5,9 +5,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.prilepskiy.dto.TeacherDto;
 import ru.prilepskiy.model.TeacherEntity;
 import ru.prilepskiy.search.TeacherSearchCriteria;
 import ru.prilepskiy.service.TeacherService;
+
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/teacher")
@@ -25,9 +30,7 @@ public class TeacherRest {
     }
 
     @PostMapping(path = "/search")
-    public Iterable<TeacherEntity> search(TeacherSearchCriteria criteria) {
-        Iterable<TeacherEntity> teacher = this.teacherService.find(criteria);
-        //TODO: Mapping
-        return teacher;
+    public Set<TeacherDto> search(TeacherSearchCriteria criteria) {
+        return this.teacherService.find(criteria);
     }
 }

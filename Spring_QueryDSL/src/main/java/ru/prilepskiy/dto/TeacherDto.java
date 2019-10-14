@@ -22,12 +22,12 @@ public class TeacherDto extends BaseDto {
     /**
      * Школа.
      */
-    private String schoolNumber;
+    private SchoolDto school;
 
     /**
      * Классы.
      */
-    private Set<SchoolClassShortDto> classes;
+    private Set<SchoolClassDto> classes;
 
     /**
      * Кол-во учеников.
@@ -58,19 +58,19 @@ public class TeacherDto extends BaseDto {
         this.lastName = lastName;
     }
 
-    public String getSchoolNumber() {
-        return schoolNumber;
+    public SchoolDto getSchool() {
+        return school;
     }
 
-    public void setSchoolNumber(String schoolNumber) {
-        this.schoolNumber = schoolNumber;
+    public void setSchool(SchoolDto school) {
+        this.school = school;
     }
 
-    public Set<SchoolClassShortDto> getClasses() {
+    public Set<SchoolClassDto> getClasses() {
         return classes;
     }
 
-    public void setClasses(Set<SchoolClassShortDto> classes) {
+    public void setClasses(Set<SchoolClassDto> classes) {
         this.classes = classes;
     }
 

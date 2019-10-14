@@ -1,6 +1,6 @@
 package ru.prilepskiy.dto;
 
-public class SchoolClassShortDto extends BaseDto {
+public class SchoolClassDto extends BaseDto {
 
     /**
      * Номер.
