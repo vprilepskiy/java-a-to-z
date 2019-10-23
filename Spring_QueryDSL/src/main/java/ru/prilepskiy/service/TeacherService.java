@@ -1,6 +1,8 @@
 package ru.prilepskiy.service;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.prilepskiy.dto.TeacherDto;
 import ru.prilepskiy.mapper.ObjectMapper;
@@ -8,8 +10,12 @@ import ru.prilepskiy.model.QTeacherEntity;
 import ru.prilepskiy.model.SchoolClassEntity;
 import ru.prilepskiy.model.TeacherEntity;
 import ru.prilepskiy.repository.TeacherRepository;
+import ru.prilepskiy.repository.specification.TeacherRepositorySpec;
+import ru.prilepskiy.repository.specification.TeacherSpecification;
 import ru.prilepskiy.search.TeacherSearchCriteria;
 
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -17,11 +23,13 @@ import java.util.stream.StreamSupport;
 @Service
 public class TeacherService {
 
-    private TeacherRepository repository;
-    private ObjectMapper mapper;
+    private final TeacherRepository repository;
+    private final TeacherRepositorySpec repositorySpec;
+    private final ObjectMapper mapper;
 
-    public TeacherService(TeacherRepository repository, ObjectMapper mapper) {
+    public TeacherService(TeacherRepository repository, TeacherRepositorySpec repositorySpec, ObjectMapper mapper) {
         this.repository = repository;
+        this.repositorySpec = repositorySpec;
         this.mapper = mapper;
     }
 
@@ -29,6 +37,7 @@ public class TeacherService {
         return this.repository.findById(id).orElseThrow(RuntimeException::new);
     }
 
+    @Transactional
     public Set<TeacherDto> find(TeacherSearchCriteria criteria) {
         final BooleanBuilder where = new BooleanBuilder();
 
@@ -68,5 +77,10 @@ public class TeacherService {
 
         Iterable<TeacherEntity> entities = this.repository.findAll(where);
         return StreamSupport.stream(entities.spliterator(), false).map(t -> mapper.toDto(t)).collect(Collectors.toSet());
+    }
+
+    public List<TeacherEntity> findSpec(TeacherSearchCriteria criteria) {
+        Specification<TeacherEntity> teacherEntitySpecification = TeacherSpecification.byCriteria(criteria);
+        return this.repositorySpec.findAll(Specification.where(teacherEntitySpecification));
     }
 }

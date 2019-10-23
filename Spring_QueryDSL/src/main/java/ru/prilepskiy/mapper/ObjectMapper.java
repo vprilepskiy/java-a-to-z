@@ -13,7 +13,7 @@ import ru.prilepskiy.model.TeacherEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ObjectMapper {
 
     SchoolDto toDto(SchoolEntity entity);

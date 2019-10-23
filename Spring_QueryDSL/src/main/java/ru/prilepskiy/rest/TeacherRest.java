@@ -10,6 +10,7 @@ import ru.prilepskiy.model.TeacherEntity;
 import ru.prilepskiy.search.TeacherSearchCriteria;
 import ru.prilepskiy.service.TeacherService;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -32,5 +33,11 @@ public class TeacherRest {
     @PostMapping(path = "/search")
     public Set<TeacherDto> search(TeacherSearchCriteria criteria) {
         return this.teacherService.find(criteria);
+    }
+
+    @PostMapping(path = "/searchSpec")
+    public List<TeacherEntity> searSpec(TeacherSearchCriteria criteria) {
+        List<TeacherEntity> spec = this.teacherService.findSpec(criteria);
+        return spec;
     }
 }
