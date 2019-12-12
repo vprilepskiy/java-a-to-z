@@ -25,6 +25,11 @@ public class TeacherRest {
         this.teacherService = teacherService;
     }
 
+    @GetMapping(path = "/echo")
+    public String echo() {
+        return "echo";
+    }
+
     @GetMapping(path = "/{id}")
     public TeacherEntity getId(@PathVariable int id) {
         return this.teacherService.findById(id);

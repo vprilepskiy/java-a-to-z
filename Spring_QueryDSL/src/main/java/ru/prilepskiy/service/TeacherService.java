@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@Transactional
 public class TeacherService {
 
     private final TeacherRepository repository;
@@ -37,7 +38,6 @@ public class TeacherService {
         return this.repository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    @Transactional
     public Set<TeacherDto> find(TeacherSearchCriteria criteria) {
         final BooleanBuilder where = new BooleanBuilder();
 
