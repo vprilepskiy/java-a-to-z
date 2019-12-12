@@ -5,14 +5,11 @@ import java.util.Map;
 
 public class MyMap {
     public static void main(String[] args) {
-        Map<String, Boolean> map = new HashMap<>();
+        Map<Integer, String> map = new HashMap<>();
 
-        map.merge("1", Boolean.FALSE, (v1, v2) -> v1 || v2);
-        map.merge("1", Boolean.FALSE, (v1, v2) -> v1 || v2);
-        map.merge("2", Boolean.FALSE, (v1, v2) -> v1 || v2);
-        map.merge("2", Boolean.TRUE, (v1, v2) -> v1 || v2);
-        map.merge("2", Boolean.FALSE, (v1, v2) -> v1 || v2);
-
+        map.put(2, "aaa");
+        map.merge(1, "bbb", (oldValue, newValue) -> oldValue + newValue);
+        map.merge(2, "ccc", (oldValue, newValue) -> oldValue + newValue);
         System.out.println(map);
     }
 }
