@@ -59,6 +59,7 @@
         <module>Examples</module>
         <module>Spring_Boot_Elastic</module>
         <module>Spring_QueryDSL</module>
+        <module>Hazelcast</module>
 
     </modules>
 
