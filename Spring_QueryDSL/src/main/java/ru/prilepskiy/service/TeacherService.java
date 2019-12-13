@@ -16,7 +16,9 @@ import ru.prilepskiy.search.TeacherSearchCriteria;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -41,42 +43,35 @@ public class TeacherService {
     public Set<TeacherDto> find(TeacherSearchCriteria criteria) {
         final BooleanBuilder where = new BooleanBuilder();
 
-        if (criteria.getSchoolId() != null) {
-            where.and(QTeacherEntity.teacherEntity.classes.any().school.id.eq(criteria.getSchoolId()));
-        }
+        Optional.ofNullable(criteria.getSchoolId())
+            .ifPresent(id -> where.and(QTeacherEntity.teacherEntity.classes.any().school.id.eq(id)));
 
-        if (criteria.getClassId() != null) {
-            final SchoolClassEntity schoolClassEntity = new SchoolClassEntity();
-            schoolClassEntity.setId(criteria.getClassId());
-            where.and(QTeacherEntity.teacherEntity.classes.contains(schoolClassEntity));
-        }
+        Optional.ofNullable(criteria.getClassId()).ifPresent(id -> {
+            final SchoolClassEntity v = new SchoolClassEntity();
+            v.setId(id);
+            where.and(QTeacherEntity.teacherEntity.classes.contains(v));
+        });
 
-        if (criteria.getTeacherFirstName() != null) {
-            where.and(QTeacherEntity.teacherEntity.firstName.contains(criteria.getTeacherFirstName()));
-        }
+        Optional.ofNullable(criteria.getTeacherFirstName())
+            .ifPresent(v -> where.and(QTeacherEntity.teacherEntity.firstName.contains(v)));
 
-        if (criteria.getTeacherMiddleName() != null) {
-            where.and(QTeacherEntity.teacherEntity.middleName.contains(criteria.getTeacherFirstName()));
-        }
+        Optional.ofNullable(criteria.getTeacherMiddleName())
+            .ifPresent(v -> where.and(QTeacherEntity.teacherEntity.middleName.contains(v)));
 
-        if (criteria.getTeacherLastName() != null) {
-            where.and(QTeacherEntity.teacherEntity.lastName.contains(criteria.getTeacherLastName()));
-        }
+        Optional.ofNullable(criteria.getTeacherLastName())
+            .ifPresent(v -> where.and(QTeacherEntity.teacherEntity.lastName.contains(v)));
 
-        if (criteria.getStudentFirstName() != null) {
-            where.and(QTeacherEntity.teacherEntity.classes.any().students.any().firstName.contains(criteria.getStudentFirstName()));
-        }
+        Optional.ofNullable(criteria.getStudentFirstName())
+            .ifPresent(v -> where.and(QTeacherEntity.teacherEntity.classes.any().students.any().firstName.contains(v)));
 
-        if (criteria.getStudentMiddleName() != null) {
-            where.and(QTeacherEntity.teacherEntity.classes.any().students.any().middleName.contains(criteria.getStudentMiddleName()));
-        }
+        Optional.ofNullable(criteria.getStudentMiddleName())
+            .ifPresent(v -> where.and(QTeacherEntity.teacherEntity.classes.any().students.any().middleName.contains(v)));
 
-        if (criteria.getStudentLastName() != null) {
-            where.and(QTeacherEntity.teacherEntity.classes.any().students.any().lastName.contains(criteria.getStudentLastName()));
-        }
+        Optional.ofNullable(criteria.getStudentLastName())
+            .ifPresent(v -> where.and(QTeacherEntity.teacherEntity.classes.any().students.any().lastName.contains(v)));
 
         Iterable<TeacherEntity> entities = this.repository.findAll(where);
-        return StreamSupport.stream(entities.spliterator(), false).map(t -> mapper.toDto(t)).collect(Collectors.toSet());
+        return StreamSupport.stream(entities.spliterator(), false).map(mapper::toDto).collect(Collectors.toSet());
     }
 
     public List<TeacherEntity> findSpec(TeacherSearchCriteria criteria) {
