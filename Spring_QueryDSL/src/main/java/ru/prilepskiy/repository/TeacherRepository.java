@@ -2,6 +2,5 @@ package ru.prilepskiy.repository;
 
 import ru.prilepskiy.model.TeacherEntity;
 
-public interface TeacherRepository extends QueryDslRepository<TeacherEntity, Integer> {
-
+public interface TeacherRepository extends Repository<TeacherEntity, Integer> {
 }

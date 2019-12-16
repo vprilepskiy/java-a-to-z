@@ -35,7 +35,6 @@ public class TeacherRestTest {
             .andExpect(content().string(containsString("echo")));
     }
 
-    //Тест не работает т.к. приложение не допилено.
     @Test
     public void search() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.post("/teacher/search")

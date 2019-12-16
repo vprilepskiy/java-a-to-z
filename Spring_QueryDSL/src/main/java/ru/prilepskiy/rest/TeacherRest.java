@@ -6,14 +6,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.prilepskiy.dto.TeacherDto;
+import ru.prilepskiy.dto.search.TeacherSearchCriteria;
 import ru.prilepskiy.model.TeacherEntity;
-import ru.prilepskiy.search.TeacherSearchCriteria;
 import ru.prilepskiy.service.TeacherService;
 
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/teacher")
@@ -37,12 +34,11 @@ public class TeacherRest {
 
     @PostMapping(path = "/search")
     public Set<TeacherDto> search(TeacherSearchCriteria criteria) {
-        return this.teacherService.find(criteria);
+        return this.teacherService.findTeacherByQueryDsl(criteria);
     }
 
     @PostMapping(path = "/searchSpec")
-    public List<TeacherEntity> searSpec(TeacherSearchCriteria criteria) {
-        List<TeacherEntity> spec = this.teacherService.findSpec(criteria);
-        return spec;
+    public Set<TeacherDto> searSpec(TeacherSearchCriteria criteria) {
+        return this.teacherService.findTeacherBySpecification(criteria);
     }
 }

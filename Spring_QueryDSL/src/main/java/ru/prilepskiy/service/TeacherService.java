@@ -1,24 +1,20 @@
 package ru.prilepskiy.service;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.prilepskiy.dto.TeacherDto;
+import ru.prilepskiy.dto.search.TeacherSearchCriteria;
 import ru.prilepskiy.mapper.ObjectMapper;
-import ru.prilepskiy.model.QTeacherEntity;
-import ru.prilepskiy.model.SchoolClassEntity;
 import ru.prilepskiy.model.TeacherEntity;
 import ru.prilepskiy.repository.TeacherRepository;
-import ru.prilepskiy.repository.specification.TeacherRepositorySpec;
-import ru.prilepskiy.repository.specification.TeacherSpecification;
-import ru.prilepskiy.search.TeacherSearchCriteria;
+import ru.prilepskiy.service.search.CriteriaHelper;
+import ru.prilepskiy.service.search.TeacherSpecification;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -27,12 +23,10 @@ import java.util.stream.StreamSupport;
 public class TeacherService {
 
     private final TeacherRepository repository;
-    private final TeacherRepositorySpec repositorySpec;
     private final ObjectMapper mapper;
 
-    public TeacherService(TeacherRepository repository, TeacherRepositorySpec repositorySpec, ObjectMapper mapper) {
+    public TeacherService(TeacherRepository repository, ObjectMapper mapper) {
         this.repository = repository;
-        this.repositorySpec = repositorySpec;
         this.mapper = mapper;
     }
 
@@ -40,42 +34,15 @@ public class TeacherService {
         return this.repository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    public Set<TeacherDto> find(TeacherSearchCriteria criteria) {
-        final BooleanBuilder where = new BooleanBuilder();
-
-        Optional.ofNullable(criteria.getSchoolId())
-            .ifPresent(id -> where.and(QTeacherEntity.teacherEntity.classes.any().school.id.eq(id)));
-
-        Optional.ofNullable(criteria.getClassId()).ifPresent(id -> {
-            final SchoolClassEntity v = new SchoolClassEntity();
-            v.setId(id);
-            where.and(QTeacherEntity.teacherEntity.classes.contains(v));
-        });
-
-        Optional.ofNullable(criteria.getTeacherFirstName())
-            .ifPresent(v -> where.and(QTeacherEntity.teacherEntity.firstName.contains(v)));
-
-        Optional.ofNullable(criteria.getTeacherMiddleName())
-            .ifPresent(v -> where.and(QTeacherEntity.teacherEntity.middleName.contains(v)));
-
-        Optional.ofNullable(criteria.getTeacherLastName())
-            .ifPresent(v -> where.and(QTeacherEntity.teacherEntity.lastName.contains(v)));
-
-        Optional.ofNullable(criteria.getStudentFirstName())
-            .ifPresent(v -> where.and(QTeacherEntity.teacherEntity.classes.any().students.any().firstName.contains(v)));
-
-        Optional.ofNullable(criteria.getStudentMiddleName())
-            .ifPresent(v -> where.and(QTeacherEntity.teacherEntity.classes.any().students.any().middleName.contains(v)));
-
-        Optional.ofNullable(criteria.getStudentLastName())
-            .ifPresent(v -> where.and(QTeacherEntity.teacherEntity.classes.any().students.any().lastName.contains(v)));
-
-        Iterable<TeacherEntity> entities = this.repository.findAll(where);
+    public Set<TeacherDto> findTeacherByQueryDsl(TeacherSearchCriteria criteria) {
+        Predicate predicate = CriteriaHelper.toPredicate(criteria);
+        Iterable<TeacherEntity> entities = this.repository.findAll(predicate);
         return StreamSupport.stream(entities.spliterator(), false).map(mapper::toDto).collect(Collectors.toSet());
     }
 
-    public List<TeacherEntity> findSpec(TeacherSearchCriteria criteria) {
+    public Set<TeacherDto> findTeacherBySpecification(TeacherSearchCriteria criteria) {
         Specification<TeacherEntity> teacherEntitySpecification = TeacherSpecification.byCriteria(criteria);
-        return this.repositorySpec.findAll(Specification.where(teacherEntitySpecification));
+        List<TeacherEntity> entities = this.repository.findAll(teacherEntitySpecification);
+        return entities.stream().map(mapper::toDto).collect(Collectors.toSet());
     }
 }
